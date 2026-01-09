@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Memoria dinámica</title>
+  <meta name="author" content="Ing. Osvaldo M. Pini"/>
+  <meta name="created" content="2020-04-18T23:43:27"/>
+  <meta name="changedby" content="Ing. Osvaldo M. Pini"/>
+  <meta name="changed" content="2020-05-03T16:38:16"/>
+  <meta name="AppVersion" content="14.0000"/>
+  <meta name="Company" content="Hewlett-Packard"/>
+  <meta name="PresentationFormat" content="Presentación en pantalla (4:3)"/>
+  <meta name="Slides" content="6"/>
+</head>
+
+<body>
+
+<h1>MEMORIA DINÁMICA</h1>
+
+<p>En muchas aplicaciones no se conoce con anticipación la cantidad de memoria necesaria para las variables a utilizar en un programa.</p>
+
+<p>No se conoce los datos que se procesarán</p>
+
+<p>Ubicarlos en diversas posiciones de la memoria para ejecutarlo mas velozmente.</p>
+
+
+
+<h2>Asignación dinámica de memoria</b></u></p>
+
+<p>El compilador divide a la memoria en tres zonas</p>
+<img src="/img/0034.png" alt="Memoria">
+
+<p>Estática: donde se ubica el código, las variables globales.</p>
+
+<p>Stack ( pila ): variables locales y direcciones de retorno de funciones. </p>
+
+<p>heap ( zona de memoria libre )</p>
+
+
+
+<h2>Función malloc()</h2>
+
+<p>Asignar memoria libre para la cantidad de espacio requerido.</p>
+
+<p>Prototipo</p>
+
+<pre><code>void *malloc(unsigned int tamaño_requerido);</code></pre>
+
+<p><b>tamaño_requerido:</b> cantidad de bytes solicitados</p>
+
+<p>Devuelve un puntero a void que contiene la dirección de memoria en donde ésta ubicado el bloque asignado por ella. En caso de que no exista lugar disponible en la memoria para asignar dicha solicitud retorna un puntero nulo.</p>
+
+<p>Un puntero a void es un puntero que no apunta a ningún tipo específico, éste se incrementa en un byte. Normalmente se debe realizar un casting de dicho puntero.</p>
+
+
+
+<h2>Función free()</h2>
+
+<p>Libera un bloque de memoria pedido por la función malloc().</p>
+
+<p>Prototipo</p>
+
+<pre><code>void free(void *bloque_pedido);</code></pre>
+
+<p><b>bloque_pedido:</b> dirección del bloque de memoria solicitado.</p>
+
+
+
+<h2>Sizeof</h2>
+
+<p>Devuelve el tamaño en bytes de la expresión o del tipo dado.</p>
+
+<h3>Sintaxis</h3>
+
+<pre><code>sizeof &lt;expresión&gt;</code></pre>
+
+<p>O</p>
+
+<pre><code>sizeof ( &lt;tipo&gt; )</code></pre>
+
+</body>
+</html>

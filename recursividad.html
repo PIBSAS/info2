@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Recursividad</title>
+  <meta name="author" content="Ing. Osvaldo M. Pini"/>
+  <meta name="created" content="2020-04-18T23:43:27"/>
+  <meta name="changed" content="2026-01-09T15:09:15.655875937"/>
+  <meta name="AppVersion" content="14.0000"/>
+  <meta name="Company" content="Hewlett-Packard"/>
+  <meta name="PresentationFormat" content="Presentación en pantalla (4:3)"/>
+  <meta name="Slides" content="5"/>
+</head>
+
+<body>
+
+<h1>RECURSIVIDAD</h1>
+
+<p>Una función es recursiva si se invoca a sí misma.</p>
+
+<p>Cada vez que se invoca a una función se guarda en el stack la dirección de retorno, y se generan las reservas de memoria de las variables locales de la función que se invoca. </p>
+
+<p>Cuando se utilizan funciones recursivas se almacenan en el stack la dirección de retorno y se crean las variables locales de esta, este proceso se repite tantas veces como la función sea invocada.</p>
+
+<p>La recursividad tiene un inconveniente, que si no contiene una condición de salida se generara un algoritmo que no finaliza nunca</p>
+
+<p>Si no contiene una condición de salida, en algún momento, se desbordara el stack.</p>
+
+<p>Produce un error en el funcionamiento del sistema operativo.</p>
+
+
+
+<h2>Tipos de recursividad</h2>
+
+<ul>
+<li>Recursividad lineal</li>
+<li>Recursividad múltiple</li>
+</ul>
+
+<h3>Otra forma de clasificación es:</h3>
+<ul>
+<li>Recursividad directa</li>
+<li>Recursividad indirecta</li>
+</ul>
+
+
+
+<h3>Recursividad lineal</h3>
+
+<p>Dentro de la función recursiva existe una única invocación a sí misma. </p>
+
+<h3>Recursividad múltiple</h3>
+
+<p>La función se invoca a sí misma más de una vez dentro de una misma activación. </p>
+
+
+
+<h3>Recursividad directa</h3>
+
+<p>Una función que se llama a sí misma</p>
+
+<h3>Recursividad indirecta </h3>
+
+<p>Es aquella que se produce cuando se tienen varias funciones que se llaman unas a otras formando un ciclo. </p>
+
+</body>
+</html>

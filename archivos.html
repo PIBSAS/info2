@@ -1,0 +1,315 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Archivos</title>
+  <meta name="author" content="Ing. Osvaldo M. Pini"/>
+  <meta name="created" content="2003-09-03T23:16:14.932000000"/>
+  <meta name="changedby" content="Ing. Osvaldo M. Pini"/>
+  <meta name="changed" content="2009-10-21T10:57:32.750000000"/>
+</head>
+
+<body>
+<h1>ARCHIVOS</h1>
+
+<h2>STREAMS</h2>
+
+<p>Un stream es un buffer de almacenamiento de los datos que se envían o reciben en una operación de entrada o salida. </p>
+<p>En formato binario no se produce ningún tipo de transformación de los datos </p>
+<p>En el formato de texto se producen conversiones de los valores de los datos al formato ASCII. </p>
+<p>Cuando sucede que el buffer se lleno se envía el contenido de este al dispositivo de salida. </p>
+
+
+
+<p>En el caso de una operación de entrada se toman los datos hasta que se vacíe para realizar un nuevo ingreso de datos desde el dispositivo.</p>
+<p>Este sistema de procesamiento de datos tiene la característica que cuando se produce un fin anormal del programa se pierden los datos almacenados en el flujo.</p>
+
+<!--<p>Este almacenamiento se realiza tanto para manejar datos en formato binario o de texto. </p>
+-->
+<h2>STREAMS STANDARD</h2>
+<p>Existen 5 streams standars que se abren al iniciar un programa en C</p>
+
+<table>
+  <tr>
+    <td>stdin</td>
+    <td>Teclado</td>
+  </tr>
+  <tr>
+    <td>stdout</td>
+    <td>Pantalla</td>
+  </tr>
+  <tr>
+    <td>stderr</td>
+    <td>Pantalla</td>
+  </tr>
+  <tr>
+    <td>stdprn</td>
+    <td>Impresora LPT1</td>
+  </tr>
+  <tr>
+    <td>stdaux</td>
+    <td>Puerto serie 1 COM1</td>
+  </tr>
+</table>
+
+
+
+<h2>APERTURA DE ARCHIVOS</h2>
+
+<pre><code>
+FILE *fopen(char *nombre,char *modo)
+</code></pre>
+<p><b>nombre:</b> nombre, unidad y ruta del archivo</p>
+<p><b>modo:</b> forma de apertura del archivo.</p>
+<p>Devuelve un puntero a FILE si es exitoso, si error devuelve NULL.</p>
+
+<table>
+  <tr>
+    <td>ATRIBUTO</td>
+    <td>SIGNIFICADO</td>
+  </tr>
+  <tr>
+    <td>r ó rt</td>
+    <td>Abre un archivo de texto para lectura. Si no existe producirá un error.</td>
+  </tr>
+  <tr>
+    <td>w ó wt</td>
+    <td>Crea un archivo de texto para escritura. En el caso de que exista destruye el contenido.</td>
+  </tr>
+  <tr>
+    <td>a ó at</td>
+    <td>Abre un archivo de texto para añadir. Si no existe crea uno, si existe agrega los datos al final.</td>
+  </tr>
+  <tr>
+    <td>rb</td>
+    <td>Abre un archivo binario para lectura. Si no existe producirá un error.</td>
+  </tr>
+  <tr>
+    <td>wb</td>
+    <td>Crea un archivo binario para escritura. En el caso de que exista destruye el contenido.</td>
+  </tr>
+  <tr>
+    <td>ab</td>
+    <td>Abre un archivo binario para añadir. Si no existe crea uno, si existe agrega los datos al final.</td>
+  </tr>
+  <tr>
+    <td>r+ o r+t</td>
+    <td>Abre un archivo de texto para lectura/escritura. Si no existe no lo crea.</td>
+  </tr>
+  <tr>
+    <td>w+ o w+t</td>
+    <td>Crea un archivo de texto para lectura/escritura. Si existe destruye los contenidos del archivo existente.</td>
+  </tr>
+  <tr>
+    <td>a+ o a+t</td>
+    <td>Abre o crea un archivo de texto para lectura/escritura.</td>
+  </tr>
+  <tr>
+    <td>r+b</td>
+    <td>Abre un archivo binario para lectura/escritura. Si no existe no lo crea.</td>
+  </tr>
+  <tr>
+    <td>w+b</td>
+    <td>Crea un archivo binario para lectura/escritura. Si existe destruye los contenidos del archivo existente.</td>
+  </tr>
+  <tr>
+    <td>a+b</td>
+    <td>Abre o crea un archivo binario para lectura/escritura.</td>
+  </tr>
+</table>
+
+
+<h2>CIERRE DE ARCHIVO</h2>
+
+<pre><code>int fclose(FILE *fp)</code></pre>
+
+<p><b>fp:</b> puntero asociado al archivo</p>
+
+<p>Devuelve 0 si se ejecuta correctamente, si ocurre un error EOF.</p>
+
+<h2>ESCRITURA/LECTURA DE UN CARÁCTER</h2>
+
+<table>
+    <tr>
+        <td><pre><code>int fgetc(FILE *fp)</code></pre></td>
+        <td><pre><code>int fputc(int ch,FILE *fp)</code></pre></td>
+    </tr>
+    <tr>
+        <td><p><b>fp:</b> archivo asociado</p></td>
+        <td><p><b>ch:</b> carácter a escribir</p></td>
+    </tr>
+    <tr>
+        <td> </td>
+        <td><p><b>fp:</b> archivo asociado</p></td>
+    </tr>
+    <tr>
+        <td><p><b>fgetc</b> devuelve el carácter si exitosa, <b>EOF</b> si error</p></td>
+        <td><p><b>fputc</b> devuelve el carácter si exitosa, <b>EOF</b> si error</p></td>
+    </tr>
+</table>
+
+
+
+<li><b>DETECCION DE EOF Y ERROR</b></li>
+
+<table>
+    <tr>
+        <td><pre><code>int feof(FILE *fp)</code></pre></td>
+        <td><pre><code>int ferror(FILE *fp)</code></pre></td>
+    </tr>
+    <tr>
+        <td><p><b>fp:</b> archivo asociado</p></td>
+        <td><p><b>fp:</b> archivo asociado</p></td>
+    </tr>
+    <tr>
+        <td><p>Devuelve distinto de 0 si EOF, en caso contrario 0</p></td>
+        <td><p>Devuelve 0 si no hubo error, si hubo un error distinto de 0</p></td>
+    </tr>
+    <tr>
+        <td><p><b>fgetc</b> devuelve el carácter si exitosa, <b>EOF</b> si error</p></td>
+        <td><p><b>fputc</b> devuelve el carácter si exitosa, <b>EOF</b> si error</p></td>
+    </tr>
+</table>
+
+
+
+<h2>LECTURA/ESCRITURA DE STRING</h2>
+
+<pre><code>int fputs(char *str,FILE * fp)</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p><b>str:</b> string en donde se ubica la cadena a escribir.</p>
+<p><b>fputs</b> devuelve <b>EOF</b> si error, en caso contrario distinto de 0</p>
+
+<pre><code>char *fgets(char *str,int num, FILE *fp)</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p><b>num:</b> cantidad de caracteres a leer, hasta <b>'\n'</b> o <b>EOF</b></p>
+<p><b>str:</b> string en donde se ubica la cadena a leer.</p>
+<p><b>fgets</b> devuelve <b>str</b> si es correcta, en caso contrario <b>NULL</b></p>
+
+<h2>ENTRADA Y SALIDA CON FORMATO</h2>
+<pre><code>int fprintf(FILE *fp, char *control, ………………);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p><b>control:</b> cadena de control</p>
+<p><b>………………….:</b> lista de variables</p>
+<p>Devuelve la cantidad de ítems escritos, si hubo error <b>EOF</b></p>
+
+<pre><code>int fscanf(FILE *fp, char *control, ………………);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p><b>control:</b> cadena de control</p>
+<p><b>………………….:</b> lista de variables</p>
+<p>Devuelve la cantidad de ítems leidos, si hubo error <b>EOF</b></p>
+
+
+
+<h2>LECTURA/ESCRITURA DE BLOQUES</h2>
+
+<pre><code>size_t fwrite(void *buf, size_t size, size_t n, FILE *fp);</code></pre>
+<p>Escribe un bloque</p>
+
+<pre><code>size_t fread(void * buf, size_t size, size_t n, FILE * fp);</code></pre>
+<p>Lee un bloque</p>
+
+<p><b>buf:</b> puntero al bloque</p>
+<p><b>size:</b> tamaño del bloque</p>
+<p><b>n:</b> cantidad de bloques</p>
+<p><b>fp: archivo asociado</b></p>
+<p><b>size_t:</b> unsigned int</p>
+<p>Devuelve la cantidad de bloques, si hubo error un numero &lt; n</p>
+
+
+
+<h2>DESPLAZAMIENTO</h2>
+
+<pre><code>int fseek(FILE *fp, long d, int origen);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p><b>d:</b> desplazamiento</p>
+<p><b>origen:</b> posición de inicio del desplazamiento</p>
+<p>Devuelve 0 si no hubo error, si hubo error distinto de cero</p>
+<table>
+    <tr>
+        <td>SEEK_SET</td>
+        <td>Comienzo del archivo</td>
+    </tr>
+    <tr>
+        <td>SEEK_CUR</td>
+        <td>Posición actual</td>
+    </tr>
+    <tr>
+        <td>SEEK_END</td>
+        <td>Fin del archivo</td>
+    </tr>
+</table>
+
+
+
+<h2>DESPLAZAMIENTO</h2>
+
+<pre><code>long ftell(FILE *fp);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p>Devuelve la posición actual del archivo en bytes, si hubo error <b>-1L</b></p>
+
+<h2>BORRAR UN ARCHIVO</h2>
+
+<pre><code>int remove(char *nombre);</code></pre>
+<p><b>nombre:</b> unidad, ruta, nombre y extensión del archivo</p>
+<p>Devuelve 0 si hubo éxito, si hubo error distinto de 0</p>
+
+
+
+<h2>RETORNA AL COMIENZO</h2>
+
+<pre><code>void rewind(FILE *fp);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+
+<h2>LIBERAR EL BUFFER</h2>
+
+<pre><code>int fflush(FILE *fp);</code></pre>
+<p><b>fp:</b> archivo asociado</p>
+<p>Devuelve 0 si hubo exito, si hubo error <b>EOF</b></p>
+
+
+
+<h2>ESTRUCTURA FILE</h2>
+<table>
+    <tr>
+        <td>short level</td>
+        <td>indica que tan vacío o lleno esta el buffer</td>
+    </tr>
+    <tr>
+        <td>unsigned flags</td>
+        <td>banderas de estatus del archivo</td>
+    </tr>
+    <tr>
+        <td>char fd</td>
+        <td>descriptor del archivo</td>
+    </tr>
+    <tr>
+        <td>unsigned char hold</td>
+        <td>ultimo carácter leído en el buffer para utilizar ungetc</td>
+    </tr>
+    <tr>
+        <td>short bsize</td>
+        <td>tamaño del buffer</td>
+    </tr>
+    <tr>
+        <td>unsigned char *buffer</td>
+        <td>buffer de transferencia de los datos</td>
+    </tr>
+    <tr>
+        <td>unsigned char *curp</td>
+        <td>posición actual del cursor del archivo</td>
+    </tr>
+    <tr>
+        <td>unsigned istemp</td>
+        <td>indicador de archivo temporal</td>
+    </tr>
+    <tr>
+        <td>short token</td>
+        <td>usado para chequeos de validación</td>
+    </tr>
+</table>
+
+</body>
+</html>

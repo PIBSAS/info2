@@ -1,0 +1,707 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Sin título de diapositiva</title>
+  <meta name="generator" content="LibreOffice 25.2.3.2 (Linux)"/>
+  <meta name="author" content="Ing. Osvaldo M. Pini"/>
+  <meta name="created" content="1999-07-22T18:46:53.060000000"/>
+  <meta name="changed" content="2026-01-09T15:17:45.026083650"/>
+</head>
+<body>
+<h1></h1>
+<ul>
+<li><b>ESTRUCTURAS DE DATOS</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b>ESTRUCTURAS DE DATOS</b></li>
+</ul>
+<ul>
+<li><b>Lectura destructiva</b></li>
+</ul>
+<ul>
+<li><b>Lectura no destructiva</b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b>Cola</b></li>
+</ul>
+<ul>
+<li><b>Pila</b></li>
+</ul>
+<ul>
+<li><b>Lista</b></li>
+</ul>
+<ul>
+<li><b>Árbol</b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Lectura destructiva</b></li>
+</ul>
+<ul>
+<li><b>Cada vez que se lee un dato este se destruye</b></li>
+</ul>
+<ul>
+<li><b>Se utilizan para almacenamiento temporal</b></li>
+</ul>
+<ul>
+<li><b>La destrucción del dato puede ser de dos formas.</b></li>
+</ul>
+<ul>
+<li><b>Física: se borra el dato.</b></li>
+</ul>
+<ul>
+<li><b>Es un proceso lento.</b></li>
+</ul>
+<ul>
+<li><b>Lógica: no se borra el dato. Se impide su acceso. </b></li>
+</ul>
+<ul>
+<li><b>Es un proceso rápido.</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Pueden ser:</b></li>
+</ul>
+<ul>
+<li><b>Compactas: los datos están ubicados en posiciones consecutivas en la memoria.</b></li>
+</ul>
+<ul>
+<li><b>Dispersas: la ubicación de los datos no son adyacentes. </b></li>
+</ul>
+<ul>
+<li><b>Se utilizan vectores.</b></li>
+</ul>
+<ul>
+<li><b>Se ubican en distintas posiciones y se accede mediante punteros.</b></li>
+</ul>
+<ul>
+<li><b>Se utilizan listas.</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><u><b>COLA - BUFFER</b></u></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>El Primer dato que se ingresa es el primero que se lee.</b></li>
+</ul>
+<ul>
+<li><b>Se utilizan don punteros o índices.</b></li>
+</ul>
+<ul>
+<li><b>uno de escritura y otra de lectura.</b></li>
+</ul>
+<ul>
+<li><b>En una operación de escritura se incrementa el índice de escritura.</b></li>
+</ul>
+<ul>
+<li><b>En una operación de lectura se incrementa el índice de lectura.</b></li>
+</ul>
+<ul>
+<li><b>En cada operación siempre se incrementa el índice correspondiente.</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Cuando los índices coinciden estamos en la condición de COLA VACIA</b></li>
+</ul>
+<ul>
+<li><b>Cuando el índice de escritura excede el limite estamos en la condición de COLA LLENA</b></li>
+</ul>
+<ul>
+<li><b>NO SE PUEDE INSPECCIONAR EL CONTENIDO DE UNA COLA, PORQUE SE DESTRUYEN LOS DATOS.</b></li>
+</ul>
+<ul>
+<li><b>Se creara una función de lectura y una de escritura.</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li>ingresa</li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li>extrae</li>
+</ul>
+<ul>
+<li><b>1</b></li>
+</ul>
+<ul>
+<li><b>2</b></li>
+</ul>
+<ul>
+<li><b>3</b></li>
+</ul>
+<ul>
+<li>ingresa</li>
+</ul>
+<ul>
+<li>ingresa</li>
+</ul>
+<ul>
+<li>ingresa</li>
+</ul>
+<ul>
+<li><b>void Ingreso(int *Ing,int *Ext,float *Cola)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(*Ing==MAX)</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nCola llena&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nPresione una tecla para continuar&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nIngrese el dato : &quot;);</b></li>
+</ul>
+<ul>
+<li><b>scanf(&quot;%f&quot;,&amp;Cola[*Ing]);</b></li>
+</ul>
+<ul>
+<li><b>(*Ing)++;</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li>ingresa</li>
+</ul>
+<ul>
+<li>extrae</li>
+</ul>
+<ul>
+<li><b>1</b></li>
+</ul>
+<ul>
+<li><b>2</b></li>
+</ul>
+<ul>
+<li><b>3</b></li>
+</ul>
+<ul>
+<li>extrae</li>
+</ul>
+<ul>
+<li>extrae</li>
+</ul>
+<ul>
+<li>extrae</li>
+</ul>
+<ul>
+<li><b>void Lee(int *Ing,int *Ext,float *Cola)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(*Ing==*Ext)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nCola vacia&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nPresione una tecla para continuar&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nEl dato es : %f&quot;,Cola[*Ext]);</b></li>
+</ul>
+<ul>
+<li><b>(*Ext)++;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Inconvenientes de la cola</b></li>
+</ul>
+<ul>
+<li><b>Cada vez que se ingresa un dato se achica el tamaño disponible de almacenamiento</b></li>
+</ul>
+<ul>
+<li><b>Una vez que se llena y se vacia no se puede volver a utilizar</b></li>
+</ul>
+<ul>
+<li><b>En ese caso se da la condicion de COLA VACIA y COLA LLENA simultaneamente.</b></li>
+</ul>
+<ul>
+<li><b>La solucion es la COLA CIRCULAR</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><u><b>COLA CIRCULAR</b></u></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Ambos indices siempre se incrementan.</b></li>
+</ul>
+<ul>
+<li><b>Cuando un indice supera el limite se produce un SALTO CIRCULAR</b></li>
+</ul>
+<ul>
+<li><b>Vuelve al inicio</b></li>
+</ul>
+<ul>
+<li><b>Cuando los dos indices coinciden podemos tener la condicion de COLA LLENA o COLA VACIA</b></li>
+</ul>
+<ul>
+<li><b>Se soluciona agregando dos banderas</b></li>
+</ul>
+<ul>
+<li><b>Una que indique cola llena</b></li>
+</ul>
+<ul>
+<li><b>Otra que indique cola vacia</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li>ing</li>
+</ul>
+<ul>
+<li>egr</li>
+</ul>
+<ul>
+<li>1</li>
+</ul>
+<ul>
+<li>2</li>
+</ul>
+<ul>
+<li>3</li>
+</ul>
+<ul>
+<li>ing</li>
+</ul>
+<ul>
+<li>ing</li>
+</ul>
+<ul>
+<li>ing</li>
+</ul>
+<ul>
+<li><b>void Ingre(int *Cola,int **Ing,int *Lle,int *Vac,int *Egr)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(*Lle)</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nCola llena&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPresione una tecla para continuar\n&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nIngrese el dato : &quot;);</b></li>
+</ul>
+<ul>
+<li><b>scanf(&quot;%d&quot;,*Ing);</b></li>
+</ul>
+<ul>
+<li><b>*Vac=0;</b></li>
+</ul>
+<ul>
+<li><b>(*Ing)++;</b></li>
+</ul>
+<ul>
+<li><b>if(*Ing==Cola+MAX)</b></li>
+</ul>
+<ul>
+<li><b>*Ing=Cola;</b></li>
+</ul>
+<ul>
+<li><b>if(*Ing==Egr)</b></li>
+</ul>
+<ul>
+<li><b>*Lle=1;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li>egr</li>
+</ul>
+<ul>
+<li>ing</li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b>1</b></li>
+</ul>
+<ul>
+<li><b>2</b></li>
+</ul>
+<ul>
+<li><b>3</b></li>
+</ul>
+<ul>
+<li><b>void Lee(int *Cola,int **Egr,int *Vac,int *Lle,int *Ing)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(*Vac)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nCola vacia&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPresione una tecla para continuar\n&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>*Lle=0;</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nEl dato es : %d\n&quot;,**Egr);</b></li>
+</ul>
+<ul>
+<li><b>(*Egr)++;</b></li>
+</ul>
+<ul>
+<li><b>if(*Egr==Cola+MAX)</b></li>
+</ul>
+<ul>
+<li><b>*Egr=Cola;</b></li>
+</ul>
+<ul>
+<li><b>if(*Egr==Ing)</b></li>
+</ul>
+<ul>
+<li><b>*Vac=1;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><u><b>PILA - STACK</b></u></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>El Primer dato que se ingresa es el ultimo que se lee.</b></li>
+</ul>
+<ul>
+<li><b>Se utiliza un puntero o índice.</b></li>
+</ul>
+<ul>
+<li><b>En una operación de escritura se incrementa el índice de pila.</b></li>
+</ul>
+<ul>
+<li><b>En una operación de lectura se decrementa el índice de pila.</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b>Cuando el índice de pila apunta al comienzo estamos en la condición de PILA VACIA</b></li>
+</ul>
+<ul>
+<li><b>Cuando el índice de pila excede el limite estamos en la condición de PILA LLENA</b></li>
+</ul>
+<ul>
+<li><b>NO SE PUEDE INSPECCIONAR EL CONTENIDO DE UNA PILA, PORQUE SE DESTRUYEN LOS DATOS.</b></li>
+</ul>
+<ul>
+<li><b>Se creara una función de lectura y una de escritura. </b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li><b>1</b></li>
+</ul>
+<ul>
+<li><b>2</b></li>
+</ul>
+<ul>
+<li><b>3</b></li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li><b>void Ingresa(int *Indice,float *Pila)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(*Indice==MAX)</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPila llena&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPresione una tecla para continuar\n&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nIngrese el dato : &quot;);</b></li>
+</ul>
+<ul>
+<li><b>scanf(&quot;%f&quot;,&amp;Pila[*Indice]);</b></li>
+</ul>
+<ul>
+<li><b>(*Indice)++;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b></b></li>
+</ul>
+<ul>
+<li><b>1</b></li>
+</ul>
+<ul>
+<li><b>2</b></li>
+</ul>
+<ul>
+<li><b>3</b></li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li>índice</li>
+</ul>
+<ul>
+<li><b>void Lee(int *Indice,float *Pila)</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>{</b></li>
+</ul>
+<ul>
+<li><b>if(!*Indice)</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPila vacia&quot;);</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\n\nPresione una tecla para continuar\n&quot;);</b></li>
+</ul>
+<ul>
+<li><b>getchar();</b></li>
+</ul>
+<ul>
+<li><b>return;</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+<ul>
+<li><b>(*Indice)--;</b></li>
+</ul>
+<ul>
+<li><b>printf(&quot;\nEl dato es : %f&quot;,Pila[*Indice]);</b></li>
+</ul>
+<ul>
+<li><b>}</b></li>
+</ul>
+</body>
+</html>

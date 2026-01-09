@@ -1,0 +1,373 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Uniones</title>
+  <meta name="author" content="OSVALDO"/>
+  <meta name="created" content="1999-04-15T21:05:52"/>
+  <meta name="changed" content="00:00:00"/>
+</head>
+<body>
+
+<h1>UNIONES</h1>
+
+<h2>Declaración</h2>
+
+<p>La declaración de una unión se puede realizar de tres diferentes formas.</p>
+
+<h3>Forma 1</h3>
+<pre><code>
+union etiqueta {
+    tipo campo_1;
+    tipo campo_2;
+    tipo campo_3;
+    . . .
+    . . .
+    tipo campo_n;} lista_de_variables;
+</code></pre>
+
+<h3>Forma 2</h3>
+<pre><code>
+union {
+    tipo campo_1;
+    tipo campo_2;
+    tipo campo_3;
+    . . .
+    . . .
+    tipo campo_n;} lista_de_variables;
+</code></pre>
+
+<h3>Forma 3</h3>
+<pre><code>
+union etiqueta {
+    tipo campo_1;
+    tipo campo_2;
+    tipo campo_3;
+    . . .
+    . . .
+    tipo campo_n;};
+</code></pre>
+
+
+
+<h2>Ubicación y tamaño de los campos de una unión en la memoria</h2>
+<pre><code>
+union ej1 {
+    int a;
+    char b;} var1;
+</code></pre>
+<img src="img/0005.png" alt="Union var1">
+
+<pre><code>
+union ej2 {
+    int c;
+    char d;
+    float e;} var2;
+</code></pre>
+<img src="img/0006.png" alt="Union var2">
+
+
+<pre><code>
+union ej3 {
+    int e;
+    char f[3];
+    float g;} var3;
+</code></pre>
+<img src="img/0007.png" alt="Union var3">
+
+<pre><code>
+union ej4 {
+    int h[3];
+    char i;
+    float j[2];} var4;
+</code></pre>
+<img src="img/0008.png" alt="Union var4">
+
+
+
+<h2>Referencia y asignación a campos en una unión</h2>
+
+<h3>Referencia a un campo</h3>
+<pre><code>
+union ej1 {
+    int a;
+    char b;} var1;
+</code></pre>
+
+<p>var1.a</p><img src="img/0009.png" alt="Union var1.a">
+<p>var1.b</p><img src="img/0010.png" alt="Union var1.b">
+
+
+
+<p>=</p> <h3>Asignación </h3>
+
+<pre><code>
+union ej1 {
+    int a;
+    char b;} var1;
+</code></pre>
+<p>var1.a=39</p><img src="img/0011.png" alt="Union var1.a=39">
+<p>var1.b='A'</p><img src="img/0012.png" alt="Union var1.b=A">
+
+
+
+<h2>Uniones de estructuras</h2>
+
+<pre><code>
+union unst {
+    struct {
+        int i;
+        char c[8];} st1;
+    struct{
+        float f;
+        long l;} st2;} un1
+</code></pre>
+<img src="img/0013.png" alt="Union de estructuras">
+
+
+
+<h2>Estructuras de uniones</h2>
+<pre><code>
+struct stun { union {   int i1;
+                        char c;} un1;
+              unión {   int i2[2];
+                        long l;} un2;} st1;
+</code></pre>
+<img src="img/0014.png" alt="Estructuras de uniones">
+
+
+
+
+<h1>CAMPOS DE BITS</h1>
+
+<h2>Declaración</h2>
+<p>La declaración de un campo de bits se realiza de una de tres diferentes formas:</p>
+
+<h3>Forma 1:</h3>
+<pre><code>
+struct etiqueta {   tipo entero campo_1: cantidad de bits;
+                    tipo entero campo_2: cantidad de bits;
+                    tipo entero campo_3: cantidad de bits;
+                    . . .
+                    . . .
+                    tipo entero campo_n: cantidad de bits;} lista_de_variables;
+</code></pre>
+
+<h3>Forma 2:</h3>
+<pre><code>
+struct {   tipo entero campo_1: cantidad de bits;
+           tipo entero campo_2: cantidad de bits;
+           tipo entero campo_3: cantidad de bits;
+           . . .
+           . . .
+           tipo entero campo_n: cantidad de bits;} lista_de_variables;
+</code></pre>
+
+<h3>Forma 3:</h3>
+<pre><code>
+struct etiqueta {   tipo entero campo_1: cantidad de bits;
+                    tipo entero campo_2: cantidad de bits;
+                    tipo entero campo_3: cantidad de bits;
+                    . . .
+                    . . .
+                    tipo entero campo_n: cantidad de bits;};
+</code></pre>
+
+
+
+<h2>Ubicación de los campos de bits en la memoria</h2>
+
+<pre><code>
+struct datos {  unsigned char A:1;
+                unsigned char B:4;
+    			unsigned char C:3;};
+</code></pre>
+<img src="img/0015.png" alt="Ubicación de los campos de bits en la memoria">
+
+
+
+<h2>Referencia a un campo de bits</h2>
+
+<pre><code>
+struct datos {  unsigned char A:1;
+			    unsigned char B:4;
+			    unsigned char C:3;}BIT;
+</code></pre>
+
+<p>BIT.A</p>    <img src="img/0016.png" alt="BIT.A">
+
+<p>BIT.B</p>    <img src="img/0017.png" alt="BIT.B">
+
+<p>BIT.C</p>    <img src="img/0018.png" alt="BIT.C">
+
+
+
+<h2>Asignación de valores en un campo de bits</h2>
+
+<pre><code>
+struct datos {  unsigned char A:1;
+			    unsigned char B:4;
+			    unsigned char C:3;}BIT;
+</code></pre>
+
+<p>BIT.A=1</p>    <img src="img/0019.png" alt="BIT.A=1">
+
+<p>BIT.B=0xC</p>    <img src="img/0020.png" alt="BIT.B=0xC">
+
+<p>BIT.C=5</p>    <img src="img/0021.png" alt="BIT.C=5">
+
+
+
+<h2>Operadores a nivel de bit</h2>
+
+<h3><b>AND ( &amp; )</h3>
+
+<img src="img/0022.png" alt="Operador and">
+<pre><code>
+char a,b,c;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0023.png" alt="a=0xaa">
+<pre><code>
+b=0x55;
+</code></pre><img src="img/0024.png" alt="b=0x55">
+<pre><code>
+c=a&amp;b;
+</code></pre><img src="img/0025.png" alt="C=a&b">
+
+
+
+<h2>OR ( | )</h2>
+
+<img src="img/0026.png" alt="Operador or">
+<pre><code>
+char a,b,c;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0027.png" alt="a=0xaa">
+<pre><code>
+b=0x55;
+</code></pre><img src="img/0028.png" alt="b=0x55">
+<pre><code>
+c=a|b;
+</code></pre><img src="img/0029.png" alt="C=a&b">
+
+
+
+<h2>XOR ( ^ )</h2>
+
+<img src="img/0030.png" alt="Operador xor">
+<pre><code>
+char a,b,c;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0027.png" alt="a=0xaa">
+<pre><code>
+b=0x55;
+</code></pre><img src="img/0028.png" alt="b=0x55">
+<pre><code>
+c=a^b;
+</code></pre><img src="img/0029.png" alt="C=a^b">
+
+
+
+<h2>NOT ( ~ )</h2>
+
+<img src="img/0031.png" alt="Operador not">
+<pre><code>
+char a,b;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0027.png" alt="a=0xaa">
+<pre><code>
+b=~a;
+</code></pre><img src="img/0028.png" alt="b=0x55">
+<pre><code>
+
+
+
+<h2>Desplazamiento izquierdo ( &lt;&lt; ) </h2>
+<ul>
+<li> 	Produce el desplazamiento de los bits de la variable hacia la izquierda en la cantidad expresada</li>
+<li> 	Inserta ceros en los bits menos significativos</li>
+<li> 	Su sintaxis es  variable1 = variable2 &lt;&lt; cantidad_desplaz;</li>
+</ul>
+<pre><code>
+char a,b;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0027.png" alt="a=0xaa">
+<pre><code>
+b=a&lt;&lt;3;
+</code></pre><img src="img/0032.png" alt="b=a&lt;&lt;3">
+<pre><code>
+
+
+
+<h2>Desplazamiento derecho ( &gt;&gt; ) </h2>
+<ul>
+<li> 	Produce el desplazamiento de los bits de la variable hacia la derecha en la cantidad expresada</li>
+<li> 	Inserta ceros en los bits mas significativos</li>
+<li> 	Su sintaxis es  variable1 = variable2 &gt;&gt; cantidad_desplaz;</li>
+</ul>
+<pre><code>
+char a,b;
+</code></pre>
+<pre><code>
+a=0xaa;
+</code></pre><img src="img/0027.png" alt="a=0xaa">
+<pre><code>
+b=a&gt;&gt;3;
+</code></pre><img src="img/0033.png" alt="b=a&gt;&gt;3">
+<pre><code>
+
+<h1>ENUMERACIONES</h1>
+
+<h2>Declaración</h2>
+
+<pre><code>
+enum etiqueta { constante_1;
+                constante_2;
+                constante_3;
+                . . .
+                . . .
+                constante _n;} lista_de_variables;
+</code></pre>
+
+<pre><code>
+enum etiqueta { constante_1;
+                constante_2;
+                constante_3;
+                . . .
+                . . .
+                constante _n;};
+</code></pre>
+
+<h3>Ejemplos:</h3>
+
+<pre><code>
+enum color {    blanco,negro,verde,azul,rojo};
+</code></pre>
+
+<pre><code>
+<p>Enum dias {  lunes=2, martes, miercoles, jueves, viernes};
+</code></pre>
+
+<pre><code>
+enum cargos {   titular, asociado, adjunto, jtp=10, atp1, atp2};
+</code></pre>
+
+<pre><code>
+<p>enum mes {   ene=10, feb, mar, abr=20, may, jun,
+                jul=30, ago, sep, oct=40, nov, dic};
+</code></pre>
+
+</body>
+</html>
