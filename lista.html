@@ -17,350 +17,270 @@
 <p>Se usa una estructura y dentro de ella un puntero a la misma</p>
 <p>Este tipo de estructura se denomina estructura autoreferenciada.</p>
 
+
+
 <p>Debemos colocar un indicador al principio de los datos, esto lo debemos realizar mediante un puntero a estructura.</p>
 <p>El puntero al comienzo, debe apuntar a un valor NULL, que indica que la lista está vacía.</p>
 <img src="img/" alt="">
 <p>Cuando se genera el primer conjunto de datos el puntero de comienzo debe apuntar a este conjunto y el puntero del dato deberá apuntar a NULL</p>
-<p>NULL</p>
-<p>principio</p>
-<h1 style="page-break-before:always; "></h1>
-<p>NULL</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>Este método me permite insertar cada conjunto de datos en el lugar adecuado según el orden deseado.</p>
+
+
+
+<img src="img/" alt="">
+
 <p>La ubicación de los datos puede hacerse ordenada según una determinada llave.</p>
-<h1 style="page-break-before:always; "></h1>
-<p>Siempre que la lista esté vacía el puntero de comienzo estará apuntando a NULL</p>
+<p>Este método me permite insertar cada conjunto de datos en el lugar adecuado según el orden deseado.</p>
+
 <p>Se pueden presentar tres posibilidades</p>
 <ul>
 <li><b>Insertar como primer elemento</b></li>
-</ul>
-<ul>
 <li><b>Insertar como último elemento</b></li>
-</ul>
-<ul>
 <li><b>Insertar como un elemento intermedio</b></li>
 </ul>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Como nuevo primer elemento</b></p>
+<p>Siempre que la lista esté vacía el puntero de comienzo estará apuntando a NULL</p>
+
+
+
+<h2>Como nuevo primer elemento</h2>
 <p>Cuando sucede que el nuevo elemento debe ser el primer elemento el indicador de principio deberá apuntar a este nuevo elemento y el indicador del elemento siguiente en el nuevo deberá apuntar al elemento que era el primero</p>
-<p>NULL</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>NULL</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Como elemento intermedio</b></p>
+<img src="" alt="">
+
+
+
+<h2>Como elemento intermedio</h2>
 <p>Esta ubicación es entre dos elementos existentes, entonces se debe cambiar el enlace del elemento anterior hacia el nuevo y el enlace del nuevo apuntará al posterior.</p>
-<p>dato 3</p>
-<p>principio</p>
-<p>NULL</p>
-<p>dato 2</p>
-<p>dato 1</p>
-<p>NULL</p>
-<p>dato 2</p>
-<p>dato 1</p>
-<p>dato 3</p>
-<p>principio</p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Como último elemento</b></p>
+<img src="" alt="">
+
+
+
+<h2>Como último elemento</h2>
+
 <p>El elemento a ser insertado debe ubicarse al final de la lista, por lo tanto el puntero siguiente del elemento final debe ahora apuntar al nuevo elemento y el puntero siguiente del nuevo debe apuntar a NULL.</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>NULL</p>
-<p>dato 3</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>dato 2</p>
-<p>dato 1</p>
-<p>NULL</p>
-<p>dato 4</p>
-<p>principio</p>
-<p>dato 3</p>
-<h1 style="page-break-before:always; "></h1>
+<img src="" alt="">
+
+
+
+<p>Para leer los elementos de la lista se debe comenzar desde el indicador de comienzo y luego de presentar los datos, solo se debe actualizar el puntero con el valor del puntero siguiente de la estructura hasta llegar a encontrar el valor NULL.</p>
 <p>Para buscar un determinado valor en la lista se debe hacer en forma secuencial por lo que hay que comenzar desde le valor que indica el puntero de comienzo hasta encontrar el valor deseado o hasta encontrar el NULL, que indicaría que no se ha encontrado el valor buscado</p>
 <p>Para borrar un elemento encontrado en la lista pueden ocurrir tres casos:</p>
-<p>Para leer los elementos de la lista se debe comenzar desde el indicador de comienzo y luego de presentar los datos, solo se debe actualizar el puntero con el valor del puntero siguiente de la estructura hasta llegar a encontrar el valor NULL.</p>
 <ul>
 <li><b>Borrar el primer elemento</b></li>
-</ul>
-<ul>
 <li><b>Borrar un elemento intermedio</b></li>
-</ul>
-<ul>
 <li><b>Borrar el último elemento</b></li>
 </ul>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Borrar el primer elemento</b></p>
+
+
+
+<h2>Borrar el  elemento</h2>
 <p>Se debe cambiar el puntero de comienzo a la dirección del segundo elemento</p>
 <p>Luego se debe proceder a liberar la memoria del elemento borrado</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>dato 3</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 3</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>NULL</p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Borrar un elemento intermedio</b></p>
+<img src="" alt="">
+
+
+
+<h2>Borrar un elemento intermedio</h2>
 <p>Para un elemento intermedio se debe hacer que el puntero siguiente del elemento anterior apunte al elemento siguiente al que será borrado y luego liberar la memoria de este</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 3</p>
-<p>principio</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 3</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>Borrar el último elemento</b></p>
+<img src="" alt="">
+
+
+
+<h2>Borrar el último elemento<h2>
 <p>El puntero siguiente del elemento anterior debe apuntar a NULL y luego liberar la memoria del elemento a borrar.</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 3</p>
-<p>principio</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 3</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>AGREGAR ELEMENTO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void ingresa(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *act,*aux;</b></p>
-<p><b>  act=*p;</b></p>
-<p><b>  if(!aux=(struct lis *)malloc(sizeof(struct lis)){</b></p>
-<p><b>    printf(&quot;\n\nNo hay memoria\n&quot;);</b></p>
-<p><b>    return;}</b></p>
-<p><b>  endat(&amp;aux);</b></p>
-<p><b>  aux-&gt;sig=NULL;</b></p>
-<p><b>  if(!*p){</b></p>
-<p><b>    *p=aux;</b></p>
-<p><b>    return;}</b></p>
-<p><b>  while(act-&gt;sig)</b></p>
-<p><b>    act=act-&gt;sig;</b></p>
-<p><b>  act-&gt;sig=aux;</b></p>
-<p><b>}</b></p>
-<p>act</p>
-<p>dato 1</p>
-<p>dato 2</p>
-<p>dato 3</p>
-<p>*p</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>INSERTAR PRIMER ELEMENTO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void ingresa(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *act,*aux,*ant;</b></p>
-<p><b>  aux=(struct lis *)malloc(sizeof(struct lis));</b></p>
-<p><b>  endat(&amp;aux);</b></p>
-<p><b>  if(!*p){</b></p>
-<p><b>    *p=aux;</b></p>
-<p><b>    aux-&gt;sig=NULL;</b></p>
-<p><b>    return;}</b></p>
-<p><b>  ant=act=*p;</b></p>
-<p><b>  while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){</b></p>
-<p><b>    ant=act;</b></p>
-<p><b>    act=act-&gt;sig;}</b></p>
-<p><b>  if(!act){</b></p>
-<p><b>    ult_ele();}</b></p>
-<p><b>  if(ant==act){</b></p>
-<p><b>    *p=aux;</b></p>
-<p><b>    aux-&gt;sig=ant;</b></p>
-<p><b>    return;}</b></p>
-<p><b>  ele_int();</b></p>
-<p><b>}</b></p>
-<p>dato 3</p>
-<p>NULL</p>
-<p>dato 2</p>
-<p>dato 1</p>
-<p>*p</p>
-<p>act</p>
-<p>ant</p>
-<p>NULL</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>INSERTAR ELEMENTO INTERMEDIO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void ingresa(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *act,*aux,*ant;</b></p>
-<p><b>  aux=malloc(sizeof(struct lis)));</b></p>
-<p><b>  endat(&amp;aux);</b></p>
-<p><b>  if(!*p)</b></p>
-<p><b>    in_pr_el1();</b></p>
-<p><b>  ant=act=*p;</b></p>
-<p><b>  while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){</b></p>
-<p><b>    ant=act;</b></p>
-<p><b>    act=act-&gt;sig;}</b></p>
-<p><b>  if(!act)</b></p>
-<p><b>    in_ul_el();</b></p>
-<p><b>  if(ant==act)</b></p>
-<p><b>    in_pr_el();</b></p>
-<p><b>  ant-&gt;sig=aux;</b></p>
-<p><b>  aux-&gt;sig=act;</b></p>
-<p><b>}</b></p>
-<p>act</p>
-<p>ant</p>
-<p>*p</p>
-<p>dato 1</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 2</p>
-<p>dato 3</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>INSERTAR ULTIMO ELEMENTO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void ingresa(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *act,*aux,*ant;</b></p>
-<p><b>  aux=malloc(sizeof(struct lis));</b></p>
-<p><b>  endat(&amp;aux);</b></p>
-<p><b>  if(!*p)</b></p>
-<p><b>    in_pr_el1();</b></p>
-<p><b>  ant=act=*p;</b></p>
-<p><b>  while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){</b></p>
-<p><b>    ant=act;</b></p>
-<p><b>    act=act-&gt;sig;}</b></p>
-<p><b>  if(!act){</b></p>
-<p><b>    ant-&gt;sig=aux;</b></p>
-<p><b>    aux-&gt;sig=NULL;</b></p>
-<p><b>    return;}</b></p>
-<p><b>  if(ant==act)</b></p>
-<p><b>    in_pr_el();</b></p>
-<p><b>  el_in();</b></p>
-<p><b>}</b></p>
-<p>act</p>
-<p>ant</p>
-<p>dato 2</p>
-<p>dato 3</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>dato 1</p>
-<p>*p</p>
-<p>NULL</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u>BORRAR PRIMER ELEMENTO</u></p>
-<h1 style="page-break-before:always; "></h1>
-<p>dato 2</p>
-<p><b>void borra(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *aux,*ant;</b></p>
-<p><b>  int b;</b></p>
-<p><b>  b=ingdat();</b></p>
-<p><b>  aux=*p;</b></p>
-<p><b>  ant=*p;</b></p>
-<p><b>  while((b!=aux-&gt;dato)&amp;&amp;(aux)){</b></p>
-<p><b>    ant=aux;</b></p>
-<p><b>    aux=aux-&gt;sig;}</b></p>
-<p><b>  if((*p==aux)&amp;&amp;(aux)){</b></p>
-<p><b>    impdat(aux);</b></p>
-<p><b>    if(condat()){</b></p>
-<p><b>      *p=aux-&gt;sig;</b></p>
-<p><b>      free(aux);</b></p>
-<p><b>      return;}}</b></p>
-<p><b>  if(aux){</b></p>
-<p><b>    datint();</b></p>
-<p><b>    return;}</b></p>
-<p><b>  printf(&quot;\nDatos no existen&quot;);</b></p>
-<p><b>}</b></p>
-<p>*p</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>dato 1</p>
-<p>dato 3</p>
-<p>aux</p>
-<p>ant</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>BORRAR ELEMENTO INTERMEDIO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void borra(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *aux,*ant;</b></p>
-<p><b>  int b;</b></p>
-<p><b>  b=ingdat();</b></p>
-<p><b>  aux=*p;</b></p>
-<p><b>  ant=*p;</b></p>
-<p><b>  while((b!=aux-&gt;dato)&amp;&amp;(aux)){</b></p>
-<p><b>    ant=aux;</b></p>
-<p><b>    aux=aux-&gt;sig;}</b></p>
-<p><b>  if((*p==aux)&amp;&amp;(aux)){</b></p>
-<p><b>    boprida();</b></p>
-<p><b>    return;}}</b></p>
-<p><b>  if(aux){</b></p>
-<p><b>    impdat(aux);</b></p>
-<p><b>    if(condat()){</b></p>
-<p><b>      ant-&gt;sig=aux-&gt;sig;</b></p>
-<p><b>      free(aux);</b></p>
-<p><b>      return;}}</b></p>
-<p><b>  printf(&quot;\nDatos no existen&quot;);</b></p>
-<p><b>}</b></p>
-<p>dato 2</p>
-<p>aux</p>
-<p>ant</p>
-<p>dato 4</p>
-<p>dato 1</p>
-<p>*p</p>
-<p>NULL</p>
-<p>dato 3</p>
-<h1 style="page-break-before:always; "></h1>
-<p><u><b>BORRAR ULTIMO ELEMENTO</b></u></p>
-<h1 style="page-break-before:always; "></h1>
-<p><b>void borra(struct lis **p)</b></p>
-<p><b>{</b></p>
-<p><b>  struct lis *aux,*ant;</b></p>
-<p><b>  int b;</b></p>
-<p><b>  b=ingdat();</b></p>
-<p><b>  aux=*p;</b></p>
-<p><b>  ant=*p;</b></p>
-<p><b>  while((b!=aux-&gt;dato)&amp;&amp;(aux)){</b></p>
-<p><b>    ant=aux;</b></p>
-<p><b>    aux=aux-&gt;sig;}</b></p>
-<p><b>  if((*p==aux)&amp;&amp;(aux)){</b></p>
-<p><b>    bopriel</b></p>
-<p><b>    return;}</b></p>
-<p><b>  if(aux){</b></p>
-<p><b>    impdat(aux);</b></p>
-<p><b>    if(condat()){</b></p>
-<p><b>      ant-&gt;sig=aux-&gt;sig;</b></p>
-<p><b>      free(aux);</b></p>
-<p><b>      return;}}</b></p>
-<p><b>  printf(&quot;\nDatos no existen&quot;);</b></p>
-<p><b>}</b></p>
-<p>*p</p>
-<p>aux</p>
-<p>ant</p>
-<p>dato 3</p>
-<p>dato 2</p>
-<p>dato 4</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>NULL</p>
-<p>dato 1</p>
-<p>NULL</p>
+<img src="" alt="">
+
+
+
+<h1>AGREGAR ELEMENTO</h1>
+
+<pre><code>void ingresa(struct lis **p)
+{
+struct lis *act,*aux;
+act=*p;
+if(!aux=(struct lis *)malloc(sizeof(struct lis))){ //Corregir
+  printf(&quot;\n\nNo hay memoria\n&quot;);
+  return;}
+endat(&amp;aux);
+aux-&gt;sig=NULL;
+if(!*p){
+  *p=aux;
+  return;}
+while(act-&gt;sig)
+  act=act-&gt;sig;
+  act-&gt;sig=aux;
+}
+</code></pre>
+<img src="img/" alt="Agregar elemento">
+
+
+
+<h2>INSERTAR PRIMER ELEMENTO</h2>
+
+<pre><code>void ingresa(struct lis **p)
+{
+struct lis *act,*aux,*ant;
+aux=(struct lis *)malloc(sizeof(struct lis));
+endat(&amp;aux);
+if(!*p){
+  *p=aux;
+  aux-&gt;sig=NULL;
+  return;}
+ant=act=*p;
+while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){
+  ant=act;
+  act=act-&gt;sig;}
+if(!act){
+  ult_ele();}
+if(ant==act){
+  *p=aux;
+  aux-&gt;sig=ant;
+  return;}
+ele_int();
+}
+</code></pre>
+<img src="img/" alt="Insertar primer elemento">
+
+
+
+<h2>INSERTAR ELEMENTO INTERMEDIO</h2>
+<pre><code>
+void ingresa(struct lis **p)
+{
+struct lis *act,*aux,*ant;
+aux=malloc(sizeof(struct lis));
+endat(&amp;aux);
+if(!*p)
+  in_pr_el1();
+ant=act=*p;
+while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){
+  ant=act;
+  act=act-&gt;sig;}
+if(!act)
+  in_ul_el();
+if(ant==act)
+  in_pr_el();
+ant-&gt;sig=aux;
+aux-&gt;sig=act;
+}
+</code></pre>
+<img src="img/" alt="Insertar elemento intermedio">
+
+
+
+<h2>INSERTAR ULTIMO ELEMENTO</h2>
+<pre><code>
+void ingresa(struct lis **p)
+{
+struct lis *act,*aux,*ant;
+aux=malloc(sizeof(struct lis));
+endat(&amp;aux);
+if(!*p)
+  in_pr_el1();
+ant=act=*p;
+while((act-&gt;dato&lt;aux-&gt;dato)&amp;&amp;act){
+  ant=act;
+  act=act-&gt;sig;}
+if(!act){
+  ant-&gt;sig=aux;
+  aux-&gt;sig=NULL;
+  return;}
+if(ant==act)
+  in_pr_el();
+el_in();
+}
+</code></pre>
+<img src="img/" alt="Insertar último elemento">
+
+
+
+<h2>BORRAR PRIMER ELEMENTO</h2>
+
+<pre><code>
+void borra(struct lis **p)
+{
+struct lis *aux,*ant;
+int b;
+b=ingdat();
+aux=*p;
+ant=*p;
+while((b!=aux-&gt;dato)&amp;&amp;(aux)){
+  ant=aux;
+  aux=aux-&gt;sig;}
+if((*p==aux)&amp;&amp;(aux)){
+  impdat(aux);
+  if(condat()){
+    *p=aux-&gt;sig;
+    free(aux);
+    return;}
+}
+if(aux){
+  datint();
+  return;}
+printf(&quot;\nDatos no existen&quot;);
+}
+</code></pre>
+<img src="img/" alt="Borrar primer elemento">
+
+
+<h2>BORRAR ELEMENTO INTERMEDIO</h2>
+
+<pre><code>
+void borra(struct lis **p)
+{
+struct lis *aux,*ant;
+int b;
+b=ingdat();
+aux=*p;
+ant=*p;
+while((b!=aux-&gt;dato)&amp;&amp;(aux)){
+  ant=aux;
+  aux=aux-&gt;sig;
+}
+if((*p==aux)&amp;&amp;(aux)){
+  boprida();
+  return;}
+if(aux){
+  impdat(aux);
+  if(condat()){
+    ant-&gt;sig=aux-&gt;sig;
+    free(aux);
+    return;}
+}
+printf(&quot;\nDatos no existen&quot;);
+}
+</code></pre>
+<img src="img/" alt="Borrar elemento intermedio">
+
+
+
+<h2>BORRAR ULTIMO ELEMENTO</h2>
+
+<pre><code>
+void borra(struct lis **p)
+{
+struct lis *aux,*ant;
+int b;
+b=ingdat();
+aux=*p;
+ant=*p;
+while((b!=aux-&gt;dato)&amp;&amp;(aux)){
+  ant=aux;
+  aux=aux-&gt;sig;
+}
+if((*p==aux)&amp;&amp;(aux)){
+  bopriel()
+  return;
+}
+if(aux){
+  impdat(aux);
+if(condat()){
+  ant-&gt;sig=aux-&gt;sig;
+  free(aux);
+return;}
+}
+printf(&quot;\nDatos no existen&quot;);
+}
+</code></pre>
+<img src="img/" alt="Borrar último elemento">
+
 </body>
 </html>
