@@ -26,7 +26,7 @@
 <p>Un puntero es una variable que almacena una direccion de memoria.
     A traves de este, se puede acceder o modificar el valor almacenado allí.</p>
 
-<img class="img-center" src="img/0001.png" alt="Ubicación en memoria">
+<img class="img-center" src="../img/0001.png" alt="Ubicación en memoria">
 
 <h2>Uso:</h2>
 <ul>
@@ -57,20 +57,20 @@ int *pi;
 pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 </code></pre>
 
-<p>Acceder al valor usando un puntero(desreferenciar-object-of):</p>
+<h3>Acceder al valor usando un puntero (desreferenciar-object-of):</h3>
 <ul>
   <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):</li>
   </ul>
   <pre><code class="language-c">printf("%d", *pi) Imprime 10.</code></pre>
 <ul>
-  <li>pi: direccion.</li>
-  <li>*pi: valor guardado en esa direccion.</li>
+  <li><b>pi:</b> direccion.</li>
+  <li><b>*pi:</b> valor guardado en esa direccion.</li>
 </ul>
     
-<p>Especificador de formato para direcciones:</p>
+<h3>Especificador de formato para direcciones:</h3>
 <ul>
-  <li><code>%p</code>: El estandard para este especificador de formato esta definido para imprimir punteros a <b>void</b>. Es por esto que el compilador nos advierte que con <b>&x</b> le estamos pasando <b>int *</b>, pero espera <b>void *</b>.</li>
-  <li>Para solucionar esto se hace un cast: <code>(void *)&x;</code></li>
+  <li><b>%p</b>: El estandard para este especificador de formato esta definido para imprimir punteros a <b>void</b>. Es por esto que el compilador nos advierte que con <b>&x</b> le estamos pasando <b>int *</b>, pero espera <b>void *</b>.</li>
+  <li>Para solucionar esto se hace un cast: <b><code>(void *)&x;</code></b></li>
 </ul>
 
 <h2>Ejemplo:</h2>
@@ -108,12 +108,12 @@ sizeof(char *);
 sizeof(double *);
 </code></pre>
 
-<p><strong>No confundir con:</strong></p>
+<h3><strong>No confundir con:</strong></h3>
 <pre><code class="language-c">
 sizeof(int);
 </code></pre>
 
-<p>Ejemplo:</p>
+<3>Ejemplo:</h3>
 
 <pre><code class="language-c">
 int *pi;
@@ -121,12 +121,12 @@ float *pf;
 char *pc;
 </code></pre>
 
-<p>En una misma arquitectura, siempre sera cierto que:</p>
+<p><b>En una misma arquitectura, siempre sera cierto que:</b></p>
 <pre><code class="language-c">
 sizeof(pi) == sizeof(pf) == sizeof(pc)
 </code></pre>
 
-<p>Para impimir <code>sizeof(puntero a tipo de dato)</code> usamos el especificador de formato <b>%zu</b>:</p>
+<p>Para impimir <b><code>sizeof(puntero a tipo de dato)</code></b> usamos el especificador de formato <b>%zu</b>:</p>
 <pre><code class="language-c">
 printf("%zu", sizeof(int *));
 printf("%zu", sizeof(char *));
@@ -134,13 +134,13 @@ printf("%zu", sizeof(char *));
 
 <p>Van a imprimir lo mismo, que corresponde a la dimension del puntero en esa arquitectura.</p>
 
-<b>No confundir:</b>
-<ul>
-  <li>int x;</li>
-  <li>int *pi = &x;</li>
-  <li>printf("%zu", sizeof(pi)); // Dimension del puntero pi. Mostrara 8 bytes. En arquitectura de 64 bits</li>
-  <li>printf("%zu", sizeof(*pi)); // Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes</li>
-</ul>
+<h3>No confundir:</h3>
+
+<pre><code class="language-c">int x;</code></pre>
+<pre><code class="language-c">int *pi = &x;</code></pre>
+<pre><code class="language-c">printf("%zu", sizeof(pi)); // Dimension del puntero pi. Mostrara 8 bytes. En arquitectura de 64 bits</code></pre>
+<pre><code class="language-c">printf("%zu", sizeof(*pi)); // Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes</code></pre>
+
 
 <h3>Relacion con arrays:</h3>
 
