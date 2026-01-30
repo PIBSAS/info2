@@ -73,7 +73,31 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
   <li>Para solucionar esto se hace un cast: <b><code>(void *)&x;</code></b></li>
 </ul>
 
-<h2>Ejemplo:</h2>
+<h1>Teoría aplicada:</h1>
+
+<h2>Makefile:</h2>
+
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = declaracion
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(OBJ) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h2>Código:</h2>
+
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
 
@@ -149,7 +173,30 @@ int a[10]; // sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
 int *p = a; // sizeof(p); da sizeof(int *) = 8 bytes
 </code></pre>
 
-<h2>Ejemplo:</h2>
+<h1>Teoría aplicada:</h1>
+
+<h2>Makefile:</h2>
+
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = dimension
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(OBJ) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h2>Código:</h2>
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o dimension
@@ -500,7 +547,7 @@ int * vec[10];
 <footer class="footer-nav">
   <div class="container">
   <a href="../index.html" class="btn">Anterior</a>
-  <a href="../teoria/recursividad.html" class="btn">Siguiente</a>
+  <a href="../teoria/recursion.html" class="btn">Siguiente</a>
   </div>
 </footer>
 
