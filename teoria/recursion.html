@@ -57,9 +57,7 @@
 <h3>Caso recursivo:</h3>
 <ul>
     <li>Es donde la funcion se llama a si misma, pero con un problema mas chico.</li>
-    <li>IMPORTANTE:
-            Cada llamada recursiva debe acercarse al caso base.
-    </li>
+    <li><strong>IMPORTANTE</strong>:Cada llamada recursiva debe acercarse al caso base.</li>
 </ul>
 
 <h2>¿Para que se usa?</h2>
@@ -120,7 +118,7 @@
 </ul>
 
 <h3>Directa:</h3>
-<p>Una funcaión se llama a si misma directamente.</p>
+<p>Una función se llama a si misma directamente.</p>
 <pre><code class="language-c">
 f(...);
 {
@@ -150,7 +148,7 @@ void B(int n)
         A(n -1);
 }
 </code></pre>
-<p><b>Llamadas:</b> A -> B -> A -> A -> B -> ...</p>
+<p><b>Llamadas:</b> A &rarr; B &rarr; A &rarr; A &rarr; B &rarr; ...</p>
 <p>Esto casi no se usa en C inicial.</p>
 <p><b>Ejemplos:</b></p>
 <ul>
@@ -190,7 +188,7 @@ f(n)
 <ul>
     <li>Fibonacci</li>
 </ul>
-<p><em>Son muy ineficientes, explosion de llamadas</em> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
+<p><b><em>Son muy ineficientes, explosion de llamadas</em></b> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
 
 <h2>Ejemplo clásico de recursividad:</h2>
 <h3>Factorial:</h3>
@@ -306,7 +304,7 @@ void imprimir(int v[], int n)
   printf("%d ", v[n - 1]);
 }
 </code></pre>
-<p><em>IMPORTANTE:</em></p>
+<p><b><em>IMPORTANTE:</em></b></p>
 <ul>
     <li>La dimension se reduce <b>(n - 1)</b></li>
     <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
@@ -330,9 +328,9 @@ void imprimir(int v[], int n)
 </ul>
 <p><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
 
-<h2>La recursividad es más relevante en:</h2>
+<h3>La recursividad es más relevante en:</h3>
 <ul>
-    <li>Listas enlazadas Linked list</li>
+    <li>Listas enlazadas - Linked list</li>
     <li>Arboles - Tree</li>
     <li>Backtracking</li>
 </ul>
