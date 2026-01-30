@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 2</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-01-30T18:03:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+<h1>Recursividad - Recursion</h1>
+
+<h2>¿Qué es la recursividad-recursion?</h2>
+
+<p>Es una técnica donde una función se llama a si misma para resolver un problema.</p>
+
+<h3>La idea clave es esta:</h3>
+
+<p>Un problema grande se resuelve dividiendolo en subproblemas mas chicos del mismo tipo.</p>
+
+<h3>Ejemplo:</h3>
+<ul>
+    <li>Para calcular factorial(5)</li>
+    <ul>
+        <li>Necesito factorial(4)</li>
+        <ul>
+            <li>Necesito factorial(3)</li>
+            <li>...</li>
+            <ul>
+                <li>Hasta llegar a un caso simple que se resolver directo.</li>
+            </ul>
+        </ul>
+    </ul>
+</ul>
+
+<h2>Las 2 partes OBLIGATORIAS de toda funcion recursiva</h2>
+<h3>Caso base:</h3>
+<ul>
+    <li>Es la condicion de corte.</li>
+    <li>El caso mas simple del problema, que NO hace mas llamadas recursivas.</li>
+</ul>
+
+<h3>Caso recursivo:</h3>
+<ul>
+    <li>Es donde la funcion se llama a si misma, pero con un problema mas chico.</li>
+    <li>IMPORTANTE:
+            Cada llamada recursiva debe acercarse al caso base.
+    </li>
+</ul>
+
+<h2>¿Para que se usa?</h2>
+
+<p>Cuando el problema tiene estructura naturalmente recursiva, por ejemplo:</p>
+
+<h3>Definiciones matematicas:</h3>
+<ul>
+    <li>Factorial</li>
+    <li>Potencia</li>
+    <li>Fibonacci</li>
+</ul>
+<h3>Estructuras de datos:</h3>
+<ul>
+    <li>Arboles-Tree</li>
+    <li>Listas enlazadas-Linked list</li>
+</ul>
+<h3>Algoritmos clasicos:</h3>
+<ul>
+    <li>Busqueda binaria</li>
+    <li>Quicksort</li>
+    <li>Mergesort</li>
+</ul>
+<h3>Procesar cosas "anidadas":</h3>
+<ul>
+    <li>Directorios</li>
+    <li>Expresiones matematicas</li>
+    <li>Parentesis</li>
+</ul>
+
+<h3><em>IMPORTANTE:</em></h3>
+
+<p>No todo lo recursivo es mejor que lo iterativo. En C muchas veces el <b>for</b> o <b>while</b> es:</p>
+<ul>
+    <li>Más rápido</li>
+    <li>Más eficiente en memoria</li>
+</ul>
+<p><strong>Pero la recursividad:</strong></p>
+<ul>
+    <li>Es más clara</li>
+    <li>Expresa mejor la idea del problema</li>
+</ul>
+
+<h2>¿Tiene alguna sintaxis especial?</h2>
+<p><em>No, la recursividaadd no tiene sintaxis propia en C.</em></p>
+<p>Es una función común, la única diferencia es que:</p>
+<ul>
+    <li>Dentro de su cuerpo se llama a si misma.</li>
+</ul>
+
+
+<h2>Tipos de recursividad:</h2>
+<ul>
+<li>Recursividad directa</li>
+<li>Recursividad indirecta</li>
+</ul>
+<h3>Directa:</h3>
+<p>Una funcaión se llama a si misma directamente.</p>
+<pre><code class="language-c">
+f(...);
+{
+    ...
+    f(...);
+}
+</code></pre>
+<p><b>Ejemplos:</b></p>
+<ul>
+    <li>Factorial</li>
+    <li>Suma</li>
+    <li>Fibonacci</li>
+    <li>Recursividad con arrays</li>
+</ul>
+
+<h3>Indirecta:</h3>
+<p>Una función NO se llama a si misma, sino que llama a otra, que eventualmente vuelve a llamar a la primera.</p>
+<pre><code class="language-c">
+void A(int n);
+{
+    if (n > 0)
+        B(n - 1);
+}
+void B(int n)
+{
+    if (n > 0)
+        A(n -1);
+}
+</code></pre>
+<p><b>Llamadas:</b> A -> B -> A -> A -> B -> ...</p>
+<p>Esto casi no se usa en C inicial.</p>
+<p><b>Ejemplos:</b></p>
+<ul>
+    <li>Analisis sintáctico</li>
+    <li>Automatas</li>
+    <li>Estados</li>
+</ul>
+<ul>
+
+<h2>Recursividad lineal</h2>
+<h3>En cada llamada:</h3>
+<p>La funcion hace una sola llamada recursiva.</p>
+<pre><code class="language-c">
+f(n)
+{
+    return algo + f(n - 1);
+}
+</code></pre>
+<h3>Como sucede en:</h3>
+<ul>
+    <li>Factorial</li>
+    <li>Suma</li>
+    <li>Recursividad con arrays.</li>
+</ul>
+<p>Son fáciles de razonar y convertir en iterativas.</p>
+<p>Profundidad(Cantidad maxima de llamadas activas al mismo tiempo en la <b>pila-stack) = O(n)</b> : Notacion Big-O, significa que <b>n</b> crece, la profundidad crece proporcionalmente a <b>n (lineal)</b></p>
+
+<h2>Recursividad múltiple</h2>
+<h3>En una llamada:</h3>
+<p>Se hacen 2 o más llamadas recursivas.</p>
+<pre><code class="language-c">
+f(n)
+{
+    return f(n - 1) + f(n - 2);
+}
+</code></pre>
+<h3>Como sucede en:</h3>
+<ul>
+    <li>Fibonacci</li>
+</ul>
+<p><em>Son muy ineficientes, explosion de llamadas</em> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
+
+
+
+<h2>Ejemplo clásico de recursividad:</h2>
+<h3>Factorial:</h3>
+<pre><code class="language-c">
+n! = n * (n - 1)!
+0! = 1
+</code></pre>
+<p><strong>¿Qué pasa internamente con <b><code>factorial(5)</code></b>?</strong></p>
+<p>Fase de llamadas (expansión de la expresión):</p>
+<pre><code class="language-c">
+factorial(5)
+-> 5 * factorial(4)
+-> 5 * (4 * factorial(3))
+-> 5 * (4 * (3 * factorial(2)))
+-> 5 * (4 * (3 * (2 * factorial(1))))
+-> 5 * (4 * (3 * (2 * (1 * factorial(0)))))
+Caso base:
+-> factorial(0) = 1 // Caso base, ya no se llama asi mismo
+
+Sustitución y evaluación:
+-> 5 * (4 * (3 * (2 * (1 * 1))))
+-> 5 * (4 * (3 * (2 * 1)))
+-> 5 * (4 * (3 * 2))
+-> 5 * (4 * 6)
+-> 5 * 24
+-> 120
+</code></pre>
+<p>Una vez alcanzado el caso base, las llamadas retornan en orden inverso al que fueron realizadas, liberandose los marcos de activacion de la pila-stack.</p>
+
+<h2>La pila (stack): Concepto clave</h2>
+<h3>Cada llamada a función:</h3>
+<ul>
+    <li>Guarda parametros.</li>
+    <li>Variables locales.</li>
+    <li>Direccion de retorno.</li>
+</ul>
+<p>Esto va a la pila de ejecución.
+En recursividad:
+</p>
+<ul>
+    <li>Cada llamada ocupa un nuevo "nivel" en la pila.</li>
+    <li>Demasiadas llamadas => stack overflow</li>
+</ul>
+<p><strong>Por eso:</strong></p>
+<ul>
+    <li>SIEMPRE debe haber CASO BASE.</li>
+    <li>Y la dimension del problema debe reducirse.</li>
+</ul>
+
+<h2>Ejemplo 2:</h2>
+<h3>Suma de los primeros N números:</h3>
+<pre><code class="language-c">
+suma(n) = n + suma(n - 1)
+suma(0) = 0
+int suma(int n)
+{
+  if (n == 0) Caso base
+      return 0;
+  else
+      return n + suma(n - 1);
+}
+</code></pre>
+<p>Esto es recursivo por definicion, pero ...</p>
+<h3>Versión iterativa:</h3>
+<pre><code class="language-c">
+int suma(int n)
+{
+  int total = 0;
+  for (int i = 1; i <= n; i++)
+      total += i;
+  return total;
+}
+</code></pre>
+<p><strong>Aca se ve claro:</strong></p>
+<ul>
+    <li><b>Recursiva:</b> más "elegante".</li>
+    <li><b>Iterativa:</b> más eficiente.</li>
+</ul>
+
+<h2>Ejemplo 3:</h2>
+<h3>Fibonacci:</h3>
+<ul>
+    <li><b>fib(0) = 0</b> Caso base.</li>
+    <li><b>fib(1) = 1</b> Caso base.</li>
+    <li><b>fib(n) = fib(n -1) + fib(n-2)</b></li>
+</ul>
+<pre><code class="language-c">
+int fib(int n)
+{
+  if (n == 0)
+      return 0;
+  if (n == 1)
+      return 1;
+  return fib(n - 1) + fib(n - 1);
+}
+</code></pre>
+<p>Este ejemplo es didáctico, pero:</p>
+    <ul>
+        <li>Es muy ineficiente</li>
+        <li>Repite cálculos</li>
+        <li>Explota rápido la pila</li>
+    </ul>
+
+<h2>Ejemplo 4:</h2>
+<h3>Recursividad con arrays</h3>
+<p>Imprimir un array recursivamente.</p>
+<pre><code class="language-c">
+void imprimir(int v[], int n)
+{
+  if (n == 0) Caso base
+      return;
+  imprimir(v, n - 1);
+  printf("%d ", v[n - 1]);
+}
+</code></pre>
+<p><em>IMPORTANTE:</em></p>
+<ul>
+    <li>La dimension se reduce <b>(n - 1)</b></li>
+    <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
+</ul>
+
+<h3>Errores tipicos:</h3>
+<ul>
+    <li>No tener caso base</li>
+    <li>Caso base mal definido</li>
+    <li>No reducir el problema</li>
+    <li>Confundir retorno con impresión</li>
+    <li>Creer que es "más mágica" que un bucle(loop)</li>
+</ul>
+
+<h3>Consideraciones para resolver ejercicios de recursividad-recursion:</h3>
+<p>Cuando vemos un ejercicio recursivo, preguntarnos:</p>
+<ul>
+    <li>¿Cuál es el caso base más simple?</li>
+    <li>¿Cómo expresamos el problema en función del mismo problema más chico?</li>
+    <li>¿Qué parámetro se achica en cada llamada?</li>
+</ul>
+<p><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+
+<h2>La recursividad es más relevante en:</h2>
+<ul>
+    <li>Listas enlazadas Linked list</li>
+    <li>Arboles - Tree</li>
+    <li>Backtracking</li>
+</ul>
+
+<h1>Teoría aplicada:</h1>
+
+<h2>Makefile</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = recursividad
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o recursividad
+#include <stdio.h>
+
+/* ---- FACTORIAL ---- */
+int factorial(int n)
+{
+    if (n == 0) // Caso base
+        return 1;
+    else
+        return n * factorial(n - 1); // Caso recursivo
+}
+
+/* ---- SUMA ---- */
+int suma(int n)
+{
+    if (n == 0) // Caso base
+        return 0;
+    else
+        return n + suma(n - 1); // Caso recursivo
+}
+
+/* ---- FIBONACCI ---- */
+int fib(int n)
+{
+    if (n == 0) // Caso base
+        return 0;
+    if (n == 1)
+        return 1; // Caso base
+    return fib(n - 1) + fib(n - 2); // Caso recursivo
+}
+
+/* ---- RECURSIVIDAD CON ARRAYS ---- */
+void imprimir(int v[], int n)
+{
+    if (n == 0) // Caso base
+        return;
+    imprimir(v, n -1); // Caso recursivo
+    printf("%d ", v[n -1]);
+}
+
+int main(void)
+{
+    /* ---- FACTORIAL ---- */
+    int n = 5;
+    printf("Factorial de %d = %d\n", n, factorial(n));
+
+    /* ---- SUMA ---- */
+    printf("Suma de los primeros %d numeros = %d\n", n, suma(n));
+
+    /* ---- RECURSIVIDAD CON ARRAYS ---- */
+    int v[]= {1, 2, 3, 4, 5};
+    imprimir(v, 5);
+
+    return 0;
+}
+</code></pre>
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/punteros.html" class="btn">Anterior</a>
+  <a href="../teoria/union.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>
