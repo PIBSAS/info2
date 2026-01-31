@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 9</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-01-31T10:32:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+
+<div class="container">
+
+<h1>Lista simple - Singly linked list</h1>
+
+<h2>¿Qué es?:</h2>
+
+<p>Una lista simple enlazada es una estructura de datos dinamica formada por nodos, donde:</p>
+<ul>
+    <li>Cada nodo contiene:</li>
+    <ul>
+        <li>Un dato.</li>
+        <li>Un puntero al siguiente nodo.</li>
+    </ul>
+    <li>El último nodo apunta a <b><code>NULL</code></b>.</li>
+    <li>La lista se recorre en un solo sentido.</li>
+</ul>
+<h3>Visualmente</h3>
+<pre><code class="language-c">
+[ dato | siguiente ] => [ dato | siguiente ] => [ dato | siguiente ] => NULL
+</code></pre>
+
+<h2>¿Porqué usar una lista simple?:</h2>
+<h3>Se usa cuando:</h3>
+<ul>
+    <li>No conocemos de antemano cuantos elementos habra.</li>
+    <li>No queremos el costo de mover elementos como en arrays.</li>
+    <li>Necesitamos inserciones y borrados eficientes.</li>
+    <li>Queremos usar memoria dinamica (heap).</li>
+</ul>
+<p>
+    <strong>El limite lo impone la memoria disponible, no una dimension fija.</strong>
+</p>
+
+<h2>Conceptos fundamentales:</h2>
+<ol>
+    <li>Nodo (struct autoreferenciado).</li>
+    <p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
+    <h3>Sintaxis:</h3>
+<pre><code class="language-c">
+struct Nodo {
+  int dato;
+  struct Nodo *sig;
+};    
+</code></pre>
+    <li>Puntero de comienzo (head).</li>
+    <p>La lista se maneja mediante un puntero.</p>
+    <h3>Sintaxis:</h3>
+<pre><code class="language-c">
+struct Nodo *lista = NULL;
+</code></pre>
+<ul>
+    <li><b><code>NULL</code></b> => lista vacía.</li>
+    <li>Apunta siempre al primer nodo.</li>
+</ul>
+</ol>
+
+<h1>Operaciones básicas sobre listas simples (singly linked list)</h1>
+
+<h2>Crear nodo (memoria dinamica):</h2>
+<pre><code class="language-c">
+nuevo = malloc(sizeof(struct Nodo));
+</code></pre>
+<h3>Siempre:</h3>
+<ul>
+    <li>Verificar <b><code>malloc</code></b>.</li>
+    <li>Inicializar puntero (sig).</li>
+</ul>
+
+<h2>Recorrer la lista:</h2>
+<pre><code class="language-c">
+for (aux = lista; aux != NULL; aux = aux->sig)
+</code></pre>
+<p><strong>Se avanza saltando de nodo en nodo.</strong></p>
+
+<h1>Inserción</h1>
+<h3>Puede hacerse:</h3>
+<ul>
+    <li>Como primer elemento.</li>
+    <li>Como último elemento.</li>
+    <li>Como elemento intermedio.</li>
+    <li>Ordenada por una clave (muy común)</li>
+</ul>
+
+<h2>Inserción al comienzo:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+nuevo->sig = lista;
+lista = nuevo;
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>nuevo</code></b> es el nodo a insertar.</li>
+    <li><b><code>lista</code></b> apunta al primer nodo de la lista.</li>
+</ul>
+<p><strong>Nota:</strong></p>
+<ul>
+    <li>El nuevo nodo pasa a ser el primer elemento.</li>
+    <li>Funciona tanto si la lista está vacía como si no.</li>
+</ul>
+
+
+<h2>Inserción intermedia:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+nuevo->sig = act->sig;
+act->sig = nuevo;
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>act</code></b> apunta al nodo anterior al lugar de inserción</li>
+    <li><b><code>nuevo</code></b> ya tiene cargado el dato.</li>
+</ul>
+
+<h2>Inserción al final:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+while (aux->sig != NULL)
+{
+  aux = aux->sig;
+}
+
+aux->sig = nuevo;
+nuevo->sig = NULL;
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>aux</code></b> se usa para recorrer la lista.</li>
+    <li><b><code>nuevo</code></b> es el nodo a insertar.</li>
+</ul>
+<p><strong>Nota:</strong></p>
+<ul>
+    <li>Requiere recorrer toda la lista.</li>
+    <li>Si la lista está vacía, este caso se reduce a inserción al comienzo.</li>
+</ul>
+
+
+<h2>Insercion ordenada (general)</h2>
+<h3>Caso general que cubre todos las inserciones:</h3>
+<ul>
+    <li>Lista vacia.</li>
+    <li>Primer elemento.</li>
+    <li>Intermedio.</li>
+    <li>Último.</li>
+</ul>
+<p><strong>Nota:</strong></p>
+<ul>
+    <li>Se recorre la lista buscando la posición según una clave.</li>
+    <li>Se usan punteros para mantener el orden.</li>
+    <li>Es el caso más general y reutilizable.</li>
+</ul>
+
+
+<h1>Búsqueda</h1>
+<h2>Siempre es secuencial (no hay acceso directo):</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+while (aux != NULL && aux->dato != buscado)
+  aux = aux->sig;
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>aux</code></b> se usa para recorrer la lista.</li>
+    <li><b><code>buscado</code></b> es el valor a encontrar.</li>
+</ul>
+
+<p><strong>Nota:</strong>
+Puede terminar por encontrar el dato o llegar a <b><code>NULL</code></b>.
+</p>
+
+<h1>Borrado</h1>
+<h2>Puede ocurrir:</h2>
+<ul>
+    <li>Borrar el primer nodo.</li>
+    <li>Borrar un nodo intermedio.</li>
+    <li>Borrar el último nodo.</li>
+    <li>Borrado general (por dato)</li>
+</ul>
+<h3>Siempre implica:</h3>
+<ul>
+    <li>Reconectar punteros.</li>
+    <li>Liberar memoria (free)</li>
+</ul>
+
+
+<h2>Borrado del primer nodo:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+aux = lista;
+lista = aux->sig;
+free(aux); 
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>aux</code></b> apunta temporalmente al nodo a borrar.</li>
+</ul>
+<p><strong>Nota:</strong></p>
+<ul>
+    <li>El segundo nodo pasa a ser el primero.</li>
+    <li>Si la lista tiene un solo nodo, queda vacía.</li>
+</ul>
+
+
+<h2>Borrado de un nodo intermedio:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+ant->sig = act->sig;
+free(act);
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>act</code></b> apunta al nodo a borrar.</li>
+    <li><b><code>ant</code></b> apunta al nodo anterior.</li>
+</ul>
+<p><strong>Nota:</strong>
+Siempre se reconectan punteros antes del <b><code>free</code></b>.</p>
+
+<h2>Borrado del último nodo:</h2>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+ant->sig = NULL;
+free(act);
+</code></pre>
+<h3>Donde:</h3>
+<ul>
+    <li><b><code>act</code></b> apunta al último nodo (<b><code>act->sig == NULL</code></b>)</li>
+    <li><b><code>ant</code></b> apunta al penúltimo nodo.</li>
+</ul>
+<p><strong>Nota:</strong>
+Si la lista tiene un solo nodo, este caso se reduce al borrado del primero.</p>
+
+<h2>Borrado general (por dato):</h2>
+<p>Se usan dos punteros.</p>
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">
+*act (actual)
+*ant (anterior)
+</code></pre>
+<h3>Descripción:</h3>
+<ul>
+    <li>Se recorre la lista buscando el nodo cuyo dato coincide con el valor buscado.</li>
+    <li>El puntero <b><code>act</code></b> apunta al nodo actual a evaluar.</li>
+    <li>El puntero <b><code>ant</code></b> mantiene referencia al nodo anterior.</li>
+</ul>
+
+<h3>Casos que cubre:</h3>
+<ul>
+    <li>Lista vacía.</li>
+    <li>Borrado del primer nodo.</li>
+    <li>Borrado de un nodo intermedio.</li>
+    <li>Borrado del último nodo.</li>
+</ul>
+<p><strong>Nota:</strong></p>
+<ul>
+    <li>Permite resolver todos los casos de borrado con un solo algoritmo.</li>
+    <li>Siempre se deben reconectar los punteros antes de liberar la memoria.</li>
+</ul>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = simple
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o simple
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Nodo {
+    int dato;
+    struct Nodo *sig;
+};
+
+/* ---- INSERTA ORDENADO ---- */
+/*
+    Insercion ordenada por clave:
+        - Si la lista esta vacia o el valor es menor que el primero, se inserta al comienzo.
+        - Caso general: se avanza mientras el valor sea mayor que el dato actual.
+        - Se inserta entre ant y act (intermedio o ultimo).
+*/
+void insertar(struct Nodo **lista, int valor)
+{
+    struct Nodo *nuevo, *act, *ant;
+
+    nuevo = malloc(sizeof(struct Nodo));
+    if (nuevo == NULL)
+    {
+        printf("No hay memoria\n");
+        return;
+    }
+
+    nuevo->dato = valor;
+    nuevo->sig = NULL;
+
+    /* --- Lista vacia o insertar al comienzo --- */
+    if (*lista == NULL || valor < (*lista)->dato)
+    {
+        nuevo->sig = *lista;
+        *lista = nuevo;
+        return;
+    }
+
+    ant = *lista;
+    act = (*lista)->sig;
+    
+    // Avanza hasta encontrar la posicion correcta segun la clave
+    while(act != NULL && act->dato < valor)
+    {
+        ant = act;
+        act = act->sig;
+    }
+
+    ant->sig = nuevo;
+    nuevo->sig = act; // Enlaza con el siguiente nodo (NULL si es el ultimo)
+}
+
+/* ---- MOSTRAR LA LISTA ---- */
+void mostrar(struct Nodo *lista)
+{
+    while (lista != NULL)
+    {
+        printf("%d -> ", lista->dato);
+        lista = lista->sig;
+    }
+    printf("NULL\n");
+}
+
+/* ---- BUSCAR UN VALOR ---- */
+struct Nodo *buscar(struct Nodo *lista, int valor)
+{
+    while (lista != NULL && lista->dato != valor)
+    {
+        lista = lista->sig;
+    }
+
+    return lista;
+}
+
+/* ---- BORRA UN NODO POR VALOR ---- */
+void borrar(struct Nodo **lista, int valor)
+{
+    struct Nodo *act, *ant;
+
+    if (*lista == NULL)
+        return;
+
+    /* --- Borrar primer nodo --- */
+    if ((*lista)->dato == valor)
+    {
+        act = *lista;
+        *lista = act->sig;
+        free(act);
+        return;
+    }
+
+    ant = *lista;
+    act = ant->sig;
+
+    // Recorre la lista buscando el nodo con el valor a borrar
+    while (act != NULL && act->dato != valor)
+    {
+        ant = act;
+        act = act->sig;
+    }
+
+    if (act != NULL)
+    {
+        /* Borrar el nodo encontrado: 
+            - Intermedio si: ( act->sig != NULL) 
+            - Ultimo si: (act->sig == NULL)
+        */
+        ant->sig = act->sig;
+        free(act);
+    }
+}
+
+/* ---- LIBERAR TODA LA LISTA ---- */
+void liberar(struct Nodo **lista)
+{
+    struct Nodo *aux;
+
+    while (*lista != NULL)
+    {
+        aux = *lista;
+        *lista = aux->sig;
+        free(aux);
+    }
+}
+
+int main(void)
+{
+    struct Nodo *lista = NULL; // Inicializamos el puntero a struct Nodo vacio.
+    
+    /* ---- INSERCIONES ---- */
+    insertar(&lista, 10); // Lista vacia -> Primer nodo
+    insertar(&lista, 5);  // Insercion al comienzo
+    insertar(&lista, 20); // Insercion al final
+    insertar(&lista, 15); // Insercion intermedia entre 10 y 20
+
+    mostrar(lista); // 5 -> 10 -> 15 -> 20 -> NULL 
+
+    /* ---- BORRADOS ---- */
+    borrar(&lista, 5); // Borrar Primero
+    mostrar(lista);    // 10 -> 15 -> 20 -> NULL
+
+    borrar(&lista, 15); // Borrar Intermedio
+    mostrar(lista);     // 10 -> 20 -> NULL
+
+    borrar(&lista, 20); // Borrar Ultimo
+    mostrar(lista);     // 10 -> NULL
+
+    /* ---- BUSQUEDA ---- */
+    if (buscar(lista, 20))
+    {
+        printf("Encontrado\n");
+    }
+    else
+    {
+        printf("No encontrado\n");
+    }
+
+    if (buscar(lista, 10))
+    {
+        printf("Encontrado\n");
+    }
+    else
+    {
+        printf("No encontrado\n");
+    }
+
+    liberar(&lista); // lista queda en NULL
+    mostrar(lista); // Solo didactico para ver la liberacion
+
+    return 0;
+} 
+</code></pre>
+
+
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/estructura.html" class="btn">Anterior</a>
+  <a href="../index.html" class="btn">Página principal</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
