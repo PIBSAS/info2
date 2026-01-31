@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 5</title>
+  <meta name="author" content="Ing. Osvaldo M. Pini"/>
+  <meta name="created" content="1999-04-15T21:05:52"/>
+  <meta name="changed" content="00:00:00"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/prism.css">
+  
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+<h1>Operadores a nivel de bit - Bitwise operators</h1>
+
+<h2>¿Qué son?:</h2>
+<p>
+    Son operadores que no trabajan con valores "numericos" 
+        en el sentido aritmetico, sino bit por bit sobre la
+        representacion binaria de un dato entero.
+</p>
+
+<h2>Se aplican sobre:</h2>
+<ul>
+    <li>char</li>
+    <li>short</li>
+    <li>int</li>
+    <li>long</li>
+    <li>Sus versiones unsigned</li>
+</ul>
+<p><strong>NO APLICA a float, double, struct, etc.</strong></p>
+
+<h2>Representación binaria:</h2>
+<p>Supongamos un <b><code>unsigned char</code></b>(8 bits):</p>
+<ul>
+    <li><b>Valor decimal:</b> <code>13</code></li>
+    <li><b>Binario:</b> <code>0000 1101</code></li>
+</ul>
+<p>Cada operador va a actuar bit a bit, comparando o modificando esos <b>0</b> y <b>1</b>.</p>
+
+<h1>Operador AND bit a bit ( &amp; )</h1>
+<p><strong>No confundir</strong> con el AND lógico (&amp;&amp;)</p>
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">resultado = a & b;</code></pre>
+<h3>Regla:</h3>
+<p>Un bit vale 1 sólo si ambos bits son 1.</p>
+
+<div class="tablecontainer">
+    <tr>
+        <th>a</th>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>a &amp; b</th>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+</div>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 12; // 0000 1100
+unsigned char b = 10; // 0000 1010
+unsigned char c = a & b; // 0000 1000 -> 8
+</code></pre>
+
+<h3>¿Para qué se usa?:</h3>
+<ul>
+    <li>Enmascarar bits.</li>
+    <li>Ver si un bit especifico esta activo.</li>
+</ul>
+<p><b>Ejemplo tipico:</b></p>
+<pre><code class="language-c">
+if (estado & 0x01) {
+// el bit 0 esta en 1
+}  
+</code></pre>
+
+
+<h1>Operador OR bit a bit (|)</h1>
+<p><strong>No confundir</strong> con el OR lógico (||)</p>
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">resultado = a | b;</code></pre>
+<h3>Regla:</h3>
+<p>Un bit vale 1 solo si al menos uno es 1.</p>
+
+<div class="tablecontainer">
+    <tr>
+        <th>a</th>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>a | b</th>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+</div>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 12; // 0000 1100
+unsigned char b = 10; // 0000 1010
+unsigned char c = a | b; // 0000 1110 -> 24
+</code></pre>
+
+<h3>¿Para qué se usa?:</h3>
+<ul>
+    <li>Prender bits (Setear flags).</li>
+</ul>
+<p><b>Ejemplo tipico:</b></p>
+<pre><code class="language-c">
+estado = estado | 0x04; // pone en 1 el bit 2
+</code></pre>
+
+
+<h1>Operador XOR bit a bit (^)</h1>
+<p>Este es el más "raro" al principio.</p>
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">resultado = a ^ b;</code></pre>
+<h3>Regla:</h3>
+<p>Un bit vale 1 solo si son distintos.</p>
+
+<div class="tablecontainer">
+    <tr>
+        <th>a</th>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>a ^ b</th>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+</div>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 12; // 0000 1100
+unsigned char b = 10; // 0000 1010
+unsigned char c = a ^ b; // 0000 0110 -> 6
+</code></pre>
+
+<h3>¿Para qué se usa?:</h3>
+<ul>
+    <li>Invertir bits especificos.</li>
+    <li>Truco historico, hacer swap sin variable auxiliar, hoy en día solo didáctico.</li>
+</ul>
+<p><b>Ejemplo tipico:</b></p>
+<pre><code class="language-c">
+estado ^= 0x01; // invierte el bit 0
+</code></pre>
+
+<p><b>Swap sin variable auxiliar:</b></p>
+<pre><code class="language-c">
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+</code></pre>
+
+<h1>Operador NOT o Complemento a uno ( &tilde; )</h1>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">resultado = ~a;</code></pre>
+<h3>Regla:</h3>
+<p>Invierte todos los bits:</p>
+<ul>
+    <li><b><code>0 => 1</code></b></li>
+    <li><b><code>1 => 0</code></b></li>
+</ul>
+
+<div class="tablecontainer">
+    <tr>
+        <th>a</th>
+        <td>0</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <th>&tilde;a</th>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+</div>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 5; // 0000 0101
+unsigned char b = ~a; // 1111 1010 -> 250
+</code></pre>
+<p><strong>IMPORTANTE:</strong></p>
+<p>En tipos con signo, el resultado de la representacion (Complemento a dos).
+            Por eso para bitwise - bit a bit conviene usar <b><code>unsigned</code></b>.</p>
+
+<h3>¿Para qué se usa?:</h3>
+<ul>
+    <li>Apagar bits con mascara.</li>
+</ul>
+<p><b>Ejemplo tipico:</b></p>
+<pre><code class="language-c">
+estado &= ~0x04; // pone en 0 el bit 2  
+</code></pre>
+
+
+<h1>Desplazamiento a la izquierda - Shift left (&lt;&lt;)</h1>
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">
+resultado = a << n;
+</code></pre>
+
+<h3>¿Qué hace?:</h3>
+<p>Desplaza los bits <b><code>n</code></b> posiciones a la izquierda, rellenando con ceros a la derecha.</p>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 3; // 0000 0011
+unsigned char b = a << 2; // 0000 1100 => 12
+</code></pre>
+
+<h3>Interpretación:</h3>
+<p>Equivale para <b><code>unsigned</code></b> a multiplicar por 2<sup>n</sup>.</p>
+<pre><code class="language-c">
+a << 1 // 1 * 2^1 => 2
+a << 2 // 1 * 2^2 => 4
+</code></pre>
+
+
+<h1>Desplazamiento a la derecha - Shift right (&gt;&gt;)</h1>
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">
+resultado = a >> n;
+</code></pre>
+
+<h3>¿Qué hace?:</h3>
+<p>Desplaza los bits <b><code>n</code></b> posiciones a la derecha, rellenando con ceros a la izquierda.</p>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+unsigned char a = 8; // 0000 1000
+unsigned char b = a >> 2; // 0000 0010 => 2
+</code></pre>
+
+<h3>Interpretación:</h3>
+<p>Equivale para <b><code>unsigned</code></b> a diividir por 2<sup>n</sup>.</p>
+<pre><code class="language-c">
+a << 1 // 1 / 2^1 => 1/2
+a << 2 // 1 / 2^2 => 1/4
+</code></pre>
+
+
+<h3>Tipo <b><code>signed</code></b>:</h3>
+<p>Dependiente de la implementación.</p>
+<ul>
+    <li>Puede rellenar con ceros.</li>
+    <li>O repetir el bit de signo (Shift aritmetico). Por eso para bit a bit(bitwise) serio, se usa <b><code>unsigned</code></b>.</li>
+</ul>
+
+
+<h1>Bitwise - bit a bit vs Logicos:</h1>
+
+<div class="tablecontainer">
+    <tr>
+        <th>Operador</th>
+        <td>&amp;</td>
+        <td>&amp;&amp;</td>
+        <td>|</td>
+        <td>||</td>
+        <td>&circ;</td>
+        <td>&excl;</td>
+        <td>&tilde;</td>
+    </tr>
+    <tr>
+        <th>Tipo</th>
+        <td>bitwise</td>
+        <td>lógico</td>
+        <td>bitwise</td>
+        <td>lógico</td>
+        <td>bitwise</td>
+        <td>lógico</td>
+        <td>bitwise</td>
+    </tr>
+    <tr>
+        <th>Resultado</th>
+        <td>Opera bit a bit</td>
+        <td>0 o 11</td>
+        <td>Opera bit a bit</td>
+        <td>0 o 1</td>
+        <td>bit a bit</td>
+        <td>Negación lógica</td>
+        <td>Complemento a 1</td>
+    </tr>
+</div>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = bitwise
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o bitwise
+#include <stdio.h>
+
+/* Funcion auxiliar para mostrar unsigned char en binario */
+void binprint(unsigned char x)
+{
+    for (int i = 7; i >= 0; i--)
+    {
+        printf("%d", (x >> i) & 1);
+        if (i == 4)
+            printf(" ");
+    }
+}
+
+int main(void)
+{
+    unsigned char a = 12; // 0000 1100
+    unsigned char b = 10; // 0000 1010
+    unsigned char r;
+
+    printf("Valores iniciales:\n");
+    printf("a = %3u = ", a); binprint(a); printf("\n");
+    printf("b = %3u = ", b); binprint(b); printf("\n\n");
+
+    /* ---- AND bitwise ---- */
+    r = a & b;
+    printf("AND bitwise (a & b):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    /* ---- OR bitwise ---- */
+    r = a | b;
+    printf("OR bitwise (a | b):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    /* ---- XOR bitwise ---- */
+    r = a ^ b;
+    printf("XOR bitwise (a ^ b):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    /* ---- NOT bitwise ---- */
+    r = ~a;
+    printf("NOT bitwise (~a):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    /* ---- SHIFT LEFT ---- */
+    r = a << 2;
+    printf("Shift left (a << 2):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    /* ---- SHIFT RIGHT ---- */
+    r = a >> 2;
+    printf("Shift right (a >> 2):\n");
+    printf("%3u = ", r); binprint(r); printf("\n\n");
+
+    return 0;
+}
+</code></pre>
+
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/bitfields.html" class="btn">Anterior</a>
+  <a href="../teoria/archivos.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
