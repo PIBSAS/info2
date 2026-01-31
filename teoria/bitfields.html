@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 4</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-01-30T21:15:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+
+<h1>Campos de bits - Bit fields</h1>
+
+    <h2>¿Qué es un campo de bits-bit fields?</h2>
+        <p>Los campos de bit son una forma especial de declarar miembros de una estructura
+        donde, en vez de ocupar toda la dimension del tipo (int, unsigned, etc),
+        se indica cuantos bits exactos ocupa el campo.</p>
+    
+    <h2>Para que sirven?</h2>
+        <p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
+        <h3>Ejemplo:</h3>
+            <p><b></b>Necesitamos guardar:</b></p>
+            <ul>
+                <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
+                <li>Un numero de 0 a 7 => 3 bits.</li>
+                <li>Un codigo de 0 a 15 => 4 bits.</li>
+            </ul>
+            <p><strong>No tiene sentido gastar 3 int completos para eso</strong></p>
+    
+    <h3>Sintaxis</h3>
+        <p>La sintaxis SOLO EXISTE dentro de un struct:</p>
+<pre><code class="language-c">tipo nombre_campo : cantidad_de_bits;</code></pre>
+        <p><b>Ejemplo:</b></p>
+<pre><code class="language-c">
+struct Ejemplo {
+  unsigned campo1 : 1; // Campo : Cantidad de bits que ocupa
+  unsigned campo2 : 3;
+  unsigned campo3 : 4;
+};
+</code></pre>
+<p><b><em>IMPORTANTE:</em></b></p>
+<p><b><code>cantidad_de_bits</code> debe ser una constante entera positiva.</b></p>
+<p><b>Solo se permiten tipos enteros:</b></p>
+<ul>
+    <li>int</li>
+    <li>unsigned int</li>
+    <li>signed int</li>
+    <li>_Bool (desde C99)</li>
+</ul>
+<p><strong>NO SE PUEDE USAR float, double, punteros, structs, etc.</strong></p>
+
+<h3>Ejemplo simple:</h3>
+<pre><code class="language-c">
+struct flags {
+  unsigned listo : 1;
+  unsigned error : 1;
+  unsigned prioridad : 2;
+};
+</code></pre>
+
+<p><b>USo:</b></p>
+<pre><code class="language-c">
+struct flags f = {1, 0, 3};
+
+printf("listo = %u\n", f.listo);
+printf("error = %u\n", f.error);
+printf("prioridad = %u\n", f.prioridad);
+</code></pre>
+
+<h3>¿Qué sucede aqui?</h3>
+<ul>
+    <li><b>listo</b> ocupa 1 bit => Valores posibles: 0 o 1</li>
+    <li><b>error</b> ocupa 1 bit => Valores posibles: 0 o 1</li>
+    <li><b>prioridad</b> ocupa 2 bit => Valores posibles: 0 a 3</li>
+</ul>
+<p>Si intentamos hacer:</p>
+<pre><code class="language-c">f.prioridad = 5; // (UB)</code></pre>
+<p>Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
+
+<h3>¿Cuánta memoria ocupan?</h3>
+<p><b>Acá aparece la primera gran advertencia:</b></p>
+<ul>
+    <li>El estandar NO garantiza el layout exacto en memoria.</li>
+</ul>
+<p><b>Pero en la práctica:</b></p>
+<ul>
+    <li>El compilador agrupa campos de bit en unidades de la dimension del tipo base.</li>
+    <li>Generalmente usa palabras-Word de 1, 2 o 4 bytes</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+struct A {
+  unsigned a : 1;
+  unsigned b : 1;
+  unsigned c : 1;
+};
+</code></pre>
+<p><strong>Aunque solo usa 3 bits:</strong></p>
+<ul>
+    <li>Probablemente <b><code>sizeof(struct A)</code></b> sea 4 bytes (si unsigned es de 4 bytes)</li>
+</ul>
+<p><b>Conclusion importante:</b>
+    Los campos de bit reducen espacio lógico, pero no siempre reducen <b><code>sizeof</code></b> como uno imagina.
+</p>
+
+<h3>Campos de relleno (padding explicito)</h3>
+<p>Podemos usar campos sin nombre para forzar alineación:</p>
+<pre><code class="language-c">
+struct B {
+  unsigned a : 3;
+  unsigned : 5; // Padding-Relleno
+  unsigned b : 8;
+};
+</code></pre>
+<p><b>Esto:</b></p>
+<ul>
+    <li>Descarta bits.</li>
+    <li>Sirve para alinear a limites especificos.</li>
+    <li>Es común en registros de hardware.</li>
+</ul>
+
+<h3>Campos de bit con signo:</h3>
+<pre><code class="language-c">
+struct C {
+  signed valor : 3;
+};
+</code></pre>
+<p><b>Con 3 bits:</b></p>
+<ul>
+    <li>Valores posibles (normalmente): -4 a +3</li>
+</ul>
+<p>El signo y representacion depende del compilador(Complemento a 2 - Two's complement es lo común, pero el estandar no lo obliga).</p>
+<p><b>Regla practica:</b></p>
+<ul>
+    <li>Usamos <b><code>unsigned</code></b> siempre que podemos.</li>
+    <li>Evitamos campos de bit con signo salvo que sea estrictamente necesario</li>
+</ul>
+
+<h3>Acceso y uso:</h3>
+<p>Se acceden igual que cualquier miembro de estructura:</p>
+<pre><code class="language-c">
+f.error = 3;
+
+if (f.listo) {
+  printf("Todo Ok\n");
+}
+</code></pre>
+<p><strong>NO SE PUEDE:</strong></p>
+<ul>
+    <li>Tomar la dirección de un campo de bit.</li>
+</ul>
+<pre><code class="language-c">unsigned *p = &f.error; // ERROR</code></pre>
+<p>Porque no ocupa una direccion de memoria independiente.</p>
+        
+    
+<h3>Pasaje a funciones</h3>    
+<p>Los campos de bit no se pasan individualmente, pero si la estructura:</p>
+<pre><code class="language-c">
+void procesar(struct Flags f)
+{
+  if (f.error)
+  {
+      ...
+  }
+}
+</code></pre>
+
+<h3>O por puntero:</h3>
+<pre><code class="language-c">
+void limpiar(struct Flags *f)
+{
+  f -> error = 0;
+}
+</code></pre>
+
+<h1>Diferencia con operaciones a nivel bit:</h1>
+<p>Muchos confunden campos de bits con operadores bit a bit (<b><code>& | ^ << >> </code></b>).</p>
+
+<h3>Campos de bit - bit-fields:</h3>
+<ul>
+    <li>Mas legibles.</li>
+    <li>Expresan intencion.</li>
+    <li>layout NO portable.</li>
+    <li>NO direccionables.</li>
+</ul>   
+
+<h3>Operadores bit a bit:</h3>
+<ul>
+    <li>Totalmente controlables.</li>
+    <li>Portables.</li>
+    <li>Usados en protocolos y mascaras.</li>
+    <li>Menos legibles.</li>
+</ul>
+
+<h3>Ejemplo equivalente con mascaras</h3>
+<pre><code class="language-c">
+# define LISTO (1 << 0)
+# define ERROR (1 << 1)
+# define PRIORIDAD (3 << 2)
+</code></pre>
+
+<h3>Cuando usarlos (y cuando no):</h3>
+<ul>
+    <li>Estamos modelando flags lógicos.</li>
+    <li>Estamos representando registros de hardware.</li>
+    <li>La portabilidad exacta no es critica.</li>
+    <li>El código es didáctico o interno.</li>
+</ul>
+
+<h3>No usarlos cuando:</h3>
+<ul>
+    <li>Necesitamos layout binario exacto.</li>
+    <li>Escribimos archivos binarios.</li>
+    <li>Hacemos comunicacion de red.</li>
+    <li>Necesitamos direcciones de los campos.</li>
+</ul> 
+<p>
+    <strong>Nota:</strong>
+         El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
+         es dependiente de la implementacion y no esta garantizado por el estandar.
+         Es por esto que en el codigo solemos declarar por convencion los bit-fields de LSB -> MSB.
+</p>
+<h3>Resumen:</h3>
+<ul>
+    <li>Solo dentro de struct.</li>
+    <li>Ocupan bits, no bytes.</li>
+    <li><b>Sintaxis: <code>tipo campo : bits;</code></b></li>
+    <li>No direccionables, ni portables.</li>
+    <li>Layout dependiente del compilador.</li>
+    <li>Muy útiles para flags y hardware.</li>
+</ul>
+<p>
+    Los campos de bit definen el tamaño lógico de los datos en bits, 
+    pero el almacenamiento físico y el tamaño medido por sizeof dependen 
+    del empaquetado y alineación del compilador, 
+    ya que la memoria es direccionable por bytes.
+</p>
+
+<h3>Extra: Que es alineacion?:</h3>
+<p>Cada tipo de dato suele requerir que su direccion de memoria sea múltiplo de cierto valor.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-c">
+char => alineacion 1 byte.
+short => alineacion 2 bytes.
+int / unsigned => alineacion 4 bytes.
+</code></pre>
+<p>El compilador inserta padding-relleno para cumplir eso.</p>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = bitfields
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o bitfields
+#include <stdio.h>
+
+/* ---- bit-fields ----*/
+struct Flags {
+    unsigned listo : 1;
+    unsigned error : 1;
+    unsigned prioridad : 2;
+};
+
+/* ---- CAMPOS DE RELLENO ---- */
+struct ConPadding {
+    unsigned a : 3;
+    unsigned : 5; // Padding de 5 bits
+    unsigned b : 8;
+};
+
+/* ---- CAMPOS DE BIT CON SIGNO ---- */
+struct SignedBits {
+    signed valor : 3;
+};
+
+/* ---- PASAJE A FUNCIONES POR PUNTERO ---- */
+void limpiar_error(struct Flags *f)
+{
+    f->error = 0;
+}
+
+int main(void)
+{
+    struct Flags f = {1, 0, 3}; // listo: bit en 1, error: bit en 0, prioridad: bit en 3
+
+    printf("listo = %u\n", f.listo);
+    printf("error = %u\n", f.error);
+    printf("prioridad = %u\n", f.prioridad);
+
+    /* ---- MEMORIA OCUPADA ---- */
+    printf("sizeof(struct Flags) = %zu bytes\n", sizeof(struct Flags));
+
+    /* ---- TRUNCAMIENTO DE BITS ---- */
+    f.prioridad = 5; // Se espera que el compilador indique el fuera de rango -Woverflow
+    printf("prioridad luego de asignar 5 = %u\n", f.prioridad); // Mostrara 1, porque prioridad tiene 2 bits, le estamos asignando 5 => 101 pero solo entran 2 bits 01, se conservan los LSB 01 = 1
+
+    /* ---- CAMPOS DE RELLENO ---- */
+    printf("sizeof(struct ConPadding) = %zu bytes\n", sizeof(struct ConPadding));
+
+    /* ---- CAMPOS DE BIT CON SIGNO ---- */
+    struct SignedBits s = { -1 };
+    printf("valor = %d\n", s.valor); 
+
+    /* ---- PASAJE A FUNCIONES POR PUNTERO ---- */
+    f.error = 1;
+    limpiar_error(&f); // Modificacion del campo de bit - bit-field
+    printf("error luego de limpiar = %u\n", f.error);
+
+    return 0;
+} 
+</code></pre>
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/union.html" class="btn">Anterior</a>
+  <a href="../teoria/bitwise.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
