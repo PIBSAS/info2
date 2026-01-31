@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 3</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-01-30T20:01:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+  
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+<h1>Uniones - Union</h1>
+
+<h2>¿Qué es una union?</h2>
+
+<p>Una union es un tipo de dato compuesto, parecido a un struct, pero con una diferencia clave:</p>
+<ul>
+    <li>Todos sus miembros comparten la misma zona de memoria.</li>
+</ul>
+<h3>En un struct:</h3>
+<p>Cada campo tiene su propio espacio.</p>
+
+<h3>En una union:</h3>
+<p>Hay un solo bloque de memoria, reutilizado por todos los campos.
+Es decir:
+</p>
+<ul>
+    <li>Una union puede guardar una cosa u otra, pero no varias a la vez.</li>
+</ul>
+
+<h3>¿Para qué se usan?</h3>
+<p>Principalmente para:</p>
+<ul>
+    <li>Ahorrar memoria (muy comun en sistemas embebidos o protocolos)</li>
+    <li>Interpretar los mismos bits de distintas formas (ej: un int como bytes)</li>
+    <li>Representar datos mutuamente excluyentes (ej: un valor que puede ser int o float)</li>
+</ul>
+
+<h2>Declaración</h2>
+<h3>Sintaxis básica:</h3>
+
+<pre class="line-numbers"><code class="language-c">
+union Nombre {
+    tipo campo_1;
+    tipo campo_2;
+    . . .
+    };
+</code></pre>
+
+<h3>Ejemplo:</h3>
+<pre class="line-numbers"><code class="language-c">
+union Dato{
+    int i;
+    float f;
+    char c;
+    };
+</code></pre>
+<p><strong>Esto no significa que tenga espacio para los tres, sino solo para el mas grande <b>(<code>sizeof(tipo)</code>)</b></strong></p>
+
+<h3>Declarar variables de una union:</h3>
+<pre><code class="language-c">
+union Dato d;
+</code></pre>
+<p>O todo junto:</p>
+<pre><code class="language-c">
+union Dato {
+    int i;
+    float f;
+}d;
+</code></pre>
+
+<h3>Acceso a los campos:</h3>
+<p>Se accede igual que en un <b><code>struct</code></b> con el operador <b>"."</b></p>
+<pre><code class="language-c">
+d.i = 10;
+d.f = 3.14f;
+</code></pre>
+<p><strong>ADVERTENCIA:</strong>
+Si escribimos un campo y luego leemos otro, el resultado es indefinido (UB).
+</p>
+
+<h2>Dimensión y ubicación en memoria:</h2>
+<p><b><code>sizeof</code></b> de una union.
+</p>
+<h3>La dimension de una union es:</h3>
+<p>La dimension del miembro más grande.</p>
+<pre><code class="language-c">
+union Ejemplo {
+  char c;
+  int i;
+  double d;
+};
+
+int main(void)
+{
+  printf("sizeof(union Ejmplo) = %zu\n", sizeof(union Ejemplo));
+  
+  return 0;
+}
+</code></pre>
+<p>Va a valer <b><code>sizeof(double)</code></b> (o más si hay alineación).</p>
+
+<h3>Dirección de los campos:</h3>
+<p>Todos los campos empiezan en la misma dirección:</p>
+
+<pre><code class="language-c">
+union U {
+  int i;
+  float f;
+};
+union U u;
+printf("&u\t = %p\n", (void *)&u); // Direcion de u
+printf("&u.i\t = %p\n", (void *)&u.i); // Direccion del campo i
+printf("&u.f\t = %p\n", (void *)&u.f); // Direccion del campo f
+</code></pre>
+<p><strong>Ls direcciones serán iguales!</strong></p>
+
+<h3>Pasaje de miembros de una union a funciones</h3>
+<p>Podemos pasar un campo como cualquier variable:</p>
+
+<pre><code class="language-c">
+void imprimir_int(int x)
+{
+  printf("x = %d\n", x);
+}
+</code></pre>
+
+<p></p><b>Uso:</b></p>
+<pre><code class="language-c">
+union Dato d;
+d.i = 20;
+imprimir_int(d.i);
+</code></pre>
+
+<h3>Pasaje de una union completa a una función</h3>
+<p><b>Por valor (Copia):</b></p>
+<pre><code class="language-c">
+void mostrar(union Dato d)
+{
+  printf("d.i = %d\n", d.i);
+}
+</code></pre>
+
+<p></p><b>Uso:</b></p>
+<pre><code class="language-c">
+union Dato d;
+d.i = 10;
+mostrar(d);
+</code></pre>
+
+<h3>Por referencia (recomendado)-Modifica la original</h3>
+<pre><code class="language-c">
+void modificar(union Dato *d)
+{
+  d->i = 50;
+}
+</code></pre>
+
+<p></p><b>Uso:</b></p>
+<pre><code class="language-c">
+modificar(&d);
+</code></pre>
+
+<h3>Retorno de una union desde una función</h3>
+<pre><code class="language-c">
+union dato crear_dato(void)
+{
+  union Dato d;
+  d.i = 100;
+  return d;
+}
+</code></pre>
+
+<p></p><b>Uso:</b></p>
+<pre><code class="language-c">
+union Dato d = crear_dato();
+</code></pre>
+
+<h2>Uniones dentro de estructuras (IMPORTANTE):</h2>
+<p>Este es el uso más común en la práctica.</p>
+<pre><code class="language-c">
+struct Registro {
+  int tipo;
+  union {
+      int i;
+      float f;
+      char c;
+  } dato;
+};
+</code></pre>
+
+<p></p><b>Uso:</b></p>
+<pre><code class="language-c">
+struct Registro r;
+
+r.tipo = 1; // Asignacion del campo tipo
+r.dato.i = 42 // Asignacion del campo i de la union dato
+</code></pre>
+<p><strong>Acá el campo tipo indica como interpretar la union, patrón clásico: tagged union</strong></p>
+
+<h2>Uniones de struct</h2>
+<p>Es una union cuyos miembros son struct. La variable puede contener una estructura u otra, pero nunca ambas al mismo tiempo, y todas comparten la misma memoria.
+Es el mismo concepto de union, pero el "bloque alternativo" ahora es una estructura completa.
+</p>
+<h3>Para que se usa:</h3>
+<ul>
+    <li>Representar formatos de datos distintos.</li>
+    <li>Protocolos.</li>
+    <li>Registros que cambian de forma según el contexto.</li>
+    <li>Ahorrar memoria cuando las estructuras son grandes.</li>
+</ul>
+
+<h3>Declaración de una union de struct</h3>
+<p><strong>Declarar las struct:</strong></p>
+<pre><code class="language-c">
+struct Alumno {
+  int legajo;
+  float promedio;
+};
+
+struct Docente {
+  int id;
+  int horas;
+};
+</code></pre>
+
+<p><strong>Declarar la union:</strong></p>
+<pre><code class="language-c">
+union Persona {
+  struct Alumno alumno;
+  struct Docente docente;
+};
+</code></pre>
+<p><b>La memoria de union Persona será:</b></p>
+<pre><code class="language-c">max(sizeof(struct Alumno), sizeof(struct Docente));</code></pre>
+<p><b>Uso:</b></p>
+<pre><code class="language-c">
+struct Registro {
+  int tipo;  // 0 = Alumno, 1 = Docente
+  union Persona persona;
+};
+</code></pre>
+
+<h2>Diferencia clave entre <b><code>struct</code></b> vs <b><code>union</code></b></h2>
+
+<div class="tablecontainer">
+<table>
+    <tr>
+        <th>Carácteristica</th>
+        <td>Memoria</td>
+        <td>Uso típico</td>
+        <td>Dimensión</td>
+    </tr>
+    <tr>
+        <th>struct</th>
+        <td>Cada campo tiene su espacio</td>
+        <td>Datos simultaneos</td>
+        <td>Suma de campos</td>
+    </tr>
+    <tr>
+        <th>union</th>
+        <td>Todos comparten</td>
+        <td>Datos alternativos</td>
+        <td>Maximo de campos</td>
+    </tr>
+</table>
+</div>
+
+<h2>Errores comunes:</h2>
+<ul>
+    <li>Leer un campo distinto al ultimo escrito.</li>
+    <li>Creer que una union guarda varios valores.</li>
+    <li>Olvidar indicar que campo es valido (con un tipo)</li>
+    <li>Una union de estructuras no contiene varias estructuras, contiene memoria suficiente para la mas grande.</li>
+</ul>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = union
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o union
+#include <stdio.h>
+
+/* ---- UNION ----*/
+union Dato {
+    int i;
+    float f;
+    char c;
+};
+
+/* ---- FUNCIONES ---- */
+
+/* Pasaje por valor */
+void mostrar_union(union Dato d)
+{
+    printf("[mostrar_union] d.i = %d\n", d.i);
+}
+
+/* Pasaje por referencia */
+void modificar_union(union Dato *d) // d es un puntero a union Dato
+{
+    d->i = 100;
+}
+
+/* Retorno de una union */
+union Dato crear_union(void)
+{
+    union Dato d;
+    d.i = 200;
+
+    return d;
+}
+
+/* ---- UNION EN STRUCT ---- */
+struct Registro {
+    int tipo; // 0 = int, 1 = float, 2 = char
+    union {
+        int i;
+        float f;
+        char c;
+    } dato;
+};
+
+/* ---- UNION DE STRUCT ---- */
+struct Alumno {
+    int legajo;
+    float promedio;
+};
+
+struct Docente {
+    int id;
+    int horas;
+};
+
+union Persona {
+    struct Alumno alumno;
+    struct Docente docente;
+};
+
+struct  RegistroPersona {
+    int tipo; // 0 = Alumno, 1 = Docente
+    union Persona dato;
+};
+
+int main(void)
+{
+    union Dato d; // Declaracion de Variable d del tipo union Dato
+
+    /* ---- ESCRITURA Y LECTURA DEL MISMO CAMPO ---- */
+    d.i = 65; // Asignacion del campo i de la union Dato d
+
+    printf("d.i = %d\n", d.i); // Mostrar el valor del campo i de la union Dato d
+    printf("d.c = %c (misma memoria)\n", d.c); // Distinta interpretacion, para la misma memoria, aca es ASCII 65 = 'A' 
+
+    /* ---- ESCRITURA DE OTRO CAMPO (CAMBIA LA INTERPRETACION) ---- */
+    d.f = 3.14f;
+    printf("d.f = %f\n", d.f);
+
+    /* ---- DIMENSION ---- */
+    printf("sizeof(union Dato) = %zu bytes\n", sizeof(union Dato)); // Va a valer 4 bytes ya que sizeof(int) y sizeof(float) miden lo mismo 
+
+    /* ---- DIRECCIONES ---- */
+    printf("&d\t = %p\n", (void *)&d);
+    printf("&d.i\t = %p\n", (void *)&d.i);
+    printf("&d.f\t = %p\n", (void *)&d.f);
+    printf("&d.c\t = %p\n", (void *)&d.c);
+
+    /* ---- PASAJE POR VALOR ---- */
+    d.i = 10;
+    mostrar_union(d);
+
+    /* ---- PASAJE POR REFERENCIA ----*/
+    modificar_union(&d);
+    printf("Luego de modificar_union: d.i = %d\n", d.i);
+
+    /* ---- RETORNO DE UNION ---- */
+    d = crear_union();
+    printf("Luego de crear_union: d.i = %d\n", d.i);
+
+    /* ---- UNION EN STRUCT ---- */
+    struct Registro r;
+    
+    r.tipo = 0; // int
+    r.dato.i = 42;
+
+    if (r.tipo == 0) {
+        printf("Registro contiene int: %d\n", r.dato.i);
+    }
+
+    /* ---- UNION DE STRUCT ---- */
+    struct RegistroPersona rp;
+
+    /* CASO ALUMNO */
+    rp.tipo = 0;
+    rp.dato.alumno.legajo = 1234; // struct.union.struct.campo
+    rp.dato.alumno.promedio = 8.5f;
+
+    if (rp.tipo == 0)
+    {
+        printf("Alumno - legajo: %d, promedio: %.2f\n", rp.dato.alumno.legajo, rp.dato.alumno.promedio);
+    }
+
+    /* CASO DOCENTE (reutiliza la misma memoria) */
+    rp.tipo = 1;
+    rp.dato.docente.id = 77;
+    rp.dato.docente.horas = 20;
+
+    if (rp.tipo == 1)
+    {
+        printf("Docente - id: %d, horas: %d\n",rp.dato.docente.id, rp.dato.docente.horas);
+    }
+
+    return 0;
+}  
+</code></pre>
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../recursion.html" class="btn">Anterior</a>
+  <a href="../campos.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
+
+
