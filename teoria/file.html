@@ -147,21 +147,26 @@ if (fclose(fp) == EOF)
 <h1>Modos de apertura:</h1>
 
 <div class="tablecontainer">
-    <th>Modo</th>
-    <td>"r"</td>
-    <td>"w"</td>
-    <td>"a"</td>
-    <td>"r+"</td>
-    <td>"w+"</td>
-    <td>"a+"</td>
-
-    <th>Significado</th>
-    <td>Leer (debe existir)</td>
-    <td>Escribir (borra o crea)</td>
-    <td>Agregar al final</td>
-    <td>Leer y escribir</td>
-    <td>Leer y escribir (borra lo existente)</td>
-    <td>Leer y escribir al final</td>
+    <table>
+        <tr>
+            <th>Modo</th>
+            <td>"r"</td>
+            <td>"w"</td>
+            <td>"a"</td>
+            <td>"r+"</td>
+            <td>"w+"</td>
+            <td>"a+"</td>
+        </tr>
+        <tr>
+            <th>Significado</th>
+            <td>Leer (debe existir)</td>
+            <td>Escribir (borra o crea)</td>
+            <td>Agregar al final</td>
+            <td>Leer y escribir</td>
+            <td>Leer y escribir (borra lo existente)</td>
+            <td>Leer y escribir al final</td>
+        </tr>
+    </table>
 </div>
 
 <ul>
@@ -364,17 +369,23 @@ Segunda linea
 <h1>Diferencia clave con puts:</h1>
 
 <div class="tablecontainer">
-    <th>función</th>
-    <td>puts</td>
-    <td>fputs</td>
-
-    <th>Destino</th>
-    <td>stdout</td>
-    <td>archivo</td>
-
-    <th>Agrega n</th>
-    <td>si</td>
-    <td>no</td>
+    <table>
+        <tr>
+            <th>función</th>
+            <td>puts</td>
+            <td>fputs</td>
+        </tr>
+        <tr>
+            <th>Destino</th>
+            <td>stdout</td>
+            <td>archivo</td>
+        </tr>
+        <tr>
+            <th>Agrega n</th>
+            <td>si</td>
+            <td>no</td>
+        </tr>
+    </table>
 </div>
 
 <h1>Lectura de un string:</h1>
@@ -457,20 +468,26 @@ if (fgets(linea, sizeof(linea), fp) == NULL)
 
 <h1>Comparación:</h1>
 <div class="tablecontainer">
-    <th>Función</th>
-    <td>fgetc</td>
-    <td>fgets</td>
-    <td>fscanf</td>
-
-    <th>Nivel</th>
-    <td>stdout</td>
-    <td>archivo</td>
-    <td>alto</td>
-
-    <th>Uso</th>
-    <td>si</td>
-    <td>no</td>
-    <td>formato</td>
+    <table>
+        <tr>
+            <th>Función</th>
+            <td>fgetc</td>
+            <td>fgets</td>
+            <td>fscanf</td>
+        </tr>
+        <tr>
+            <th>Nivel</th>
+            <td>stdout</td>
+            <td>archivo</td>
+            <td>alto</td>
+        </tr>
+        <tr>
+            <th>Uso</th>
+            <td>si</td>
+            <td>no</td>
+            <td>formato</td>
+        </tr>
+    </table>
 </div>
    
 <h1>Escritura con formato:</h1>
@@ -595,17 +612,23 @@ while (fscanf(fp, "%d %f", &a, &b) == 2)
 
 <h1>fscanf vs fgets + sscanf:</h1>
 <div class="tablecontainer">
-    <th>Función</th>
-    <td>fscanf</td>
-    <td>fgets</td>
-
-    <th>Ventaja</th>
-    <td>directo</td>
-    <td>segura</td>
-
-    <th>Problema</th>
-    <td>frágil</td>
-    <td>hay que parsear</td>
+    <table>
+        <tr>
+            <th>Función</th>
+            <td>fscanf</td>
+            <td>fgets</td>
+        </tr>
+        <tr>
+            <th>Ventaja</th>
+            <td>directo</td>
+            <td>segura</td>
+        </tr>
+        <tr>
+            <th>Problema</th>
+            <td>frágil</td>
+            <td>hay que parsear</td>
+        </tr>
+    </table>
 </div>
 
 <p><b>Por eso en codigo serio se suele hacer:</b></p>
@@ -766,13 +789,15 @@ int main(void)
     return 0;
 }
 </code></pre>
+
+<h1>CONTINúA Parte 2</h1>
 </div>
 </main>
 
 <footer class="footer-nav">
   <div class="container">
   <a href="../teoria/union.html" class="btn">Anterior</a>
-  <a href="../teoria/heap.html" class="btn">Siguiente</a>
+  <a href="../teoria/abm.html" class="btn">Siguiente</a>
   </div>
 </footer>
 
