@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 8</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-02-01T12:25:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+<h1>Estructura de datos - Data structure</h1>
+
+\[
+\text{Estructura de datos} \left\{
+\begin{array}{l}
+  \text{Lectura destructiva} \quad \ \left\{
+  \begin{array}{l}
+    \text{Cola} \\
+    \text{Pila}
+  \end{array}
+  \right. \\[6pt]
+
+  \text{Lectura no destructiva} \left\{
+  \begin{array}{l}
+    \text{Lista} \\
+    \text{Árbol}
+  \end{array}
+  \right.
+\end{array}
+\right.
+\]
+
+<h1>¿Qué es una estructura de datos (data structure)?</h1>
+<h2>Es una forma particular de:</h2>
+<ul>
+    <li>Organizar datos en memoria.</li>
+    <li>Acceder a ellos</li>
+    <li>Insertar y eliminar informacion.</li>
+</ul>
+<p>Con reglas bien definidas. NO es solo "guardar datos", sino como se comportan.</p>
+
+<h1>Stack - Pila</h1>
+<h2>¿Qué es?:</h2>
+<p>Es una estructura de datos que sigue el principio:</p>
+<ul>
+    <li><b><code>LIFO:</code></b> Last In, First Out.</li>
+    <li>Ultimo en entrar, primero en salir.</li>
+</ul>
+<h3>Analogía:</h3>
+    <ul>
+        <li>Una pila de platos.</li>
+        <li>El ultimo plato que ponemos arriba es el primero que sacamos.</li>
+    </ul>
+
+<h2>Operaciones basicas del stack:</h2>
+    <ul>
+        <li><b><code>push:</code></b> insertar un elemento.</li>
+        <li><b><code>pop:</code></b> quitar un elemento.</li>
+        <li><b><code>peek/top:</code></b> ver el elemento del tope.</li>
+        <li><b><code>isEmpty:</code></b> verificar si esta vacio.</li>
+    </ul>
+    
+<h2">Usos tipicos del stack:</h2>
+    <ul>
+        <li>Llamadas a funciones (call stack)</li>
+        <li>Recursividad.</li>
+        <li>Deshacer.</li>
+        <li>Evaluacion de expresiones.</li>
+        <li>backtracking.</li>
+    </ul>
+
+<h1>Queue - Cola</h1>
+<h2>¿Qué es?:</h2>
+<p>Una cola es una estructura de datos que sigue el principio:</p>
+    <ul>
+        <li><b><code>FIFO:</code></b> First In, First Out.</li>
+        <li>Primero en entrar, primero en salir.</li>
+    </ul>
+    <h3>Analogía:</h3>
+        <ul>
+            <li>Fila del banco.</li>
+        </ul>
+        <p><strong>El primero que llega, es el primero que se atiende.</strong></p>
+
+<h2>Operaciones basicas del queue:</h2>
+    <ul>
+        <li><b><code>enqueue:</code></b> insertar al final.</li>
+        <li><b><code>dequeue:</code></b> eliminar del frente.</li>
+        <li><b><code>front:</code></b> ver el primer elemento.</li>
+        <li><b><code>isEmpty:</code></b> verificar si esta vacia.</li>
+    </ul>
+
+<h2>Usos tipicos del queue:</h2>
+    <ul>
+        <li>Planificacion de procesos.</li>
+        <li>Impresoras.</li>
+        <li>Buffers.</li>
+        <li>Atencion por orden de llegada.</li>
+        <li>Sistemas operativos.</li>
+    </ul>
+
+<h1>Stack vs Queue (Pila vs Cola)</h1>
+
+<div class="tablecontainer">
+    <th>Caracteristica</th>
+    <td>Orden</td>
+    <td>Insercion</td>
+    <td>Eliminacion</td>
+    <td>Analogia</td>
+
+    <th>Pila (Stack)</th>
+    <td>LIFO</td>
+    <td>Tope</td>
+    <td>Tope</td>
+    <td>Platos</td>
+
+    <th>Cola (Queue)</th>
+    <td><b>FIFO</b></td>
+    <td>Final</td>
+    <td>Frente</td>
+    <td>Fila</td>
+</div>
+
+<h1>Cola circular - Circular Queue</h1>
+<h2>¿Qué es?:</h2>
+    <p>
+        Es una mejora de la cola lineal que permite reutilizar
+        el espacio liberado cuando se desencolan elementos.
+    </p>
+
+<h2>Problema de la cola lineal:</h2>
+    <ul>
+        <li>El indice de escritura (final) solo avanza.</li>
+        <li>Aunque se liberen posiciones al frente, el espacio no puede reutilizarse.</li>
+        <li>Puede darse la condicion de:</li>
+        <ul>
+            <li>Cola vacia y cola llena logicamente al mismo tiempo.</li>
+        </ul>
+    </ul>
+        
+
+<h2>Solución:</h2>
+    <ul>
+        <li>Los indices de lectura (frente) y escritura (final) avanzan de forma circular.</li>
+        <li>Cuando alcanzan el final del arreglo, vuelven al inicio (salto circular).</li>
+    </ul>
+
+<h2>Caracteristicas:</h2>
+    <ul>
+        <li><b><code>FIFO</code></b></li>
+        <li>Uso eficiente de la memoria.</li>
+        <li>Requiere un criterio adicional para distinguir:</li>
+        <ul>
+            <li>Cola vacia.</li>
+            <li>Cola llena.</li>
+        </ul>
+    </ul>
+        
+
+<h2>Formas de distinguir vacia y llena:</h2>
+    <ul>
+        <li>Uso de un flag (bandera)</li>
+        <li>Uso de un contador de elementos.</li>
+        <li>Dejar una posicion vacia (muy comun).</li>
+    </ul>
+
+<h3>En esta implementación:</h3>
+    <ul>
+        <li>Se utiliza un contador de elementos.</li>
+        <li>La cola esta vacia cuando <b><code>cantidad == 0;</code></b></li>
+        <li>La cola esta llena cuando <b><code>cantidad == MAX;</code></b>.</li>
+    </ul>
+
+<h1>Teoría aplicada</h1>
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = data
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o data
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 5
+
+/* ..............................*/
+/* ---- PILA (STACK) - LIFO ---- */
+/* ..............................*/
+
+typedef struct {
+    int datos[MAX];
+    int tope;
+} Pila;
+
+/* --- Inicializar Pila (Stack) --- */
+void inicializarPila(Pila *p)
+{
+    p->tope = -1;
+}
+
+/* --- Verificar si la Pila (stack) esta vacia --- */
+int pilaVacia(Pila *p)
+{
+    return p->tope == -1;
+}
+
+/* --- Verificar si la Pila (stack) esta llena --- */
+int pilaLlena(Pila *p)
+{
+    return p->tope == MAX - 1;
+}
+
+/* --- PUSH - APILAR --- */
+int push(Pila *p, int valor)
+{
+    if (pilaLlena(p))
+    {
+        return 0;
+    }
+
+    p->datos[++p->tope] = valor;
+
+    return 1;
+}
+
+/* --- POP - DESAPILAR --- */
+/*
+    Devuelve:
+        - 1: Si pudo extraer el elemnto.
+        - 0: Si la pila esta vacia.
+*/
+int pop(Pila *p, int *valor)
+{
+    if (pilaVacia(p))
+    {
+        return 0;
+    }
+
+    *valor = p->datos[p->tope--];
+    
+    return 1;
+}
+
+/* ..............................*/
+/* ---- COLA (QUEUE) - FIFO ---- */
+/* ---- COLA LINEAL         ---- */ 
+/* ..............................*/
+
+typedef struct {
+    int datos[MAX];
+    int frente;
+    int final;
+} Cola;
+
+/* --- Inicializar Cola (Queue) --- */
+void inicializarCola(Cola *c)
+{
+    c->frente = 0;
+    c->final = -1;
+}
+
+/* --- Verificar si la Cola (queue) esta vacia --- */
+int colaVacia(Cola *c)
+{
+    return c->frente > c->final;
+}
+
+/* --- Verificar si la Cola (queue) esta llena --- */
+int colaLlena(Cola *c)
+{
+    return c->final == MAX - 1;
+}
+
+/* --- ENQUEUE - ENCOLAR --- */
+int enqueue(Cola *c, int valor)
+{
+    if (colaLlena(c))
+    {
+        return 0;
+    }
+
+    c->datos[++c->final] = valor;
+
+    return 1;
+}
+
+/* --- DEQUEUE - DESENCOLAR --- */
+/*
+    Devuelve:
+        - 1: Si pudo extraer el elemnto.
+        - 0: Si la cola esta vacia.
+*/
+int dequeue(Cola *c, int *valor)
+{
+    if (colaVacia(c))
+    {
+        return 0;
+    }
+
+    *valor = c->datos[c->frente++];
+    
+    return 1;
+}
+
+/* ................................................*/
+/* ---- COLA CIRCULAR (CIRCULAR QUEUE) - FIFO ---- */
+/* ................................................*/
+
+typedef struct {
+    int datos[MAX];
+    int frente;
+    int final;
+    int cantidad;
+} ColaCircular;
+
+/* --- Inicializar Cola Circular (Circular queue) ---*/
+void inicializarColaCircular(ColaCircular *c)
+{
+    c->frente = 0;
+    c->final = 0;
+    c->cantidad = 0;
+}
+
+/* --- Verificar si la Cola Circular (circular queue) esta vacia --- */
+int colaCircularVacia(ColaCircular *c)
+{
+    return c->cantidad == 0;
+}
+
+/* --- Verificar si la Cola Circular (circular queue) esta llena --- */
+int colaCircularLlena(ColaCircular *c)
+{
+    return c->cantidad == MAX;
+}
+
+/* --- CIRCULAR ENQUEUE - ENCOLAR CIRCULAR --- */
+int enqueueCircular(ColaCircular *c, int valor)
+{
+    if (colaCircularLlena(c))
+    {
+        return 0;
+    }
+
+    c->datos[c->final] = valor;
+    c->final = (c->final + 1) % MAX; // % MAX es el "salto circular"
+    c->cantidad++;
+
+    return 1;
+}
+
+/* --- CIRCULAR DEQUEUE - DESENCOLAR CIRCULAR --- */
+int dequeueCircular(ColaCircular *c, int *valor)
+{
+    if (colaCircularVacia(c))
+    {
+        return 0;
+    }
+
+    *valor = c->datos[c->frente];
+    c->frente = (c->frente +1) % MAX; // % MAX es el "salto circular"
+    c->cantidad--;
+
+    return 1;
+}
+
+int main(void)
+{
+    Pila p;
+    Cola c;
+    int x;
+
+    /* ---- PRUEBA DE PILA ---- */
+    printf("PILA (STACK) - LIFO\n");
+    inicializarPila(&p);
+
+    push(&p, 10);
+    push(&p, 20);
+    push(&p, 30);
+
+    while (pop(&p, &x)) // x recibe el dato y el tope baja
+    {
+        printf("Pop: %d\n", x);
+    }
+
+    /* ---- PRUEBA DE COLA LINEAL ---- */
+    printf("\nCOLA (QUEUE) - FIFO\n");
+    inicializarCola(&c);
+
+    enqueue(&c, 10);
+    enqueue(&c, 20);
+    enqueue(&c, 30);
+
+    while(dequeue(&c, &x)) // x recibe el dato y el frente avanza
+    {
+        printf("Dequeue: %d\n", x);
+    }
+
+    /* ---- PRUEBA DE COLA CIRCULAR ---- */
+    printf("\nCOLA CIRCULAR (FIFO)\n");
+
+    ColaCircular cc;
+    inicializarColaCircular(&cc);
+
+    enqueueCircular(&cc, 1);
+    enqueueCircular(&cc, 2);
+    enqueueCircular(&cc, 3);
+    enqueueCircular(&cc, 4);
+    enqueueCircular(&cc, 5);
+
+    while (dequeueCircular(&cc, &x)) // x recibe el dato y el frente avanza
+    {
+        printf("Dequeue circular: %d\n", x);
+    }
+
+    return 0;
+}
+</code></pre>
+</div>
+
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/heap.html" class="btn">Anterior</a>
+  <a href="../teoria/lista.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
+
