@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMA 6</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-02-01T13:39:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Informática II</h1>
+    </div>
+</header>
+
+<main>
+  <div class="container">
+<h1>Archivos - FILE *</h1>
+<h4>Parte 1</h4>
+
+<h3>¿Qué es un archivo - file and stream?</h3>
+    <p>
+        Una secuencia de bytes almacenada en algun dispositivo (disco, pendrive, etc)
+        a la que se accede de forma secuencial o aleatoria mediante un flujo (stream).
+    </p>
+
+<h2>FILE *:</h2>
+<p>
+    En C NUNCA trabajamos directamente con el archivo.
+    Siempre trabajamos con un puntero a una estructura interna:
+</p>
+<pre><code class="language-c">FILE *fp;</code></pre>
+<h3>Ese FILE:</h3>
+<ul>
+    <li>NO lo definimos nosotros.</li>
+    <li>NO sabemos como es por dentro. (A menos que nos documentemos al respecto, viendo la libreria estandar)</li>
+    <li>Lo maneja la biblioteca estandar.</li>
+    <li>Nosotros usamos el puntero.</li>
+</ul>
+
+<h2>Apertura de un archivo:</h2>
+<pre><code class="language-c">fopen</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">FILE *fopen(const char *nombre, const char *modo);</code></pre>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">FILE *fp = fopen("datos.txt", "r");</code></pre>
+
+<h3>¿Qué hace?</h3>
+<ul>
+    <li>- Busca el archivo.</li>
+    <li>- Prepara buffers.</li>
+    <li>- Devuelve un FILE *</li>
+</ul>
+<p><strong>Si falla devuelve <b><code>NULL</code></b>.</strong></p>
+
+<h3>Regla:</h3>
+<ul>
+    <li>TODO <b><code>fopen</code></b> exitoso debe tener su <b><code>fclose</code></b>.</li>
+</ul>
+
+<h2>Cierre de un archivo:</h2>
+<pre><code class="language-c">fclose</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">int fclose(FILE *fp);</code></pre>
+
+<h3>Es la funcion que:</h3>
+<ul>
+    <li>Cierra el archivo asociado al FILE *</li>
+    <li>Vacia los buffers pendientes</li>
+    <li>Libera recursos del sistema operativo</li>
+</ul>
+<p><strong>Sin <code>fclose</code>, el archivo NO esta realmente terminado.</strong></p>
+
+<h3>Que pasa internamente cuando usamos <code>fclose</code>?</h3>
+<p>Aunque no lo vemos, pasan varias cosas:</p>
+
+<ul>
+    <li>Se vacian los buffers:</li>
+    <ul>
+        <li>Lo escrito con fputc, fprintf, etc.</li>
+        <li>Puede que todavia no este en el disco.</li>
+    </ul>
+</ul>
+<ul>
+    <li>Se libera memoria:</li>
+    <ul>
+        <li>Estructuras internas (FILE)</li>
+        <li>Descriptores del sistema.</li>
+    </ul>
+</ul>
+<ul>
+    <li>Se libera el archivo:</li>
+    <ul>
+        <li>Otros programas pueden usarlo.</li>
+        <li>Se asegura la integridad del archivo.</li>
+    </ul>
+</ul>
+    
+<h2>Que pasa si NO llamamos a fclose?</h2>
+
+<p>Depende... y eso es lo peligroso.</p>
+
+<h3>Posibles consecuencias:</h3>
+<ul>
+    <li>El archivo queda incompleto.</li>
+    <li>Los ultimos datos no se escriben.</li>
+    <li>Fugas de recursos.</li>
+    <li>En algunos sistemas:</li>
+    <ul>
+        <li>El archivo puede quedar corrupto.</li>
+        <li>O no aparecer.</li>
+    </ul>
+    <li>En programas chicos "parece funcionar".</li>
+    <li>En programas reales mata su funcionamiento.</li>
+</ul>
+    
+<h2>Valor de retorno de fclose:</h2>
+<pre><code class="language-c">int r = fclose(fp);</code></pre>
+<ul>
+    <li><b><code>0 => OK</code></b></li>
+    <li><b><code>EOF</code></b> => Error al cerrar</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+if (fclose(fp) == EOF)
+{
+    printf("Error al cerrar el archivo\n");
+}
+</code></pre>
+<h3>Regla:</h3>
+<ul>
+    <li>Cada <b><code>fopen</code></b> exitoso debe tener exactamente un <b><code>fclose</code></b>.</li>
+</ul>
+
+<h1>Modos de apertura:</h1>
+
+<div class="tablecontainer">
+    <th>Modo</th>
+    <td>"r"</td>
+    <td>"w"</td>
+    <td>"a"</td>
+    <td>"r+"</td>
+    <td>"w+"</td>
+    <td>"a+"</td>
+
+    <th>Significado</th>
+    <td>Leer (debe existir)</td>
+    <td>Escribir (borra o crea)</td>
+    <td>Agregar al final</td>
+    <td>Leer y escribir</td>
+    <td>Leer y escribir (borra lo existente)</td>
+    <td>Leer y escribir al final</td>
+</div>
+
+<ul>
+    <li><b>"w":</b> Borra el archivo si existe.</li>
+    <li><b>"r":</b> Falla si no existe.</li>
+</ul>
+
+<h1>Escritura de un caracter:</h1>
+<pre><code class="language-c">fputc</code></pre>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">int fputc(int c, FILE *fp);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Escribe un solo caracter en el archivo.</li>
+    <li>Avanza el puntero de archivo.</li>
+    <li>Devuelve:</li>
+    <ul>
+        <li>El caracter escrito (como <b><code>unsigned char</code></b>)</li>
+        <li><b><code>EOF</code></b> si hay error.</li>
+    </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+FILE *fp = fopen("salida.txt", "w");
+
+if (fp == NULL)
+    return 1;
+
+fputc('H', fp);
+fputc('o', fp);
+fputc('l', fp);
+fputc('a', fp);
+fputc('\n', fp);
+
+fclose(fp);
+</code></pre>
+
+<h3>Contenido del archivo:</h3>
+<pre><code class="language-c">Hola</code></pre>
+
+<p><em><strong>IMPORTANTE:</strong></em></p>
+<p>fputc NO escribe inmediatamente al disco.</p>
+<ul>
+    <li>Va la buffer.</li>
+    <li>Se garantiza la escritura real con:</li>
+    <ul>
+        <li><b><code>fclose</code></b></li>
+        <li><b><code>fflush</code></b></li>
+    </ul>
+</ul>
+
+<h1>Lectura de un caracter:</h1>
+<pre><code class="language-c">fgetc</code></pre>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">int fgetc(FILE *fp);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Lee un caracter del archivo.</li>
+    <li>Avanza el puntero.</li>
+    <li>Devuelve:</li>
+    <ul>
+        <li>El caracter leido.</li>
+        <li><b><code>EOF</code></b> si:</li>
+        <ul>
+            <li>Llega al fin del archivo.</li>
+            <li>Ocurre un error</li>
+        </ul>
+    </ul>
+    <li>Esto es clave:</li>
+    <ul>
+        <li><code>EOF</code> no distingue un error de fin de archivo.</li>
+    </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+int c;
+FILE *fp = fopen("salida.txt", "r");
+
+if (fp == NULL)
+    return 1;
+
+while ((c = fgetc(fp)) != EOF)
+{
+    putchar(c);
+}
+
+fclose(fp);
+</code></pre>
+
+<p><strong>OBSERVACION:</strong></p>
+<ul>
+    <li><b><code>fgetc:</code></b> Devuelve <b><code>int</code></b>.</li>
+    <li><b><code>EOF:</code></b> NO es un <b><code>char</code></b>.</li>
+    <li>Por eso la variable es <b><code>int</code></b>.</li>
+</ul>
+
+<h1>Detección de fin de archivo:</h1>
+
+<h3><b><code>EOF:</code></b></h3>
+<p>No es un caracter.</p>
+<ul>
+    <li>Es un valor especial (normalmente <b><code>-1</code></b>)</li>
+    <li>Forma correcta de utilizarlo:</li>
+</ul>
+<pre><code class="language-c">while ((c = fgetc(fp)) != EOF)</code></pre>
+
+<p>Para distinguir <b>Fin de archivo</b> vs <b>Error</b> de lectura, utilizamos <b><code>feof</code></b> ¿Fin de archivo?.</p>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">int feof(FILE *fp);</code></pre>
+<ul>
+    <li>Devuelve distinto de <b><code>0</code></b> solo despues de intentar leer y fallar por <b><code>EOF</code></b>.</li>
+    <li>NO se adelanta.</li>
+</ul>
+
+<h3>Forma incorrecta, error clásico:</h3>
+<pre><code class="language-c">
+while (!feof(fp)) // MAL
+{
+    c = fgetc(fp);
+}
+</code></pre>
+<p><b><code>feof</code> se usa despues, no para controlar el loop.</b></p>
+
+<h2>ferror - ¿Error?:</h2>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">int ferror(FILE *fp);</code></pre>
+<ul>
+    <li>Devuelve <b>distinto de 0</b> si ocurrio un error de <b>I/O</b> (Input/Output)</li>
+</ul>
+
+<h2>Patron correcto de lectura robusta:</h2>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+int c;
+
+while ((c = fgetc(fp) != EOF)
+{
+  putchar(c);
+}
+
+if (feof(fp)) // Detecta fin
+{
+  printf("|nFin de archivo alcanzado\n");
+}
+else if (ferror(fp)) // Detecta error
+{
+  printf("\nError de lectura\n");
+}
+</code></pre>
+<p><strong>Este es el patrón canónico en C.</strong></p>
+
+<h1>Escritura de un string:</h1>
+<pre><code class="language-c">fputs</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">int fputs(const char *str, FILE *fp);</code></pre>
+
+<h2>¿Qué hace?</h2>
+<ul>
+    <li>Escribe un string completo en el archivo.</li>
+    <li>NO agrega <b><code>\n</code></b> automaticamente.</li>
+    <li>Devuelve:</li>
+    <ul>
+        <li>Valor <b>no negativo</b> si tuvo exito.</li>
+        <li><b><code>EOF</code></b> si hubo error.</li>
+    </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+FILE *fp = fopen("texto.txt", "w");
+
+if (fp == NULL)
+  return 1;
+
+fputs("Hola mundo", fp);
+fputs("\n", fp);
+fputs("Segunda linea", fp);
+
+fclose(fp);
+</code></pre>
+
+<h3>Contenido del archivo:</h3>
+<pre><code class="language-c">
+Hola mundo
+Segunda linea
+</code></pre>
+
+<h1>Diferencia clave con puts:</h1>
+
+<div class="tablecontainer">
+    <th>función</th>
+    <td>puts</td>
+    <td>fputs</td>
+
+    <th>Destino</th>
+    <td>stdout</td>
+    <td>archivo</td>
+
+    <th>Agrega n</th>
+    <td>si</td>
+    <td>no</td>
+</div>
+
+<h1>Lectura de un string:</h1>
+<pre><code class="language-c">fgets</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">char *fgets(char *str, int n, FILE *fp);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Lee hasta <b><code>n-1</code></b> caracteres.</li>
+    <li>Se detiene si encuentra:</li>
+    <ul>
+        <li><b><code>\n</code></b></li>
+        <li><b><code>EOF</code></b></li>
+    </ul>
+    <li>Incluye el <b><code>\n</code></b> si lo lee.</li>
+    <li>Siempre agrega <b><code>'\0'</code></b></li>
+    <li>Devuelve:</li>
+    <ul>
+        <li><b><code>str</code></b> si pudo leer algo.</li>
+        <li><b><code>NULL</code></b> si no pudo (<b><code>EOF</code></b> o <b>error</b>)</li>
+    </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+FILE *fp = fopen("texto.txt", "r");
+
+if (fp == NULL)
+    return 1;
+
+char linea[100]; // 99 char + \0
+
+while (fgets(linea, sizeof(linea), fp) != NULL)
+{
+    printf("%s", linea);
+}
+fclose(fp);
+</code></pre>
+
+<h3>Salida:</h3>
+<pre><code class="language-c">
+Hola mundo
+Segunda linea
+</code></pre>
+
+<p><strong>IMPORTANTE:</strong></p>
+<ul>
+    <li>Lee como maximo <b><code>n-1</code></b>, si <b><code>n = 100</code></b>, lee hasta <b><code>99 caracteres + \0</code></b></li>
+    <li>Evita desbordes (overflow)</li>
+    <li>A diferencia de <b><code>gets</code></b> (Que esta prohibida)</li>
+    <li>El <b><code>\n</code></b> queda adentro. Ejemplo:</li>
+    <ul>
+        <li><b><code>fgets(linea, 100, fp);</code></b></li>
+    </ul>
+</ul>
+<p>Si el archivo tiene:</p>
+<pre><code class="language-c">Hola</code></pre>
+<p><b>El buffer queda:</b></p>
+<pre><code class="language-c">"Hola\n\0"</code></pre>
+<p><b>Por eso muchas veces se ve:</b></p>
+<pre><code class="language-c">
+linea[strcspn(linea, "\n")] = '\0';
+NULL = no se leyo nada.
+</code></pre>
+<p><b>No significa solo <b><code>EOF</code></b>, puede ser <b>error</b> tambien.</b></p>
+
+<h3>Patron correcto:</h3>
+<pre><code class="language-c">
+if (fgets(linea, sizeof(linea), fp) == NULL)
+{
+    if (feof(fp))
+        printf("Fin de archivo\n");
+    else
+        printf("Error\n");
+}
+</code></pre>
+
+<h1>Comparación:</h1>
+<div class="tablecontainer">
+    <th>Función</th>
+    <td>fgetc</td>
+    <td>fgets</td>
+    <td>fscanf</td>
+
+    <th>Nivel</th>
+    <td>stdout</td>
+    <td>archivo</td>
+    <td>alto</td>
+
+    <th>Uso</th>
+    <td>si</td>
+    <td>no</td>
+    <td>formato</td>
+</div>
+   
+<h1>Escritura con formato:</h1>
+<pre><code class="language-c">fprintf</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">int fprintf(FILE *fp, const char *formato, ...);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Escribe texto formateado en un archivo.</li>
+    <li>Devuelve:</li>
+    <ul>
+        <li>Cantidad de caracteres escritos.</li>
+        <li>Valor negativo si hay error.</li>
+    </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre>
+<code class="language-c">
+FILE *fp = fopen("datos.txt", "w");
+if (fp == NULL)
+  return 1;
+
+int edad = 25;
+float altura = 1.75;
+
+fprintf(fp, "Edad: %d\n", edad);
+fprintf(fp, "Altura: %.2f\n", altura);
+
+fclose(fp);
+</code></pre>
+
+<h3>Contenido del archivo:</h3>
+<pre><code class="language-c">
+Edad: 25
+Altura: 1.75
+</code></pre>
+
+<h3>Formatos validos:</h3>
+<p>Los mismos que <b><code>printf</code></b>:</p>
+<ul>
+    <li>%d, %f, %s, %c.</li>
+    <li>%lf, para double</li>
+    <li>%u, %ld, etc.</li>
+</ul>
+    
+<h1>Lectura con formato:</h1>
+<pre><code class="language-c">fscanf</code></pre>
+
+<h3>Sintaxis:</h3>
+<pre><code class="language-c">int fscanf(FILE *fp, const char *formato, ...);</code></pre>
+
+<h2>Que hace?:</h2>
+<p>Lee datos formateados desde un archivo.</p>
+<p><b>Devuelve:</b></p>
+<ul>
+    <li>Cantidad de elementos leidos correctamente.</li>
+    <li><b><code>EOF</code></b> si no pudo leer nada.</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<p>Archivo <b><code>persona.txt:</code></b></p>
+<pre><code class="language-c">25 1.75</code></pre>
+
+<h3>Código:</h3>
+<pre><code class="language-c">
+FILE *fp = fopen("persona.txt", "r");
+if (fp == NULL)
+  return 1;
+
+int edad;
+float altura;
+
+fscanf(fp, "%d %f", &edad, &altura);
+
+printf("Edad=%d ALtura %.2f\n", edad, altura);
+
+fclose(fp);
+</code></pre>
+
+<h3>Peligros reales de <b><code>fscanf</code></b>:</h3>
+
+<p>No controla limites de strings</p>
+<pre><code class="language-c">
+char nombre[20];
+fscanf(fp "%s", nombre); // Peligro si el nombre es largo
+</code></pre>
+
+<h3>Mejor:</h3>
+<pre><code class="language-c">fscanf(fp, "%19s", nombre);</code></pre>
+
+<p>No detecta bien fin de archivo</p>
+
+<p><b>Error tipico:</b></p>
+<pre><code class="language-c">
+while (!feof(fp))
+{
+  fscanf(fp, "%d", &x);
+}
+</code></pre>
+
+<h3>Patron correcto con fscanf:</h3>
+<pre><code class="language-c">
+while (fscanf(fp, "%d", &x) == 1)
+{
+    printf("%d\n", x);
+}
+</code></pre>
+<p><b>O con multiples datos:</b></p>
+<pre><code class="language-c">
+while (fscanf(fp, "%d %f", &a, &b) == 2)
+{
+    ...
+}
+</code></pre>
+<p><b>El <b><code>==</code></b> cantidad de campos, es clave.</b></p>
+
+
+<h1>fscanf vs fgets + sscanf:</h1>
+<div class="tablecontainer">
+    <th>Función</th>
+    <td>fscanf</td>
+    <td>fgets</td>
+
+    <th>Ventaja</th>
+    <td>directo</td>
+    <td>segura</td>
+
+    <th>Problema</th>
+    <td>frágil</td>
+    <td>hay que parsear</td>
+</div>
+
+<p><b>Por eso en codigo serio se suele hacer:</b></p>
+
+<pre><code class="language-c">
+fgets(linea, sizeof(linea), fp);
+sscanf(linea, "%d %f", &a, &b);
+</code></pre>
+
+<h3>fgets:</h3>
+<ul>
+    <li>Controla cuanto entra.</li>
+    <li>- Nunca se pasa del buffer.</li>
+    <li>- Sabe exactamente cuando fallo.</li>
+</ul>
+
+<h3>sscanf:</h3>
+<ul>
+    <li>Trabaja sobre memoria, no sobre archivo.</li>
+    <li>No avanza el puntero del archivo.</li>
+    <li>Permite validar mejor lo leido.</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+char linea[100];
+int a;
+float b:
+while (fgets(linea, sizeof(linea), fp))
+{
+    if (sscanf(linea, "%d %f", &a, &b) == 2)
+    {
+        printf("a=%d b=%.2f\n", a, b);
+    }
+    else
+    {
+        printf("Linea mal formada\n");
+    }
+}
+</code></pre>
+
+<p>
+    Esto no se puede hacer limpio con <b><code>fscanf</code></b>
+    Pero la clasica suele ser usar <b><code>fscanf</code></b>
+</p>
+
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = files
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe *.txt
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o files
+#include <stdio.h>
+
+int main(void)
+{
+    /* ---- DECLARACION ---- */
+    FILE *fp;
+
+    /* ---- APERTURA Y ESCRITURA DE ARCHIVO fopen fputc ---- */
+    fp = fopen("datos.txt", "w");
+
+    if (fp == NULL)
+    {
+        printf("No se pudo abrir el archivo\n");
+        return 1;
+    }
+    
+     /* ---- ESCRITURA DE CARACTERES fputc ---- */
+    fputc('H', fp);
+    fputc('o', fp);
+    fputc('l', fp);
+    fputc('a', fp);
+    fputc('\n', fp);
+
+    /* ---- ESCRITURA DE STRING fputs ---- */
+    fputs("Linea uno\n", fp);
+
+    /* ---- ESCRITURA DE CON FORMATO fprintf ---- */
+    fprintf(fp, "Edad: %d Altura: %.2f\n", 25, 1.75);
+    
+    fclose(fp); // SIEMPRE cerrar
+
+    /* ---- LECTURA CARACTER A CARACTER ---- */
+    fp = fopen("datos.txt", "r");
+
+    if (fp == NULL)
+        return 1;
+    
+    int c;
+    printf("Lectura con fgetc:\n");
+
+    while ((c = fgetc(fp)) != EOF)
+    {
+        putchar(c);
+    }
+
+    if (feof(fp))
+        printf("\n[Fin de archivo detectado]\n");
+    else if (ferror(fp))
+        printf("\n[Error de lectura]\n");
+
+    fclose(fp); // SIEMPRE cerrar
+
+    /* ---- LECTURA POR LINEAS + PARSEO ---- */
+    fp = fopen("datos.txt", "r");
+
+    if (fp == NULL)
+        return 1;
+
+    char linea[100];
+    int edad;
+    float altura;
+
+    printf("\nLectura con fgets + sscanf:\n");
+
+    while(fgets(linea, sizeof(linea), fp) != NULL)
+    {
+        printf("Linea cruda: %s", linea);
+
+        /* PARSEO SEGURO */
+        if (sscanf(linea, "Edad: %d Altura: %f", &edad, &altura) == 2)
+        {
+            printf("-> Parseado: edad=%d altura=%.2f\n", edad, altura);
+        }
+    }
+
+    if (feof(fp))
+    {
+        printf("Fin de archivo\n");
+    }
+    else if (ferror(fp))
+    {
+        printf("Error de lectura\n");
+    }
+    fclose(fp);
+
+    return 0;
+}
+</code></pre>
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../teoria/union.html" class="btn">Anterior</a>
+  <a href="../teoria/heap.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
