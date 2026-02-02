@@ -48,7 +48,7 @@ h1 {
 h2 {
   text-align: center;
 	font-size: 1.875rem;
-  background-color:rgb(253, 215, 112);
+  background-color:rgb(247, 235, 202);
 	border:2px solid;
 	border-radius: 10px;
 }
@@ -83,18 +83,18 @@ h2,
 .teoria {
   text-align: center;
   font-size: 1.875rem;
-  background-color: #d4e442;
+  background-color: #f7dca8;
   color: #fff;
-  border: 2px solid #b3ca30;
+  border: 2px solid #f3e0bc;
   border-radius: 10px;
   padding: 0.5rem 1rem;
 }
 .make {
   text-align: center;
   font-size: 1.5rem;
-  background-color: #dbe67b;;
+  background-color: #f7dca8;
   color: #fff;
-  border: 2px solid v#a4b92d;
+  border: 2px solid #f3e0bc;
   border-radius: 10px;
   padding: 0.5rem 1rem;
 }
