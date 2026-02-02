@@ -54,7 +54,9 @@ p {
 	text-align: left;
 	font-size: 1.125rem;
 }
-
+ul {
+  font-size: 1.125rem;
+}
 .tablecontainer {
   overflow-x: auto;
 }
