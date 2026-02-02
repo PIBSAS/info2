@@ -73,7 +73,7 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 
 <h2>Teoría aplicada:</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 
 <pre><code class="language-c">
 CC = gcc
@@ -94,7 +94,7 @@ clean:
 </code></pre>
 
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
@@ -171,9 +171,9 @@ int a[10]; // sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
 int *p = a; // sizeof(p); da sizeof(int *) = 8 bytes
 </code></pre>
 
-<h2>Teoría aplicada:</h2>
+<h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 
 <pre><code class="language-c">
 CC = gcc
@@ -194,7 +194,7 @@ clean:
 </code></pre>
 
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o dimension
@@ -264,7 +264,7 @@ printf("%d", *pi); Muestra 10
 
 <h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -283,7 +283,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
 #include <stdio.h>
@@ -343,7 +343,7 @@ p2 = p1;
 
 <h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Werror -pedantic
@@ -362,7 +362,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 <pre><code class="language-c">
   // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operaciones
 #include <stdio.h>
@@ -487,7 +487,7 @@ p = a - 1; // Comportamiento indefinido(UB)
 
 <h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -506,7 +506,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 <pre><code class="language-c">
 #include <stdio.h>
 #include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
@@ -664,7 +664,7 @@ printf("p\n", (void *)p);
 
 <h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -683,7 +683,7 @@ clean:
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o vectores
 #include <stdio.h>
@@ -799,7 +799,7 @@ void imprimir(int *p, int n)
 
 <h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -818,7 +818,7 @@ clean:
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h2 class="make">Código:</h2>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o parametros
 #include <stdio.h>
