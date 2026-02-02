@@ -22,10 +22,303 @@
 
 <main>
   <div class="container">
-<h1>Archivos - FILE *</h1>
-<h1>Parte 1</h1>
+<h1>Archivos FILE *</h1>
+<h1>Parte 2</h1>
+<h2>Binarios, acceso aleatorio, bloques de memoria, ABM</h2>
 
+<h1>Archivos binarios</h1>
+<h2>¿Qué es un archivo binario?:</h2>
+<ul>
+    <li>No guarda texto legible.</li>
+    <li>Guarda bytes tal cual estan en memoria.</li>
+    <li>Ideal para:</li>
+    <ul>
+        <li>struct</li>
+        <li>arrays</li>
+        <li>registros</li>
+        <li>base de datos simples</li>
+    </ul>
+</ul>
 
+<h3>Ventaja:</h3>
+<ul>
+    <li>Mas rapido.</li>
+    <li>Mas chico.</li>
+    <li>No hay parsing.</li>
+</ul>
+
+<h3>Desventaja:</h3>
+<ul>
+    <li>No es portable entre arquitecturas distintas.</li>
+    <li>No es legible a mano.</li>
+</ul>
+
+<h1>Modos binarios</h1>
+
+<div class="tablecontainer"></div>
+<table>
+    <tr>
+        <th>Modo</th>
+        <td>"rb"</td>
+        <td>"wb"</td>
+        <td>"ab"</td>
+        <td>"rb+"</td>
+        <td>"wb+"</td>
+    </tr>
+    <tr>
+        <th>Significado</th>
+        <td>leer binario</td>
+        <td>escribir binario (borra)</td>
+        <td>agregar</td>
+        <td>leer/escribir</td>
+        <td>leer/escribir (borra)</td>
+    </tr>
+</table>
+<p><strong>En Windows es obligatorio usar <code>b</code>.</strong></p>
+    
+<h1>Escritura de bloques</h1>
+<pre><code class="language-c">fwrite</code></pre>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *fp);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Escribe nmemb elementos.</li>
+    <li>Cada uno de tamaño size.</li>
+    <li>Desde memoria => archivo.</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+int x = 42;
+fwrite(&x, sizeof(int), 1, fp);
+</code></pre>
+<p><strong>Escribe el <code>int</code> completo, no texto.</strong></p>
+
+<h1>Lectura de bloques</h1>
+<pre><code class="language-c">fread</code></pre>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">size_t fread(void *ptr, size_t size, size_t nmemb, FILE *fp);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+    <li>Lee nmemb elementos.</li>
+    <li>Cada uno de tamaño size.</li>
+    <li>Desde memoria => archivo.</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+int x;
+fread(&x, sizeof(int), 1, fp);
+</code></pre>
+<p><strong>Retorna cuantos elementos leyo realmente.</strong></p>
+    
+<h3>Ejemplo:</h3>
+<p>Struct + archivo binario</p>
+
+<h3>Definimos un registro:</h3>
+<pre><code class="language-c">
+typedef struct {
+  int id;
+  char nombre[30];
+  float sueldo;
+} Empleado;
+</code></pre>
+        
+<h3>Escritura:</h3>
+<pre><code class="language-c">
+Empleado e = {1, "Linda", 120000.50};
+-
+FILE *fp = fopen("empleados.dat", "wb");
+fwrite(&e, sizeof(Empleado), 1, fp);
+fclose(fp);
+</code></pre>
+
+<h3>Lectura:</h3>
+<pre><code class="language-c">
+Empleado e;
+-
+FILE *fp = fopen("empleados.dat", "rb");
+fread(&e, sizeof(Empleado), 1, fp);
+fclose(fp);
+-
+printf("%d %s %.2f\n", e.id, e.nombre, e.sueldo);
+</code></pre>
+<p><strong>No hay <code>fscanf</code>, no hay parsing, no hay texto.</strong></p>
+    
+<h3>Lectura/escritura de varios registros:</h3>
+<pre><code class="language-c">
+Empleado v[2] = {
+  {1, "Diana", 100000},
+  {2, "Lucia", 110000},
+  {3, "Carlos", 105000}
+};
+-
+fwrite(v, sizeof(Empleado), 3, fp);
+</code></pre>
+
+<h3>Lectura:</h3>
+<pre><code class="language-c">
+Empleado v[3];
+fread(v, sizeof(Empleado), 3, fp);
+</code></pre>
+<p><strong>Esto es memoria => disco => memoria, directo.</strong></p>
+    
+<h1>Acceso aleatorio</h1>
+<ul>
+    <li>fseek</li>
+    <li>ftell</li>
+    <li>rewind</li>
+</ul>
+
+<h2>Sintaxis fseek:</h2>
+<pre><code class="language-c">int fseek(FILE *fp, long offset, int origen);</code></pre>
+
+<div class="tablecontainer">
+    <table>
+        <tr>
+            <th>Origen</th>
+            <td>SEEK_SET</td>
+            <td>SEEK_CUR</td>
+            <td>SEEK_END</td>
+        </tr>
+        <tr>
+            <th>Significado</th>
+            <td>inicio</td>
+            <td>posicion actual</td>
+            <td>fin</td>
+        </tr>
+    </table>
+</div>
+             
+<h3>Ejemplo:</h3>
+<p>Ir al registro <b>N</b>.</p>
+<pre><code class="language-c">
+fseek(fp, n * sizeof(Empleado), SEEK_SET);
+fread(&e, sizeof(Empleado), 1, fp);
+</code></pre>
+<p><strong>Esto es archivo random / directo.</strong></p>
+
+<h2>Sintaxis ftell:</h2>
+<pre><code class="language-c">long pos = ftell(fp);</code></pre>
+<p><strong>Devuelve la posicion actual (en <code>bytes</code>).</strong></p>
+
+<h2>Sintaxis rewind:</h2>
+<pre><code class="language-c">rewind(fp);</code></pre>
+<p><strong>Vuelve al inicio (equivale a <code>fseek(fp, 0, SEEK_SET)</code> ).</strong></p>
+        
+<h1>Altas, Bajas y Modificaciones (ABM)</h1>
+
+<h2>Alta:</h2>
+<pre><code class="language-c">
+fopen("ab")
+fwrite
+</code></pre>
+
+<h2>Listado:</h2>
+<pre><code class="language-c">
+fopen("rb")
+while (fread(...) == 1)
+</code></pre>
+
+<h2>Modificacion:</h2>
+<pre><code class="language-c">
+fopen("rb+")
+buscar registro
+fseek
+fwrite
+</code></pre>
+
+<h2>Baja logica:</h2>
+<ul>
+    <li>No borrar fisicamente.</li>
+    <li>Marcar como borrado</li>
+</ul>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">
+typedef struct {
+  int id;
+  char nombre[30];
+  float sueldo;
+  int activo; // 1 = activo, 0 = borrado
+} Empleado;
+</code></pre>
+    
+<h2>Borrar un archivo:</h2>
+<pre><code class="language-c">remove</code></pre>
+
+<h2>Sintaxis remove:</h2>
+<pre><code class="language-c">int remove(const char *filename);</code></pre>
+
+<h2>¿Qué hace?:</h2>
+<p>Borra un archivo del sistema (No del programa, del disco).</p>
+
+<h3>Ejemplo:</h3>
+<pre><code class="language-c">remove("empleados.dat");</code></pre>
+<p><strong>Borra el archivo del sistema.</strong></p>
+    
+<h2>Liberar buffer manualmente:</h2>
+<pre><code class="language-c">fflush</code></pre>
+
+<h2>Sintaxis:</h2>
+<pre><code class="language-c">fflush(fp);</code></pre>
+<ul>
+    <li>Fuerza escritura inmediata.</li>
+    <li>Util en logs.</li>
+    <li>Normalmente no hace falta si usas fclose.</li>
+</ul>
+    
+<h1>CONCEPTOS TEORICOS</h1>
+
+<h2>Streams:</h2>
+<p>Es un flujo de datos entre el programa y un dispositivo (Teclado, Pantalla, Archivo, etc).</p>
+
+<h3>Utiliza un buffer intermedio:</h3>
+    <ul>
+        <li>En salida <b><code>stdout</code></b>: se acumulan datos y luego se escriben.</li>
+        <li>En entrada <b><code>stdin</code></b>: se leen bloques desde el dispositivo.</li>
+    </ul>
+        
+<h2>Streams standard:</h2>
+<b><code>stdin  :</code></b> entrada estandar (teclado)
+<b><code>stdout :</code></b> salida estandar (pantalla)
+<b><code>stderr :</code></b> salida de errores (pantalla)
+
+<h2>En formato texto:</h2>
+<ul>
+    <li>Se realizan conversiones (<b><code>ASCII</code></b>)</li>
+</ul>
+
+<h2>En formato binario:</h2>
+<ul>
+    <li>No hay conversiones.</li>
+    <li>Los datos se guardan tal cual en memoria.</li>
+</ul>
+
+<h2>struct FILE:</h2>
+    <p>
+        <b><code>FILE</code></b> es una estructura opaca definida por la libreria
+        estandar que representa un stream de archivo.
+    </p>
+
+<h3>Contiene internamente:</h3>
+<ul>
+    <li>Buffer.</li>
+    <li>Posicion actual.</li>
+    <li>Flags de estado.</li>
+    <li>Descriptor del sistema operativo.</li>
+</ul>
+        
+<h3>IMPORTANTE:</h3>
+<ul>
+    <li>El contenido de <b><code>FILE</code></b> es dependiente del compilador.</li>
+    <li>No debe accederse a sus campos directamente.</li>
+    <li>Solo se manipula mediante funciones estandar (<b><code>fopen</code></b>, <b><code>fread</code></b>, <b><code>fwrite</code></b>, <b><code>fseek</code></b>, <b><code>fclose</code></b>, etc.)</li>
+</ul>
 
 
 <h1>Teoría aplicada</h1>
@@ -52,14 +345,200 @@ clean:
 <h2>Código:</h2>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o abm
+#include <stdio.h>
+#include <string.h>
 
+typedef struct {
+    int id;
+    char nombre[30];
+    double sueldo; // Usar double en lugar de float para dinero, porque modifica si la cifra es mayor a 7 cifras
+    int activo;
+} Empleado;
+
+/* ---PROTOTIPOS ---*/
+void alta(void);
+void listar(void);
+void modificar(void);
+void baja(void);
+
+int main(void)
+{
+    int opcion;
+
+    do {
+        printf("\n--MENU ---\n");
+        printf("1. Alta\n");
+        printf("2. Listar\n");
+        printf("3. Modicar\n");
+        printf("4. Baja\n");
+        printf("5. Salir\n");
+        printf("Opcion: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                alta();
+                break;
+            case 2:
+                listar();
+                break;
+            case 3:
+                modificar();
+                break;
+            case 4:
+                baja();
+                break;
+            case 5:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opcion invalida\n");
+        }
+    } while (opcion != 5);
+
+    return 0;
+}
+
+/* ---ALTA ---*/
+void alta(void)
+{
+    FILE *fp = fopen("empleados.dat", "ab");
+    if (fp == NULL) {
+        printf("Error al abrir archivo\n");
+        return;
+    }
+
+    Empleado e;
+
+    printf("ID: ");
+    scanf("%d", &e.id);
+
+    printf("Nombre: ");
+    scanf("%29s", e.nombre);
+
+    printf("Sueldo: ");
+    scanf("%lf", &e.sueldo);
+
+    e.activo = 1;
+
+    fwrite(&e, sizeof(Empleado), 1, fp);
+    fflush(fp); // Vacia buffer (normalmente no es necesario, solo es didactico, se usa fclose(fp))
+
+    printf("Empleado agregado\n");
+}
+
+/* ---LISTAR ---*/
+void listar(void)
+{
+    FILE *fp = fopen("empleados.dat", "rb");
+    if (fp == NULL) 
+    {
+        printf("No hay archivo\n");
+        return;
+    }
+
+    /* DEMO SEEK_END + ftell */
+    fseek(fp, 0, SEEK_END); // Va al final del archivo
+    long tam = ftell(fp); // Dimension del archivo en bytes
+    printf("Dimension del archivo: %ld bytes\n", tam);
+    
+    rewind(fp); // Vuelve al inicio del archivo (equivale a fseek(fp, 0, SEEK_SET))
+    
+    Empleado e;
+    
+    printf("\n --LISTADO ---\n");
+    
+    while (fread(&e, sizeof(Empleado), 1, fp) == 1)
+    {
+        if (e.activo) {
+            printf("ID: %d | Nombre: %s | Sueldo: %.2f\n", e.id, e.nombre, e.sueldo);
+        }
+    }
+
+    long pos = ftell(fp); // Posicion actual
+    printf("Posicion actual en bytes: %ld\n", pos); 
+
+    fclose(fp);
+
+}
+
+/* ---MODIFICAR ---*/
+void modificar(void)
+{
+    FILE *fp = fopen("empleados.dat", "rb+");
+    if (fp == NULL)
+    {
+        printf("No hay archivo\n");
+        return;
+    }
+
+    int id;
+    Empleado e;
+
+    printf("ID a modificar: ");
+    scanf("%d", &id);
+
+    while (fread(&e, sizeof(Empleado), 1, fp) == 1)
+    {
+        if (e.id == id && e.activo)
+        {
+            printf("Nuevo sueldo: ");
+            scanf("%lf", &e.sueldo);
+
+            fseek(fp, -(long)sizeof(Empleado), SEEK_CUR);
+            fwrite(&e, sizeof(Empleado), 1, fp);
+            fclose(fp);
+
+            printf("Empleado modificado\n");
+            return;
+        }
+    }
+
+    fclose(fp);
+    printf("Empleado no encontrado\n");
+}
+
+/* ---BAJA LOGICA ---*/
+void baja(void)
+{
+    FILE *fp = fopen("empleados.dat", "rb+");
+    if (fp == NULL)
+    {
+        printf("No hay archivo\n");
+        return;
+    }
+
+    int id;
+    Empleado e;
+
+    printf("ID a dar de baja: ");
+    scanf("%d", &id);
+
+    while (fread(&e, sizeof(Empleado), 1, fp) == 1)
+    {
+        if(e.id == id && e.activo)
+        {
+            e.activo = 0;
+
+            fseek(fp, -(long)sizeof(Empleado), SEEK_CUR);
+            fwrite(&e, sizeof(Empleado), 1, fp);
+            fclose(fp);
+
+            printf("Empleado dado de baja\n");
+            return;
+        }
+    }
+
+    fclose(fp);
+    printf("Empleado no encontrado\n");
+}
 </code></pre>
 </div>
 </main>
 
 <footer class="footer-nav">
   <div class="container">
-  <a href="../teoria/union.html" class="btn">Anterior</a>
+  <a href="../teoria/file.html" class="btn">Anterior</a>
   <a href="../teoria/heap.html" class="btn">Siguiente</a>
   </div>
 </footer>
