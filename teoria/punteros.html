@@ -39,11 +39,10 @@
 
 <h2>Cómo se declara?:</h2>
 
-<h3>Sintaxis:</h3>
-
+<h2>Sintaxis:</h2>
 <pre><code class="language-c">tipo_de_dato *nombre_del_puntero;</code></pre>
 
-<b>Ejemplo:</b>
+<h3>Ejemplo:</h3>
 <pre><code class="language-c">int *pi;</code></pre>
 <ul>
   <li>pi: es un puntero</li>
@@ -57,7 +56,7 @@ int *pi;
 pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 </code></pre>
 
-<h3>Acceder al valor usando un puntero (desreferenciar-object-of):</h3>
+<h2>Acceder al valor usando un puntero (desreferenciar-object-of):</h2>
 <ul>
   <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):</li>
   </ul>
@@ -67,7 +66,7 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
   <li><b>*pi:</b> valor guardado en esa direccion.</li>
 </ul>
     
-<h3>Especificador de formato para direcciones:</h3>
+<h2>Especificador de formato para direcciones:</h2>
 <ul>
   <li><b>%p</b>: El estandard para este especificador de formato esta definido para imprimir punteros a <b>void</b>. Es por esto que el compilador nos advierte que con <b>&x</b> le estamos pasando <b>int *</b>, pero espera <b>void *</b>.</li>
   <li>Para solucionar esto se hace un cast: <b><code>(void *)&x;</code></b></li>
@@ -119,8 +118,8 @@ int main(void)
 }
 </code></pre>
 
-<h2>Tamaño de los punteros</h2>
-<p>Se utilizara el sinonimo dimensión.</p>
+<h1>Tamaño de los punteros</h1>
+<p><strong>Se utilizara el sinonimo dimensión.</strong></p>
 
 <p>TODOS los punteros tienen la misma dimension/tamanio (usemos el sinonimo dimension para tamanio, para claridad en los comentarios).
     Sin importar a que tipo apunten, ya que su dimension proviene del tipo de arquitectura en 32 bits es de 4 bytes, en 64 bits es de 8 bytes, se puede verificar con sizeof()</p>
@@ -225,7 +224,188 @@ int main(void)
 }
 </code></pre>
 
+<h1>Operadores de punteros</h1>
 
+<h1>Operador & (Direccionamiento:address-of)</h1>
+
+<h2>¿Qué hace?:</h2>
+<p>Obtiene la direccion de memoria de una variable</p>
+<pre><code class="language-c">
+int x;
+int *pi = &x;
+</code></pre>
+<ul>
+  <li><b><code>x:</code></b> valor</li>
+  <li><b><code>&x:</code></b> x</li>
+  <li><b><code>int *:</code></b> tipo de dato de <b><code>&x</code></b></li>
+</ul>
+
+<h2>Se usa para:</h2>
+<ul>
+  <li>Inicializar punteros.</li>
+  <li>Pasar variables a funciones.</li>
+  <li>scanf.</li>
+</ul>
+
+<h1>Operador * (Desreferenciacion:Indireccion:object-of)</h1>
+
+<h2>¿Qué hace?:</h2>
+
+<p>Accede al valor almacenado en la direccion a la que apunta el puntero.</p>
+<pre>
+  <code class="language-c">
+    int x = 10;
+    int *pi = &x;
+    printf("%d", *pi); Muestra 10
+  </code>
+</pre>
+<ul>
+  <li><b><code>pi:</code></b> direccion de <b><code>x</code></b>.</li>
+  <li><b><code>*pi:</code></b> valor almacenado en esa direccion</li>
+</ul>
+<p><strong>Usar <code>*</code> sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)</strong></p>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = operadores
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
+#include <stdio.h>
+int main(void)
+{
+    int x = 10;
+    int y = 20;
+
+    /*
+        Operador & address-of
+    */
+    int *p1 = &x;
+    int *p2 = &y;
+
+    printf("Valores iniciales:\n");
+    printf("x = %d, y = %d\n", x, y);
+
+    /*
+        Operador * Desrefenciacion, object-of
+    */
+    printf("\nAcceso mediante punteros a los valores almacenados en la direccion apuntada:\n");
+    printf("*p1 = %d\n", *p1);
+    printf("*p2 = %d\n", *p2);
+
+    return 0;
+}
+</code></pre>
+
+<h1>Operaciones que admiten los punteros</h1>
+
+<h1>Operador = (Asignacion entre punteros)</h1>
+
+<h2>¿Qué hace?:</h2>
+<p>Copia la direccion de memoria, no el valor almacenado en esa direccion a la que apunta.</p>
+<pre><code class="language-c">
+int *p1, *p2;
+p1 = &x; // Inicializa el puntero almacenando la direccion en memoria de x
+
+/*Se asigna la direccion del puntero p1 en el puntero p2,
+ambos apuntan a la misma direccion que almacena el tipo de dato,
+de este modo p1 y p2 apuntan a la misma direccion*/
+p2 = p1;
+</code></pre>
+    
+<h1>Operadores de comparacion (==, !=, &lt;, &gt;, &leq;, &geq;)</h1>
+
+<h2>¿Qué hace?:</h2>
+<ul>
+  <li>Comparan direcciones, NO valores.</li>
+  <li><b><code>if(pi == p2)</code></b> Si apuntan al mismo lugar se cumple el bucle</li>
+</ul>
+<h3>Para comparar valores:</h3>
+<ul>
+  <li><b><code>if(*p1 == *p2)</code></b> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
+</ul>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Werror -pedantic
+
+PROG = operaciones
+OBJ = main.o
+
+$(PROG):$(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+  // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operaciones
+#include <stdio.h>
+
+int main(void)
+{
+    int x = 10;
+    int y = 20;
+
+    int *p1 = &x;
+    int *p2 = &y;
+
+    /*
+        Operador = Asignacion entre punteros
+    */
+    p2 = p1; // Ambos apuntan a la misma direccion, la de x
+
+    printf("\n Despues de p2 = p1 los valores a los que acceden ambos punteros es:\n");
+    printf("*p1 = %d\n", *p1);
+    printf("*p2 = %d\n", *p2);
+
+    /*
+        Modificacion del valor almacenado en la direccion a traves del puntero
+    */
+    *p1 = 50;
+
+    printf("\nDespues de modificar *p1 el valor de x almacenado en la direccion a la que apunta es:\n");
+    printf("x = %d\n", x);
+    printf("*p2 = %d (p2 apunta a x)\n", *p2);
+
+    /*
+        Operadores de comparacion
+    */
+    if (p1 == p2)
+    {
+        printf("\np1 y p2 apuntan a la misma direccion\n");
+    }
+
+    return 0;
+}
+</code></pre>
 
 </div>
 </main>
