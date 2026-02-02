@@ -27,6 +27,11 @@ body {
 	clear: both;
 	display: table;
 }
+.materia {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
 h1 {
 	text-align: center;
 	font-size: 2.5rem;

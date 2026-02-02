@@ -13,10 +13,8 @@
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>Informática II</h1>
-    </div>
+<header class="site-header">
+  <p class="materia">Informática II</p>
 </header>
 
 <main>
@@ -28,7 +26,7 @@
 
 <img class="img-center" src="../img/0001.png" alt="Ubicación en memoria">
 
-<h2>Uso:</h2>
+<h3>Uso:</h3>
 <ul>
   <li>Acceder y modificar variables desde funciones.</li>
   <li>Manejar arrays y strings.</li>
@@ -37,7 +35,7 @@
   <li>Eficiencia y control de memoria.</li>
 </ul>
 
-<h2>¿Cómo se declara?:</h2>
+<h3>¿Cómo se declara?:</h3>
 
 <h3>Sintaxis:</h3>
 <pre><code class="language-c">tipo_de_dato *nombre_del_puntero;</code></pre>
@@ -56,7 +54,7 @@ int *pi;
 pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 </code></pre>
 
-<h2>Acceder al valor usando un puntero (desreferenciar-object-of):</h2>
+<h3>Acceder al valor usando un puntero (desreferenciar - object-of):</h3>
 <ul>
   <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
   </ul>
@@ -67,13 +65,13 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
   <li><strong>*pi:</strong> valor guardado en esa direccion.</li>
 </ul>
     
-<h2>Especificador de formato para direcciones:</h2>
+<h3>Especificador de formato para direcciones:</h3>
 <ul>
   <li><strong>%p</strong>: El estandard para este especificador de formato esta definido para imprimir punteros a <strong>void</strong>. Es por esto que el compilador nos advierte que con <strong>&x</strong> le estamos pasando <strong>int *</strong>, pero espera <strong>void *</strong>.</li>
   <li>Para solucionar esto se hace un cast: <strong><code>(void *)&x;</code></strong></li>
 </ul>
 
-<h1>Teoría aplicada:</h1>
+<h2>Teoría aplicada:</h2>
 
 <h2>Makefile:</h2>
 
@@ -119,7 +117,7 @@ int main(void)
 }
 </code></pre>
 
-<h1>Tamaño de los punteros</h1>
+<h2>Tamaño de los punteros</h2>
 <p><strong>Se utilizara el sinonimo dimensión.</strong></p>
 
 <p>TODOS los punteros tienen la misma dimension/tamanio (usemos el sinonimo dimension para tamanio, para claridad en los comentarios).
@@ -173,7 +171,7 @@ int a[10]; // sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
 int *p = a; // sizeof(p); da sizeof(int *) = 8 bytes
 </code></pre>
 
-<h1>Teoría aplicada:</h1>
+<h2>Teoría aplicada:</h2>
 
 <h2>Makefile:</h2>
 
@@ -225,9 +223,9 @@ int main(void)
 }
 </code></pre>
 
-<h1>Operadores de punteros</h1>
+<h2>Operadores de punteros</h2>
 
-<h2>Operador & (Direccionamiento:address-of)</h2>
+<h3>Operador & (Direccionamiento:address-of)</h3>
 
 <h3>¿Qué hace?</h3>
 <p>Obtiene la direccion de memoria de una variable</p>
@@ -248,7 +246,7 @@ int *pi = &x;
   <li>scanf.</li>
 </ul>
 
-<h2>Operador * (Desreferenciacion:Indireccion:object-of)</h2>
+<h3>Operador * (Desreferenciacion/Indireccion - object-of):</h3>
 
 <h3>¿Qué hace?</h3>
 
@@ -264,7 +262,7 @@ printf("%d", *pi); Muestra 10
 </ul>
 <p><strong>Usar <code>*</code> sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)</strong></p>
 
-<h1>Teoría aplicada</h1>
+<h2>Teoría aplicada</h2>
 
 <h2>Makefile:</h2>
 <pre><code class="language-c">
@@ -314,9 +312,9 @@ int main(void)
 }
 </code></pre>
 
-<h1>Operaciones que admiten los punteros</h1>
+<h2>Operaciones que admiten los punteros</h2>
 
-<h2>Operador = (Asignacion entre punteros)</h2>
+<h3>Operador = (Asignacion entre punteros)</h3>
 
 <h3>¿Qué hace?</h3>
 <p>Copia la direccion de memoria, no el valor almacenado en esa direccion a la que apunta.</p>
@@ -343,7 +341,7 @@ p2 = p1;
   <li><strong><code>if(*p1 == *p2)</code></strong> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
 </ul>
 
-<h1>Teoría aplicada</h1>
+<h2>Teoría aplicada</h2>
 
 <h2>Makefile:</h2>
 <pre><code class="language-c">
@@ -407,7 +405,7 @@ int main(void)
 }
 </code></pre>
 
-<h1>Aritmetica de punteros (+, -, ++, --)</h1>
+<h2>Aritmetica de punteros (+, -, ++, --)</h2>
 
 <h3>¿Qué hace?</h3>
 <ul>
@@ -415,7 +413,7 @@ int main(void)
   <li>Un puntero "sabe" a que tipo apunta.</li>
 </ul>
 
-<h2>Operaciones permitidas:</h2>
+<h4>Operaciones permitidas:</h4>
 <ul>
   <li><strong><code>+:</code></strong> p + n Donde <strong>n</strong> es un numero</li>
   <li><strong><code>-:</code></strong> p - n</li>
@@ -424,7 +422,7 @@ int main(void)
   <li><strong><code>p1 - p2:</code></strong> Solo si apuntan al mismo array</li>
 </ul>
 
-<h2>Operaciones que NO TIENEN SENTIDO con punteros:</h2>
+<h4>Operaciones que NO TIENEN SENTIDO con punteros:</h4>
 <ul>
   <li><strong><code>p + p</code></strong></li>
   <li><strong><code>*:</code></strong> Multiplicación  <strong><code>p * n</code></strong> Causa error</li>
@@ -435,7 +433,7 @@ int main(void)
   <li>Operaciones lógicas (&amp;&amp;, ||)</li>
 </ul>
 
-<h2>Regla fundamental:</h2>
+<h4>Regla fundamental:</h4>
 
 <h3>Si:</h3>
 <pre><code class="language-c">T *p;</code></pre>
@@ -476,7 +474,7 @@ p = a - 1; // Comportamiento indefinido(UB)
   <li>Especificador de formato para imprimir valores del tipo <strong><code>ptrdiff_t</code></strong> es <strong><code>%td</code></strong></li>
 </ul>
 
-<h2>¿Qué es ptrdiff_t?:</h2>
+<h4>¿Qué es ptrdiff_t?:</h4>
 <h3>Cuando restamos dos punteros del mismo array:</h3>
 <pre><code class="language-c">p - a; // No devuelve int, ni size_t, devuelve ptrdiff_t</code></pre>
 
@@ -487,7 +485,7 @@ p = a - 1; // Comportamiento indefinido(UB)
 </ul>
 <p class="nota"><strong>Se debe incluir para seguir el estandar, la libreria <strong><code>stddef.h</code></strong></strong></p>
 
-<h1>Teoría aplicada</h1>
+<h2>Teoría aplicada</h2>
 
 <h2>Makefile:</h2>
 <pre><code class="language-c">
@@ -553,7 +551,7 @@ int main(void)
 }
 </code></pre>
 
-<h1>Punteros y Vectores</h1>
+<h2>Punteros y Vectores</h2>
 
 <p>En C, un vector y un puntero NO son lo mismo, pero estan intimamente relacionados.</p>
 
@@ -664,7 +662,7 @@ printf("p\n", (void *)p);
   lo que explica por qué la misma sintaxis funciona tanto con <strong>arrays</strong> como con <strong>punteros</strong>.
 </p>
 
-<h1>Teoría aplicada</h1>
+<h2>Teoría aplicada</h2>
 
 <h2>Makefile:</h2>
 <pre><code class="language-c">
@@ -713,7 +711,7 @@ clean:
  }
 </code></pre>
 
-<h1>Pasaje de parametros por referencia</h1>
+<h2>Pasaje de parametros por referencia</h2>
 
 <p>
   En C NO existe el pasaje por referencia como concepto del lenguaje.
@@ -799,7 +797,7 @@ void imprimir(int *p, int n)
   <li>Porque lo que se pasa es <strong>su direccion inicial</strong>.</li>
 </ul>
 
-<h1>Teoría aplicada</h1>
+<h2>Teoría aplicada</h2>
 
 <h2>Makefile:</h2>
 <pre><code class="language-c">
