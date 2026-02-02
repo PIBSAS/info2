@@ -73,7 +73,7 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
   <li>Para solucionar esto se hace un cast: <strong><code>(void *)&x;</code></strong></li>
 </ul>
 
-<h2>Teoría aplicada:</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 1</h2>
 
 <h3 class="make">Makefile:</h3>
 
@@ -173,7 +173,7 @@ int a[10]; // sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
 int *p = a; // sizeof(p); da sizeof(int *) = 8 bytes
 </code></pre>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 2</h2>
 
 <h3 class="make">Makefile:</h3>
 
@@ -264,7 +264,7 @@ printf("%d", *pi); Muestra 10
 </ul>
 <p><strong>Usar <code>*</code> sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)</strong></p>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 3</h2>
 
 <h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
@@ -343,7 +343,7 @@ p2 = p1;
   <li><strong><code>if(*p1 == *p2)</code></strong> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
 </ul>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 4</h2>
 
 <h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
@@ -487,7 +487,7 @@ p = a - 1; // Comportamiento indefinido(UB)
 </ul>
 <p class="nota"><strong>Se debe incluir para seguir el estandar, la libreria <strong><code>stddef.h</code></strong></strong></p>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 5</h2>
 
 <h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
@@ -557,7 +557,7 @@ int main(void)
 
 <p>En C, un vector y un puntero NO son lo mismo, pero estan intimamente relacionados.</p>
 
-<h2>¿Qué es un array?:</h2>
+<h3>¿Qué es un array?:</h3>
 
 <p>Un array es un objeto que representa N objetos del mismo tipo, almacenados en memoria contigua, cuyo tipo incluye su tamaño.</p>
 
@@ -568,7 +568,7 @@ int main(void)
   <li><strong><code>a</code></strong> representa un objeto de tipo "array de <strong>N</strong> elementos"</li>
 </ul>
 
-<h2>¿Qué pasa cuando usamos el nombre del array?:</h2>
+<h3>¿Qué pasa cuando usamos el nombre del array?:</h3>
 <p>En la mayoria de las expresiones, un array se convierte implícitamente en un puntero al primer elemento:</p>
 <pre><code class="language-c">a</code></pre>
 
@@ -664,7 +664,7 @@ printf("p\n", (void *)p);
   lo que explica por qué la misma sintaxis funciona tanto con <strong>arrays</strong> como con <strong>punteros</strong>.
 </p>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 6</h2>
 
 <h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
@@ -743,7 +743,7 @@ int main(void)
 }
 </code></pre>
 
-<h3>Que sucede aca?</h3>
+<h3>¿Qué sucede acá?</h3>
 <ul>
   <li><strong><code>a</code></strong> vale 10.</li>
   <li>Se copia su valor en <strong><code>x</code></strong></li>
@@ -780,7 +780,7 @@ int main(void)
   <li>Se paso la direccion de a por valor</li>
 </ul>
 
-<h2>Relacion con arrays:</h2>
+<h3>Relacion con arrays:</h3>
 <pre><code class="language-c">
 void imprimir(int *p, int n)
 {
@@ -789,7 +789,7 @@ void imprimir(int *p, int n)
 }
 </code></pre>
 
-<h3>Llamada:</h3>
+<h4>Llamada:</h4>
 <pre><code class="language-c">int a[5] = {1, 2, 3, 4, 5};</code></pre>
 <pre><code class="language-c">imprimir(a, 5);</code></pre>
 <ul>
@@ -799,7 +799,7 @@ void imprimir(int *p, int n)
   <li>Porque lo que se pasa es <strong>su direccion inicial</strong>.</li>
 </ul>
 
-<h2 class="teoria">Teoría aplicada</h2>
+<h2 class="teoria">Teoría aplicada Ejemplo 7</h2>
 
 <h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
