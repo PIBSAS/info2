@@ -27,6 +27,9 @@ body {
 	clear: both;
 	display: table;
 }
+.site-header {
+  text-align: center;
+}
 .materia {
   font-size: 1.8rem;
   font-weight: 600;
