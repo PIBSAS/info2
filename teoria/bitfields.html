@@ -30,7 +30,7 @@
     <h2>Para que sirven?</h2>
         <p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
         <h3>Ejemplo:</h3>
-            <p><b></b>Necesitamos guardar:</b></p>
+            <p><strong></strong>Necesitamos guardar:</strong></p>
             <ul>
                 <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
                 <li>Un numero de 0 a 7 => 3 bits.</li>
@@ -41,7 +41,7 @@
     <h3>Sintaxis</h3>
         <p>La sintaxis SOLO EXISTE dentro de un struct:</p>
 <pre><code class="language-c">tipo nombre_campo : cantidad_de_bits;</code></pre>
-        <p><b>Ejemplo:</b></p>
+        <p><strong>Ejemplo:</strong></p>
 <pre><code class="language-c">
 struct Ejemplo {
   unsigned campo1 : 1; // Campo : Cantidad de bits que ocupa
@@ -49,9 +49,9 @@ struct Ejemplo {
   unsigned campo3 : 4;
 };
 </code></pre>
-<p><b><em>IMPORTANTE:</em></b></p>
-<p><b><code>cantidad_de_bits</code> debe ser una constante entera positiva.</b></p>
-<p><b>Solo se permiten tipos enteros:</b></p>
+<p><strong><em>IMPORTANTE:</em></strong></p>
+<p><strong><code>cantidad_de_bits</code> debe ser una constante entera positiva.</strong></p>
+<p><strong>Solo se permiten tipos enteros:</strong></p>
 <ul>
     <li>int</li>
     <li>unsigned int</li>
@@ -69,7 +69,7 @@ struct flags {
 };
 </code></pre>
 
-<p><b>USo:</b></p>
+<p><strong>USo:</strong></p>
 <pre><code class="language-c">
 struct flags f = {1, 0, 3};
 
@@ -80,20 +80,20 @@ printf("prioridad = %u\n", f.prioridad);
 
 <h3>¿Qué sucede aqui?</h3>
 <ul>
-    <li><b>listo</b> ocupa 1 bit => Valores posibles: 0 o 1</li>
-    <li><b>error</b> ocupa 1 bit => Valores posibles: 0 o 1</li>
-    <li><b>prioridad</b> ocupa 2 bit => Valores posibles: 0 a 3</li>
+    <li><strong>listo</strong> ocupa 1 bit => Valores posibles: 0 o 1</li>
+    <li><strong>error</strong> ocupa 1 bit => Valores posibles: 0 o 1</li>
+    <li><strong>prioridad</strong> ocupa 2 bit => Valores posibles: 0 a 3</li>
 </ul>
 <p>Si intentamos hacer:</p>
 <pre><code class="language-c">f.prioridad = 5; // (UB)</code></pre>
 <p>Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
 
 <h3>¿Cuánta memoria ocupan?</h3>
-<p><b>Acá aparece la primera gran advertencia:</b></p>
+<p><strong>Acá aparece la primera gran advertencia:</strong></p>
 <ul>
     <li>El estandar NO garantiza el layout exacto en memoria.</li>
 </ul>
-<p><b>Pero en la práctica:</b></p>
+<p><strong>Pero en la práctica:</strong></p>
 <ul>
     <li>El compilador agrupa campos de bit en unidades de la dimension del tipo base.</li>
     <li>Generalmente usa palabras-Word de 1, 2 o 4 bytes</li>
@@ -110,10 +110,10 @@ struct A {
 </code></pre>
 <p><strong>Aunque solo usa 3 bits:</strong></p>
 <ul>
-    <li>Probablemente <b><code>sizeof(struct A)</code></b> sea 4 bytes (si unsigned es de 4 bytes)</li>
+    <li>Probablemente <strong><code>sizeof(struct A)</code></strong> sea 4 bytes (si unsigned es de 4 bytes)</li>
 </ul>
-<p><b>Conclusion importante:</b>
-    Los campos de bit reducen espacio lógico, pero no siempre reducen <b><code>sizeof</code></b> como uno imagina.
+<p><strong>Conclusion importante:</strong>
+    Los campos de bit reducen espacio lógico, pero no siempre reducen <strong><code>sizeof</code></strong> como uno imagina.
 </p>
 
 <h3>Campos de relleno (padding explicito)</h3>
@@ -125,7 +125,7 @@ struct B {
   unsigned b : 8;
 };
 </code></pre>
-<p><b>Esto:</b></p>
+<p><strong>Esto:</strong></p>
 <ul>
     <li>Descarta bits.</li>
     <li>Sirve para alinear a limites especificos.</li>
@@ -138,14 +138,14 @@ struct C {
   signed valor : 3;
 };
 </code></pre>
-<p><b>Con 3 bits:</b></p>
+<p><strong>Con 3 bits:</strong></p>
 <ul>
     <li>Valores posibles (normalmente): -4 a +3</li>
 </ul>
 <p>El signo y representacion depende del compilador(Complemento a 2 - Two's complement es lo común, pero el estandar no lo obliga).</p>
-<p><b>Regla practica:</b></p>
+<p><strong>Regla practica:</strong></p>
 <ul>
-    <li>Usamos <b><code>unsigned</code></b> siempre que podemos.</li>
+    <li>Usamos <strong><code>unsigned</code></strong> siempre que podemos.</li>
     <li>Evitamos campos de bit con signo salvo que sea estrictamente necesario</li>
 </ul>
 
@@ -187,7 +187,7 @@ void limpiar(struct Flags *f)
 </code></pre>
 
 <h1>Diferencia con operaciones a nivel bit:</h1>
-<p>Muchos confunden campos de bits con operadores bit a bit (<b><code>& | ^ << >> </code></b>).</p>
+<p>Muchos confunden campos de bits con operadores bit a bit (<strong><code>& | ^ << >> </code></strong>).</p>
 
 <h3>Campos de bit - bit-fields:</h3>
 <ul>
@@ -237,7 +237,7 @@ void limpiar(struct Flags *f)
 <ul>
     <li>Solo dentro de struct.</li>
     <li>Ocupan bits, no bytes.</li>
-    <li><b>Sintaxis: <code>tipo campo : bits;</code></b></li>
+    <li><strong>Sintaxis: <code>tipo campo : bits;</code></strong></li>
     <li>No direccionables, ni portables.</li>
     <li>Layout dependiente del compilador.</li>
     <li>Muy útiles para flags y hardware.</li>

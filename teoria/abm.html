@@ -194,7 +194,7 @@ fread(v, sizeof(Empleado), 3, fp);
 </div>
              
 <h3>Ejemplo:</h3>
-<p>Ir al registro <b>N</b>.</p>
+<p>Ir al registro <strong>N</strong>.</p>
 <pre><code class="language-c">
 fseek(fp, n * sizeof(Empleado), SEEK_SET);
 fread(&e, sizeof(Empleado), 1, fp);
@@ -278,18 +278,18 @@ typedef struct {
 
 <h3>Utiliza un buffer intermedio:</h3>
     <ul>
-        <li>En salida <b><code>stdout</code></b>: se acumulan datos y luego se escriben.</li>
-        <li>En entrada <b><code>stdin</code></b>: se leen bloques desde el dispositivo.</li>
+        <li>En salida <strong><code>stdout</code></strong>: se acumulan datos y luego se escriben.</li>
+        <li>En entrada <strong><code>stdin</code></strong>: se leen bloques desde el dispositivo.</li>
     </ul>
         
 <h2>Streams standard:</h2>
-<b><code>stdin  :</code></b> entrada estandar (teclado)
-<b><code>stdout :</code></b> salida estandar (pantalla)
-<b><code>stderr :</code></b> salida de errores (pantalla)
+<strong><code>stdin  :</code></strong> entrada estandar (teclado)
+<strong><code>stdout :</code></strong> salida estandar (pantalla)
+<strong><code>stderr :</code></strong> salida de errores (pantalla)
 
 <h2>En formato texto:</h2>
 <ul>
-    <li>Se realizan conversiones (<b><code>ASCII</code></b>)</li>
+    <li>Se realizan conversiones (<strong><code>ASCII</code></strong>)</li>
 </ul>
 
 <h2>En formato binario:</h2>
@@ -300,7 +300,7 @@ typedef struct {
 
 <h2>struct FILE:</h2>
     <p>
-        <b><code>FILE</code></b> es una estructura opaca definida por la libreria
+        <strong><code>FILE</code></strong> es una estructura opaca definida por la libreria
         estandar que representa un stream de archivo.
     </p>
 
@@ -314,9 +314,9 @@ typedef struct {
         
 <h3>IMPORTANTE:</h3>
 <ul>
-    <li>El contenido de <b><code>FILE</code></b> es dependiente del compilador.</li>
+    <li>El contenido de <strong><code>FILE</code></strong> es dependiente del compilador.</li>
     <li>No debe accederse a sus campos directamente.</li>
-    <li>Solo se manipula mediante funciones estandar (<b><code>fopen</code></b>, <b><code>fread</code></b>, <b><code>fwrite</code></b>, <b><code>fseek</code></b>, <b><code>fclose</code></b>, etc.)</li>
+    <li>Solo se manipula mediante funciones estandar (<strong><code>fopen</code></strong>, <strong><code>fread</code></strong>, <strong><code>fwrite</code></strong>, <strong><code>fseek</code></strong>, <strong><code>fclose</code></strong>, etc.)</li>
 </ul>
 
 

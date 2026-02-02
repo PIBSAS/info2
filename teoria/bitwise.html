@@ -40,12 +40,12 @@
 <p><strong>NO APLICA a float, double, struct, etc.</strong></p>
 
 <h2>Representación binaria:</h2>
-<p>Supongamos un <b><code>unsigned char</code></b>(8 bits):</p>
+<p>Supongamos un <strong><code>unsigned char</code></strong>(8 bits):</p>
 <ul>
-    <li><b>Valor decimal:</b> <code>13</code></li>
-    <li><b>Binario:</b> <code>0000 1101</code></li>
+    <li><strong>Valor decimal:</strong> <code>13</code></li>
+    <li><strong>Binario:</strong> <code>0000 1101</code></li>
 </ul>
-<p>Cada operador va a actuar bit a bit, comparando o modificando esos <b>0</b> y <b>1</b>.</p>
+<p>Cada operador va a actuar bit a bit, comparando o modificando esos <strong>0</strong> y <strong>1</strong>.</p>
 
 <h1>Operador AND bit a bit ( &amp; )</h1>
 <p><strong>No confundir</strong> con el AND lógico (&amp;&amp;)</p>
@@ -96,7 +96,7 @@ unsigned char c = a & b; // 0000 1000 -> 8
     <li>Enmascarar bits.</li>
     <li>Ver si un bit especifico esta activo.</li>
 </ul>
-<p><b>Ejemplo tipico:</b></p>
+<p><strong>Ejemplo tipico:</strong></p>
 <pre><code class="language-c">
 if (estado & 0x01) {
 // el bit 0 esta en 1
@@ -152,7 +152,7 @@ unsigned char c = a | b; // 0000 1110 -> 24
 <ul>
     <li>Prender bits (Setear flags).</li>
 </ul>
-<p><b>Ejemplo tipico:</b></p>
+<p><strong>Ejemplo tipico:</strong></p>
 <pre><code class="language-c">
 estado = estado | 0x04; // pone en 1 el bit 2
 </code></pre>
@@ -207,12 +207,12 @@ unsigned char c = a ^ b; // 0000 0110 -> 6
     <li>Invertir bits especificos.</li>
     <li>Truco historico, hacer swap sin variable auxiliar, hoy en día solo didáctico.</li>
 </ul>
-<p><b>Ejemplo tipico:</b></p>
+<p><strong>Ejemplo tipico:</strong></p>
 <pre><code class="language-c">
 estado ^= 0x01; // invierte el bit 0
 </code></pre>
 
-<p><b>Swap sin variable auxiliar:</b></p>
+<p><strong>Swap sin variable auxiliar:</strong></p>
 <pre><code class="language-c">
 a = a ^ b;
 b = a ^ b;
@@ -226,8 +226,8 @@ a = a ^ b;
 <h3>Regla:</h3>
 <p>Invierte todos los bits:</p>
 <ul>
-    <li><b><code>0 => 1</code></b></li>
-    <li><b><code>1 => 0</code></b></li>
+    <li><strong><code>0 => 1</code></strong></li>
+    <li><strong><code>1 => 0</code></strong></li>
 </ul>
 
 <div class="tablecontainer">
@@ -257,13 +257,13 @@ unsigned char b = ~a; // 1111 1010 -> 250
 </code></pre>
 <p><strong>IMPORTANTE:</strong></p>
 <p>En tipos con signo, el resultado de la representacion (Complemento a dos).
-            Por eso para bitwise - bit a bit conviene usar <b><code>unsigned</code></b>.</p>
+            Por eso para bitwise - bit a bit conviene usar <strong><code>unsigned</code></strong>.</p>
 
 <h3>¿Para qué se usa?:</h3>
 <ul>
     <li>Apagar bits con mascara.</li>
 </ul>
-<p><b>Ejemplo tipico:</b></p>
+<p><strong>Ejemplo tipico:</strong></p>
 <pre><code class="language-c">
 estado &= ~0x04; // pone en 0 el bit 2  
 </code></pre>
@@ -276,7 +276,7 @@ resultado = a << n;
 </code></pre>
 
 <h3>¿Qué hace?:</h3>
-<p>Desplaza los bits <b><code>n</code></b> posiciones a la izquierda, rellenando con ceros a la derecha.</p>
+<p>Desplaza los bits <strong><code>n</code></strong> posiciones a la izquierda, rellenando con ceros a la derecha.</p>
 
 <h3>Ejemplo:</h3>
 <pre><code class="language-c">
@@ -285,7 +285,7 @@ unsigned char b = a << 2; // 0000 1100 => 12
 </code></pre>
 
 <h3>Interpretación:</h3>
-<p>Equivale para <b><code>unsigned</code></b> a multiplicar por 2<sup>n</sup>.</p>
+<p>Equivale para <strong><code>unsigned</code></strong> a multiplicar por 2<sup>n</sup>.</p>
 <pre><code class="language-c">
 a << 1 // 1 * 2^1 => 2
 a << 2 // 1 * 2^2 => 4
@@ -299,7 +299,7 @@ resultado = a >> n;
 </code></pre>
 
 <h3>¿Qué hace?:</h3>
-<p>Desplaza los bits <b><code>n</code></b> posiciones a la derecha, rellenando con ceros a la izquierda.</p>
+<p>Desplaza los bits <strong><code>n</code></strong> posiciones a la derecha, rellenando con ceros a la izquierda.</p>
 
 <h3>Ejemplo:</h3>
 <pre><code class="language-c">
@@ -308,18 +308,18 @@ unsigned char b = a >> 2; // 0000 0010 => 2
 </code></pre>
 
 <h3>Interpretación:</h3>
-<p>Equivale para <b><code>unsigned</code></b> a diividir por 2<sup>n</sup>.</p>
+<p>Equivale para <strong><code>unsigned</code></strong> a diividir por 2<sup>n</sup>.</p>
 <pre><code class="language-c">
 a << 1 // 1 / 2^1 => 1/2
 a << 2 // 1 / 2^2 => 1/4
 </code></pre>
 
 
-<h3>Tipo <b><code>signed</code></b>:</h3>
+<h3>Tipo <strong><code>signed</code></strong>:</h3>
 <p>Dependiente de la implementación.</p>
 <ul>
     <li>Puede rellenar con ceros.</li>
-    <li>O repetir el bit de signo (Shift aritmetico). Por eso para bit a bit(bitwise) serio, se usa <b><code>unsigned</code></b>.</li>
+    <li>O repetir el bit de signo (Shift aritmetico). Por eso para bit a bit(bitwise) serio, se usa <strong><code>unsigned</code></strong>.</li>
 </ul>
 
 

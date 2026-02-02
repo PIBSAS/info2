@@ -48,7 +48,7 @@
 
 <h3>Trabajamos con:</h3>
 <ul>
-    <li>Archivos - <b><code>FILE *</code></b></li>
+    <li>Archivos - <strong><code>FILE *</code></strong></li>
     <li>Listas - Linked list, pilas - stack, colas - queue.</li>
     <li>Estructuras dinamicas - Dynamic structures</li>
     <li>Grandes volumenes de datos.</li>
@@ -66,16 +66,16 @@ int v[n]; // NO estandar solo en algunos compiladores
     
 <h2>Asignación diámica de memoria:</h2>
 <p>
-    Se hace principalmente con funciones de <b><code><stdlib.h></code></b>, por lo cual deberemos incluirla
+    Se hace principalmente con funciones de <strong><code><stdlib.h></code></strong>, por lo cual deberemos incluirla
     cuando deseamos manejar la memoria dinamicamente.
 </p>
         
 <h3>Funciones:</h3>
 <ul>
-    <li><b><code>malloc();</code></b></li>
-    <li><b><code>calloc();</code></b></li>
-    <li><b><code>realloc();</code></b></li>
-    <li><b><code>free();</code></b></li>
+    <li><strong><code>malloc();</code></strong></li>
+    <li><strong><code>calloc();</code></strong></li>
+    <li><strong><code>realloc();</code></strong></li>
+    <li><strong><code>free();</code></strong></li>
 </ul>
 
 <h2>Funcion malloc():</h2>
@@ -85,9 +85,9 @@ int v[n]; // NO estandar solo en algunos compiladores
 <p>malloc significa memory allocation.</p>
 
 <ul>
-    <li><b>Es una funcion que:</b></li>
+    <li><strong>Es una funcion que:</strong></li>
     <ul>
-        <li>Reserva un bloque de meoria en el <b>heap</b>.</li>
+        <li>Reserva un bloque de meoria en el <strong>heap</strong>.</li>
         <li>Devuelve la direccion inicial del bloque.</li>
         <li>NO inicializa la memoria.</li>
     </ul>
@@ -99,32 +99,32 @@ int v[n]; // NO estandar solo en algunos compiladores
 <pre><code class="language-c">void *malloc(size_t size);</code></pre>
 
 <ul>
-    <li><b><code>size</code></b> &lArr; Cantidad de bytes a reservar.</li>
+    <li><strong><code>size</code></strong> &lArr; Cantidad de bytes a reservar.</li>
 </ul>
 <ul>
-    <li><b>Retorna:</b></li>
+    <li><strong>Retorna:</strong></li>
     <ul>
         <li>Un puntero a la memoria reservada.</li>
-        <li><b><code>NULL</code></b> si no pudo reservar.</li>
+        <li><strong><code>NULL</code></strong> si no pudo reservar.</li>
     </ul>
 </ul>
       
-<h3>Porque devuelve <b><code>void*?</code></b></h3>
+<h3>Porque devuelve <strong><code>void*?</code></strong></h3>
 
 <ul>
-    <li><b><code>malloc</code></b> no sabe que tipo de datos vamos a guardar.</li>
-    <li>El <b><code>void *</code></b> puede convertirse a cualquier puntero.</li>
+    <li><strong><code>malloc</code></strong> no sabe que tipo de datos vamos a guardar.</li>
+    <li>El <strong><code>void *</code></strong> puede convertirse a cualquier puntero.</li>
 </ul>
 
 <p><strong>En C no es obligatorio castear, pero suele pedirse:</strong></p>
 
 <pre><code class="language-c">int *p = (int *) malloc(sizeof(int));</code></pre>
 <pre><code class="language-c">int *v = malloc(n * sizeof(int)); // Para arrays</code></pre>
-<pre><code class="language-c">vector = (int *) malloc((size_t)n * sizeof(int)); // Es una forma mas robusta, el compilador convierte <b>n</b> implicitamente a <b><code>size_t</code></b> lo que puede emitir warnings si <b>n</b> es negativo, de esta forma ya casteamos correctamente nosotros.</code></pre>
+<pre><code class="language-c">vector = (int *) malloc((size_t)n * sizeof(int)); // Es una forma mas robusta, el compilador convierte <strong>n</strong> implicitamente a <strong><code>size_t</code></strong> lo que puede emitir warnings si <strong>n</strong> es negativo, de esta forma ya casteamos correctamente nosotros.</code></pre>
 
 <h2>Verificación de error (OBLIGATORIO)</h2>
 
-<p>Siempre hay que comprobar si <b><code>malloc</code></b> devolvió <b><code>NULL</code></b>:</p>
+<p>Siempre hay que comprobar si <strong><code>malloc</code></strong> devolvió <strong><code>NULL</code></strong>:</p>
 <pre><code class="language-c">
 int *p = malloc(sizeof(int));
 
@@ -150,24 +150,24 @@ printf("%d\n", *p);
     
 <h2>Liberación de memoria free</h2>
 
-<p>Toda memoria solicitada con <b><code>malloc</code></b> DEBE liberarse:</p>
+<p>Toda memoria solicitada con <strong><code>malloc</code></strong> DEBE liberarse:</p>
 <pre><code class="language-c">
 free(p);
 p = NULL;
 </code></pre>
 
-<p><b>Evita:</b></p>
+<p><strong>Evita:</strong></p>
 <ul>
     <li>Memory leaks.</li>
     <li>Dangling pointers.</li>
 </ul>
 
-<h3>Errores comunes con <b><code>malloc</code></b>:</h3>
+<h3>Errores comunes con <strong><code>malloc</code></strong>:</h3>
 
 <ul>
-    <li>NO verificar <b><code>NULL</code></b>.</li>
+    <li>NO verificar <strong><code>NULL</code></strong>.</li>
     <li>Usar memoria sin asignar.</li>
-    <li>Olvidar <b><code>free</code></b>.</li>
+    <li>Olvidar <strong><code>free</code></strong>.</li>
     <li>Liberar dos veces el mismo puntero.</li>
     <li>Acceder fuera del bloque reservado.</li>
 </ul>
@@ -199,11 +199,11 @@ p = NULL; // Liberamos la memoria solicitada
     Un puntero que sigue apuntando a una zona de memoria que ya fue liberada
     o que dejo de ser valida.
 </p>
-<p><b>En otras palabras:</b></p>
+<p><strong>En otras palabras:</strong></p>
 <ul>
     <li>El puntero existe.</li>
     <li>Tiene una direccion guardada</li>.
-    <li>Pero esa memoria ya no nos pertenece porque fue liberada con <b><code>free()</code></b>.</li>
+    <li>Pero esa memoria ya no nos pertenece porque fue liberada con <strong><code>free()</code></strong>.</li>
     <li>Usarlo es comportamiento indefinido (UB).</li>
 </ul>
 
@@ -224,7 +224,7 @@ free(p); // Liberamos del heap la memoria solicitada, el puntero queda colgado (
 p = NULL; // NULL no apunta a memoria valida
 printf("%d\n", *p); // Acceder a *p cuando p == NULL es facil de detectar.
 </code></pre>
-<p><strong>Asignar <b><code>NULL</code></b> invalida el puntero y evita su uso accidental.</strong></p>
+<p><strong>Asignar <strong><code>NULL</code></strong> invalida el puntero y evita su uso accidental.</strong></p>
 
 <h2 class="teoria">Teoría aplicada</h2>
 
