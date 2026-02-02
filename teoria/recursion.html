@@ -19,7 +19,8 @@
 </header>
 
 <main>
-  <div class="container">
+<div class="container">
+
 <h1>Recursividad - Recursion</h1>
 
 <h2>¿Qué es la recursividad-recursion?</h2>
@@ -32,20 +33,26 @@
 
 <h3>Ejemplo:</h3>
 <ul>
-    <li>Para calcular factorial(5)</li>
+    <li>Para calcular factorial(5):
     <ul>
-        <li>Necesito factorial(4)</li>
+        <li>Necesito factorial(4)
         <ul>
-            <li>Necesito factorial(3)</li>
-            <li>...</li>
+            <li>Necesito factorial(3)
+            <li>...
             <ul>
                 <li>Hasta llegar a un caso simple que se resolver directo.</li>
             </ul>
+            </li>
+            </li>
         </ul>
+        </li>
     </ul>
+    </li>
 </ul>
 
+
 <h2>Las 2 partes OBLIGATORIAS de toda funcion recursiva</h2>
+
 <h3>Caso base:</h3>
 <ul>
     <li>Es la condicion de corte.</li>
@@ -58,9 +65,11 @@
     <li><strong>IMPORTANTE</strong>:Cada llamada recursiva debe acercarse al caso base.</li>
 </ul>
 
+
 <h2>¿Para que se usa?</h2>
 
 <p>Cuando el problema tiene estructura naturalmente recursiva, por ejemplo:</p>
+
 
 <h3>Definiciones matematicas:</h3>
 <ul>
@@ -68,17 +77,20 @@
     <li>Potencia</li>
     <li>Fibonacci</li>
 </ul>
+
 <h3>Estructuras de datos:</h3>
 <ul>
     <li>Arboles-Tree</li>
     <li>Listas enlazadas-Linked list</li>
 </ul>
+
 <h3>Algoritmos clasicos:</h3>
 <ul>
     <li>Busqueda binaria</li>
     <li>Quicksort</li>
     <li>Mergesort</li>
 </ul>
+
 <h3>Procesar cosas "anidadas":</h3>
 <ul>
     <li>Directorios</li>
@@ -88,7 +100,7 @@
 
 <h3><em>IMPORTANTE:</em></h3>
 
-<p>No todo lo recursivo es mejor que lo iterativo. En C muchas veces el <b>for</b> o <b>while</b> es:</p>
+<p class="nota">No todo lo recursivo es mejor que lo iterativo. En C muchas veces el <b>for</b> o <b>while</b> es:</p>
 <ul>
     <li>Más rápido</li>
     <li>Más eficiente en memoria</li>
@@ -116,7 +128,9 @@
 </ul>
 
 <h3>Directa:</h3>
+
 <p>Una función se llama a si misma directamente.</p>
+
 <pre><code class="language-c">
 f(...);
 {
@@ -124,7 +138,8 @@ f(...);
     f(...);
 }
 </code></pre>
-<p><b>Ejemplos:</b></p>
+
+<h3>Ejemplos:</h3>
 <ul>
     <li>Factorial</li>
     <li>Suma</li>
@@ -148,22 +163,28 @@ void B(int n)
 </code></pre>
 <p><b>Llamadas:</b> A &rarr; B &rarr; A &rarr; A &rarr; B &rarr; ...</p>
 <p>Esto casi no se usa en C inicial.</p>
-<p><b>Ejemplos:</b></p>
+
+<h3>Ejemplos:</h3>
 <ul>
     <li>Analisis sintáctico</li>
     <li>Automatas</li>
     <li>Estados</li>
 </ul>
 
+
 <h2>Recursividad lineal</h2>
+
 <h3>En cada llamada:</h3>
+
 <p>La funcion hace una sola llamada recursiva.</p>
+
 <pre><code class="language-c">
 f(n)
 {
     return algo + f(n - 1);
 }
 </code></pre>
+
 <h3>Como sucede en:</h3>
 <ul>
     <li>Factorial</li>
@@ -173,27 +194,36 @@ f(n)
 <p>Son fáciles de razonar y convertir en iterativas.</p>
 <p>Profundidad(Cantidad maxima de llamadas activas al mismo tiempo en la <b>pila-stack) = O(n)</b> : Notacion Big-O, significa que <b>n</b> crece, la profundidad crece proporcionalmente a <b>n (lineal)</b></p>
 
+
 <h2>Recursividad múltiple</h2>
+
 <h3>En una llamada:</h3>
+
 <p>Se hacen 2 o más llamadas recursivas.</p>
+
 <pre><code class="language-c">
 f(n)
 {
     return f(n - 1) + f(n - 2);
 }
 </code></pre>
+
 <h3>Como sucede en:</h3>
 <ul>
     <li>Fibonacci</li>
 </ul>
 <p><b><em>Son muy ineficientes, explosion de llamadas</em></b> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
 
+
 <h2>Ejemplo clásico de recursividad:</h2>
+
 <h3>Factorial:</h3>
+
 <pre><code class="language-c">
 n! = n * (n - 1)!
 0! = 1
 </code></pre>
+
 <p><strong>¿Qué pasa internamente con <b><code>factorial(5)</code></b>?</strong></p>
 <p>Fase de llamadas (expansión de la expresión):</p>
 <pre><code class="language-c">
@@ -216,7 +246,9 @@ Sustitución y evaluación:
 </code></pre>
 <p>Una vez alcanzado el caso base, las llamadas retornan en orden inverso al que fueron realizadas, liberandose los marcos de activacion de la pila-stack.</p>
 
+
 <h2>La pila (stack): Concepto clave</h2>
+
 <h3>Cada llamada a función:</h3>
 <ul>
     <li>Guarda parametros.</li>
@@ -250,7 +282,9 @@ int suma(int n)
 }
 </code></pre>
 <p>Esto es recursivo por definicion, pero ...</p>
+
 <h3>Versión iterativa:</h3>
+
 <pre><code class="language-c">
 int suma(int n)
 {
@@ -266,13 +300,16 @@ int suma(int n)
     <li><b>Iterativa:</b> más eficiente.</li>
 </ul>
 
+
 <h2>Ejemplo 3:</h2>
+
 <h3>Fibonacci:</h3>
 <ul>
     <li><b>fib(0) = 0</b> Caso base.</li>
     <li><b>fib(1) = 1</b> Caso base.</li>
     <li><b>fib(n) = fib(n -1) + fib(n-2)</b></li>
 </ul>
+
 <pre><code class="language-c">
 int fib(int n)
 {
@@ -290,9 +327,13 @@ int fib(int n)
         <li>Explota rápido la pila</li>
     </ul>
 
-<h2>Ejemplo 4:</h2>
+
+<h3>Ejemplo 4:</h3>
+
 <h3>Recursividad con arrays</h3>
+
 <p>Imprimir un array recursivamente.</p>
+
 <pre><code class="language-c">
 void imprimir(int v[], int n)
 {
@@ -302,11 +343,13 @@ void imprimir(int v[], int n)
   printf("%d ", v[n - 1]);
 }
 </code></pre>
+
 <p><b><em>IMPORTANTE:</em></b></p>
 <ul>
     <li>La dimension se reduce <b>(n - 1)</b></li>
     <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
 </ul>
+
 
 <h3>Errores tipicos:</h3>
 <ul>
@@ -317,14 +360,17 @@ void imprimir(int v[], int n)
     <li>Creer que es "más mágica" que un bucle(loop)</li>
 </ul>
 
+
 <h3>Consideraciones para resolver ejercicios de recursividad-recursion:</h3>
+
 <p>Cuando vemos un ejercicio recursivo, preguntarnos:</p>
 <ul>
     <li>¿Cuál es el caso base más simple?</li>
     <li>¿Cómo expresamos el problema en función del mismo problema más chico?</li>
     <li>¿Qué parámetro se achica en cada llamada?</li>
 </ul>
-<p><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+<p class="nota"><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+
 
 <h3>La recursividad es más relevante en:</h3>
 <ul>
@@ -333,10 +379,10 @@ void imprimir(int v[], int n)
     <li>Backtracking</li>
 </ul>
 
+
 <h2 class="teoria">Teoría aplicada:</h2>
 
 <h3 class="make">Makefile</h3>
-
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -357,7 +403,6 @@ clean:
 
 
 <h3 class="make">Código:</h3>
-
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o recursividad
 #include <stdio.h>

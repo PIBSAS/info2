@@ -19,7 +19,6 @@
 </header>
 
 <main>
-
 <div class="container">
 
 <h1>Lista simple - Singly linked list</h1>
@@ -28,19 +27,23 @@
 
 <p>Una lista simple enlazada es una estructura de datos dinamica formada por nodos, donde:</p>
 <ul>
-    <li>Cada nodo contiene:</li>
-    <ul>
-        <li>Un dato.</li>
-        <li>Un puntero al siguiente nodo.</li>
-    </ul>
+    <li>Cada nodo contiene:
+        <ul>
+            <li>Un dato.</li>
+            <li>Un puntero al siguiente nodo.</li>
+        </ul>
+    </li>
     <li>El último nodo apunta a <b><code>NULL</code></b>.</li>
     <li>La lista se recorre en un solo sentido.</li>
 </ul>
 
+
 <h3>Visualmente</h3>
+
 <pre><code class="language-c">
 [ dato | siguiente ] => [ dato | siguiente ] => [ dato | siguiente ] => NULL
 </code></pre>
+
 
 <h2>¿Porqué usar una lista simple?:</h2>
 
@@ -55,34 +58,38 @@
     <strong>El limite lo impone la memoria disponible, no una dimension fija.</strong>
 </p>
 
+
 <h2>Conceptos fundamentales:</h2>
 <ol>
     <li>Nodo (struct autoreferenciado).</li>
     <p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
 
-<h2>Sintaxis:</h2>
+    <h2>Sintaxis:</h2>
 <pre><code class="language-c">
 struct Nodo {
   int dato;
   struct Nodo *sig;
 };    
 </code></pre>
-<li>Puntero de comienzo (head).</li>
-<p>La lista se maneja mediante un puntero.</p>
 
-<h2>Sintaxis:</h2>
+    <li>Puntero de comienzo (head).</li>
+    <p>La lista se maneja mediante un puntero.</p>
+
+    <h2>Sintaxis:</h2>
 <pre><code class="language-c">
 struct Nodo *lista = NULL;
 </code></pre>
-<ul>
-    <li><b><code>NULL</code></b> => lista vacía.</li>
-    <li>Apunta siempre al primer nodo.</li>
-</ul>
+    <ul>
+        <li><b><code>NULL</code></b> => lista vacía.</li>
+        <li>Apunta siempre al primer nodo.</li>
+    </ul>
 </ol>
+
 
 <h1>Operaciones básicas sobre listas simples</h1>
 
 <h2>Crear nodo (memoria dinámica):</h2>
+
 <pre><code class="language-c">
 nuevo = malloc(sizeof(struct Nodo));
 </code></pre>
@@ -93,11 +100,14 @@ nuevo = malloc(sizeof(struct Nodo));
     <li>Inicializar puntero (sig).</li>
 </ul>
 
+
 <h2>Recorrer la lista:</h2>
+
 <pre><code class="language-c">
 for (aux = lista; aux != NULL; aux = aux->sig)
 </code></pre>
 <p><strong>Se avanza saltando de nodo en nodo.</strong></p>
+
 
 <h1>Inserción</h1>
 
@@ -108,6 +118,7 @@ for (aux = lista; aux != NULL; aux = aux->sig)
     <li>Como elemento intermedio.</li>
     <li>Ordenada por una clave (muy común)</li>
 </ul>
+
 
 <h2>Inserción al comienzo:</h2>
 
@@ -142,6 +153,7 @@ act->sig = nuevo;
     <li><b><code>act</code></b> apunta al nodo anterior al lugar de inserción</li>
     <li><b><code>nuevo</code></b> ya tiene cargado el dato.</li>
 </ul>
+
 
 <h2>Inserción al final:</h2>
 
@@ -276,18 +288,22 @@ free(act);
     <li><b><code>act</code></b> apunta al último nodo (<b><code>act->sig == NULL</code></b>)</li>
     <li><b><code>ant</code></b> apunta al penúltimo nodo.</li>
 </ul>
-<p><strong>Nota:</strong>
-Si la lista tiene un solo nodo, este caso se reduce al borrado del primero.</p>
+<p class="nota">
+Si la lista tiene un solo nodo, este caso se reduce al borrado del primero.
+</p>
+
 
 <h2>Borrado general (por dato):</h2>
 
 <p>Se usan dos punteros.</p>
 
 <h3>Sintaxis:</h3>
+
 <pre><code class="language-c">
 *act (actual)
 *ant (anterior)
 </code></pre>
+
 <h3>Descripción:</h3>
 <ul>
     <li>Se recorre la lista buscando el nodo cuyo dato coincide con el valor buscado.</li>

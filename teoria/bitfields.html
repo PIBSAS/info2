@@ -22,26 +22,31 @@
 
 <h1>Campos de bits - Bit fields</h1>
 
-    <h2>¿Qué es un campo de bits-bit fields?</h2>
-        <p>Los campos de bit son una forma especial de declarar miembros de una estructura
-        donde, en vez de ocupar toda la dimension del tipo (int, unsigned, etc),
-        se indica cuantos bits exactos ocupa el campo.</p>
+<h2>¿Qué es un campo de bits-bit fields?</h2>
+<p>Los campos de bit son una forma especial de declarar miembros de una estructura
+donde, en vez de ocupar toda la dimension del tipo (int, unsigned, etc),
+se indica cuantos bits exactos ocupa el campo.</p>
     
-    <h2>Para que sirven?</h2>
-        <p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
-        <h3>Ejemplo:</h3>
-            <p><strong></strong>Necesitamos guardar:</strong></p>
-            <ul>
-                <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
-                <li>Un numero de 0 a 7 => 3 bits.</li>
-                <li>Un codigo de 0 a 15 => 4 bits.</li>
-            </ul>
-            <p><strong>No tiene sentido gastar 3 int completos para eso</strong></p>
+<h2>Para que sirven?</h2>
+<p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
+
+<h3>Ejemplo:</h3>
+<p><strong></strong>Necesitamos guardar:</strong></p>
+<ul>
+    <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
+    <li>Un numero de 0 a 7 => 3 bits.</li>
+    <li>Un codigo de 0 a 15 => 4 bits.</li>
+</ul>
+<p><strong>No tiene sentido gastar 3 int completos para eso</strong></p>
     
-    <h3>Sintaxis</h3>
-        <p>La sintaxis SOLO EXISTE dentro de un struct:</p>
+<h3>Sintaxis</h3>
+
+<p>La sintaxis SOLO EXISTE dentro de un struct:</p>
+
 <pre><code class="language-c">tipo nombre_campo : cantidad_de_bits;</code></pre>
-        <p><strong>Ejemplo:</strong></p>
+
+<h3>Ejemplo:</h3>
+
 <pre><code class="language-c">
 struct Ejemplo {
   unsigned campo1 : 1; // Campo : Cantidad de bits que ocupa
@@ -58,7 +63,7 @@ struct Ejemplo {
     <li>signed int</li>
     <li>_Bool (desde C99)</li>
 </ul>
-<p><strong>NO SE PUEDE USAR float, double, punteros, structs, etc.</strong></p>
+<p class="nota"><strong>NO SE PUEDE USAR float, double, punteros, structs, etc.</strong></p>
 
 <h3>Ejemplo simple:</h3>
 <pre><code class="language-c">
@@ -69,7 +74,7 @@ struct flags {
 };
 </code></pre>
 
-<p><strong>USo:</strong></p>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 struct flags f = {1, 0, 3};
 
@@ -84,9 +89,10 @@ printf("prioridad = %u\n", f.prioridad);
     <li><strong>error</strong> ocupa 1 bit => Valores posibles: 0 o 1</li>
     <li><strong>prioridad</strong> ocupa 2 bit => Valores posibles: 0 a 3</li>
 </ul>
-<p>Si intentamos hacer:</p>
+
+<h4>Si intentamos hacer:</h4>
 <pre><code class="language-c">f.prioridad = 5; // (UB)</code></pre>
-<p>Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
+<p class="nota">Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
 
 <h3>¿Cuánta memoria ocupan?</h3>
 <p><strong>Acá aparece la primera gran advertencia:</strong></p>
@@ -112,7 +118,7 @@ struct A {
 <ul>
     <li>Probablemente <strong><code>sizeof(struct A)</code></strong> sea 4 bytes (si unsigned es de 4 bytes)</li>
 </ul>
-<p><strong>Conclusion importante:</strong>
+<p class="nota"><strong>Conclusion importante:</strong>
     Los campos de bit reducen espacio lógico, pero no siempre reducen <strong><code>sizeof</code></strong> como uno imagina.
 </p>
 
@@ -227,12 +233,12 @@ void limpiar(struct Flags *f)
     <li>Hacemos comunicacion de red.</li>
     <li>Necesitamos direcciones de los campos.</li>
 </ul> 
-<p>
-    <strong>Nota:</strong>
+<p class="nota">
          El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
          es dependiente de la implementacion y no esta garantizado por el estandar.
          Es por esto que en el codigo solemos declarar por convencion los bit-fields de LSB -> MSB.
 </p>
+
 <h3>Resumen:</h3>
 <ul>
     <li>Solo dentro de struct.</li>
@@ -250,6 +256,7 @@ void limpiar(struct Flags *f)
 </p>
 
 <h3>Extra: Que es alineacion?:</h3>
+
 <p>Cada tipo de dato suele requerir que su direccion de memoria sea múltiplo de cierto valor.</p>
 <p><strong>Ejemplo:</strong></p>
 <pre><code class="language-c">
@@ -257,7 +264,7 @@ char => alineacion 1 byte.
 short => alineacion 2 bytes.
 int / unsigned => alineacion 4 bytes.
 </code></pre>
-<p>El compilador inserta padding-relleno para cumplir eso.</p>
+<p class="nota">El compilador inserta padding-relleno para cumplir eso.</p>
 
 <h2 class="teoria">Teoría aplicada</h2>
 

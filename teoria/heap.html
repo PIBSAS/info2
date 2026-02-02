@@ -19,7 +19,8 @@
 </header>
 
 <main>
-  <div class="container">
+<div class="container">
+
 <h1>Memoria dinámica - Heap</h1>
 
 <h2>¿Qué es?</h2>
@@ -85,12 +86,13 @@ int v[n]; // NO estandar solo en algunos compiladores
 <p>malloc significa memory allocation.</p>
 
 <ul>
-    <li><strong>Es una funcion que:</strong></li>
-    <ul>
-        <li>Reserva un bloque de meoria en el <strong>heap</strong>.</li>
-        <li>Devuelve la direccion inicial del bloque.</li>
-        <li>NO inicializa la memoria.</li>
-    </ul>
+    <li><strong>Es una funcion que:</strong>
+        <ul>
+            <li>Reserva un bloque de meoria en el <strong>heap</strong>.</li>
+            <li>Devuelve la direccion inicial del bloque.</li>
+            <li>NO inicializa la memoria.</li>
+        </ul>
+    </li>
 </ul>
             
     
@@ -102,11 +104,12 @@ int v[n]; // NO estandar solo en algunos compiladores
     <li><strong><code>size</code></strong> &lArr; Cantidad de bytes a reservar.</li>
 </ul>
 <ul>
-    <li><strong>Retorna:</strong></li>
-    <ul>
-        <li>Un puntero a la memoria reservada.</li>
-        <li><strong><code>NULL</code></strong> si no pudo reservar.</li>
-    </ul>
+    <li><strong>Retorna:</strong>
+        <ul>
+            <li>Un puntero a la memoria reservada.</li>
+            <li><strong><code>NULL</code></strong> si no pudo reservar.</li>
+        </ul>
+    </li>
 </ul>
       
 <h3>Porque devuelve <strong><code>void*?</code></strong></h3>
@@ -122,9 +125,11 @@ int v[n]; // NO estandar solo en algunos compiladores
 <pre><code class="language-c">int *v = malloc(n * sizeof(int)); // Para arrays</code></pre>
 <pre><code class="language-c">vector = (int *) malloc((size_t)n * sizeof(int)); // Es una forma mas robusta, el compilador convierte <strong>n</strong> implicitamente a <strong><code>size_t</code></strong> lo que puede emitir warnings si <strong>n</strong> es negativo, de esta forma ya casteamos correctamente nosotros.</code></pre>
 
+
 <h2>Verificación de error (OBLIGATORIO)</h2>
 
 <p>Siempre hay que comprobar si <strong><code>malloc</code></strong> devolvió <strong><code>NULL</code></strong>:</p>
+
 <pre><code class="language-c">
 int *p = malloc(sizeof(int));
 
@@ -134,8 +139,9 @@ if (p == NULL)
     return 1;
 }
 </code></pre>
-<p><strong>No hacerlo es un error grave.</strong></p>
-    
+<p class="nota"><strong>No hacerlo es un error grave.</strong></p>
+
+
 <h2>Acceso a la memoria asignada</h2>
 
 <h3>Una vez asignada, se usa como cualquier puntero:</h3>
@@ -171,6 +177,7 @@ p = NULL;
     <li>Liberar dos veces el mismo puntero.</li>
     <li>Acceder fuera del bloque reservado.</li>
 </ul>
+
 
 <h3>Ejemplo:</h3>
 
@@ -216,7 +223,9 @@ free(p); // Liberamos del heap la memoria solicitada, dejando de ser valida
 printf("%d\n", *p); // Error: p es un dangling pointer
 </code></pre>
 
+
 <h3>¿Cómo se evita?</h3>
+
 <pre><code class="language-c">
 int *p = malloc(sizeof(int)); // Reservamos memoria
 *p = 10;
@@ -224,7 +233,8 @@ free(p); // Liberamos del heap la memoria solicitada, el puntero queda colgado (
 p = NULL; // NULL no apunta a memoria valida
 printf("%d\n", *p); // Acceder a *p cuando p == NULL es facil de detectar.
 </code></pre>
-<p><strong>Asignar <strong><code>NULL</code></strong> invalida el puntero y evita su uso accidental.</strong></p>
+<p class="nota"><strong>Asignar <strong><code>NULL</code></strong> invalida el puntero y evita su uso accidental.</strong></p>
+
 
 <h2 class="teoria">Teoría aplicada</h2>
 

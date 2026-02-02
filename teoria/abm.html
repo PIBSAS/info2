@@ -29,13 +29,14 @@
 <ul>
     <li>No guarda texto legible.</li>
     <li>Guarda bytes tal cual estan en memoria.</li>
-    <li>Ideal para:</li>
+    <li>Ideal para:
     <ul>
         <li>struct</li>
         <li>arrays</li>
         <li>registros</li>
         <li>base de datos simples</li>
     </ul>
+    </li>
 </ul>
 
 <h3>Ventaja:</h3>
@@ -73,7 +74,7 @@
     </tr>
 </table>
 </div>
-<p><strong>En Windows es obligatorio usar <code>b</code>.</strong></p>
+<p class="nota"><strong>En Windows es obligatorio usar <code>b</code>.</strong></p>
     
 <h1>Escritura de bloques</h1>
 <pre><code class="language-c">fwrite</code></pre>
@@ -341,7 +342,7 @@ clean:
 	del $(OBJ) $(PROG).exe *.txt
 </code></pre>
 
-<h2>Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o abm
 #include <stdio.h>

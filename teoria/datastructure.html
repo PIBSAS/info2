@@ -18,7 +18,7 @@
 </header>
 
 <main>
-  <div class="container">
+<div class="container">
 <h1>Estructura de datos - Data structure</h1>
 
 \[
@@ -41,8 +41,10 @@
 \right.
 \]
 
-<h1>¿Qué es una estructura de datos (data structure)?</h1>
+<h1>¿Qué es una estructura de datos?</h1>
+
 <h2>Es una forma particular de:</h2>
+
 <ul>
     <li>Organizar datos en memoria.</li>
     <li>Acceder a ellos</li>
@@ -50,65 +52,82 @@
 </ul>
 <p>Con reglas bien definidas. NO es solo "guardar datos", sino como se comportan.</p>
 
+
 <h1>Stack - Pila</h1>
+
 <h2>¿Qué es?:</h2>
+
 <p>Es una estructura de datos que sigue el principio:</p>
 <ul>
     <li><strong><code>LIFO:</code></strong> Last In, First Out.</li>
     <li>Ultimo en entrar, primero en salir.</li>
 </ul>
+
+
 <h3>Analogía:</h3>
-    <ul>
-        <li>Una pila de platos.</li>
-        <li>El ultimo plato que ponemos arriba es el primero que sacamos.</li>
-    </ul>
+
+<ul>
+    <li>Una pila de platos.</li>
+    <li>El ultimo plato que ponemos arriba es el primero que sacamos.</li>
+</ul>
+
 
 <h2>Operaciones basicas del stack:</h2>
-    <ul>
-        <li><strong><code>push:</code></strong> insertar un elemento.</li>
-        <li><strong><code>pop:</code></strong> quitar un elemento.</li>
-        <li><strong><code>peek/top:</code></strong> ver el elemento del tope.</li>
-        <li><strong><code>isEmpty:</code></strong> verificar si esta vacio.</li>
-    </ul>
-    
+
+<ul>
+    <li><strong><code>push:</code></strong> insertar un elemento.</li>
+    <li><strong><code>pop:</code></strong> quitar un elemento.</li>
+    <li><strong><code>peek/top:</code></strong> ver el elemento del tope.</li>
+    <li><strong><code>isEmpty:</code></strong> verificar si esta vacio.</li>
+</ul>
+
+
 <h2">Usos tipicos del stack:</h2>
-    <ul>
-        <li>Llamadas a funciones (call stack)</li>
-        <li>Recursividad.</li>
-        <li>Deshacer.</li>
-        <li>Evaluacion de expresiones.</li>
-        <li>backtracking.</li>
-    </ul>
+
+<ul>
+    <li>Llamadas a funciones (call stack)</li>
+    <li>Recursividad.</li>
+    <li>Deshacer.</li>
+    <li>Evaluacion de expresiones.</li>
+    <li>backtracking.</li>
+</ul>
+
 
 <h1>Queue - Cola</h1>
+
 <h2>¿Qué es?:</h2>
+
 <p>Una cola es una estructura de datos que sigue el principio:</p>
-    <ul>
-        <li><strong><code>FIFO:</code></strong> First In, First Out.</li>
-        <li>Primero en entrar, primero en salir.</li>
-    </ul>
-    <h3>Analogía:</h3>
-        <ul>
-            <li>Fila del banco.</li>
-        </ul>
-        <p><strong>El primero que llega, es el primero que se atiende.</strong></p>
+<ul>
+    <li><strong><code>FIFO:</code></strong> First In, First Out.</li>
+    <li>Primero en entrar, primero en salir.</li>
+</ul>
+<h3>Analogía:</h3>
+<ul>
+    <li>Fila del banco.</li>
+</ul>
+<p class="nota"><strong>El primero que llega, es el primero que se atiende.</strong></p>
+
 
 <h2>Operaciones basicas del queue:</h2>
-    <ul>
-        <li><strong><code>enqueue:</code></strong> insertar al final.</li>
-        <li><strong><code>dequeue:</code></strong> eliminar del frente.</li>
-        <li><strong><code>front:</code></strong> ver el primer elemento.</li>
-        <li><strong><code>isEmpty:</code></strong> verificar si esta vacia.</li>
-    </ul>
+
+<ul>
+    <li><strong><code>enqueue:</code></strong> insertar al final.</li>
+    <li><strong><code>dequeue:</code></strong> eliminar del frente.</li>
+    <li><strong><code>front:</code></strong> ver el primer elemento.</li>
+    <li><strong><code>isEmpty:</code></strong> verificar si esta vacia.</li>
+</ul>
+
 
 <h2>Usos tipicos del queue:</h2>
-    <ul>
-        <li>Planificacion de procesos.</li>
-        <li>Impresoras.</li>
-        <li>Buffers.</li>
-        <li>Atencion por orden de llegada.</li>
-        <li>Sistemas operativos.</li>
-    </ul>
+
+<ul>
+    <li>Planificacion de procesos.</li>
+    <li>Impresoras.</li>
+    <li>Buffers.</li>
+    <li>Atencion por orden de llegada.</li>
+    <li>Sistemas operativos.</li>
+</ul>
 
 <h1>Stack vs Queue (Pila vs Cola)</h1>
 
@@ -138,55 +157,67 @@
     </table>
 </div>
 
+
 <h1>Cola circular - Circular Queue</h1>
+
 <h2>¿Qué es?:</h2>
-    <p>
-        Es una mejora de la cola lineal que permite reutilizar
-        el espacio liberado cuando se desencolan elementos.
-    </p>
+
+<p>
+    Es una mejora de la cola lineal que permite reutilizar
+    el espacio liberado cuando se desencolan elementos.
+</p>
+
 
 <h2>Problema de la cola lineal:</h2>
+
+<ul>
+    <li>El indice de escritura (final) solo avanza.</li>
+    <li>Aunque se liberen posiciones al frente, el espacio no puede reutilizarse.</li>
+    <li>Puede darse la condicion de:
     <ul>
-        <li>El indice de escritura (final) solo avanza.</li>
-        <li>Aunque se liberen posiciones al frente, el espacio no puede reutilizarse.</li>
-        <li>Puede darse la condicion de:</li>
-        <ul>
-            <li>Cola vacia y cola llena logicamente al mismo tiempo.</li>
-        </ul>
+        <li>Cola vacia y cola llena logicamente al mismo tiempo.</li>
     </ul>
+    </li>
+</ul>
         
 
-<h2>Solución:</h2>
-    <ul>
-        <li>Los indices de lectura (frente) y escritura (final) avanzan de forma circular.</li>
-        <li>Cuando alcanzan el final del arreglo, vuelven al inicio (salto circular).</li>
-    </ul>
+<h3>Solución:</h3>
+
+<ul>
+    <li>Los indices de lectura (frente) y escritura (final) avanzan de forma circular.</li>
+    <li>Cuando alcanzan el final del arreglo, vuelven al inicio (salto circular).</li>
+</ul>
+
 
 <h2>Caracteristicas:</h2>
+
+<ul>
+    <li><strong><code>FIFO</code></strong></li>
+    <li>Uso eficiente de la memoria.</li>
+    <li>Requiere un criterio adicional para distinguir:
     <ul>
-        <li><strong><code>FIFO</code></strong></li>
-        <li>Uso eficiente de la memoria.</li>
-        <li>Requiere un criterio adicional para distinguir:</li>
-        <ul>
-            <li>Cola vacia.</li>
-            <li>Cola llena.</li>
-        </ul>
+        <li>Cola vacia.</li>
+        <li>Cola llena.</li>
     </ul>
-        
+    </li>
+</ul>
+    
 
 <h2>Formas de distinguir vacia y llena:</h2>
-    <ul>
-        <li>Uso de un flag (bandera)</li>
-        <li>Uso de un contador de elementos.</li>
-        <li>Dejar una posicion vacia (muy comun).</li>
-    </ul>
+
+<ul>
+    <li>Uso de un flag (bandera)</li>
+    <li>Uso de un contador de elementos.</li>
+    <li>Dejar una posicion vacia (muy comun).</li>
+</ul>
 
 <h3>En esta implementación:</h3>
-    <ul>
-        <li>Se utiliza un contador de elementos.</li>
-        <li>La cola esta vacia cuando <strong><code>cantidad == 0;</code></strong></li>
-        <li>La cola esta llena cuando <strong><code>cantidad == MAX;</code></strong>.</li>
-    </ul>
+
+<ul>
+    <li>Se utiliza un contador de elementos.</li>
+    <li>La cola esta vacia cuando <strong><code>cantidad == 0;</code></strong></li>
+    <li>La cola esta llena cuando <strong><code>cantidad == MAX;</code></strong>.</li>
+</ul>
 
 <h2 class="teoria">Teoría aplicada</h2>
 
