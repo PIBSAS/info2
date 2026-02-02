@@ -83,18 +83,18 @@ h2,
 .teoria {
   text-align: center;
   font-size: 1.875rem;
-  background-color: #f7dca8;
+  background-color: #e9a626;
   color: #fff;
-  border: 2px solid #f3e0bc;
+  border: 2px solid #e99900;
   border-radius: 10px;
   padding: 0.5rem 1rem;
 }
 .make {
   text-align: center;
   font-size: 1.5rem;
-  background-color: #f7dca8;
+  background-color: #ffbe41;
   color: #fff;
-  border: 2px solid #f3e0bc;
+  border: 2px solid #e99900;
   border-radius: 10px;
   padding: 0.5rem 1rem;
 }
