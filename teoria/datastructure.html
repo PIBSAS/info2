@@ -13,10 +13,8 @@
 </head>
 <body>
 
-  <header>
-    <div class="container">
-        <h1>Informática II</h1>
-    </div>
+<header class="site-header">
+  <p class="materia">Informática II</p>
 </header>
 
 <main>
@@ -190,9 +188,9 @@
         <li>La cola esta llena cuando <b><code>cantidad == MAX;</code></b>.</li>
     </ul>
 
-<h1>Teoría aplicada</h1>
+<h2 class="teoria">Teoría aplicada</h2>
 
-<h2>Makefile:</h2>
+<h3 class="make">Makefile:</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
@@ -211,7 +209,7 @@ clean:
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2>Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o data
 #include <stdio.h>
