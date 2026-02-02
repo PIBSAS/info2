@@ -60,23 +60,27 @@
     <table>
         <tr>
             <th>a</th>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
             <th>b</th>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
+            <th>a &amp; b</th>
         </tr>
         <tr>
-            <th>a &amp; b</th>
             <td>0</td>
             <td>0</td>
             <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
             <td>1</td>
         </tr>
     </table>
@@ -113,21 +117,25 @@ if (estado & 0x01) {
     <table>
         <tr>
             <th>a</th>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
             <th>b</th>
+            <th>a | b</th>
+        </tr>
+        <tr>
             <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
             <td>1</td>
             <td>0</td>
             <td>1</td>
         </tr>
         <tr>
-            <th>a | b</th>
-            <td>0</td>
             <td>1</td>
             <td>1</td>
             <td>1</td>
@@ -163,21 +171,25 @@ estado = estado | 0x04; // pone en 1 el bit 2
     <table>
         <tr>
             <th>a</th>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
             <th>b</th>
+            <th>a ^ b</th>
+        </tr>
+        <tr>
             <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
             <td>1</td>
             <td>0</td>
             <td>1</td>
         </tr>
         <tr>
-            <th>a ^ b</th>
-            <td>0</td>
             <td>1</td>
             <td>1</td>
             <td>0</td>
@@ -222,13 +234,18 @@ a = a ^ b;
 
 <div class="tablecontainer">
     <table>
+
         <tr>
             <th>a</th>
+            <th>&tilde;a</th>
+        </tr>
+
+        <tr>
             <td>0</td>
             <td>1</td>
         </tr>
+        
         <tr>
-            <th>&tilde;a</th>
             <td>1</td>
             <td>0</td>
         </tr>
@@ -314,32 +331,42 @@ a << 2 // 1 / 2^2 => 1/4
     <table>
         <tr>
             <th>Operador</th>
-            <td>&amp;</td>
-            <td>&amp;&amp;</td>
-            <td>|</td>
-            <td>||</td>
-            <td>&circ;</td>
-            <td>&excl;</td>
-            <td>&tilde;</td>
-        </tr>
-        <tr>
             <th>Tipo</th>
-            <td>bitwise</td>
-            <td>lógico</td>
-            <td>bitwise</td>
-            <td>lógico</td>
-            <td>bitwise</td>
-            <td>lógico</td>
-            <td>bitwise</td>
+            <th>Resultado</th>
         </tr>
         <tr>
-            <th>Resultado</th>
+            <td>&amp;</td>
+            <td>bitwise</td>
             <td>Opera bit a bit</td>
-            <td>0 o 11</td>
-            <td>Opera bit a bit</td>
+        </tr>
+        <tr>
+            <td>&amp;&amp;</td>
+            <td>lógico</td>
             <td>0 o 1</td>
-            <td>bit a bit</td>
+        </tr>
+        <tr>
+            <td>|</td>
+            <td>bitwise</td>
+            <td>Opera bit a bit</td>
+        </tr>
+        <tr>
+            <td>||</td>
+            <td>lógico</td>
+            <td>0 o 1</td>
+        </tr>
+        <tr>
+            <td>&circ;</td>
+            <td>bitwise</td>
+            <td>Opera bit a bit</td>
+        </tr>
+        <tr>
+            <td>&excl;</td>
+            <td>lógico</td>
             <td>Negación lógica</td>
+        </tr>
+        <tr>
+            <td>&tilde;</td>
+            <td>bitwise</td>
             <td>Complemento a 1</td>
         </tr>
     </table>
