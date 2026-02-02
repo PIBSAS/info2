@@ -336,6 +336,7 @@ p2 = p1;
   <li>Comparan direcciones, NO valores.</li>
   <li><b><code>if(pi == p2)</code></b> Si apuntan al mismo lugar se cumple el bucle</li>
 </ul>
+
 <h3>Para comparar valores:</h3>
 <ul>
   <li><b><code>if(*p1 == *p2)</code></b> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
@@ -408,17 +409,17 @@ int main(void)
 <h1>Aritmetica de punteros (+, -, ++, --)</h1>
 
 <h2>¿Qué hace?:</h2>
-<uk>
+<ul>
   <li>NO trabaja en bytes, trabaja en elementos del tipo apuntado.</li>
   <li>Un puntero "sabe" a que tipo apunta.</li>
-</uk>
+</ul>
 
 <h2>Operaciones permitidas:</h2>
 <ul>
-  <li><b><code>+:</code></b> <b>p + n</b> Donde <b>n</b> es un numero</li>
-  <li><b><code>-:</code></b> <b>p - n</b></li>
-  <li><b><code>++:</code></b> <b>p++</b></li>
-  <li><b><code>--:</code></b> <b>p--</b></li>
+  <li><b><code>+:</code></b> p + n Donde <b>n</b> es un numero</li>
+  <li><b><code>-:</code></b> p - n</li>
+  <li><b><code>++:</code></b> p++</li>
+  <li><b><code>--:</code></b> p--</li>
   <li><b><code>p1 - p2:</code></b> Solo si apuntan al mismo array</li>
 </ul>
 
@@ -611,7 +612,7 @@ p = a; // PERMITIDO
 </code></pre>
 <p><strong>Puede apuntar a otra cosa.</strong></p>
 
-<h2>Acceso a elementos</h2>
+<h2>Acceso a elementos:</h2>
 <h3>Misma sintaxis, distinto significado.</h3>
 <pre><code class="language-c">
 a[2] // Acceso al elemnto 2 del array a.
@@ -638,7 +639,7 @@ int *p = a;
 printf("%d", p[3]); // Imprime 40
 </code></pre>
 
-<h2><code>&a</code> NO es lo mismo que <code>a</code></h2>
+<p><strong>&amp;a NO es lo mismo que <code>'a'</code></strong></p>
 
 <p>Esto es clave y suele confundir.</p>
 <ul>
