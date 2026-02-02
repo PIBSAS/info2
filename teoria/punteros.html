@@ -407,6 +407,489 @@ int main(void)
 }
 </code></pre>
 
+<h1>Aritmetica de punteros (+, -, ++, --)</h1>
+
+<h2>¿Qué hace?:</h2>
+<uk>
+  <li>NO trabaja en bytes, trabaja en elementos del tipo apuntado.</li>
+  <li>Un puntero "sabe" a que tipo apunta.</li>
+</uk>
+
+<h2>Operaciones permitidas:</h2>
+<ul>
+  <li><b><code>+:</code></b> <b>p + n</b> Donde <b>n</b> es un numero</li>
+  <li><b><code>-:</code></b> <b>p - n</b></li>
+  <li><b><code>++:</code></b> <b>p++</b></li>
+  <li><b><code>--:</code></b> <b>p--</b></li>
+  <li><b><code>p1 - p2:</code></b> Solo si apuntan al mismo array</li>
+</ul>
+
+<h2>Operaciones que NO TIENEN SENTIDO con punteros:</h2>
+<ul>
+  <li><b><code>p + p</code></b></li>
+  <li><b><code>*:</code></b> Multiplicación  <b><code>p * n</code></b> Causa error</li>
+  <li><b><code>/:</code></b> División <b><code>p / n</code></b> Causa error</li>
+  <li><b><code>%:</code></b> Módulo <b><code>p % n</code></b> Causa error</li>
+  <li>Operaciones con <b><code>float</code></b>.</li>
+  <li>Desplazamientos (&lt;&lt;, &gt;&gt;)</li>
+  <li>Operaciones lógicas (&amp;&amp;, ||)</li>
+</ul>
+
+<h2>Regla fundamental:</h2>
+
+<h3>Si:</h3>
+<pre><code class="language-c">T *p;</code></pre>
+
+<h3>Entonces:</h3>
+<ul>
+  <li><b><code>p + 1</code></b> &rArr; avanza <b><code>sizeof(T)</code></b> bytes. NO SUMA 1 byte. NO SUMA direcciones "a ojo".</li>
+  <li>Suma 1 elemento del <b><code>tipo T</code></b>.</li>
+</ul>
+
+<h3>Ejemplo con array:</h3>
+<pre><code class="language-c">
+int a[5] = {10, 20, 30, 40, 50}; // vector de 5 elementos 0-4 de tipo entero llamado a
+int *p = a; // Equivale a &a[0] es decir le esta asignando la direccion el primer elemnto del array declarado
+p = p + 1;
+/* Avanza sizeof(int) bytes,
+apunta al siguiente elemento (a[1] cuyo valor en esa direccion es 20).
+No suma bytes, suma elementos del tipo de dato.*/
+</code></pre>
+
+<ul>
+  <li>Si <b><code>sizeof(int) == 4</code></b> cada <b><code>+1</code></b>, mueve <b><code>4 bytes</code></b>, pero eso es un detalle de implementación.</li>
+  <li>Un puntero solo puede apuntar a elementos validos del array. Un elemento despues del ultimo (<b>ome-past-the-end</b>) como puntero pero no se puede desreferenciar</li>
+  <li>Un puntero NO puede desreferenciar fuera del array. Apuntar antes del primer elemento (<b><code>a[-1]</code></b>)</li>
+</ul>
+
+<h3>Valido:</h3>
+<pre><code class="language-c">int *p = a + 5; // Apunta "uno despues" de a[4]</code></pre>
+
+<h3>Invalido:</h3>
+<pre><code class="language-c">
+*p = *(a + 5); // Comportamiento indefinido(UB)
+p = a - 1; // Comportamiento indefinido(UB)
+</code></pre>
+    
+<ul>
+  <li>Especificador de formato <b><code>%td</code></b></li>
+  <li>Especificador de formato para imprimir valores del tipo <b><code>ptrdiff_t</code></b> es <b><code>%td</code></b></li>
+</ul>
+
+<h2>¿Qué es ptrdiff_t?:</h2>
+<h3>Cuando restamos dos punteros del mismo array:</h3>
+<pre><code class="language-c">p - a; // No devuelve int, ni size_t, devuelve ptrdiff_t</code></pre>
+
+<h3>¿Qué representa?:</h3>
+<ul>
+  <li>La cantidad de elementos entre ambos punteros</li>
+  <li>Puede ser positivo o negativo.</li>
+</ul>
+<p><strong>Se debe incluir para seguir el estandar, la libreria <b><code>stddef.h</code></b></strong></p>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = aritmetica
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+#include <stdio.h>
+#include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
+
+int main(void)
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int *p = a; // Declaracion y asignacion de la direccion del primer elemento del array, es decir apunta a a[0].
+
+    printf("p apunta a a[0] cuyo valor almacenado en esa direccion es: %d\n", *p);
+
+    p = p + 1;
+    printf("p + 1 apunta a a[1], cuyo valor almacenado en esa direccion es: %d\n", *p);
+
+    p++; //sumamos 1 elemento, llevandonos de a[1] a a[2]
+    printf("\np++ apunta a a[2], cuyo valor almacenado en la direccion es: %d\n", *p);
+
+    p = p - 2;
+    printf("\np - 2 vuelve a a[0], cuyo valor almacenado en la direccion es: %d\n", *p);
+
+    /*
+    One-past-the-end es valido como puntero
+    pero NO se puede desreferenciar
+    */
+    p = a + 5;
+    printf("\np apunta a one-past-the-end (a + 5)\n");
+    printf("Direccion de p %p\n", (void *)p);
+    /*
+        Comparacion valida
+    */
+    if (p > a)
+    {
+        printf("p es mayor que a (apunta a una direccion mas alta)\n");
+    }
+    /*
+        Diferencia entre punteros
+    */
+    printf("\nCantidad de elementos entre p y a: %td\n", p - a);
+    
+
+    return 0;
+}
+</code></pre>
+
+<h1>Punteros y Vectores</h1>
+
+<p>En C, un vector y un puntero NO son lo mismo, pero estan intimamente relacionados.</p>
+
+<h2>¿Qué es un array?:</h2>
+
+<p>Un array es un objeto que representa N objetos del mismo tipo, almacenados en memoria contigua, cuyo tipo incluye su tamaño.</p>
+
+<pre><code class="language-c">int a[5] = {10, 20, 30, 40, 50};</code></pre> 
+<ul>
+  <li><b><code>a</code></b> no es una variable asignable.</li>
+  <li><b><code>a</code></b> no es un puntero.</li>
+  <li><b><code>a</code></b> represemta un objeto de tipo "array de <b>N</b> elementos"</li>
+</ul>
+
+<h2>¿Qué pasa cuando usamos el nombre del array?:</h2>
+<p>En la mayoria de las expresionesun array se convierte implícitamente en un puntero al primer elemento:</p>
+<pre><code class="language-c">a</code></pre>
+
+<h3>Se convierte automaticamente en:</h3>
+<ul>
+  <li><b><code>&a[0]</code></b> Es decir:</li>
+  <ul>
+    <li><b>Tipo:</b> <b><code>int *</code></b></li>
+    <li><b><code>Valor:</code></b> direccion del primer elemento.</li>
+  </ul>
+</ul>
+
+<h3>Ejemplo:</h3>
+
+<pre><code class="language-c">
+int *p = a; // Es correcto, se declara el puntero a int p y se le asigna la direccion de memoria del primer elemnto de a[0]
+int *q = &a[0]; // Es correcto y exactamente lo mismo que en la linea anterior.
+</code></pre>
+
+<p>Pero esto no convierte a <b><code>a</code></b> en un puntero, solo significa que en esa expresion se usa su direccion inicial</p>
+<h3>Excepciones donde NO decae(decay) en puntero.</h3>
+<pre><code class="language-c">
+sizeof(a)
+&a
+</code></pre>
+
+<h2>Inicializacion directa del array.</h2>
+
+<h3>Diferencia fundamental con el puntero:</h3>
+<pre><code class="language-c">
+int a[5];
+sizeof(a) // Es 5 * sizeof(int) = 5 * 4 bytes = 20 bytes su dimension
+a = p; //NO PERMITIDO
+</code></pre>
+<p><strong>No puede cambiar a  que direccion de memoria apunta</strong></p>
+
+<h3>Puntero:</h3> 
+<pre><code class="language-c">
+int *p;
+sizeof(p) // Dimension del puntero segun arquitectura
+p = a; // PERMITIDO
+</code></pre>
+<p><strong>Puede apuntar a otra cosa.</strong></p>
+
+<h2>Acceso a elementos</h2>
+<h3>Misma sintaxis, distinto significado.</h3>
+<pre><code class="language-c">
+a[2] // Acceso al elemnto 2 del array a.
+p[2] // Acceso al objeto que esta 2 elementos despues de la direccion que guarda el puntero p.
+</code></pre>
+
+<h3>Ambos significan:</h3>
+<pre><code class="language-c">
+*(a + 2)
+*(p + 2)
+</code></pre>
+<p><strong><b><code>[]:</code></b> El operador <b>[]</b> es pura aritmetica de punteros.</strong></p>
+
+<h2>Relacion formal entre punteros y arrays:</h2>
+<h3>Por definicion del lenguaje:</h3>
+<pre><code class="language-c">
+a[i] == *(a + i)
+p[i] == *(p + i)
+</code></pre>
+
+<h3>Esto explica porque funciona esto:</h3>
+<pre><code class="language-c">
+int *p = a;
+printf("%d", p[3]); // Imprime 40
+</code></pre>
+
+<h2><code>&a</code> NO es lo mismo que <code>a</code></h2>
+
+<p>Esto es clave y suele confundir.</p>
+<ul>
+  <li><b><code>&a</code></b> <b>tipo:</b> <b><code>int (*)[5]</code></b> Puntero al array completo</li>
+  <li><b><code>a</code></b>  <b>tipo:</b> <b><code>int *</code></b> Puntero al primer <b>int</b></li>
+</ul>
+
+<h3>Direcciones iguales, tipos distintos. Ej:</h3>
+<pre><code class="language-c">
+int a[5];
+int *p =a;
+printf("a\n", (void *)a);
+printf("&a\n", (void *)&a); Direccion del array completo
+printf("p\n", (void *)p);
+</code></pre>
+<p><strong>Las direcciones se ven iguales, los tipos NO, el compilador las trata distinto</strong></p>
+   
+<p>
+  Un array no es un puntero, pero en la mayoría de las expresiones se convierte implícitamente en un puntero al primer elemento.
+  El operador <b><code>[]</code></b> está definido en términos de aritmética de punteros,
+  lo que explica por qué la misma sintaxis funciona tanto con <b>arrays</b> como con <b>punteros</b>.
+</p>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = vectores
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+	
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o vectores
+#include <stdio.h>
+
+ int main(void)
+ {
+   int a[5] = {10, 20, 30, 40, 50}; // Declaracion de un array de 5 elementos del tipo int con dimension 20 bytes(5*sizeof(int))
+   int *p = a; // Declaracion de puntero a int p y asignacion de la primer direccion de memoria del array a (a[0])
+
+   printf("a[2] = %d\n", a[2]);
+   printf("p[2] = %d\n", p[2]);
+
+   printf("*(a + 2) = %d\n", *(a + 2));
+   printf("*(p + 2) = %d\n", *(p + 2));
+
+   printf("\nsizeof(a) = %zu\n", sizeof(a));
+   printf("\nsizeof(p) = %zu\n", sizeof(p));
+
+   // Direccion de a cast a (void *)a. Ya que a (en esta expresion) decae a int *. &a es tipo: int (*)[5] array de 5 int(20bytes-array completo). p es tipo int *
+   printf("\na\t = %p\n", (void *)a); // Direccion a traves de a
+   printf("\n&a\t = %p\n", (void *)&a); // Direccion de a
+   printf("\np\t = %p\n", (void *)p); // Direccion del puntero p
+   
+   return 0;
+ }
+</code></pre>
+
+<h1>Pasaje de parametros por referencia</h1>
+
+<p>
+  En C NO existe el pasaje por referencia como concepto del lenguaje.
+  C siempre pasa los argumentos por valor.
+</p>
+
+<h3>Lo que hacemos en C es:</h3>
+<ul>
+  <li>Pasar la direccion de un objeto.</li>
+  <li>Y operar sobre ese objeto a traves de un puntero.</li>
+</ul>
+    
+<h3>Ejemplo clásico:</h3>
+<p>Porque NO funciona el "pasaje por valor"</p>
+
+<pre><code class="language-c">
+void cambiar(int x)
+{
+  x = 100;
+}
+int main(void)
+{
+  int a = 10;
+  cambiar(a);
+  printf("%d\n", a); // Imprime 10
+  return 0;
+}
+</code></pre>
+
+<h3>Que sucede aca?</h3>
+<ul>
+  <li><b><code>a</code></b> vale 10.</li>
+  <li>Se copia su valor en <b><code>x</code></b></li>
+  <li>Se modifica la copia.</li>
+  <li><b><code>a</code></b> nunca cambia</li>
+</ul>
+<p><strong>Esto es pasaje por valor puro.</strong></p>
+
+<h2>Solución:</h2>
+<p>Pasar la direccion(Puntero)</p>
+<pre><code class="language-c">
+void cambiar(int *p)
+{
+  *p = 100;
+}
+int main(void)
+{
+  int a = 10;
+  cambiar(&a);
+  printf("%d\n", a); // Imprime 100
+  return 0;
+}
+</code></pre>
+
+<h2>¿Qué sucede aca?</h2>
+<pre><code class="language-c">int a = 10; // Asignacion de variable</code></pre>
+<pre><code class="language-c">cambiar(&a); // Direccion de memoria de a, se pasa esa dioreccion a la funcion</code></pre>
+<pre><code class="language-c">void cambiar(int *p) // p recibe una copia de la direccion, p apunta a a</code></pre>
+
+<h2>Desreferenciacion object-of a:</h2>
+<pre><code class="language-c">*p = 100; // Se escribe en la memoria de a el valor 100, 'a' cambia.</code></pre>
+<ul>
+  <li>No se paso 'a' por referencia.</li>
+  <li>Se paso la direccion de a por valor</li>
+</ul>
+
+<h2>Relacion con arrays:</h2>
+<pre><code class="language-c">
+void imprimir(int *p, int n)
+{
+  for (int i = 0; i < n; i++)
+      printf("%d ", p[i]);
+}
+</code></pre>
+
+<h3>Llamada:</h3>
+<pre><code class="language-c">int a[5] = {1, 2, 3, 4, 5};</code></pre>
+<pre><code class="language-c">imprimir(a, 5);</code></pre>
+<ul>
+  <li><b><code>a</code></b> decae a <b><code>&a[0]</code></b></li>
+  <li>Se pasa un puntero</li>
+  <li>La funcion accede al <b>array original</b>. Los arrays siempre se pasan <b>por referencia</b> en la practica</li>
+  <li>Porque lo que se pasa es <b>su direccion inicial</b>.</li>
+</ul>
+
+<h1>Teoría aplicada</h1>
+
+<h2>Makefile:</h2>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = parametros
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h2>Código:</h2>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o parametros
+#include <stdio.h>
+
+/* ---------- Ejemplo 1: PASAJE POR VALOR (NO FUNCIONA) ---------- */
+
+void cambiar_valor(int x)
+{
+    x = 100;   // Se modifica SOLO la copia
+}
+
+/* ---------- Ejemplo 2: PASAJE DE DIRECCION (FUNCIONA) ---------- */
+
+void cambiar_direccion(int *p)
+{
+    *p = 100;  // Se modifica el objeto apuntado
+}
+
+/* ---------- Ejemplo 3: ARRAY COMO PARAMETRO ---------- */
+
+void imprimir_array(int *p, int n)
+{
+    for (int i = 0; i < n; i++)
+        printf("%d ", p[i]);
+    printf("\n");
+}
+
+int main(void)
+{
+    /* ===== Ejemplo 1 ===== */
+    int a = 10;
+
+    printf("Antes de cambiar_valor: a = %d\n", a);
+    cambiar_valor(a);
+    printf("Despues de cambiar_valor: a = %d\n", a);
+
+    /*
+        a NO cambia porque:
+        - Se paso el valor 10
+        - Se modifico una copia
+    */
+
+    /* ===== Ejemplo 2 ===== */
+    printf("\nAntes de cambiar_direccion: a = %d\n", a);
+    cambiar_direccion(&a);
+    printf("Despues de cambiar_direccion: a = %d\n", a);
+
+    /*
+        a cambia porque:
+        - Se paso su direccion
+        - Se escribio en su memoria
+    */
+
+    /* ===== Ejemplo 3 ===== */
+    int v[5] = {1, 2, 3, 4, 5};
+
+    printf("\nArray original:\n");
+    imprimir_array(v, 5);
+
+    /*
+        v decae a &v[0]
+        Se pasa la direccion del primer elemento
+        La funcion accede al array original
+    */
+
+    return 0;
+}
+</code></pre>
+
 </div>
 </main>
 
