@@ -28,9 +28,12 @@ body {
 	display: table;
 }
 .site-header {
-  text-align: center;
+  background-color: #E6D3A3;;   /* azul sobrio */
+  padding: 0.6rem 0;
+  margin-bottom: 1.5rem;
 }
 .materia {
+  text-align: center;
   font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
