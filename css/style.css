@@ -78,7 +78,7 @@ p {
   padding: 0.5rem 1rem;
 }
 .make {
-  ext-align: center;
+  text-align: center;
   font-size: 1.5rem;
   background-color: #4e94b3;
   color: #fff;
