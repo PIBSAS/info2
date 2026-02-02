@@ -26,6 +26,8 @@
 
 <img class="img-center" src="../img/0001.png" alt="Ubicación en memoria">
 
+<h2>Conceptos básicos de punteros</h2>
+
 <h3>Uso:</h3>
 <ul>
   <li>Acceder y modificar variables desde funciones.</li>
@@ -94,7 +96,7 @@ clean:
 </code></pre>
 
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
@@ -194,7 +196,7 @@ clean:
 </code></pre>
 
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o dimension
@@ -283,7 +285,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
 #include <stdio.h>
@@ -362,7 +364,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
   // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operaciones
 #include <stdio.h>
@@ -433,12 +435,12 @@ int main(void)
   <li>Operaciones lógicas (&amp;&amp;, ||)</li>
 </ul>
 
-<h4>Regla fundamental:</h4>
+<h3>Regla fundamental:</h3>
 
-<h3>Si:</h3>
+<h4>Si:</h4>
 <pre><code class="language-c">T *p;</code></pre>
 
-<h3>Entonces:</h3>
+<h4>Entonces:</h4>
 <ul>
   <li><strong><code>p + 1</code></strong> &rArr; avanza <strong><code>sizeof(T)</code></strong> bytes. NO SUMA 1 byte. NO SUMA direcciones "a ojo".</li>
   <li>Suma 1 elemento del <strong><code>tipo T</code></strong>.</li>
@@ -506,7 +508,7 @@ clean
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 #include <stdio.h>
 #include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
@@ -683,7 +685,7 @@ clean:
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o vectores
 #include <stdio.h>
@@ -766,12 +768,12 @@ int main(void)
 }
 </code></pre>
 
-<h2>¿Qué sucede aca?</h2>
+<h3>¿Qué sucede acá?</h3>
 <pre><code class="language-c">int a = 10; // Asignacion de variable</code></pre>
 <pre><code class="language-c">cambiar(&a); // Direccion de memoria de a, se pasa esa dioreccion a la funcion</code></pre>
 <pre><code class="language-c">void cambiar(int *p) // p recibe una copia de la direccion, p apunta a a</code></pre>
 
-<h2>Desreferenciacion object-of a:</h2>
+<h3>Desreferenciacion object-of a:</h3>
 <pre><code class="language-c">*p = 100; // Se escribe en la memoria de a el valor 100, 'a' cambia.</code></pre>
 <ul>
   <li>No se paso 'a' por referencia.</li>
@@ -818,7 +820,7 @@ clean:
 	del $(OBJ) $(PROG).exe
 </code></pre>
 
-<h2 class="make">Código:</h2>
+<h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o parametros
 #include <stdio.h>
