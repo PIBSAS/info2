@@ -41,14 +41,14 @@ body {
 h1 {
 	text-align: center;
 	font-size: 2.5rem;
-	background-color:rgb(255, 240, 200);
+	background-color:rgb(250, 222, 146);
 	border:2px solid;
 	border-radius: 10px;
 }
 h2 {
   text-align: center;
 	font-size: 1.875rem;
-  background-color:rgb(247, 235, 202);
+  background-color:rgb(255, 240, 200);
 	border:2px solid;
 	border-radius: 10px;
 }
