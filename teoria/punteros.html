@@ -564,11 +564,11 @@ int main(void)
 <ul>
   <li><b><code>a</code></b> no es una variable asignable.</li>
   <li><b><code>a</code></b> no es un puntero.</li>
-  <li><b><code>a</code></b> represemta un objeto de tipo "array de <b>N</b> elementos"</li>
+  <li><b><code>a</code></b> representa un objeto de tipo "array de <b>N</b> elementos"</li>
 </ul>
 
 <h2>¿Qué pasa cuando usamos el nombre del array?:</h2>
-<p>En la mayoria de las expresionesun array se convierte implícitamente en un puntero al primer elemento:</p>
+<p>En la mayoria de las expresiones, un array se convierte implícitamente en un puntero al primer elemento:</p>
 <pre><code class="language-c">a</code></pre>
 
 <h3>Se convierte automaticamente en:</h3>
@@ -583,7 +583,7 @@ int main(void)
 <h3>Ejemplo:</h3>
 
 <pre><code class="language-c">
-int *p = a; // Es correcto, se declara el puntero a int p y se le asigna la direccion de memoria del primer elemnto de a[0]
+int *p = a; // Es correcto, se declara el puntero a int p y se le asigna la direccion de memoria del primer elemento de a[0]
 int *q = &a[0]; // Es correcto y exactamente lo mismo que en la linea anterior.
 </code></pre>
 
@@ -594,7 +594,7 @@ sizeof(a)
 &a
 </code></pre>
 
-<h2>Inicializacion directa del array.</h2>
+<p>Inicializacion directa del array.</p>
 
 <h3>Diferencia fundamental con el puntero:</h3>
 <pre><code class="language-c">
@@ -615,7 +615,7 @@ p = a; // PERMITIDO
 <h2>Acceso a elementos:</h2>
 <h3>Misma sintaxis, distinto significado.</h3>
 <pre><code class="language-c">
-a[2] // Acceso al elemnto 2 del array a.
+a[2] // Acceso al elemento 2 del array a.
 p[2] // Acceso al objeto que esta 2 elementos despues de la direccion que guarda el puntero p.
 </code></pre>
 
@@ -639,7 +639,7 @@ int *p = a;
 printf("%d", p[3]); // Imprime 40
 </code></pre>
 
-<p><strong>&amp;a NO es lo mismo que <code>'a'</code></strong></p>
+<p><strong>&amp;a NO es lo mismo que <code>a</code></strong></p>
 
 <p>Esto es clave y suele confundir.</p>
 <ul>
