@@ -23,9 +23,10 @@
 <main>
   <div class="container">
 <h1>Archivos - FILE *</h1>
-<h4>Parte 1</h4>
+<h1>Parte 1</h1>
+<h2>Acceso secuencial</h2>
 
-<h3>¿Qué es un archivo - file and stream?</h3>
+<h2>¿Qué es un archivo - file and stream?</h2>
     <p>
         Una secuencia de bytes almacenada en algun dispositivo (disco, pendrive, etc)
         a la que se accede de forma secuencial o aleatoria mediante un flujo (stream).
@@ -45,16 +46,16 @@
     <li>Nosotros usamos el puntero.</li>
 </ul>
 
-<h2>Apertura de un archivo:</h2>
+<h1>Apertura de un archivo:</h1>
 <pre><code class="language-c">fopen</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">FILE *fopen(const char *nombre, const char *modo);</code></pre>
 
 <h3>Ejemplo:</h3>
 <pre><code class="language-c">FILE *fp = fopen("datos.txt", "r");</code></pre>
 
-<h3>¿Qué hace?</h3>
+<h2>¿Qué hace?:</h2>
 <ul>
     <li>- Busca el archivo.</li>
     <li>- Prepara buffers.</li>
@@ -62,15 +63,15 @@
 </ul>
 <p><strong>Si falla devuelve <b><code>NULL</code></b>.</strong></p>
 
-<h3>Regla:</h3>
+<h2>Regla:</h2>
 <ul>
     <li>TODO <b><code>fopen</code></b> exitoso debe tener su <b><code>fclose</code></b>.</li>
 </ul>
 
-<h2>Cierre de un archivo:</h2>
+<h1>Cierre de un archivo:</h1>
 <pre><code class="language-c">fclose</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">int fclose(FILE *fp);</code></pre>
 
 <h3>Es la funcion que:</h3>
@@ -106,7 +107,7 @@
     </ul>
 </ul>
     
-<h2>Que pasa si NO llamamos a fclose?</h2>
+<h2>¿Qué pasa si NO llamamos a fclose?</h2>
 
 <p>Depende... y eso es lo peligroso.</p>
 
@@ -139,7 +140,8 @@ if (fclose(fp) == EOF)
     printf("Error al cerrar el archivo\n");
 }
 </code></pre>
-<h3>Regla:</h3>
+
+<h2>Regla:</h2>
 <ul>
     <li>Cada <b><code>fopen</code></b> exitoso debe tener exactamente un <b><code>fclose</code></b>.</li>
 </ul>
@@ -212,7 +214,7 @@ fclose(fp);
 <pre><code class="language-c">Hola</code></pre>
 
 <p><em><strong>IMPORTANTE:</strong></em></p>
-<p>fputc NO escribe inmediatamente al disco.</p>
+<p><b><code>fputc</code></b> NO escribe inmediatamente al disco.</p>
 <ul>
     <li>Va la buffer.</li>
     <li>Se garantiza la escritura real con:</li>
@@ -232,7 +234,7 @@ fclose(fp);
 <ul>
     <li>Lee un caracter del archivo.</li>
     <li>Avanza el puntero.</li>
-    <li>Devuelve:</li>
+    <li><b>Devuelve:</b></li>
     <ul>
         <li>El caracter leido.</li>
         <li><b><code>EOF</code></b> si:</li>
@@ -241,7 +243,7 @@ fclose(fp);
             <li>Ocurre un error</li>
         </ul>
     </ul>
-    <li>Esto es clave:</li>
+    <li><b>Esto es clave:</b></li>
     <ul>
         <li><code>EOF</code> no distingue un error de fin de archivo.</li>
     </ul>
@@ -273,7 +275,7 @@ fclose(fp);
 
 <h1>Detección de fin de archivo:</h1>
 
-<h3><b><code>EOF:</code></b></h3>
+<h2><b><code>EOF:</code></b></h2>
 <p>No es un caracter.</p>
 <ul>
     <li>Es un valor especial (normalmente <b><code>-1</code></b>)</li>
@@ -299,9 +301,9 @@ while (!feof(fp)) // MAL
 </code></pre>
 <p><b><code>feof</code> se usa despues, no para controlar el loop.</b></p>
 
-<h2>ferror - ¿Error?:</h2>
+<h1>ferror - ¿Error?:</h1>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">int ferror(FILE *fp);</code></pre>
 <ul>
     <li>Devuelve <b>distinto de 0</b> si ocurrio un error de <b>I/O</b> (Input/Output)</li>
@@ -332,7 +334,7 @@ else if (ferror(fp)) // Detecta error
 <h1>Escritura de un string:</h1>
 <pre><code class="language-c">fputs</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">int fputs(const char *str, FILE *fp);</code></pre>
 
 <h2>¿Qué hace?</h2>
@@ -391,7 +393,7 @@ Segunda linea
 <h1>Lectura de un string:</h1>
 <pre><code class="language-c">fgets</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">char *fgets(char *str, int n, FILE *fp);</code></pre>
 
 <h2>¿Qué hace?:</h2>
@@ -455,7 +457,7 @@ NULL = no se leyo nada.
 </code></pre>
 <p><b>No significa solo <b><code>EOF</code></b>, puede ser <b>error</b> tambien.</b></p>
 
-<h3>Patron correcto:</h3>
+<h2>Patron correcto:</h2>
 <pre><code class="language-c">
 if (fgets(linea, sizeof(linea), fp) == NULL)
 {
@@ -493,7 +495,7 @@ if (fgets(linea, sizeof(linea), fp) == NULL)
 <h1>Escritura con formato:</h1>
 <pre><code class="language-c">fprintf</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">int fprintf(FILE *fp, const char *formato, ...);</code></pre>
 
 <h2>¿Qué hace?:</h2>
@@ -529,7 +531,7 @@ Edad: 25
 Altura: 1.75
 </code></pre>
 
-<h3>Formatos validos:</h3>
+<h2>Formatos validos:</h2>
 <p>Los mismos que <b><code>printf</code></b>:</p>
 <ul>
     <li>%d, %f, %s, %c.</li>
@@ -540,10 +542,10 @@ Altura: 1.75
 <h1>Lectura con formato:</h1>
 <pre><code class="language-c">fscanf</code></pre>
 
-<h3>Sintaxis:</h3>
+<h2>Sintexis:</h2>
 <pre><code class="language-c">int fscanf(FILE *fp, const char *formato, ...);</code></pre>
 
-<h2>Que hace?:</h2>
+<h2>¿Qué hace?:</h2>
 <p>Lee datos formateados desde un archivo.</p>
 <p><b>Devuelve:</b></p>
 <ul>
@@ -572,7 +574,7 @@ printf("Edad=%d ALtura %.2f\n", edad, altura);
 fclose(fp);
 </code></pre>
 
-<h3>Peligros reales de <b><code>fscanf</code></b>:</h3>
+<h2>Peligros reales de <b><code>fscanf</code></b>:</h2>
 
 <p>No controla limites de strings</p>
 <pre><code class="language-c">
@@ -593,7 +595,7 @@ while (!feof(fp))
 }
 </code></pre>
 
-<h3>Patron correcto con fscanf:</h3>
+<h2>Patron correcto con fscanf:</h2>
 <pre><code class="language-c">
 while (fscanf(fp, "%d", &x) == 1)
 {
