@@ -45,8 +45,8 @@
 <h3>Ejemplo:</h3>
 <pre><code class="language-c">int *pi;</code></pre>
 <ul>
-  <li>pi: es un puntero</li>
-  <li>Apunta a una direccion donde hay un int</li>
+  <li><b>pi:</b> es un puntero</li>
+  <li>Apunta a una direccion donde hay un <strong>int</strong></li>
   <li>El <code>*</code> indica que es un puntero, no una multiplicacion.</li>
   <li>Para que el puntero tenga sentido, debe apuntar a una variable existente:</li>
 </ul>
@@ -59,9 +59,9 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 <h3>Acceder al valor usando un puntero (desreferenciar - object-of):</h3>
 <ul>
   <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-  </ul>
-  <pre><code class="language-c">printf("%d", *pi) Imprime 10.</code></pre>
-<ul>
+    </ul>
+    <pre><code class="language-c">printf("%d", *pi) Imprime 10.</code></pre>
+    <ul>
   </li>
   <li><strong>pi:</strong> direccion.</li>
   <li><strong>*pi:</strong> valor guardado en esa direccion.</li>
@@ -120,9 +120,10 @@ int main(void)
 </code></pre>
 
 <h2>Tamaño de los punteros</h2>
-<p><strong>Se utilizara el sinonimo dimensión.</strong></p>
 
-<p>TODOS los punteros tienen la misma dimension/tamanio (usemos el sinonimo dimension para tamanio, para claridad en los comentarios).
+<p class="nota"><strong>Se utilizara el sinonimo dimensión en los comentarios para claridad del texto.</strong></p>
+
+<p>TODOS los punteros tienen la misma dimensión.
     Sin importar a que tipo apunten, ya que su dimension proviene del tipo de arquitectura en 32 bits es de 4 bytes, en 64 bits es de 8 bytes, se puede verificar con sizeof()</p>
 
 <pre><code class="language-c">
