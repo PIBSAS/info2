@@ -37,9 +37,9 @@
   <li>Eficiencia y control de memoria.</li>
 </ul>
 
-<h2>Cómo se declara?:</h2>
+<h2>¿Cómo se declara?:</h2>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">tipo_de_dato *nombre_del_puntero;</code></pre>
 
 <h3>Ejemplo:</h3>
@@ -47,7 +47,7 @@
 <ul>
   <li>pi: es un puntero</li>
   <li>Apunta a una direccion donde hay un int</li>
-  <li>El * indica que es un puntero, no una multiplicacion.</li>
+  <li>El <code>*</code> indica que es un puntero, no una multiplicacion.</li>
   <li>Para que el puntero tenga sentido, debe apuntar a una variable existente:</li>
 </ul>
 <pre><code class="language-c">
@@ -58,18 +58,19 @@ pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 
 <h2>Acceder al valor usando un puntero (desreferenciar-object-of):</h2>
 <ul>
-  <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):</li>
+  <li>Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
   </ul>
   <pre><code class="language-c">printf("%d", *pi) Imprime 10.</code></pre>
 <ul>
-  <li><b>pi:</b> direccion.</li>
-  <li><b>*pi:</b> valor guardado en esa direccion.</li>
+  </li>
+  <li><strong>pi:</strong> direccion.</li>
+  <li><strong>*pi:</strong> valor guardado en esa direccion.</li>
 </ul>
     
 <h2>Especificador de formato para direcciones:</h2>
 <ul>
-  <li><b>%p</b>: El estandard para este especificador de formato esta definido para imprimir punteros a <b>void</b>. Es por esto que el compilador nos advierte que con <b>&x</b> le estamos pasando <b>int *</b>, pero espera <b>void *</b>.</li>
-  <li>Para solucionar esto se hace un cast: <b><code>(void *)&x;</code></b></li>
+  <li><strong>%p</strong>: El estandard para este especificador de formato esta definido para imprimir punteros a <strong>void</strong>. Es por esto que el compilador nos advierte que con <strong>&x</strong> le estamos pasando <strong>int *</strong>, pero espera <strong>void *</strong>.</li>
+  <li>Para solucionar esto se hace un cast: <strong><code>(void *)&x;</code></strong></li>
 </ul>
 
 <h1>Teoría aplicada:</h1>
@@ -131,7 +132,7 @@ sizeof(char *);
 sizeof(double *);
 </code></pre>
 
-<h3><strong>No confundir con:</strong></h3>
+<p><strong>No confundir con:</strong></p>
 <pre><code class="language-c">
 sizeof(int);
 </code></pre>
@@ -144,12 +145,12 @@ float *pf;
 char *pc;
 </code></pre>
 
-<p><b>En una misma arquitectura, siempre sera cierto que:</b></p>
+<p><strong>En una misma arquitectura, siempre sera cierto que:</strong></p>
 <pre><code class="language-c">
 sizeof(pi) == sizeof(pf) == sizeof(pc)
 </code></pre>
 
-<p>Para impimir <b><code>sizeof(puntero a tipo de dato)</code></b> usamos el especificador de formato <b>%zu</b>:</p>
+<p>Para impimir <strong><code>sizeof(puntero a tipo de dato)</code></strong> usamos el especificador de formato <strong>%zu</strong>:</p>
 <pre><code class="language-c">
 printf("%zu", sizeof(int *));
 printf("%zu", sizeof(char *));
@@ -226,30 +227,30 @@ int main(void)
 
 <h1>Operadores de punteros</h1>
 
-<h1>Operador & (Direccionamiento:address-of)</h1>
+<h2>Operador & (Direccionamiento:address-of)</h2>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?</h3>
 <p>Obtiene la direccion de memoria de una variable</p>
 <pre><code class="language-c">
 int x;
 int *pi = &x;
 </code></pre>
 <ul>
-  <li><b><code>x:</code></b> valor</li>
-  <li><b><code>&x:</code></b> x</li>
-  <li><b><code>int *:</code></b> tipo de dato de <b><code>&x</code></b></li>
+  <li><strong><code>x:</code></strong> valor</li>
+  <li><strong><code>&x:</code></strong> x</li>
+  <li><strong><code>int *:</code></strong> tipo de dato de <strong><code>&x</code></strong></li>
 </ul>
 
-<h2>Se usa para:</h2>
+<h3>Se usa para:</h3>
 <ul>
   <li>Inicializar punteros.</li>
   <li>Pasar variables a funciones.</li>
   <li>scanf.</li>
 </ul>
 
-<h1>Operador * (Desreferenciacion:Indireccion:object-of)</h1>
+<h2>Operador * (Desreferenciacion:Indireccion:object-of)</h2>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?</h3>
 
 <p>Accede al valor almacenado en la direccion a la que apunta el puntero.</p>
 <pre><code class="language-c">
@@ -258,8 +259,8 @@ int *pi = &x;
 printf("%d", *pi); Muestra 10
 </code></pre>
 <ul>
-  <li><b><code>pi:</code></b> direccion de <b><code>x</code></b>.</li>
-  <li><b><code>*pi:</code></b> valor almacenado en esa direccion</li>
+  <li><strong><code>pi:</code></strong> direccion de <strong><code>x</code></strong>.</li>
+  <li><strong><code>*pi:</code></strong> valor almacenado en esa direccion</li>
 </ul>
 <p><strong>Usar <code>*</code> sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)</strong></p>
 
@@ -315,9 +316,9 @@ int main(void)
 
 <h1>Operaciones que admiten los punteros</h1>
 
-<h1>Operador = (Asignacion entre punteros)</h1>
+<h2>Operador = (Asignacion entre punteros)</h2>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?</h3>
 <p>Copia la direccion de memoria, no el valor almacenado en esa direccion a la que apunta.</p>
 <pre><code class="language-c">
 int *p1, *p2;
@@ -329,17 +330,17 @@ de este modo p1 y p2 apuntan a la misma direccion*/
 p2 = p1;
 </code></pre>
     
-<h1>Operadores de comparacion (==, !=, &lt;, &gt;, &leq;, &geq;)</h1>
+<h2>Operadores de comparacion (==, !=, &lt;, &gt;, &leq;, &geq;)</h2>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?</h3>
 <ul>
   <li>Comparan direcciones, NO valores.</li>
-  <li><b><code>if(pi == p2)</code></b> Si apuntan al mismo lugar se cumple el bucle</li>
+  <li><strong><code>if(pi == p2)</code></strong> Si apuntan al mismo lugar se cumple el bucle</li>
 </ul>
 
 <h3>Para comparar valores:</h3>
 <ul>
-  <li><b><code>if(*p1 == *p2)</code></b> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
+  <li><strong><code>if(*p1 == *p2)</code></strong> Si almacenan el mismo valor en su direccion de memoria se cumple el bucle</li>
 </ul>
 
 <h1>Teoría aplicada</h1>
@@ -408,7 +409,7 @@ int main(void)
 
 <h1>Aritmetica de punteros (+, -, ++, --)</h1>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?</h3>
 <ul>
   <li>NO trabaja en bytes, trabaja en elementos del tipo apuntado.</li>
   <li>Un puntero "sabe" a que tipo apunta.</li>
@@ -416,20 +417,20 @@ int main(void)
 
 <h2>Operaciones permitidas:</h2>
 <ul>
-  <li><b><code>+:</code></b> p + n Donde <b>n</b> es un numero</li>
-  <li><b><code>-:</code></b> p - n</li>
-  <li><b><code>++:</code></b> p++</li>
-  <li><b><code>--:</code></b> p--</li>
-  <li><b><code>p1 - p2:</code></b> Solo si apuntan al mismo array</li>
+  <li><strong><code>+:</code></strong> p + n Donde <strong>n</strong> es un numero</li>
+  <li><strong><code>-:</code></strong> p - n</li>
+  <li><strong><code>++:</code></strong> p++</li>
+  <li><strong><code>--:</code></strong> p--</li>
+  <li><strong><code>p1 - p2:</code></strong> Solo si apuntan al mismo array</li>
 </ul>
 
 <h2>Operaciones que NO TIENEN SENTIDO con punteros:</h2>
 <ul>
-  <li><b><code>p + p</code></b></li>
-  <li><b><code>*:</code></b> Multiplicación  <b><code>p * n</code></b> Causa error</li>
-  <li><b><code>/:</code></b> División <b><code>p / n</code></b> Causa error</li>
-  <li><b><code>%:</code></b> Módulo <b><code>p % n</code></b> Causa error</li>
-  <li>Operaciones con <b><code>float</code></b>.</li>
+  <li><strong><code>p + p</code></strong></li>
+  <li><strong><code>*:</code></strong> Multiplicación  <strong><code>p * n</code></strong> Causa error</li>
+  <li><strong><code>/:</code></strong> División <strong><code>p / n</code></strong> Causa error</li>
+  <li><strong><code>%:</code></strong> Módulo <strong><code>p % n</code></strong> Causa error</li>
+  <li>Operaciones con <strong><code>float</code></strong>.</li>
   <li>Desplazamientos (&lt;&lt;, &gt;&gt;)</li>
   <li>Operaciones lógicas (&amp;&amp;, ||)</li>
 </ul>
@@ -441,8 +442,8 @@ int main(void)
 
 <h3>Entonces:</h3>
 <ul>
-  <li><b><code>p + 1</code></b> &rArr; avanza <b><code>sizeof(T)</code></b> bytes. NO SUMA 1 byte. NO SUMA direcciones "a ojo".</li>
-  <li>Suma 1 elemento del <b><code>tipo T</code></b>.</li>
+  <li><strong><code>p + 1</code></strong> &rArr; avanza <strong><code>sizeof(T)</code></strong> bytes. NO SUMA 1 byte. NO SUMA direcciones "a ojo".</li>
+  <li>Suma 1 elemento del <strong><code>tipo T</code></strong>.</li>
 </ul>
 
 <h3>Ejemplo con array:</h3>
@@ -456,9 +457,9 @@ No suma bytes, suma elementos del tipo de dato.*/
 </code></pre>
 
 <ul>
-  <li>Si <b><code>sizeof(int) == 4</code></b> cada <b><code>+1</code></b>, mueve <b><code>4 bytes</code></b>, pero eso es un detalle de implementación.</li>
-  <li>Un puntero solo puede apuntar a elementos validos del array. Un elemento despues del ultimo (<b>ome-past-the-end</b>) como puntero pero no se puede desreferenciar</li>
-  <li>Un puntero NO puede desreferenciar fuera del array. Apuntar antes del primer elemento (<b><code>a[-1]</code></b>)</li>
+  <li>Si <strong><code>sizeof(int) == 4</code></strong> cada <strong><code>+1</code></strong>, mueve <strong><code>4 bytes</code></strong>, pero eso es un detalle de implementación.</li>
+  <li>Un puntero solo puede apuntar a elementos validos del array. Un elemento despues del ultimo (<strong>ome-past-the-end</strong>) como puntero pero no se puede desreferenciar</li>
+  <li>Un puntero NO puede desreferenciar fuera del array. Apuntar antes del primer elemento (<strong><code>a[-1]</code></strong>)</li>
 </ul>
 
 <h3>Valido:</h3>
@@ -471,8 +472,8 @@ p = a - 1; // Comportamiento indefinido(UB)
 </code></pre>
     
 <ul>
-  <li>Especificador de formato <b><code>%td</code></b></li>
-  <li>Especificador de formato para imprimir valores del tipo <b><code>ptrdiff_t</code></b> es <b><code>%td</code></b></li>
+  <li>Especificador de formato <strong><code>%td</code></strong></li>
+  <li>Especificador de formato para imprimir valores del tipo <strong><code>ptrdiff_t</code></strong> es <strong><code>%td</code></strong></li>
 </ul>
 
 <h2>¿Qué es ptrdiff_t?:</h2>
@@ -484,7 +485,7 @@ p = a - 1; // Comportamiento indefinido(UB)
   <li>La cantidad de elementos entre ambos punteros</li>
   <li>Puede ser positivo o negativo.</li>
 </ul>
-<p><strong>Se debe incluir para seguir el estandar, la libreria <b><code>stddef.h</code></b></strong></p>
+<p><strong>Se debe incluir para seguir el estandar, la libreria <strong><code>stddef.h</code></strong></strong></p>
 
 <h1>Teoría aplicada</h1>
 
@@ -562,9 +563,9 @@ int main(void)
 
 <pre><code class="language-c">int a[5] = {10, 20, 30, 40, 50};</code></pre> 
 <ul>
-  <li><b><code>a</code></b> no es una variable asignable.</li>
-  <li><b><code>a</code></b> no es un puntero.</li>
-  <li><b><code>a</code></b> representa un objeto de tipo "array de <b>N</b> elementos"</li>
+  <li><strong><code>a</code></strong> no es una variable asignable.</li>
+  <li><strong><code>a</code></strong> no es un puntero.</li>
+  <li><strong><code>a</code></strong> representa un objeto de tipo "array de <strong>N</strong> elementos"</li>
 </ul>
 
 <h2>¿Qué pasa cuando usamos el nombre del array?:</h2>
@@ -573,10 +574,10 @@ int main(void)
 
 <h3>Se convierte automaticamente en:</h3>
 <ul>
-  <li><b><code>&a[0]</code></b> Es decir:</li>
+  <li><strong><code>&a[0]</code></strong> Es decir:</li>
   <ul>
-    <li><b>Tipo:</b> <b><code>int *</code></b></li>
-    <li><b><code>Valor:</code></b> direccion del primer elemento.</li>
+    <li><strong>Tipo:</strong> <strong><code>int *</code></strong></li>
+    <li><strong><code>Valor:</code></strong> direccion del primer elemento.</li>
   </ul>
 </ul>
 
@@ -587,14 +588,14 @@ int *p = a; // Es correcto, se declara el puntero a int p y se le asigna la dire
 int *q = &a[0]; // Es correcto y exactamente lo mismo que en la linea anterior.
 </code></pre>
 
-<p>Pero esto no convierte a <b><code>a</code></b> en un puntero, solo significa que en esa expresion se usa su direccion inicial</p>
-<h3>Excepciones donde NO decae(decay) en puntero.</h3>
-<pre><code class="language-c">
-sizeof(a)
-&a
-</code></pre>
+<p>Pero esto no convierte a <strong><code>a</code></strong> en un puntero, solo significa que en esa expresion se usa su direccion inicial</p>
 
-<p>Inicializacion directa del array.</p>
+<h3>Excepciones donde el array NO decae (decay) a puntero.</h3>
+<ul>
+  <li><code>sizeof(a)</code></li>
+  <li><code>&amp;a</code></li>
+  <li>Inicialización directa del array</li>
+</ul>
 
 <h3>Diferencia fundamental con el puntero:</h3>
 <pre><code class="language-c">
@@ -624,7 +625,7 @@ p[2] // Acceso al objeto que esta 2 elementos despues de la direccion que guarda
 *(a + 2)
 *(p + 2)
 </code></pre>
-<p><strong><b><code>[]:</code></b> El operador <b>[]</b> es pura aritmetica de punteros.</strong></p>
+<p><strong><strong><code>[]:</code></strong> El operador <strong>[]</strong> es pura aritmetica de punteros.</strong></p>
 
 <h2>Relacion formal entre punteros y arrays:</h2>
 <h3>Por definicion del lenguaje:</h3>
@@ -643,8 +644,8 @@ printf("%d", p[3]); // Imprime 40
 
 <p>Esto es clave y suele confundir.</p>
 <ul>
-  <li><b><code>&a</code></b> <b>tipo:</b> <b><code>int (*)[5]</code></b> Puntero al array completo</li>
-  <li><b><code>a</code></b>  <b>tipo:</b> <b><code>int *</code></b> Puntero al primer <b>int</b></li>
+  <li><strong><code>&a</code></strong> <strong>tipo:</strong> <strong><code>int (*)[5]</code></strong> Puntero al array completo</li>
+  <li><strong><code>a</code></strong>  <strong>tipo:</strong> <strong><code>int *</code></strong> Puntero al primer <strong>int</strong></li>
 </ul>
 
 <h3>Direcciones iguales, tipos distintos. Ej:</h3>
@@ -659,8 +660,8 @@ printf("p\n", (void *)p);
    
 <p>
   Un array no es un puntero, pero en la mayoría de las expresiones se convierte implícitamente en un puntero al primer elemento.
-  El operador <b><code>[]</code></b> está definido en términos de aritmética de punteros,
-  lo que explica por qué la misma sintaxis funciona tanto con <b>arrays</b> como con <b>punteros</b>.
+  El operador <strong><code>[]</code></strong> está definido en términos de aritmética de punteros,
+  lo que explica por qué la misma sintaxis funciona tanto con <strong>arrays</strong> como con <strong>punteros</strong>.
 </p>
 
 <h1>Teoría aplicada</h1>
@@ -744,10 +745,10 @@ int main(void)
 
 <h3>Que sucede aca?</h3>
 <ul>
-  <li><b><code>a</code></b> vale 10.</li>
-  <li>Se copia su valor en <b><code>x</code></b></li>
+  <li><strong><code>a</code></strong> vale 10.</li>
+  <li>Se copia su valor en <strong><code>x</code></strong></li>
   <li>Se modifica la copia.</li>
-  <li><b><code>a</code></b> nunca cambia</li>
+  <li><strong><code>a</code></strong> nunca cambia</li>
 </ul>
 <p><strong>Esto es pasaje por valor puro.</strong></p>
 
@@ -792,10 +793,10 @@ void imprimir(int *p, int n)
 <pre><code class="language-c">int a[5] = {1, 2, 3, 4, 5};</code></pre>
 <pre><code class="language-c">imprimir(a, 5);</code></pre>
 <ul>
-  <li><b><code>a</code></b> decae a <b><code>&a[0]</code></b></li>
+  <li><strong><code>a</code></strong> decae a <strong><code>&a[0]</code></strong></li>
   <li>Se pasa un puntero</li>
-  <li>La funcion accede al <b>array original</b>. Los arrays siempre se pasan <b>por referencia</b> en la practica</li>
-  <li>Porque lo que se pasa es <b>su direccion inicial</b>.</li>
+  <li>La funcion accede al <strong>array original</strong>. Los arrays siempre se pasan <strong>por referencia</strong> en la practica</li>
+  <li>Porque lo que se pasa es <strong>su direccion inicial</strong>.</li>
 </ul>
 
 <h1>Teoría aplicada</h1>
