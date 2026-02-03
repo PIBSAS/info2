@@ -148,7 +148,9 @@ void f(...)
 </ul>
 
 <h3>Indirecta:</h3>
+
 <p>Una función NO se llama a si misma, sino que llama a otra, que eventualmente vuelve a llamar a la primera.</p>
+
 <pre><code class="language-c">
 void A(int n);
 {
@@ -261,7 +263,7 @@ Sustitución y evaluación:
     <li>Direccion de retorno.</li>
 </ul>
 <p>Esto va a la pila de ejecución.
-En recursividad:
+<b>En recursividad:</b>
 </p>
 <ul>
     <li>Cada llamada ocupa un nuevo "nivel" en la pila.</li>
@@ -269,7 +271,7 @@ En recursividad:
 </ul>
 <p><strong>Por eso:</strong></p>
 <ul>
-    <li>SIEMPRE debe haber CASO BASE.</li>
+    <li><strong>SIEMPRE</strong> debe haber CASO BASE.</li>
     <li>Y la dimension del problema debe reducirse.</li>
 </ul>
 
@@ -328,7 +330,7 @@ int fib(int n)
 </code></pre>
 
 <div class="nota">
-    <p>Este ejemplo es didáctico, pero:</p>
+    <p><strong>Este ejemplo es didáctico, pero:</strong></p>
         <ul>
             <li>Es muy ineficiente</li>
             <li>Repite cálculos</li>
@@ -372,9 +374,9 @@ void imprimir(int v[], int n)
 </ul>
 
 
-<h3>Consideraciones para resolver ejercicios de recursividad-recursion:</h3>
+<h2>Consideraciones para resolver ejercicios de recursividad:</h2>
 
-<p>Cuando vemos un ejercicio recursivo, preguntarnos:</p>
+<p><strong>Cuando vemos un ejercicio recursivo, preguntarnos:</strong></p>
 <ul>
     <li>¿Cuál es el caso base más simple?</li>
     <li>¿Cómo expresamos el problema en función del mismo problema más chico?</li>
