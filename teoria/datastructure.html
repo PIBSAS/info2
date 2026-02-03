@@ -48,7 +48,7 @@
 <ul>
     <li>Organizar datos en memoria.</li>
     <li>Acceder a ellos</li>
-    <li>Insertar y eliminar informacion.</li>
+    <li>Insertar y eliminar información.</li>
 </ul>
 <p>Con reglas bien definidas. NO es solo "guardar datos", sino como se comportan.</p>
 
@@ -60,7 +60,7 @@
 <p>Es una estructura de datos que sigue el principio:</p>
 <ul>
     <li><strong><code>LIFO:</code></strong> Last In, First Out.</li>
-    <li>Ultimo en entrar, primero en salir.</li>
+    <li>Último en entrar, primero en salir.</li>
 </ul>
 
 
@@ -68,21 +68,21 @@
 
 <ul>
     <li>Una pila de platos.</li>
-    <li>El ultimo plato que ponemos arriba es el primero que sacamos.</li>
+    <li>El último plato que ponemos arriba es el primero que sacamos.</li>
 </ul>
 
 
-<h3>Operaciones basicas del stack:</h3>
+<h3>Operaciones básicas del stack:</h3>
 
 <ul>
     <li><strong><code>push:</code></strong> insertar un elemento.</li>
     <li><strong><code>pop:</code></strong> quitar un elemento.</li>
     <li><strong><code>peek/top:</code></strong> ver el elemento del tope.</li>
-    <li><strong><code>isEmpty:</code></strong> verificar si esta vacio.</li>
+    <li><strong><code>isEmpty:</code></strong> verificar si está vacío.</li>
 </ul>
 
 
-<h3>Usos tipicos del stack:</h3>
+<h3>Usos típicos del stack:</h3>
 
 <ul>
     <li>Llamadas a funciones (<code>call stack</code>)</li>
@@ -117,17 +117,17 @@
     <li><strong><code>enqueue:</code></strong> insertar al final.</li>
     <li><strong><code>dequeue:</code></strong> eliminar del frente.</li>
     <li><strong><code>front:</code></strong> ver el primer elemento.</li>
-    <li><strong><code>isEmpty:</code></strong> verificar si esta vacia.</li>
+    <li><strong><code>isEmpty:</code></strong> verificar si está vacía.</li>
 </ul>
 
 
-<h3>Usos tipicos del queue:</h3>
+<h3>Usos típicos del queue:</h3>
 
 <ul>
     <li>Planificación de procesos.</li>
     <li>Impresoras.</li>
     <li>Buffers.</li>
-    <li>Atencion por orden de llegada.</li>
+    <li>Atención por orden de llegada.</li>
     <li>Sistemas operativos.</li>
 </ul>
 
@@ -136,7 +136,7 @@
 <div class="tablecontainer">
     <table>
         <tr>
-            <th>Caracteristica</th>
+            <th>Característica</th>
             <th>Pila (Stack)</th>
             <th>Cola (Queue)</th>
         </tr>
@@ -156,7 +156,7 @@
             <td>Frente</td>
         </tr>
         <tr>
-            <td>Analogia</td>
+            <td>Analogía</td>
             <td>Platos</td>
             <td>Fila</td>
         </tr>
@@ -177,11 +177,11 @@
 <h3>Problema de la cola lineal:</h3>
 
 <ul>
-    <li>El indice de escritura (final) solo avanza.</li>
+    <li>El índice de escritura (final) solo avanza.</li>
     <li>Aunque se liberen posiciones al frente, el espacio no puede reutilizarse.</li>
     <li><b>Puede darse la condición de:</b>
     <ul>
-        <li>Cola vacia y cola llena logicamente al mismo tiempo.</li>
+        <li>Cola vacía y cola llena lógicamente al mismo tiempo.</li>
     </ul>
     </li>
 </ul>
@@ -190,12 +190,12 @@
 <h3>Solución:</h3>
 
 <ul>
-    <li>Los indices de lectura (<b>frente</b>) y escritura (<b>final</b>) avanzan de forma circular.</li>
+    <li>Los índices de lectura (<b>frente</b>) y escritura (<b>final</b>) avanzan de forma circular.</li>
     <li>Cuando alcanzan el final del arreglo, vuelven al inicio (<b>salto circular</b>).</li>
 </ul>
 
 
-<h3>Caracteristicas:</h3>
+<h3>Características:</h3>
 
 <ul>
     <li><strong><code>FIFO</code></strong></li>
@@ -214,15 +214,15 @@
 <ul>
     <li>Uso de un flag (<b>bandera</b>)</li>
     <li>Uso de un contador de elementos.</li>
-    <li>Dejar una posición vaíia (muy común).</li>
+    <li>Dejar una posición vacía (muy común).</li>
 </ul>
 
 <h3>En esta implementación:</h3>
 
 <ul>
     <li>Se utiliza un contador de elementos.</li>
-    <li>La cola esta vacía cuando <strong><code>cantidad == 0;</code></strong></li>
-    <li>La cola esta llena cuando <strong><code>cantidad == MAX;</code></strong>.</li>
+    <li>La cola está vacía cuando <strong><code>cantidad == 0;</code></strong></li>
+    <li>La cola está llena cuando <strong><code>cantidad == MAX;</code></strong>.</li>
 </ul>
 
 <h2 class="teoria">Teoría aplicada</h2>
