@@ -305,22 +305,24 @@ struct Registro {
 <div class="tablecontainer">
 <table>
     <tr>
-        <th>Carácteristica</th>
-        <td>Memoria</td>
-        <td>Uso típico</td>
-        <td>Dimensión</td>
-    </tr>
-    <tr>
+        <th>Característica</th>
         <th>struct</th>
-        <td>Cada campo tiene su espacio</td>
-        <td>Datos simultaneos</td>
-        <td>Suma de campos</td>
+        <th>union</th>
     </tr>
     <tr>
-        <th>union</th>
-        <td>Todos comparten</td>
+        <td>Memoria</td>
+        <td>Cada campo tiene su propio espacio</td>
+        <td>Todos los campos comparten el mismo espacio</td>
+    </tr>
+    <tr>
+        <td>Uso típico</td>
+        <td>Datos simultáneos</td>
         <td>Datos alternativos</td>
-        <td>Maximo de campos</td>
+    </tr>
+    <tr>
+        <td>Dimensión</td>
+        <td>Suma de los tamaños de los campos</td>
+        <td>Tamaño del campo más grande</td>
     </tr>
 </table>
 </div>
