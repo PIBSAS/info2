@@ -22,16 +22,16 @@
 
 <h1>Campos de bits - Bit fields</h1>
 
-<h2>¿Qué es un campo de bits-bit fields?</h2>
+<h2>¿Qué es un campo de bits?</h2>
 <p>Los campos de bit son una forma especial de declarar miembros de una estructura
 donde, en vez de ocupar toda la dimension del tipo (int, unsigned, etc),
 se indica cuantos bits exactos ocupa el campo.</p>
     
-<h2>Para que sirven?</h2>
+<h2>¿Para qué sirven?</h2>
 <p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
 
 <h3>Ejemplo:</h3>
-<p><strong></strong>Necesitamos guardar:</strong></p>
+<p><strong>Necesitamos guardar:</strong></p>
 <ul>
     <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
     <li>Un numero de 0 a 7 => 3 bits.</li>
@@ -191,7 +191,7 @@ void procesar(struct Flags f)
 }
 </code></pre>
 
-<h3>O por puntero:</h3>
+<h4>O por puntero:</h4>
 <pre><code class="language-c">
 void limpiar(struct Flags *f)
 {
@@ -199,7 +199,7 @@ void limpiar(struct Flags *f)
 }
 </code></pre>
 
-<h1>Diferencia con operaciones a nivel bit:</h1>
+<h2>Diferencia con operaciones a nivel bit:</h2>
 <p>Muchos confunden campos de bits con operadores bit a bit (<strong><code>& | ^ << >> </code></strong>).</p>
 
 <h3>Campos de bit - bit-fields:</h3>
@@ -264,7 +264,7 @@ void limpiar(struct Flags *f)
     ya que la memoria es direccionable por bytes.
 </p>
 
-<h3>Extra: Que es alineacion?:</h3>
+<h3>Extra: ¿Qué es alineación?</h3>
 
 <p>Cada tipo de dato suele requerir que su direccion de memoria sea múltiplo de cierto valor.</p>
 <p><strong>Ejemplo:</strong></p>
