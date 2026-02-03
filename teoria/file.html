@@ -533,7 +533,7 @@ NULL = no se leyo nada.
 </div>
 
 
-<h3>Patron correcto:</h3>
+<h3>Patrón correcto:</h3>
 
 <pre><code class="language-c">
 if (fgets(linea, sizeof(linea), fp) == NULL)
@@ -667,7 +667,7 @@ fclose(fp);
 
 <h3>Peligros reales de <strong><code>fscanf</code></strong>:</h3>
 
-<p>No controla limites de strings</p>
+<p>No controla límites de strings</p>
 <pre><code class="language-c">
 char nombre[20];
 fscanf(fp, "%s", nombre); // Peligro si el nombre es largo
@@ -687,7 +687,7 @@ while (!feof(fp))
 }
 </code></pre>
 
-<h3>Patron correcto con <code>fscanf</code>:</h3>
+<h3>Patrón correcto con <code>fscanf</code>:</h3>
 <pre><code class="language-c">
 while (fscanf(fp, "%d", &x) == 1)
 {
@@ -695,7 +695,7 @@ while (fscanf(fp, "%d", &x) == 1)
 }
 </code></pre>
 
-<p><strong>O con multiples datos:</strong></p>
+<p><strong>O con múltiples datos:</strong></p>
 <pre><code class="language-c">
 while (fscanf(fp, "%d %f", &a, &b) == 2)
 {
@@ -738,9 +738,9 @@ sscanf(linea, "%d %f", &a, &b);
 
 <h3>fgets:</h3>
 <ul>
-    <li>Controla cuanto entra.</li>
+    <li>Controla cuánto entra.</li>
     <li>Nunca se pasa del buffer.</li>
-    <li>Sabe exactamente cuando fallo.</li>
+    <li>Sabe exactamente cuándo falló.</li>
 </ul>
 
 <h3>sscanf:</h3>
