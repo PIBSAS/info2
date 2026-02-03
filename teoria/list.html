@@ -23,7 +23,7 @@
 
 <h1>Lista simple - Singly linked list</h1>
 
-<h2>¿Qué es?:</h2>
+<h3>¿Qué es?:</h3>
 
 <p>Una lista simple enlazada es una estructura de datos dinamica formada por nodos, donde:</p>
 <ul>
@@ -64,7 +64,7 @@
     <li>Nodo (struct autoreferenciado).</li>
     <p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
 
-    <h2>Sintaxis:</h2>
+    <h3>Sintaxis:</h3>
 <pre><code class="language-c">
 struct Nodo {
   int dato;
@@ -75,20 +75,20 @@ struct Nodo {
     <li>Puntero de comienzo (head).</li>
     <p>La lista se maneja mediante un puntero.</p>
 
-    <h2>Sintaxis:</h2>
+    <h3>Sintaxis:</h3>
 <pre><code class="language-c">
 struct Nodo *lista = NULL;
 </code></pre>
     <ul>
-        <li><b><code>NULL</code></b> => lista vacía.</li>
+        <li><b><code>NULL</code></b> &rArr; lista vacía.</li>
         <li>Apunta siempre al primer nodo.</li>
     </ul>
 </ol>
 
 
-<h1>Operaciones básicas sobre listas simples</h1>
+<h2>Operaciones básicas sobre listas simples</h2>
 
-<h2>Crear nodo (memoria dinámica):</h2>
+<h3>Crear nodo (memoria dinámica):</h3>
 
 <pre><code class="language-c">
 nuevo = malloc(sizeof(struct Nodo));
@@ -101,7 +101,7 @@ nuevo = malloc(sizeof(struct Nodo));
 </ul>
 
 
-<h2>Recorrer la lista:</h2>
+<h3>Recorrer la lista:</h3>
 
 <pre><code class="language-c">
 for (aux = lista; aux != NULL; aux = aux->sig)
@@ -109,7 +109,7 @@ for (aux = lista; aux != NULL; aux = aux->sig)
 <p><strong>Se avanza saltando de nodo en nodo.</strong></p>
 
 
-<h1>Inserción</h1>
+<h2>Inserción</h2>
 
 <h3>Puede hacerse:</h3>
 <ul>
@@ -197,9 +197,9 @@ nuevo->sig = NULL;
 </ul>
 
 
-<h1>Búsqueda</h1>
+<h2>Búsqueda</h2>
 
-<h2>Siempre es secuencial (no hay acceso directo):</h2>
+<h3>Siempre es secuencial (no hay acceso directo):</h3>
 
 <h3>Sintaxis:</h3>
 
@@ -218,9 +218,9 @@ while (aux != NULL && aux->dato != buscado)
 Puede terminar por encontrar el dato o llegar a <b><code>NULL</code></b>.
 </p>
 
-<h1>Borrado</h1>
+<h2>Borrado</h2>
 
-<h2>Puede ocurrir:</h2>
+<h3>Puede ocurrir:</h3>
 
 <ul>
     <li>Borrar el primer nodo.</li>
