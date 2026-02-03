@@ -39,10 +39,12 @@
 <p>Hay un solo bloque de memoria, reutilizado por todos los campos.
 Es decir:
 </p>
-<ul>
-    <li>Una union puede guardar una cosa u otra, pero no varias a la vez.</li>
-</ul>
-
+<div class="nota">
+  <p>
+    <strong>Idea clave:</strong>
+    Una union puede guardar una cosa u otra, pero <u>nunca varias a la vez</u>.
+  </p>
+</div>
 
 <h3>¿Para qué se usan?</h3>
 
@@ -130,7 +132,13 @@ int main(void)
   return 0;
 }
 </code></pre>
-<p>Va a valer <b><code>sizeof(double)</code></b> (o más si hay alineación).</p>
+<p>Va a valer <b><code>sizeof(double)</code></b> (o más si hay <strong>alineación</strong>).</p>
+<div class="nota">
+  <p>
+    El tamaño de una <code>union</code> es el del miembro más grande,
+    <strong>o mayor si el compilador agrega padding por alineación</strong>.
+  </p>
+</div>
 
 
 <h3>Dirección de los campos:</h3>
@@ -207,7 +215,7 @@ modificar(&d);
 <h3>Retorno de una union desde una función</h3>
 
 <pre><code class="language-c">
-union dato crear_dato(void)
+union Dato crear_dato(void)
 {
   union Dato d;
   d.i = 100;
@@ -241,7 +249,7 @@ struct Registro {
 struct Registro r;
 
 r.tipo = 1; // Asignacion del campo tipo
-r.dato.i = 42 // Asignacion del campo i de la union dato
+r.dato.i = 42 // Asignacion del campo i de la union Dato
 </code></pre>
 <div class="nota">
     <p><strong>Acá el campo tipo indica como interpretar la union, patrón clásico: tagged union</strong></p>
