@@ -240,11 +240,17 @@ void limpiar(struct Flags *f)
     <li>Hacemos comunicacion de red.</li>
     <li>Necesitamos direcciones de los campos.</li>
 </ul> 
+
+<h3>Orden de los bits y portabilidad</h3>
+<p>
+    El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
+    es dependiente de la implementacion y no esta garantizado por el estandar.
+</p>
+
 <div class="nota">
     <p>
-             El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
-             es dependiente de la implementacion y no esta garantizado por el estandar.
-             Es por esto que en el codigo solemos declarar por convencion los bit-fields de LSB -> MSB.
+        Por convención, solemos declarar los bit-fields de LSB → MSB para mejorar la legibilidad,
+        aunque el estándar no lo garantice.
     </p>
 </div>
 
