@@ -101,9 +101,9 @@ unsigned char c = a & b; // 0000 1000 -> 8
 <h3>¿Para qué se usa?:</h3>
 <ul>
     <li>Enmascarar bits.</li>
-    <li>Ver si un bit específico esta activo.</li>
+    <li>Ver si un bit específico está activo.</li>
 </ul>
-<h3>Ejemplo tipico:</h3>
+<h3>Ejemplo típico:</h3>
 <pre><code class="language-c">
 if (estado & 0x01) {
 // el bit 0 esta en 1
@@ -164,7 +164,7 @@ unsigned char c = a | b; // 0000 1110 -> 24
     <li>Prender bits (Setear flags).</li>
 </ul>
 
-<h3>Ejemplo tipico:</h3>
+<h3>Ejemplo típico:</h3>
 
 <pre><code class="language-c">
 estado = estado | 0x04; // pone en 1 el bit 2
@@ -232,7 +232,7 @@ unsigned char c = a ^ b; // 0000 0110 -> 6
   </p>
 </div>
 
-<h3>Ejemplo tipico:</h3>
+<h3>Ejemplo típico:</h3>
 
 <pre><code class="language-c">
 estado ^= 0x01; // invierte el bit 0
@@ -294,11 +294,11 @@ unsigned char b = ~a; // 1111 1010 -> 250
 
 <h3>¿Para qué se usa?:</h3>
 <ul>
-    <li>Apagar bits con mascara.</li>
+    <li>Apagar bits con máscara.</li>
 </ul>
 
 
-<h3>Ejemplo tipico:</h3>
+<h3>Ejemplo típico:</h3>
 
 <pre><code class="language-c">
 estado &= ~0x04; // pone en 0 el bit 2  
@@ -387,7 +387,7 @@ a >> 2 // Si a vale 1: 1 / 2^2 => 0
 </ul>
 
 
-<h2>Bitwise - bit a bit vs Logicos:</h2>
+<h2>Bitwise - bit a bit vs Lógicos:</h2>
 
 <div class="tablecontainer">
     <table>
