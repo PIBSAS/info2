@@ -129,7 +129,6 @@
 </ul>
 
 <h3>Directa:</h3>
-
 <p>Una función se llama a si misma directamente.</p>
 
 <pre><code class="language-c">
@@ -163,7 +162,9 @@ void B(int n)
 }
 </code></pre>
 <p><b>Llamadas:</b> A &rarr; B &rarr; A &rarr; A &rarr; B &rarr; ...</p>
-<p>Esto casi no se usa en C inicial.</p>
+<div class="nota">
+    <p>Esto casi no se usa en C inicial.</p>
+</div>
 
 <h3>Ejemplos:</h3>
 <ul>
@@ -213,10 +214,13 @@ int f(n)
 <ul>
     <li>Fibonacci</li>
 </ul>
-<p><b><em>Son muy ineficientes, explosion de llamadas</em></b> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
+
+<div class="nota">
+    <p><b><em>Son muy ineficientes, explosion de llamadas</em></b> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
+</div>
 
 
-<h2>Ejemplo clásico de recursividad:</h2>
+<h2>Ejemplo Clásico de Recursividad 1:</h2>
 
 <h3>Factorial:</h3>
 
@@ -269,7 +273,8 @@ En recursividad:
     <li>Y la dimension del problema debe reducirse.</li>
 </ul>
 
-<h2>Ejemplo 2:</h2>
+<h2>Ejemplo Clásico de Recursividad 2:</h2>
+
 <h3>Suma de los primeros N números:</h3>
 <pre><code class="language-c">
 suma(n) = n + suma(n - 1)
@@ -302,7 +307,7 @@ int suma(int n)
 </ul>
 
 
-<h2>Ejemplo 3:</h2>
+<h2>Ejemplo Clásico de Recursividad 3:</h2>
 
 <h3>Fibonacci:</h3>
 <ul>
@@ -321,15 +326,18 @@ int fib(int n)
   return fib(n - 1) + fib(n - 1);
 }
 </code></pre>
-<p>Este ejemplo es didáctico, pero:</p>
-    <ul>
-        <li>Es muy ineficiente</li>
-        <li>Repite cálculos</li>
-        <li>Explota rápido la pila</li>
-    </ul>
+
+<div class="nota">
+    <p>Este ejemplo es didáctico, pero:</p>
+        <ul>
+            <li>Es muy ineficiente</li>
+            <li>Repite cálculos</li>
+            <li>Explota rápido la pila</li>
+        </ul>
+</div>
 
 
-<h3>Ejemplo 4:</h3>
+<h2>Ejemplo de Recursividad 4:</h2>
 
 <h3>Recursividad con arrays</h3>
 
@@ -345,11 +353,13 @@ void imprimir(int v[], int n)
 }
 </code></pre>
 
-<p><b><em>IMPORTANTE:</em></b></p>
-<ul>
-    <li>La dimension se reduce <b>(n - 1)</b></li>
-    <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
-</ul>
+<div class="nota">
+    <p><b><em>IMPORTANTE:</em></b></p>
+    <ul>
+        <li>La dimension se reduce <b>(n - 1)</b></li>
+        <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
+    </ul>
+</div>
 
 
 <h3>Errores tipicos:</h3>
