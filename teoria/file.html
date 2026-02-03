@@ -22,11 +22,11 @@
 <div class="container">
 
 <h1>Archivos - FILE *</h1>
-<h2>Parte 1</h2>
+<h3 class="tema">Parte 1</h3>
 <h3 class="tema">Acceso secuencial</h3>
 
 
-<h2>¿Qué es un archivo - file and stream?</h2>
+<h3>¿Qué es un archivo?</h3>
 
 <p>
     Una secuencia de bytes almacenada en algún dispositivo (disco, pendrive, etc)
@@ -34,7 +34,7 @@
 </p>
 
 
-<h2>FILE *:</h2>
+<h3>FILE *:</h3>
 
 <p>
     En C NUNCA trabajamos directamente con el archivo.
@@ -66,7 +66,7 @@
 <ul>
     <li>Busca el archivo.</li>
     <li>Prepara buffers.</li>
-    <li>Devuelve un FILE *</li>
+    <li>Devuelve un <strong><code>FILE *</code></strong></li>
 </ul>
 <div class="nota">
     <p><strong>Si falla devuelve <code>NULL</code>.</strong></p>
@@ -86,7 +86,7 @@
 
 <h3>Es la funcion que:</h3>
 <ul>
-    <li>Cierra el archivo asociado al FILE *</li>
+    <li>Cierra el archivo asociado al <strong><code>FILE *</code></strong></li>
     <li>Vacia los buffers pendientes</li>
     <li>Libera recursos del sistema operativo</li>
 </ul>
@@ -100,15 +100,15 @@
 <p>Aunque no lo vemos, pasan varias cosas:</p>
 
 <ul>
-    <li>Se vacian los buffers:
+    <li><b>Se vacian los buffers:</b>
     <ul>
-        <li>Lo escrito con fputc, fprintf, etc.</li>
+        <li>Lo escrito con <code>fputc</code>, <code>fprintf</code>, etc.</li>
         <li>Puede que todavia no este en el disco.</li>
     </ul>
     </li>
 </ul>
 <ul>
-    <li>Se libera memoria:
+    <li><b>Se libera memoria:</b>
     <ul>
         <li>Estructuras internas (FILE)</li>
         <li>Descriptores del sistema.</li>
@@ -116,7 +116,7 @@
     </li>
 </ul>
 <ul>
-    <li>Se libera el archivo:
+    <li><b>Se libera el archivo:</b>
     <ul>
         <li>Otros programas pueden usarlo.</li>
         <li>Se asegura la integridad del archivo.</li>
@@ -129,12 +129,12 @@
 
 <p>Depende... y eso es lo peligroso.</p>
 
-<h4>Posibles consecuencias:</h4>
+<h3>Posibles consecuencias:</h3>
 <ul>
     <li>El archivo queda incompleto.</li>
     <li>Los últimos datos no se escriben.</li>
     <li>Fugas de recursos.</li>
-    <li>En algunos sistemas:
+    <li><b>En algunos sistemas:</b>
         <ul>
             <li>El archivo puede quedar corrupto.</li>
             <li>O no aparecer.</li>
@@ -145,7 +145,7 @@
 </ul>
 
 
-<h3>Valor de retorno de fclose:</h3>
+<h3>Valor de retorno de <code>fclose</code>:</h3>
 
 <pre><code class="language-c">int r = fclose(fp);</code></pre>
 
@@ -163,10 +163,12 @@ if (fclose(fp) == EOF)
 }
 </code></pre>
 
-<h3>Regla:</h3>
-<ul>
-    <li>Cada <strong><code>fopen</code></strong> exitoso debe tener exactamente un <strong><code>fclose</code></strong>.</li>
-</ul>
+<div class="nota">
+    <h3>Regla:</h3>
+    <ul>
+        <li>Cada <strong><code>fopen</code></strong> exitoso debe tener exactamente un <strong><code>fclose</code></strong>.</li>
+    </ul>
+</div>
 
 
 <h2>Modos de apertura:</h2>
@@ -220,7 +222,7 @@ if (fclose(fp) == EOF)
 <ul>
     <li>Escribe un solo caracter en el archivo.</li>
     <li>Avanza el puntero de archivo.</li>
-    <li>Devuelve:
+    <li><b>Devuelve:</b>
     <ul>
         <li>El caracter escrito (como <strong><code>unsigned char</code></strong>)</li>
         <li><strong><code>EOF</code></strong> si hay error.</li>
@@ -310,10 +312,10 @@ fclose(fp);
 </code></pre>
 
 <div class="nota">
-    <p><strong>OBSERVACION:</strong></p>
+    <h3>OBSERVACION:</h3>
     <ul>
-        <li><strong><code>fgetc:</code></strong> Devuelve <strong><code>int</code></strong>.</li>
-        <li><strong><code>EOF:</code></strong> NO es un <strong><code>char</code></strong>.</li>
+        <li><strong><code>fgetc:</code></strong> Devuelve <code>int</code>.</li>
+        <li><strong><code>EOF:</code></strong> NO es un <code>char</code>.</li>
         <li>Por eso la variable es <strong><code>int</code></strong>.</li>
     </ul>
 </div>
@@ -330,8 +332,7 @@ fclose(fp);
 </ul>
 <pre><code class="language-c">while ((c = fgetc(fp)) != EOF)</code></pre>
 
-<p>Para distinguir <strong>Fin de archivo</strong> vs <strong>Error</strong> de lectura, utilizamos <strong><code>feof</code></strong> ¿Fin de archivo?.</p>
-
+<p>Para distinguir <strong>Fin de archivo</strong> vs <strong>Error de lectura</strong>, utilizamos <strong><code>feof</code></strong> Función que pregunta: ¿Fin de archivo?.</p>
 
 <h3>Sintaxis:</h3>
 <pre><code class="language-c">int feof(FILE *fp);</code></pre>
@@ -462,7 +463,7 @@ Segunda linea
 <h3>¿Qué hace?:</h3>
 <ul>
     <li>Lee hasta <strong><code>n-1</code></strong> caracteres.</li>
-    <li>Se detiene si encuentra:
+    <li><b>Se detiene si encuentra:</b>
         <ul>
             <li><strong><code>\n</code></strong></li>
             <li><strong><code>EOF</code></strong></li>
@@ -470,7 +471,7 @@ Segunda linea
     </li>
     <li>Incluye el <strong><code>\n</code></strong> si lo lee.</li>
     <li>Siempre agrega <strong><code>'\0'</code></strong></li>
-    <li>Devuelve:
+    <li><b>Devuelve:</b>
         <ul>
             <li><strong><code>str</code></strong> si pudo leer algo.</li>
             <li><strong><code>NULL</code></strong> si no pudo (<strong><code>EOF</code></strong> o <strong>error</strong>)</li>
@@ -507,8 +508,8 @@ Segunda linea
 <p><strong>IMPORTANTE:</strong></p>
 <ul>
     <li>Lee como maximo <strong><code>n-1</code></strong>, si <strong><code>n = 100</code></strong>, lee hasta <strong><code>99 caracteres + \0</code></strong></li>
-    <li>Evita desbordes (overflow)</li>
-    <li>A diferencia de <strong><code>gets</code></strong> (Que esta prohibida)</li>
+    <li>Evita desbordes (<b>overflow</b>)</li>
+    <li>A diferencia de <strong><code>gets</code></strong> (<b>Que esta prohibida</b>)</li>
     <li>El <strong><code>\n</code></strong> queda adentro. Ejemplo:
         <ul>
             <li><strong><code>fgets(linea, 100, fp);</code></strong></li>
@@ -584,7 +585,7 @@ if (fgets(linea, sizeof(linea), fp) == NULL)
 <h3>¿Qué hace?:</h3>
 <ul>
     <li>Escribe texto formateado en un archivo.</li>
-    <li>Devuelve:
+    <li><b>Devuelve:</b>
         <ul>
             <li>Cantidad de caracteres escritos.</li>
             <li>Valor negativo si hay error.</li>
@@ -618,13 +619,13 @@ Altura: 1.75
 </code></pre>
 
 
-<h2>Formatos validos:</h2>
+<h2>Formatos válidos:</h2>
 
 <p>Los mismos que <strong><code>printf</code></strong>:</p>
 <ul>
-    <li>%d, %f, %s, %c.</li>
-    <li>%lf, para double</li>
-    <li>%u, %ld, etc.</li>
+    <li><code>%d</code>, <code>%f</code>, <code>%s</code>, <code>%c</code>.</li>
+    <li><code>%lf</code>, para <code>double</code></li>
+    <li><code>%u</code>, <code>%ld</code>, etc.</li>
 </ul>
 
 
@@ -678,7 +679,7 @@ fscanf(fp, "%s", nombre); // Peligro si el nombre es largo
 
 <p>No detecta bien fin de archivo</p>
 
-<p><strong>Error tipico:</strong></p>
+<h3>Error típico:</h3>
 <pre><code class="language-c">
 while (!feof(fp))
 {
@@ -686,7 +687,7 @@ while (!feof(fp))
 }
 </code></pre>
 
-<h3>Patron correcto con fscanf:</h3>
+<h3>Patron correcto con <code>fscanf</code>:</h3>
 <pre><code class="language-c">
 while (fscanf(fp, "%d", &x) == 1)
 {
@@ -702,7 +703,7 @@ while (fscanf(fp, "%d %f", &a, &b) == 2)
 }
 </code></pre>
 <div class="nota">
-    <p><strong>El <strong><code>==</code></strong> cantidad de campos, es clave.</strong></p>
+    <p><strong>El <strong><code>== cantidad de campos</code></strong>, es clave.</strong></p>
 </div>
 
 
@@ -721,14 +722,14 @@ while (fscanf(fp, "%d %f", &a, &b) == 2)
             <td>frágil</td>
         </tr>
         <tr>
-            <td>fgets</td>
+            <td>fgets+sscanf</td>
             <td>segura</td>
             <td>hay que parsear</td>
         </tr>
     </table>
 </div>
 
-<p><strong>Por eso en código serio se suele hacer:</strong></p>
+<h3>Por eso en código serio se suele hacer:</h3>
 
 <pre><code class="language-c">
 fgets(linea, sizeof(linea), fp);
@@ -771,7 +772,7 @@ while (fgets(linea, sizeof(linea), fp))
 
 <p>
     Esto no se puede hacer limpio con <strong><code>fscanf</code></strong>
-    Pero la clásica suele ser usar <strong><code>fscanf</code></strong>
+    Pero se suele usar <strong><code>fscanf</code></strong>
 </p>
 
 
