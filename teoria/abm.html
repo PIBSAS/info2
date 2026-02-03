@@ -21,11 +21,11 @@
 <main>
   <div class="container">
 <h1>Archivos FILE *</h1>
-<h1>Parte 2</h1>
-<h2>Binarios, acceso aleatorio, bloques de memoria, ABM</h2>
+<h3 class="tema">Parte 2</h3>
+<h3 class="tema">Binarios, acceso aleatorio, bloques de memoria, ABM</h3>
 
-<h1>Archivos binarios</h1>
-<h2>¿Qué es un archivo binario?:</h2>
+<h2>Archivos binarios</h2>
+<h3>¿Qué es un archivo binario?:</h3>
 <ul>
     <li>No guarda texto legible.</li>
     <li>Guarda bytes tal cual estan en memoria.</li>
@@ -52,7 +52,7 @@
     <li>No es legible a mano.</li>
 </ul>
 
-<h1>Modos binarios</h1>
+<h2>Modos binarios</h2>
 
 <div class="tablecontainer">
 <table>
@@ -78,13 +78,13 @@
     <p><strong>En Windows es obligatorio usar <code>b</code>.</strong></p>
 </div>
     
-<h1>Escritura de bloques</h1>
+<h2>Escritura de bloques</h2>
 <pre><code class="language-c">fwrite</code></pre>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *fp);</code></pre>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?:</h3>
 <ul>
     <li>Escribe nmemb elementos.</li>
     <li>Cada uno de tamaño size.</li>
@@ -98,13 +98,13 @@ fwrite(&x, sizeof(int), 1, fp);
 </code></pre>
 <p><strong>Escribe el <code>int</code> completo, no texto.</strong></p>
 
-<h1>Lectura de bloques</h1>
+<h2>Lectura de bloques</h2>
 <pre><code class="language-c">fread</code></pre>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">size_t fread(void *ptr, size_t size, size_t nmemb, FILE *fp);</code></pre>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?:</h3>
 <ul>
     <li>Lee nmemb elementos.</li>
     <li>Cada uno de tamaño size.</li>
@@ -169,14 +169,14 @@ fread(v, sizeof(Empleado), 3, fp);
 </code></pre>
 <p><strong>Esto es memoria => disco => memoria, directo.</strong></p>
     
-<h1>Acceso aleatorio</h1>
+<h2>Acceso aleatorio</h2>
 <ul>
     <li>fseek</li>
     <li>ftell</li>
     <li>rewind</li>
 </ul>
 
-<h2>Sintaxis fseek:</h2>
+<h3>Sintaxis fseek:</h3>
 <pre><code class="language-c">int fseek(FILE *fp, long offset, int origen);</code></pre>
 
 <div class="tablecontainer">
@@ -204,29 +204,29 @@ fread(&e, sizeof(Empleado), 1, fp);
 </code></pre>
 <p><strong>Esto es archivo random / directo.</strong></p>
 
-<h2>Sintaxis ftell:</h2>
+<h3>Sintaxis ftell:</h3>
 <pre><code class="language-c">long pos = ftell(fp);</code></pre>
 <p><strong>Devuelve la posicion actual (en <code>bytes</code>).</strong></p>
 
-<h2>Sintaxis rewind:</h2>
+<h3>Sintaxis rewind:</h3>
 <pre><code class="language-c">rewind(fp);</code></pre>
 <p><strong>Vuelve al inicio (equivale a <code>fseek(fp, 0, SEEK_SET)</code> ).</strong></p>
         
-<h1>Altas, Bajas y Modificaciones (ABM)</h1>
+<h2>Altas, Bajas y Modificaciones (ABM)</h2>
 
-<h2>Alta:</h2>
+<h3>Alta:</h3>
 <pre><code class="language-c">
 fopen("ab")
 fwrite
 </code></pre>
 
-<h2>Listado:</h2>
+<h3>Listado:</h3>
 <pre><code class="language-c">
 fopen("rb")
 while (fread(...) == 1)
 </code></pre>
 
-<h2>Modificacion:</h2>
+<h3>Modificacion:</h3>
 <pre><code class="language-c">
 fopen("rb+")
 buscar registro
@@ -234,7 +234,7 @@ fseek
 fwrite
 </code></pre>
 
-<h2>Baja logica:</h2>
+<h3>Baja logica:</h3>
 <ul>
     <li>No borrar fisicamente.</li>
     <li>Marcar como borrado</li>
@@ -253,10 +253,10 @@ typedef struct {
 <h2>Borrar un archivo:</h2>
 <pre><code class="language-c">remove</code></pre>
 
-<h2>Sintaxis remove:</h2>
+<h3>Sintaxis remove:</h3>
 <pre><code class="language-c">int remove(const char *filename);</code></pre>
 
-<h2>¿Qué hace?:</h2>
+<h3>¿Qué hace?:</h3>
 <p>Borra un archivo del sistema (No del programa, del disco).</p>
 
 <h3>Ejemplo:</h3>
@@ -266,7 +266,7 @@ typedef struct {
 <h2>Liberar buffer manualmente:</h2>
 <pre><code class="language-c">fflush</code></pre>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">fflush(fp);</code></pre>
 <ul>
     <li>Fuerza escritura inmediata.</li>
@@ -274,9 +274,9 @@ typedef struct {
     <li>Normalmente no hace falta si usas fclose.</li>
 </ul>
     
-<h1>CONCEPTOS TEORICOS</h1>
+<h2>CONCEPTOS TEORICOS</h2>
 
-<h2>Streams:</h2>
+<h3>Streams:</h3>
 <p>Es un flujo de datos entre el programa y un dispositivo (Teclado, Pantalla, Archivo, etc).</p>
 
 <h3>Utiliza un buffer intermedio:</h3>
@@ -285,23 +285,23 @@ typedef struct {
         <li>En entrada <strong><code>stdin</code></strong>: se leen bloques desde el dispositivo.</li>
     </ul>
         
-<h2>Streams standard:</h2>
+<h3>Streams standard:</h3>
 <strong><code>stdin  :</code></strong> entrada estandar (teclado)
 <strong><code>stdout :</code></strong> salida estandar (pantalla)
 <strong><code>stderr :</code></strong> salida de errores (pantalla)
 
-<h2>En formato texto:</h2>
+<h3>En formato texto:</h3>
 <ul>
     <li>Se realizan conversiones (<strong><code>ASCII</code></strong>)</li>
 </ul>
 
-<h2>En formato binario:</h2>
+<h3>En formato binario:</h3>
 <ul>
     <li>No hay conversiones.</li>
     <li>Los datos se guardan tal cual en memoria.</li>
 </ul>
 
-<h2>struct FILE:</h2>
+<h3>struct FILE:</h3>
     <p>
         <strong><code>FILE</code></strong> es una estructura opaca definida por la libreria
         estandar que representa un stream de archivo.
