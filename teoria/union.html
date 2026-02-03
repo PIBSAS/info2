@@ -23,9 +23,9 @@
 
 <h1>Uniones - Union</h1>
 
-<h2>¿Qué es una union?</h2>
+<h2>¿Qué es una <code>union</code>?</h2>
 
-<p>Una union es un tipo de dato compuesto, parecido a un struct, pero con una diferencia clave:</p>
+<p>Una <code>union</code> es un tipo de dato compuesto, parecido a un struct, pero con una diferencia clave:</p>
 <ul>
     <li>Todos sus miembros comparten la misma zona de memoria.</li>
 </ul>
@@ -42,7 +42,7 @@ Es decir:
 <div class="nota">
   <p>
     <strong>Idea clave:</strong>
-    Una union puede guardar una cosa u otra, pero <u>nunca varias a la vez</u>.
+    Una <code>union</code> puede guardar una cosa u otra, pero <u>nunca varias a la vez</u>.
   </p>
 </div>
 
@@ -50,9 +50,9 @@ Es decir:
 
 <p>Principalmente para:</p>
 <ul>
-    <li>Ahorrar memoria (muy comun en sistemas embebidos o protocolos)</li>
-    <li>Interpretar los mismos bits de distintas formas (ej: un int como bytes)</li>
-    <li>Representar datos mutuamente excluyentes (ej: un valor que puede ser int o float)</li>
+    <li>Ahorrar memoria (muy común en sistemas embebidos o protocolos)</li>
+    <li>Interpretar los mismos bits de distintas formas (ej.: un int como bytes)</li>
+    <li>Representar datos mutuamente excluyentes (ej.: un valor que puede ser int o float)</li>
 </ul>
 
 
@@ -77,11 +77,11 @@ union Dato{
     };
 </code></pre>
 <div class="nota">
-    <p><strong>Esto no significa que tenga espacio para los tres, sino solo para el mas grande <b>(<code>sizeof(tipo)</code>)</b></strong></p>
+    <p><strong>Esto no significa que tenga espacio para los tres, sino solo para el más grande <b>(<code>sizeof(tipo)</code>)</b></strong></p>
 </div>
 
 
-<h3>Declarar variables de una union:</h3>
+<h3>Declarar variables de una <code>union</code>:</h3>
 <pre><code class="language-c">
 union Dato d;
 </code></pre>
@@ -111,7 +111,7 @@ d.f = 3.14f;
 
 <h2>Dimensión y ubicación en memoria:</h2>
 
-<p><b><code>sizeof</code></b> de una union.</p>
+<p><b><code>sizeof</code></b> de una <code>union</code>.</p>
 
 <p>
   La dimensión de una <code>union</code> es la del miembro más grande.
@@ -127,7 +127,7 @@ union Ejemplo {
 
 int main(void)
 {
-  printf("sizeof(union Ejmplo) = %zu\n", sizeof(union Ejemplo));
+  printf("sizeof(union Ejemplo) = %zu\n", sizeof(union Ejemplo));
   
   return 0;
 }
@@ -150,7 +150,7 @@ union U {
   float f;
 };
 union U u;
-printf("&u\t = %p\n", (void *)&u); // Direcion de u
+printf("&u\t = %p\n", (void *)&u); // Direccion de u
 printf("&u.i\t = %p\n", (void *)&u.i); // Direccion del campo i
 printf("&u.f\t = %p\n", (void *)&u.f); // Direccion del campo f
 </code></pre>
@@ -159,7 +159,7 @@ printf("&u.f\t = %p\n", (void *)&u.f); // Direccion del campo f
 </div>
 
 
-<h3>Pasaje de miembros de una union a funciones</h3>
+<h3>Pasaje de miembros de una <code>union</code> a funciones</h3>
 
 <p>Podemos pasar un campo como cualquier variable:</p>
 
@@ -178,7 +178,7 @@ imprimir_int(d.i);
 </code></pre>
 
 
-<h3>Pasaje de una union completa a una función</h3>
+<h3>Pasaje de una <code>union</code> completa a una función</h3>
 
 <p><b>Por valor (Copia):</b></p>
 <pre><code class="language-c">
@@ -212,7 +212,7 @@ modificar(&d);
 </code></pre>
 
 
-<h3>Retorno de una union desde una función</h3>
+<h3>Retorno de una <code>union</code> desde una función</h3>
 
 <pre><code class="language-c">
 union Dato crear_dato(void)
@@ -252,17 +252,17 @@ r.tipo = 1; // Asignacion del campo tipo
 r.dato.i = 42 // Asignacion del campo i de la union Dato
 </code></pre>
 <div class="nota">
-    <p><strong>Acá el campo tipo indica como interpretar la union, patrón clásico: tagged union</strong></p>
+    <p><strong>Acá el campo tipo indica como interpretar la <code>union</code>, patrón clásico: tagged <code>union</code></strong></p>
 </div>
 
 
 <h2>Uniones de struct</h2>
 
-<p>Es una union cuyos miembros son struct. La variable puede contener una estructura u otra, pero nunca ambas al mismo tiempo, y todas comparten la misma memoria.
-Es el mismo concepto de union, pero el "bloque alternativo" ahora es una estructura completa.
+<p>Es una <code>union</code> cuyos miembros son struct. La variable puede contener una estructura u otra, pero nunca ambas al mismo tiempo, y todas comparten la misma memoria.
+Es el mismo concepto de <code>union</code>, pero el "bloque alternativo" ahora es una estructura completa.
 </p>
 
-<h3>Para que se usa:</h3>
+<h3>¿Para qué se usa?</h3>
 <ul>
     <li>Representar formatos de datos distintos.</li>
     <li>Protocolos.</li>
@@ -270,7 +270,7 @@ Es el mismo concepto de union, pero el "bloque alternativo" ahora es una estruct
     <li>Ahorrar memoria cuando las estructuras son grandes.</li>
 </ul>
 
-<h3>Declaración de una union de struct</h3>
+<h3>Declaración de una <code>union</code> de struct</h3>
 
 <p><strong>Declarar las struct:</strong></p>
 
@@ -287,7 +287,7 @@ struct Docente {
 </code></pre>
 
 
-<p><strong>Declarar la union:</strong></p>
+<p><strong>Declarar la <code>union</code>:</strong></p>
 
 <pre><code class="language-c">
 union Persona {
@@ -296,7 +296,7 @@ union Persona {
 };
 </code></pre>
 
-<h3>La memoria de union Persona será:</h3>
+<h3>La memoria de <code>union Persona</code> será:</h3>
 <pre><code class="language-c">max(sizeof(struct Alumno), sizeof(struct Docente));</code></pre>
 
 <h4>Uso:</h4>
@@ -338,10 +338,10 @@ struct Registro {
 
 <h2>Errores comunes:</h2>
 <ul>
-    <li>Leer un campo distinto al ultimo escrito.</li>
-    <li>Creer que una union guarda varios valores.</li>
-    <li>Olvidar indicar que campo es valido (con un tipo)</li>
-    <li>Una union de estructuras no contiene varias estructuras, contiene memoria suficiente para la mas grande.</li>
+    <li>Leer un campo distinto al último escrito.</li>
+    <li>Creer que una <code>union</code> guarda varios valores.</li>
+    <li>Olvidar indicar qué campo es válido (con un tipo)</li>
+    <li>Una union de estructuras no contiene varias estructuras, contiene memoria suficiente para la más grande.</li>
 </ul>
 
 
