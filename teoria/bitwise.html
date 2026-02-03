@@ -24,9 +24,9 @@
 
 <h2>¿Qué son?:</h2>
 <p>
-    Son operadores que no trabajan con valores "numericos" 
-        en el sentido aritmetico, sino bit por bit sobre la
-        representacion binaria de un dato entero.
+    Son operadores que no trabajan con valores "numéricos" 
+        en el sentido aritmético, sino bit por bit sobre la
+        representación binaria de un dato entero.
 </p>
 
 <h2>Se aplican sobre:</h2>
@@ -49,7 +49,7 @@
 </ul>
 <p>Cada operador va a actuar bit a bit, comparando o modificando esos <strong>0</strong> y <strong>1</strong>.</p>
 
-<h1>Operador AND bit a bit ( &amp; )</h1>
+<h2>Operador AND bit a bit ( &amp; )</h2>
 
 <p><strong>No confundir</strong> con el AND lógico (&amp;&amp;)</p>
 
@@ -101,9 +101,9 @@ unsigned char c = a & b; // 0000 1000 -> 8
 <h3>¿Para qué se usa?:</h3>
 <ul>
     <li>Enmascarar bits.</li>
-    <li>Ver si un bit especifico esta activo.</li>
+    <li>Ver si un bit específico esta activo.</li>
 </ul>
-<p><strong>Ejemplo tipico:</strong></p>
+<h3>Ejemplo tipico:</h3>
 <pre><code class="language-c">
 if (estado & 0x01) {
 // el bit 0 esta en 1
@@ -111,7 +111,7 @@ if (estado & 0x01) {
 </code></pre>
 
 
-<h1>Operador OR bit a bit (|)</h1>
+<h2>Operador OR bit a bit (|)</h2>
 
 <p><strong>No confundir</strong> con el OR lógico (||)</p>
 
@@ -171,7 +171,7 @@ estado = estado | 0x04; // pone en 1 el bit 2
 </code></pre>
 
 
-<h1>Operador XOR bit a bit (^)</h1>
+<h2>Operador XOR bit a bit (^)</h2>
 
 <p>Este es el más "raro" al principio.</p>
 
@@ -221,8 +221,8 @@ unsigned char c = a ^ b; // 0000 0110 -> 6
 
 <h3>¿Para qué se usa?:</h3>
 <ul>
-    <li>Invertir bits especificos.</li>
-    <li>Truco historico, hacer swap sin variable auxiliar, hoy en día solo didáctico.</li>
+    <li>Invertir bits específicos.</li>
+    <li>Truco histórico, hacer swap sin variable auxiliar, hoy en día solo didáctico.</li>
 </ul>
 
 <h3>Ejemplo tipico:</h3>
@@ -240,7 +240,7 @@ b = a ^ b;
 a = a ^ b;
 </code></pre>
 
-<h1>Operador NOT o Complemento a uno ( &tilde; )</h1>
+<h2>Operador NOT o Complemento a uno (~)</h2>
 
 <h2>Sintaxis:</h2>
 <pre><code class="language-c">resultado = ~a;</code></pre>
@@ -280,7 +280,7 @@ unsigned char b = ~a; // 1111 1010 -> 250
 </code></pre>
 <div class="nota">
     <p><strong>IMPORTANTE:</strong>
-    En tipos con signo, el resultado de la representacion (Complemento a dos).
+    En tipos con signo, el resultado de la representación (Complemento a dos).
     Por eso para bitwise - bit a bit conviene usar <strong><code>unsigned</code></strong>.
     </p>
 </div>
@@ -298,7 +298,7 @@ estado &= ~0x04; // pone en 0 el bit 2
 </code></pre>
 
 
-<h1>Desplazamiento a la izquierda - Shift left (&lt;&lt;)</h1>
+<h2>Desplazamiento a la izquierda - Shift left (&lt;&lt;)</h2>
 
 <h2>Sintaxis:</h2>
 
@@ -324,12 +324,12 @@ unsigned char b = a << 2; // 0000 1100 => 12
 <p>Equivale para <strong><code>unsigned</code></strong> a multiplicar por 2<sup>n</sup>.</p>
 
 <pre><code class="language-c">
-a << 1 // 1 * 2^1 => 2
-a << 2 // 1 * 2^2 => 4
+a << 1 // Si a vale 1: 1 * 2^1 => 2
+a << 2 // Si a vale 1: 1 * 2^2 => 4
 </code></pre>
 
 
-<h1>Desplazamiento a la derecha - Shift right (&gt;&gt;)</h1>
+<h2>Desplazamiento a la derecha - Shift right (&gt;&gt;)</h2>
 
 <h2>Sintaxis:</h2>
 
@@ -351,25 +351,30 @@ unsigned char b = a >> 2; // 0000 0010 => 2
 
 <h3>Interpretación:</h3>
 
-<p>Equivale para <strong><code>unsigned</code></strong> a diividir por 2<sup>n</sup>.</p>
+<p>Equivale para <strong><code>unsigned</code></strong> a dividir por 2<sup>n</sup>.</p>
 
 <pre><code class="language-c">
-a << 1 // 1 / 2^1 => 1/2
-a << 2 // 1 / 2^2 => 1/4
+a >> 1 // Si a vale 1: 1 / 2^1 => 0 (truncado)
+a >> 2 // Si a vale 1: 1 / 2^2 => 0
 </code></pre>
+<div class="nota">
+  <p>
+    En C, los operadores de desplazamiento trabajan sobre <strong>enteros</strong>.
+    Cualquier división descarta la parte fraccionaria (truncamiento).
+  </p>
+</div>
 
-
-<h3>Tipo <strong><code>signed</code></strong>:</h3>
+<h3>Shift right en tipos <strong><code>signed</code></strong>:</h3>
 
 <p>Dependiente de la implementación.</p>
 
 <ul>
     <li>Puede rellenar con ceros.</li>
-    <li>O repetir el bit de signo (Shift aritmetico). Por eso para bit a bit(bitwise) serio, se usa <strong><code>unsigned</code></strong>.</li>
+    <li>O repetir el bit de signo (Shift aritmético). Por eso para bit a bit(bitwise) serio, se usa <strong><code>unsigned</code></strong>.</li>
 </ul>
 
 
-<h1>Bitwise - bit a bit vs Logicos:</h1>
+<h2>Bitwise - bit a bit vs Logicos:</h2>
 
 <div class="tablecontainer">
     <table>
@@ -399,7 +404,7 @@ a << 2 // 1 / 2^2 => 1/4
             <td>0 o 1</td>
         </tr>
         <tr>
-            <td>&circ;</td>
+            <td>^</td>
             <td>bitwise</td>
             <td>Opera bit a bit</td>
         </tr>
@@ -513,5 +518,4 @@ int main(void)
 <script src="../js/script.js"></script>
 
 </body>
-
 </html>
