@@ -27,24 +27,24 @@
 
 <h3>Es memoria que:</h3>
 <ul>
-    <li>Se solicita en tiempo de ejecucion(runtime)</li>
-    <li>Vive en una zona especial llamada heap.</li>
-    <li>Permanece valida hasta que el programador la libere explicitamente.</li>
+    <li>Se solicita en tiempo de ejecucion(<b>runtime</b>)</li>
+    <li>Vive en una zona especial llamada <strong>heap</strong>.</li>
+    <li>Permanece válida hasta que el programador la libere explicitamente.</li>
 </ul>
 
 <h3>En C, el programador es responsable de:</h3>
 <ul>
     <li>Pedir memoria.</li>
-    <li>Verificar que se asigno correctamente.</li>
+    <li>Verificar que se asignó correctamente.</li>
     <li>Liberarla cuando ya no se usa.</li>
 </ul>
     
-<h2>Para que se usa?</h2>
+<h2>¿Para qué se usa?</h2>
 
 <h3>Se usa cuando:</h3>
 <ul>
-    <li>No conoces la dimension de los datos al compilar</li>
-    <li>La dimension puede variar (arrays dinamicos)</li>
+    <li>No conoces la dimensión de los datos al compilar</li>
+    <li>La dimensión puede variar (arrays dinamicos)</li>
 </ul>
 
 <h3>Trabajamos con:</h3>
@@ -67,7 +67,7 @@ int v[n]; // NO estandar solo en algunos compiladores
     
 <h2>Asignación diámica de memoria:</h2>
 <p>
-    Se hace principalmente con funciones de <strong><code><stdlib.h></code></strong>, por lo cual deberemos incluirla
+    Se hace principalmente con funciones de <strong><code>&lt;stdlib.h&gt;</code></strong>, por lo cual deberemos incluirla
     cuando deseamos manejar la memoria dinamicamente.
 </p>
         
@@ -79,14 +79,14 @@ int v[n]; // NO estandar solo en algunos compiladores
     <li><strong><code>free();</code></strong></li>
 </ul>
 
-<h2>Funcion malloc():</h2>
+<h2>Funcioó malloc():</h2>
 
-<h3>Que es?:</h3>
+<h3>¿Qué es?:</h3>
 
 <p>malloc significa memory allocation.</p>
 
 <ul>
-    <li><strong>Es una funcion que:</strong>
+    <li><strong>Es una función que:</strong>
         <ul>
             <li>Reserva un bloque de meoria en el <strong>heap</strong>.</li>
             <li>Devuelve la direccion inicial del bloque.</li>
@@ -101,7 +101,7 @@ int v[n]; // NO estandar solo en algunos compiladores
 <pre><code class="language-c">void *malloc(size_t size);</code></pre>
 
 <ul>
-    <li><strong><code>size</code></strong> &lArr; Cantidad de bytes a reservar.</li>
+    <li><strong><code>size</code></strong> &rArr; Cantidad de bytes a reservar.</li>
 </ul>
 <ul>
     <li><strong>Retorna:</strong>
@@ -112,7 +112,7 @@ int v[n]; // NO estandar solo en algunos compiladores
     </li>
 </ul>
       
-<h3>Porque devuelve <strong><code>void*?</code></strong></h3>
+<h3>¿Porqué devuelve <strong><code>void *?</code></strong></h3>
 
 <ul>
     <li><strong><code>malloc</code></strong> no sabe que tipo de datos vamos a guardar.</li>
@@ -211,9 +211,9 @@ p = NULL; // Liberamos la memoria solicitada
 <p><strong>En otras palabras:</strong></p>
 <ul>
     <li>El puntero existe.</li>
-    <li>Tiene una direccion guardada</li>.
+    <li>Tiene una dirección guardada.</li>
     <li>Pero esa memoria ya no nos pertenece porque fue liberada con <strong><code>free()</code></strong>.</li>
-    <li>Usarlo es comportamiento indefinido (UB).</li>
+    <li>Usarlo es comportamiento indefinido (<b>UB</b>).</li>
 </ul>
 
 <h3>Ejemplo:</h3>
