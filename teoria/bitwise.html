@@ -53,7 +53,7 @@
 
 <p><strong>No confundir</strong> con el AND lógico (&amp;&amp;)</p>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 
 <pre><code class="language-c">resultado = a & b;</code></pre>
 
@@ -115,7 +115,7 @@ if (estado & 0x01) {
 
 <p><strong>No confundir</strong> con el OR lógico (||)</p>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">resultado = a | b;</code></pre>
 
 <h3>Regla:</h3>
@@ -175,7 +175,7 @@ estado = estado | 0x04; // pone en 1 el bit 2
 
 <p>Este es el más "raro" al principio.</p>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">resultado = a ^ b;</code></pre>
 
 <h3>Regla:</h3>
@@ -224,6 +224,13 @@ unsigned char c = a ^ b; // 0000 0110 -> 6
     <li>Invertir bits específicos.</li>
     <li>Truco histórico, hacer swap sin variable auxiliar, hoy en día solo didáctico.</li>
 </ul>
+<div class="nota">
+  <p>
+    Hoy en día este método <strong>no se recomienda</strong>:
+    es menos legible y los compiladores modernos optimizan mejor
+    el swap tradicional con variable auxiliar.
+  </p>
+</div>
 
 <h3>Ejemplo tipico:</h3>
 
@@ -242,7 +249,7 @@ a = a ^ b;
 
 <h2>Operador NOT o Complemento a uno (~)</h2>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 <pre><code class="language-c">resultado = ~a;</code></pre>
 
 <h3>Regla:</h3>
@@ -280,7 +287,7 @@ unsigned char b = ~a; // 1111 1010 -> 250
 </code></pre>
 <div class="nota">
     <p><strong>IMPORTANTE:</strong>
-    En tipos con signo, el resultado de la representación (Complemento a dos).
+    En tipos con signo, el resultado depende de la representación (en C usualmente Complemento a dos).
     Por eso para bitwise - bit a bit conviene usar <strong><code>unsigned</code></strong>.
     </p>
 </div>
@@ -300,7 +307,7 @@ estado &= ~0x04; // pone en 0 el bit 2
 
 <h2>Desplazamiento a la izquierda - Shift left (&lt;&lt;)</h2>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 
 <pre><code class="language-c">
 resultado = a << n;
@@ -327,11 +334,17 @@ unsigned char b = a << 2; // 0000 1100 => 12
 a << 1 // Si a vale 1: 1 * 2^1 => 2
 a << 2 // Si a vale 1: 1 * 2^2 => 4
 </code></pre>
-
+<div class="nota">
+  <p>
+    Esta equivalencia es válida siempre que no se pierdan bits.
+    Si el desplazamiento provoca overflow, el comportamiento puede no coincidir
+    con la multiplicación/división aritmética.
+  </p>
+</div>
 
 <h2>Desplazamiento a la derecha - Shift right (&gt;&gt;)</h2>
 
-<h2>Sintaxis:</h2>
+<h3>Sintaxis:</h3>
 
 <pre><code class="language-c">
 resultado = a >> n;
@@ -339,7 +352,7 @@ resultado = a >> n;
 
 
 <h3>¿Qué hace?:</h3>
-<p>Desplaza los bits <strong><code>n</code></strong> posiciones a la derecha, rellenando con ceros a la izquierda.</p>
+<p>Desplaza los bits <strong><code>n</code></strong> posiciones a la derecha, rellenando con ceros a la izquierda en tipos <strong><code>unsigned</code></strong>.</p>
 
 
 <h3>Ejemplo:</h3>
@@ -419,6 +432,15 @@ a >> 2 // Si a vale 1: 1 / 2^2 => 0
             <td>Complemento a 1</td>
         </tr>
     </table>
+</div>
+
+<div class="nota">
+  <p><strong>Resumen:</strong></p>
+  <ul>
+    <li>Los operadores bitwise trabajan a nivel de bits.</li>
+    <li>Son ideales para flags, máscaras y control fino.</li>
+    <li>Para evitar sorpresas, se recomienda usar <code>unsigned</code>.</li>
+  </ul>
 </div>
 
 <h2 class="teoria">Teoría aplicada</h2>
