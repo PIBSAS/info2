@@ -25,11 +25,11 @@
 
 <h2>¿Qué es la recursividad?</h2>
 
-<p>Es una técnica donde una función se llama a si misma para resolver un problema.</p>
+<p>Es una técnica donde una función se llama a sí misma para resolver un problema.</p>
 
 <h3>La idea clave es esta:</h3>
 
-<p>Un problema grande se resuelve dividiendolo en subproblemas mas chicos del mismo tipo.</p>
+<p>Un problema grande se resuelve dividiéndolo en subproblemas más chicos del mismo tipo.</p>
 
 <h3>Ejemplo:</h3>
 <ul>
@@ -49,27 +49,27 @@
 </ul>
 
 
-<h2>Las 2 partes OBLIGATORIAS de toda funcion recursiva</h2>
+<h2>Las 2 partes OBLIGATORIAS de toda función recursiva</h2>
 
 <h3>Caso base:</h3>
 <ul>
-    <li>Es la condicion de corte.</li>
-    <li>El caso mas simple del problema, que NO hace mas llamadas recursivas.</li>
+    <li>Es la condición de corte.</li>
+    <li>El caso más simple del problema, que NO hace más llamadas recursivas.</li>
 </ul>
 
 <h3>Caso recursivo:</h3>
 <ul>
-    <li>Es donde la funcion se llama a si misma, pero con un problema mas chico.</li>
+    <li>Es donde la función se llama a sí misma, pero con un problema más chico.</li>
     <li><strong>IMPORTANTE</strong>:Cada llamada recursiva debe acercarse al caso base.</li>
 </ul>
 
 
-<h2>¿Para que se usa?</h2>
+<h2>¿Para qué se usa?</h2>
 
 <p>Cuando el problema tiene estructura naturalmente recursiva, por ejemplo:</p>
 
 
-<h3>Definiciones matematicas:</h3>
+<h3>Definiciones matemáticas:</h3>
 <ul>
     <li>Factorial</li>
     <li>Potencia</li>
@@ -78,13 +78,13 @@
 
 <h3>Estructuras de datos:</h3>
 <ul>
-    <li>Arboles-Tree</li>
+    <li>Árboles-Tree</li>
     <li>Listas enlazadas-Linked list</li>
 </ul>
 
-<h3>Algoritmos clasicos:</h3>
+<h3>Algoritmos clásicos:</h3>
 <ul>
-    <li>Busqueda binaria</li>
+    <li>Búsqueda binaria</li>
     <li>Quicksort</li>
     <li>Mergesort</li>
 </ul>
@@ -92,8 +92,8 @@
 <h3>Procesar cosas "anidadas":</h3>
 <ul>
     <li>Directorios</li>
-    <li>Expresiones matematicas</li>
-    <li>Parentesis</li>
+    <li>Expresiones matemáticas</li>
+    <li>Paréntesis</li>
 </ul>
 
 <div class="nota">
@@ -116,7 +116,7 @@
 <p><em>No, la recursividad no tiene sintaxis propia en C.</em></p>
 <p><b>Es una función común, la única diferencia es que:</b></p>
 <ul>
-    <li>Dentro de su cuerpo se llama a si misma.</li>
+    <li>Dentro de su cuerpo se llama a sí misma.</li>
 </ul>
 
 
@@ -129,7 +129,7 @@
 </ul>
 
 <h3>Directa:</h3>
-<p>Una función se llama a si misma directamente.</p>
+<p>Una función se llama a sí misma directamente.</p>
 
 <pre><code class="language-c">
 void f(...)
@@ -149,7 +149,7 @@ void f(...)
 
 <h3>Indirecta:</h3>
 
-<p>Una función NO se llama a si misma, sino que llama a otra, que eventualmente vuelve a llamar a la primera.</p>
+<p>Una función NO se llama a sí misma, sino que llama a otra, que eventualmente vuelve a llamar a la primera.</p>
 
 <pre><code class="language-c">
 void A(int n);
@@ -170,8 +170,8 @@ void B(int n)
 
 <h3>Ejemplos:</h3>
 <ul>
-    <li>Analisis sintáctico</li>
-    <li>Automatas</li>
+    <li>Análisis sintáctico</li>
+    <li>Autómatas</li>
     <li>Estados</li>
 </ul>
 
@@ -180,7 +180,7 @@ void B(int n)
 
 <h3>En cada llamada:</h3>
 
-<p>La funcion hace una sola llamada recursiva.</p>
+<p>La función hace una sola llamada recursiva.</p>
 
 <pre><code class="language-c">
 int f(n)
@@ -189,7 +189,7 @@ int f(n)
 }
 </code></pre>
 
-<h3>Como sucede en:</h3>
+<h3>Cómo sucede en:</h3>
 <ul>
     <li>Factorial</li>
     <li>Suma</li>
@@ -229,7 +229,7 @@ int f(n)
 </ul>
 
 <div class="nota">
-    <p><b><em>Son muy ineficientes, explosion de llamadas</em></b> (Se llama 2 o mas veces en una llamada. Existiendo una duplicacion de subproblemas), <b>crecimiento exponencial</b>.</p>
+    <p><b><em>Son muy ineficientes, explosión de llamadas</em></b> (Se llama 2 o más veces en una llamada. Existiendo una duplicación de subproblemas), <b>crecimiento exponencial</b>.</p>
 </div>
 
 
@@ -262,16 +262,16 @@ Sustitución y evaluación:
 -> 5 * 24
 -> 120
 </code></pre>
-<p>Una vez alcanzado el caso base, las llamadas retornan en orden inverso al que fueron realizadas, liberandose los marcos de activacion de la pila-stack.</p>
+<p>Una vez alcanzado el caso base, las llamadas retornan en orden inverso al que fueron realizadas, liberándose los marcos de activacion de la pila-stack.</p>
 
 
 <h2>La pila (stack): Concepto clave</h2>
 
 <h3>Cada llamada a función:</h3>
 <ul>
-    <li>Guarda parametros.</li>
+    <li>Guarda parámetros.</li>
     <li>Variables locales.</li>
-    <li>Direccion de retorno.</li>
+    <li>Dirección de retorno.</li>
 </ul>
 <p>Esto va a la pila de ejecución.
 <b>En recursividad:</b>
@@ -283,7 +283,7 @@ Sustitución y evaluación:
 <p><strong>Por eso:</strong></p>
 <ul>
     <li><strong>SIEMPRE</strong> debe haber CASO BASE.</li>
-    <li>Y la dimension del problema debe reducirse.</li>
+    <li>Y la dimensión del problema debe reducirse.</li>
 </ul>
 
 <h2>Ejemplo Clásico de Recursividad 2:</h2>
@@ -313,7 +313,7 @@ int suma(int n)
   return total;
 }
 </code></pre>
-<p><strong>Aca se ve claro:</strong></p>
+<p><strong>Acá se ve claro:</strong></p>
 <ul>
     <li><b>Recursiva:</b> más "elegante".</li>
     <li><b>Iterativa:</b> más eficiente.</li>
@@ -369,13 +369,13 @@ void imprimir(int v[], int n)
 <div class="nota">
     <p><b><em>IMPORTANTE:</em></b></p>
     <ul>
-        <li>La dimension se reduce <b>(n - 1)</b></li>
+        <li>La dimensión se reduce <b>(n - 1)</b></li>
         <li>El array <b>no se copia</b>, sólo se pasa la dirección.</li>
     </ul>
 </div>
 
 
-<h3>Errores tipicos:</h3>
+<h3>Errores típicos:</h3>
 <ul>
     <li>No tener caso base</li>
     <li>Caso base mal definido</li>
@@ -395,14 +395,14 @@ void imprimir(int v[], int n)
 </ul>
 
 <div class="nota">
-    <p><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+    <p><strong>Si no podemos responder esas tres preguntas entonces todavía no es recursivo.</strong></p>
 </div>
 
 
 <h3>La recursividad es más relevante en:</h3>
 <ul>
     <li>Listas enlazadas - Linked list</li>
-    <li>Arboles - Tree</li>
+    <li>Árboles - Tree</li>
     <li>Backtracking</li>
 </ul>
 
