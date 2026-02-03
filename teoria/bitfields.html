@@ -24,11 +24,11 @@
 
 <h2>¿Qué es un campo de bits?</h2>
 <p>Los campos de bit son una forma especial de declarar miembros de una estructura
-donde, en vez de ocupar toda la dimension del tipo (<strong><code>int</code></strong>, <strong><code>unsigned</code></strong>, etc),
-se indica cuantos bits exactos ocupa el campo.</p>
+donde, en vez de ocupar toda la dimensión del tipo (<strong><code>int</code></strong>, <strong><code>unsigned</code></strong>, etc),
+se indica cuántos bits exactos ocupa el campo.</p>
     
 <h2>¿Para qué sirven?</h2>
-<p>Para empaquetar informacion y ahorrar memoria, o para representar flags y registros de hardware.</p>
+<p>Para empaquetar información y ahorrar memoria, o para representar flags y registros de hardware.</p>
 
 <h3>Ejemplo:</h3>
 <p><strong>Necesitamos guardar:</strong></p>
@@ -85,7 +85,7 @@ printf("error = %u\n", f.error);
 printf("prioridad = %u\n", f.prioridad);
 </code></pre>
 
-<h3>¿Qué sucede aqui?</h3>
+<h3>¿Qué sucede aquí?</h3>
 <ul>
     <li><strong>listo</strong> ocupa 1 bit => Valores posibles: 0 o 1</li>
     <li><strong>error</strong> ocupa 1 bit => Valores posibles: 0 o 1</li>
@@ -102,11 +102,11 @@ printf("prioridad = %u\n", f.prioridad);
 <h3>¿Cuánta memoria ocupan?</h3>
 <p><strong>Acá aparece la primera gran advertencia:</strong></p>
 <ul>
-    <li>El estandar NO garantiza el layout exacto en memoria.</li>
+    <li>El estándar NO garantiza el layout exacto en memoria.</li>
 </ul>
 <p><strong>Pero en la práctica:</strong></p>
 <ul>
-    <li>El compilador agrupa campos de bit en unidades de la dimension del tipo base.</li>
+    <li>El compilador agrupa campos de bit en unidades de la dimensión del tipo base.</li>
     <li>Generalmente usa palabras(Word) de <b>1</b>, <b>2</b> o <b>4 bytes</b></li>
 </ul>
 
@@ -124,12 +124,12 @@ struct A {
     <li>Probablemente <strong><code>sizeof(struct A)</code></strong> sea 4 bytes (si unsigned es de 4 bytes)</li>
 </ul>
 <div class="nota">
-    <p><strong>Conclusion importante:</strong>
+    <p><strong>Conclusión importante:</strong>
         Los campos de bit reducen espacio lógico, pero no siempre reducen <strong><code>sizeof</code></strong> como uno imagina.
     </p>
 </div>
 
-<h3>Campos de relleno (padding explicito)</h3>
+<h3>Campos de relleno (padding explícito)</h3>
 <p>Podemos usar campos sin nombre para forzar alineación:</p>
 <pre><code class="language-c">
 struct B {
@@ -141,7 +141,7 @@ struct B {
 <p><strong>Esto:</strong></p>
 <ul>
     <li>Descarta bits.</li>
-    <li>Sirve para alinear a limites especificos.</li>
+    <li>Sirve para alinear a límites específicos.</li>
     <li>Es común en registros de hardware.</li>
 </ul>
 
@@ -155,7 +155,7 @@ struct C {
 <ul>
     <li>Valores posibles (normalmente): -4 a +3</li>
 </ul>
-<p>El signo y representacion depende del compilador(C<strong>omplemento a 2</strong> - <strong>Two's complement</strong> es lo común, pero el estandar no lo obliga).</p>
+<p>El signo y representación depende del compilador(C<strong>omplemento a 2</strong> - <strong>Two's complement</strong> es lo común, pero el estándar no lo obliga).</p>
 <p><strong>Regla práctica:</strong></p>
 <ul>
     <li>Usamos <strong><code>unsigned</code></strong> siempre que podemos.</li>
@@ -176,7 +176,7 @@ if (f.listo) {
     <li>Tomar la dirección de un campo de bit.</li>
 </ul>
 <pre><code class="language-c">unsigned *p = &f.error; // ERROR</code></pre>
-<p>Porque no ocupa una direccion de memoria independiente.</p>
+<p>Porque no ocupa una dirección de memoria independiente.</p>
         
     
 <h3>Pasaje a funciones</h3>    
@@ -204,8 +204,8 @@ void limpiar(struct Flags *f)
 
 <h3>Campos de bit:</h3>
 <ul>
-    <li>Mas legibles.</li>
-    <li>Expresan intencion.</li>
+    <li>Más legibles.</li>
+    <li>Expresan intención.</li>
     <li>layout NO portable.</li>
     <li>NO direccionables.</li>
 </ul>   
@@ -214,11 +214,11 @@ void limpiar(struct Flags *f)
 <ul>
     <li>Totalmente controlables.</li>
     <li>Portables.</li>
-    <li>Usados en protocolos y mascaras.</li>
+    <li>Usados en protocolos y máscaras.</li>
     <li>Menos legibles.</li>
 </ul>
 
-<h3>Ejemplo equivalente con mascaras</h3>
+<h3>Ejemplo equivalente con máscaras</h3>
 <pre><code class="language-c">
 # define LISTO (1 << 0)
 # define ERROR (1 << 1)
@@ -229,7 +229,7 @@ void limpiar(struct Flags *f)
 <ul>
     <li>Estamos modelando flags lógicos.</li>
     <li>Estamos representando registros de hardware.</li>
-    <li>La portabilidad exacta no es critica.</li>
+    <li>La portabilidad exacta no es crítica.</li>
     <li>El código es didáctico o interno.</li>
 </ul>
 
@@ -237,14 +237,14 @@ void limpiar(struct Flags *f)
 <ul>
     <li>Necesitamos layout binario exacto.</li>
     <li>Escribimos archivos binarios.</li>
-    <li>Hacemos comunicacion de red.</li>
+    <li>Hacemos comunicación de red.</li>
     <li>Necesitamos direcciones de los campos.</li>
 </ul> 
 
 <h3>Orden de los bits y portabilidad</h3>
 <p>
     El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
-    es dependiente de la implementacion y no esta garantizado por el estandar.
+    es dependiente de la implementación y no está garantizado por el estándar.
 </p>
 
 <div class="nota">
@@ -272,7 +272,7 @@ void limpiar(struct Flags *f)
 
 <h3>Extra: ¿Qué es alineación?</h3>
 
-<p>Cada tipo de dato suele requerir que su direccion de memoria sea múltiplo de cierto valor.</p>
+<p>Cada tipo de dato suele requerir que su dirección de memoria sea múltiplo de cierto valor.</p>
 <p><strong>Ejemplo:</strong></p>
 <pre><code class="language-c">
 char => alineacion 1 byte.
