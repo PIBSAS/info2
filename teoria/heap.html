@@ -27,9 +27,9 @@
 
 <h3>Es memoria que:</h3>
 <ul>
-    <li>Se solicita en tiempo de ejecucion(<b>runtime</b>)</li>
+    <li>Se solicita en tiempo de ejecución(<b>runtime</b>)</li>
     <li>Vive en una zona especial llamada <strong>heap</strong>.</li>
-    <li>Permanece válida hasta que el programador la libere explicitamente.</li>
+    <li>Permanece válida hasta que el programador la libere explícitamente.</li>
 </ul>
 
 <h3>En C, el programador es responsable de:</h3>
@@ -44,15 +44,15 @@
 <h3>Se usa cuando:</h3>
 <ul>
     <li>No conoces la dimensión de los datos al compilar</li>
-    <li>La dimensión puede variar (arrays dinamicos)</li>
+    <li>La dimensión puede variar (arrays dinámicos)</li>
 </ul>
 
 <h3>Trabajamos con:</h3>
 <ul>
     <li>Archivos - <strong><code>FILE *</code></strong></li>
     <li>Listas - Linked list, pilas - stack, colas - queue.</li>
-    <li>Estructuras dinamicas - Dynamic structures</li>
-    <li>Grandes volumenes de datos.</li>
+    <li>Estructuras dinámicas - Dynamic structures</li>
+    <li>Grandes volúmenes de datos.</li>
 </ul>
 
 <h3>Ejemplo:</h3>
@@ -68,7 +68,7 @@ int v[n]; // NO estandar solo en algunos compiladores
 <h2>Asignación diámica de memoria:</h2>
 <p>
     Se hace principalmente con funciones de <strong><code>&lt;stdlib.h&gt;</code></strong>, por lo cual deberemos incluirla
-    cuando deseamos manejar la memoria dinamicamente.
+    cuando deseamos manejar la memoria dinámicamente.
 </p>
         
 <h3>Funciones:</h3>
@@ -88,8 +88,8 @@ int v[n]; // NO estandar solo en algunos compiladores
 <ul>
     <li><strong>Es una función que:</strong>
         <ul>
-            <li>Reserva un bloque de meoria en el <strong>heap</strong>.</li>
-            <li>Devuelve la direccion inicial del bloque.</li>
+            <li>Reserva un bloque de memoria en el <strong>heap</strong>.</li>
+            <li>Devuelve la dirección inicial del bloque.</li>
             <li>NO inicializa la memoria.</li>
         </ul>
     </li>
@@ -112,10 +112,10 @@ int v[n]; // NO estandar solo en algunos compiladores
     </li>
 </ul>
       
-<h3>¿Porqué devuelve <code>void *</code>?</h3>
+<h3>¿Por qué devuelve <code>void *</code>?</h3>
 
 <ul>
-    <li><strong><code>malloc</code></strong> no sabe que tipo de datos vamos a guardar.</li>
+    <li><strong><code>malloc</code></strong> no sabe qué tipo de datos vamos a guardar.</li>
     <li>El <strong><code>void *</code></strong> puede convertirse a cualquier puntero.</li>
 </ul>
 
@@ -123,7 +123,7 @@ int v[n]; // NO estandar solo en algunos compiladores
 
 <pre><code class="language-c">int *p = (int *) malloc(sizeof(int));</code></pre>
 <pre><code class="language-c">int *v = malloc(n * sizeof(int)); // Para arrays</code></pre>
-<pre><code class="language-c">vector = (int *) malloc((size_t)n * sizeof(int)); // Es una forma mas robusta, el compilador convierte <strong>n</strong> implicitamente a <strong><code>size_t</code></strong> lo que puede emitir warnings si <strong>n</strong> es negativo, de esta forma ya casteamos correctamente nosotros.</code></pre>
+<pre><code class="language-c">vector = (int *) malloc((size_t)n * sizeof(int)); // Es una forma mas robusta, el compilador convierte <strong>n</strong> implícitamente a <strong><code>size_t</code></strong> lo que puede emitir warnings si <strong>n</strong> es negativo, de esta forma ya casteamos correctamente nosotros.</code></pre>
 
 
 <h2>Verificación de error (OBLIGATORIO)</h2>
@@ -153,7 +153,7 @@ if (p == NULL)
 printf("%d\n", *p);
 </code></pre>
 
-<h3>Para arrays dinamicos:</h3>
+<h3>Para arrays dinámicos:</h3>
 <pre><code class="language-c">v[i] = i * 2;</code></pre>
     
 <h2>Liberación de memoria free</h2>
@@ -206,7 +206,7 @@ p = NULL; // Liberamos la memoria solicitada
 
 <p>
     Un puntero que sigue apuntando a una zona de memoria que ya fue liberada
-    o que dejo de ser valida.
+    o que dejó de ser válida.
 </p>
 <p><strong>En otras palabras:</strong></p>
 <ul>
