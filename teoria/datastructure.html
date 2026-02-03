@@ -85,11 +85,11 @@
 <h3>Usos tipicos del stack:</h3>
 
 <ul>
-    <li>Llamadas a funciones (call stack)</li>
+    <li>Llamadas a funciones (<code>call stack</code>)</li>
     <li>Recursividad.</li>
     <li>Deshacer.</li>
-    <li>Evaluacion de expresiones.</li>
-    <li>backtracking.</li>
+    <li>Evaluación de expresiones.</li>
+    <li>Backtracking.</li>
 </ul>
 
 
@@ -111,7 +111,7 @@
 </div>
 
 
-<h3>Operaciones basicas del queue:</h3>
+<h3>Operaciones básicas del queue:</h3>
 
 <ul>
     <li><strong><code>enqueue:</code></strong> insertar al final.</li>
@@ -124,7 +124,7 @@
 <h3>Usos tipicos del queue:</h3>
 
 <ul>
-    <li>Planificacion de procesos.</li>
+    <li>Planificación de procesos.</li>
     <li>Impresoras.</li>
     <li>Buffers.</li>
     <li>Atencion por orden de llegada.</li>
@@ -137,23 +137,27 @@
     <table>
         <tr>
             <th>Caracteristica</th>
-            <td>Orden</td>
-            <td>Insercion</td>
-            <td>Eliminacion</td>
-            <td>Analogia</td>
-        </tr>
-        <tr>
             <th>Pila (Stack)</th>
-            <td>LIFO</td>
-            <td>Tope</td>
-            <td>Tope</td>
-            <td>Platos</td>
+            <th>Cola (Queue)</th>
         </tr>
         <tr>
-            <th>Cola (Queue)</th>
-            <td><strong>FIFO</strong></td>
+            <td>Orden</td>
+            <td>LIFO</td>
+            <td>FIFO</td>
+        </tr>
+        <tr>
+            <td>Inserción</td>
+            <td>Tope</td>
             <td>Final</td>
+        </tr>
+        <tr>
+            <td>Eliminación</td>
+            <td>Tope</td>
             <td>Frente</td>
+        </tr>
+        <tr>
+            <td>Analogia</td>
+            <td>Platos</td>
             <td>Fila</td>
         </tr>
     </table>
@@ -175,7 +179,7 @@
 <ul>
     <li>El indice de escritura (final) solo avanza.</li>
     <li>Aunque se liberen posiciones al frente, el espacio no puede reutilizarse.</li>
-    <li>Puede darse la condicion de:
+    <li><b>Puede darse la condición de:</b>
     <ul>
         <li>Cola vacia y cola llena logicamente al mismo tiempo.</li>
     </ul>
@@ -186,8 +190,8 @@
 <h3>Solución:</h3>
 
 <ul>
-    <li>Los indices de lectura (frente) y escritura (final) avanzan de forma circular.</li>
-    <li>Cuando alcanzan el final del arreglo, vuelven al inicio (salto circular).</li>
+    <li>Los indices de lectura (<b>frente</b>) y escritura (<b>final</b>) avanzan de forma circular.</li>
+    <li>Cuando alcanzan el final del arreglo, vuelven al inicio (<b>salto circular</b>).</li>
 </ul>
 
 
@@ -196,28 +200,28 @@
 <ul>
     <li><strong><code>FIFO</code></strong></li>
     <li>Uso eficiente de la memoria.</li>
-    <li>Requiere un criterio adicional para distinguir:
+    <li><b>Requiere un criterio adicional para distinguir:</b>
     <ul>
-        <li>Cola vacia.</li>
+        <li>Cola vacía.</li>
         <li>Cola llena.</li>
     </ul>
     </li>
 </ul>
     
 
-<h3>Formas de distinguir cola vacia y llena:</h3>
+<h3>Formas de distinguir cola vacía y llena:</h3>
 
 <ul>
-    <li>Uso de un flag (bandera)</li>
+    <li>Uso de un flag (<b>bandera</b>)</li>
     <li>Uso de un contador de elementos.</li>
-    <li>Dejar una posicion vacia (muy comun).</li>
+    <li>Dejar una posición vaíia (muy común).</li>
 </ul>
 
 <h3>En esta implementación:</h3>
 
 <ul>
     <li>Se utiliza un contador de elementos.</li>
-    <li>La cola esta vacia cuando <strong><code>cantidad == 0;</code></strong></li>
+    <li>La cola esta vacía cuando <strong><code>cantidad == 0;</code></strong></li>
     <li>La cola esta llena cuando <strong><code>cantidad == MAX;</code></strong>.</li>
 </ul>
 
