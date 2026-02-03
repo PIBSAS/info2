@@ -132,7 +132,7 @@
 <p>Una función se llama a si misma directamente.</p>
 
 <pre><code class="language-c">
-void f(...);
+void f(...)
 {
     /*...*/
     f(...);
@@ -323,7 +323,7 @@ int fib(int n)
       return 0;
   if (n == 1)
       return 1;
-  return fib(n - 1) + fib(n - 1);
+  return fib(n - 1) + fib(n - 2);
 }
 </code></pre>
 
@@ -346,7 +346,7 @@ int fib(int n)
 <pre><code class="language-c">
 void imprimir(int v[], int n)
 {
-  if (n == 0) Caso base
+  if (n == 0) // Caso base
       return;
   imprimir(v, n - 1);
   printf("%d ", v[n - 1]);
