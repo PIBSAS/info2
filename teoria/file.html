@@ -47,8 +47,8 @@
 
 <ul>
     <li>NO lo definimos nosotros.</li>
-    <li>NO sabemos como es por dentro. (A menos que nos documentemos al respecto, viendo la librería estandar)</li>
-    <li>Lo maneja la biblioteca estandar.</li>
+    <li>NO sabemos cómo es por dentro. (A menos que nos documentemos al respecto, viendo la librería estándar)</li>
+    <li>Lo maneja la biblioteca estándar.</li>
     <li>Nosotros usamos el puntero.</li>
 </ul>
 
@@ -84,26 +84,26 @@
 <h3>Sintaxis:</h3>
 <pre><code class="language-c">int fclose(FILE *fp);</code></pre>
 
-<h3>Es la funcion que:</h3>
+<h3>Es la función que:</h3>
 <ul>
     <li>Cierra el archivo asociado al <strong><code>FILE *</code></strong></li>
-    <li>Vacia los buffers pendientes</li>
+    <li>Vacía los buffers pendientes</li>
     <li>Libera recursos del sistema operativo</li>
 </ul>
 <div class="nota">
-    <p><strong>Sin <code>fclose</code>, el archivo NO esta realmente terminado.</strong></p>
+    <p><strong>Sin <code>fclose</code>, el archivo NO está realmente terminado.</strong></p>
 </div>
 
 
-<h3>Que pasa internamente cuando usamos <code>fclose</code>?</h3>
+<h3>¿Qué pasa internamente cuando usamos <code>fclose</code>?</h3>
 
 <p>Aunque no lo vemos, pasan varias cosas:</p>
 
 <ul>
-    <li><b>Se vacian los buffers:</b>
+    <li><b>Se vacían los buffers:</b>
     <ul>
         <li>Lo escrito con <code>fputc</code>, <code>fprintf</code>, etc.</li>
-        <li>Puede que todavia no este en el disco.</li>
+        <li>Puede que todavía no esté en el disco.</li>
     </ul>
     </li>
 </ul>
@@ -212,7 +212,7 @@ if (fclose(fp) == EOF)
 </ul>
 
 
-<h2>Escritura de un caracter:</h2>
+<h2>Escritura de un carácter:</h2>
 <pre><code class="language-c">fputc</code></pre>
 
 <h3>Sintaxis:</h3>
@@ -220,11 +220,11 @@ if (fclose(fp) == EOF)
 
 <h3>¿Qué hace?:</h3>
 <ul>
-    <li>Escribe un solo caracter en el archivo.</li>
+    <li>Escribe un solo carácter en el archivo.</li>
     <li>Avanza el puntero de archivo.</li>
     <li><b>Devuelve:</b>
     <ul>
-        <li>El caracter escrito (como <strong><code>unsigned char</code></strong>)</li>
+        <li>El carácter escrito (como <strong><code>unsigned char</code></strong>)</li>
         <li><strong><code>EOF</code></strong> si hay error.</li>
     </ul>
     </li>
@@ -265,7 +265,7 @@ fclose(fp);
 </div>
 
 
-<h2>Lectura de un caracter:</h2>
+<h2>Lectura de un carácter:</h2>
 <pre><code class="language-c">fgetc</code></pre>
 
 <h3>Sintaxis:</h3>
@@ -273,11 +273,11 @@ fclose(fp);
 
 <h3>¿Qué hace?:</h3>
 <ul>
-    <li>Lee un caracter del archivo.</li>
+    <li>Lee un carácter del archivo.</li>
     <li>Avanza el puntero.</li>
     <li><strong>Devuelve:</strong>
     <ul>
-        <li>El caracter leido.</li>
+        <li>El carácter leído.</li>
         <li><strong><code>EOF</code></strong> si:
         <ul>
             <li>Llega al fin del archivo.</li>
@@ -325,7 +325,7 @@ fclose(fp);
 
 <h3><strong><code>EOF:</code></strong></h3>
 
-<p>No es un caracter.</p>
+<p>No es un carácter.</p>
 <ul>
     <li>Es un valor especial (normalmente <strong><code>-1</code></strong>)</li>
     <li>Forma correcta de utilizarlo:</li>
@@ -337,7 +337,7 @@ fclose(fp);
 <h3>Sintaxis:</h3>
 <pre><code class="language-c">int feof(FILE *fp);</code></pre>
 <ul>
-    <li>Devuelve distinto de <strong><code>0</code></strong> solo despues de intentar leer y fallar por <strong><code>EOF</code></strong>.</li>
+    <li>Devuelve distinto de <strong><code>0</code></strong> solo después de intentar leer y fallar por <strong><code>EOF</code></strong>.</li>
     <li>NO se adelanta.</li>
 </ul>
 
@@ -351,7 +351,7 @@ while (!feof(fp)) // MAL
 }
 </code></pre>
 <div class="nota">
-    <p><strong><code>feof</code> se usa despues, no para controlar el loop.</strong></p>
+    <p><strong><code>feof</code> se usa después, no para controlar el loop.</strong></p>
 </div>
 
 
@@ -360,7 +360,7 @@ while (!feof(fp)) // MAL
 <h3>Sintaxis:</h3>
 <pre><code class="language-c">int ferror(FILE *fp);</code></pre>
 <ul>
-    <li>Devuelve <strong>distinto de 0</strong> si ocurrio un error de <strong>I/O</strong> (Input/Output)</li>
+    <li>Devuelve <strong>distinto de 0</strong> si ocurrió un error de <strong>I/O</strong> (Input/Output)</li>
 </ul>
 
 
@@ -462,7 +462,7 @@ Segunda linea
 
 <h3>¿Qué hace?:</h3>
 <ul>
-    <li>Lee hasta <strong><code>n-1</code></strong> caracteres.</li>
+    <li>Lee hasta <strong><code>n-1</code></strong> carácteres.</li>
     <li><b>Se detiene si encuentra:</b>
         <ul>
             <li><strong><code>\n</code></strong></li>
@@ -507,9 +507,9 @@ Segunda linea
 
 <p><strong>IMPORTANTE:</strong></p>
 <ul>
-    <li>Lee como maximo <strong><code>n-1</code></strong>, si <strong><code>n = 100</code></strong>, lee hasta <strong><code>99 caracteres + \0</code></strong></li>
+    <li>Lee cómo máximo <strong><code>n-1</code></strong>, si <strong><code>n = 100</code></strong>, lee hasta <strong><code>99 carácteres + \0</code></strong></li>
     <li>Evita desbordes (<b>overflow</b>)</li>
-    <li>A diferencia de <strong><code>gets</code></strong> (<b>Que esta prohibida</b>)</li>
+    <li>A diferencia de <strong><code>gets</code></strong> (<b>Que está prohibida</b>)</li>
     <li>El <strong><code>\n</code></strong> queda adentro. Ejemplo:
         <ul>
             <li><strong><code>fgets(linea, 100, fp);</code></strong></li>
@@ -529,7 +529,7 @@ linea[strcspn(linea, "\n")] = '\0';
 NULL = no se leyo nada.
 </code></pre>
 <div class="nota">
-    <p><strong>No significa solo <strong><code>EOF</code></strong>, puede ser <strong>error</strong> tambien.</strong></p>
+    <p><strong>No significa solo <strong><code>EOF</code></strong>, puede ser <strong>error</strong> también.</strong></p>
 </div>
 
 
@@ -587,7 +587,7 @@ if (fgets(linea, sizeof(linea), fp) == NULL)
     <li>Escribe texto formateado en un archivo.</li>
     <li><b>Devuelve:</b>
         <ul>
-            <li>Cantidad de caracteres escritos.</li>
+            <li>Cantidad de carácteres escritos.</li>
             <li>Valor negativo si hay error.</li>
         </ul>
     </li>
@@ -639,7 +639,7 @@ Altura: 1.75
 <p>Lee datos formateados desde un archivo.</p>
 <p><strong>Devuelve:</strong></p>
 <ul>
-    <li>Cantidad de elementos leidos correctamente.</li>
+    <li>Cantidad de elementos leídos correctamente.</li>
     <li><strong><code>EOF</code></strong> si no pudo leer nada.</li>
 </ul>
 
@@ -747,7 +747,7 @@ sscanf(linea, "%d %f", &a, &b);
 <ul>
     <li>Trabaja sobre memoria, no sobre archivo.</li>
     <li>No avanza el puntero del archivo.</li>
-    <li>Permite validar mejor lo leido.</li>
+    <li>Permite validar mejor lo leído.</li>
 </ul>
 
 
