@@ -24,7 +24,7 @@
 
 <h2>¿Qué es un campo de bits?</h2>
 <p>Los campos de bit son una forma especial de declarar miembros de una estructura
-donde, en vez de ocupar toda la dimension del tipo (int, unsigned, etc),
+donde, en vez de ocupar toda la dimension del tipo (<strong><code>int</code></strong>, <strong><code>unsigned</code></strong>, etc),
 se indica cuantos bits exactos ocupa el campo.</p>
     
 <h2>¿Para qué sirven?</h2>
@@ -33,15 +33,15 @@ se indica cuantos bits exactos ocupa el campo.</p>
 <h3>Ejemplo:</h3>
 <p><strong>Necesitamos guardar:</strong></p>
 <ul>
-    <li>Un estado que solo vale 0 o 1 => 1 bit.</li>
-    <li>Un numero de 0 a 7 => 3 bits.</li>
-    <li>Un codigo de 0 a 15 => 4 bits.</li>
+    <li>Un estado que solo vale <b>0</b> o <b>1</b> => <b>1 bit</b>.</li>
+    <li>Un número de <b>0</b> a <b>7</b> => <b>3 bits</b>.</li>
+    <li>Un código de <b>0</b> a <b>15</b> => <b>4 bits</b>.</li>
 </ul>
-<p><strong>No tiene sentido gastar 3 int completos para eso</strong></p>
+<p><strong>No tiene sentido gastar <b>3 int completos</b> para eso</strong></p>
     
 <h3>Sintaxis</h3>
 
-<p>La sintaxis SOLO EXISTE dentro de un struct:</p>
+<p>La sintaxis SOLO EXISTE dentro de un <strong><code>struct</code></strong>.</p>
 
 <pre><code class="language-c">tipo nombre_campo : cantidad_de_bits;</code></pre>
 
@@ -107,7 +107,7 @@ printf("prioridad = %u\n", f.prioridad);
 <p><strong>Pero en la práctica:</strong></p>
 <ul>
     <li>El compilador agrupa campos de bit en unidades de la dimension del tipo base.</li>
-    <li>Generalmente usa palabras-Word de 1, 2 o 4 bytes</li>
+    <li>Generalmente usa palabras(Word) de <b>1</b>, <b>2</b> o <b>4 bytes</b></li>
 </ul>
 
 <h3>Ejemplo:</h3>
@@ -155,8 +155,8 @@ struct C {
 <ul>
     <li>Valores posibles (normalmente): -4 a +3</li>
 </ul>
-<p>El signo y representacion depende del compilador(Complemento a 2 - Two's complement es lo común, pero el estandar no lo obliga).</p>
-<p><strong>Regla practica:</strong></p>
+<p>El signo y representacion depende del compilador(C<strong>omplemento a 2</strong> - <strong>Two's complement</strong> es lo común, pero el estandar no lo obliga).</p>
+<p><strong>Regla práctica:</strong></p>
 <ul>
     <li>Usamos <strong><code>unsigned</code></strong> siempre que podemos.</li>
     <li>Evitamos campos de bit con signo salvo que sea estrictamente necesario</li>
@@ -202,7 +202,7 @@ void limpiar(struct Flags *f)
 <h2>Diferencia con operaciones a nivel bit:</h2>
 <p>Muchos confunden campos de bits con operadores bit a bit (<strong><code>& | ^ << >> </code></strong>).</p>
 
-<h3>Campos de bit - bit-fields:</h3>
+<h3>Campos de bit:</h3>
 <ul>
     <li>Mas legibles.</li>
     <li>Expresan intencion.</li>
@@ -257,15 +257,15 @@ void limpiar(struct Flags *f)
 <h3>Resumen:</h3>
 <ul>
     <li>Solo dentro de struct.</li>
-    <li>Ocupan bits, no bytes.</li>
+    <li>Ocupan <strong>bits</strong>, no bytes.</li>
     <li><strong>Sintaxis: <code>tipo campo : bits;</code></strong></li>
     <li>No direccionables, ni portables.</li>
     <li>Layout dependiente del compilador.</li>
     <li>Muy útiles para flags y hardware.</li>
 </ul>
 <p>
-    Los campos de bit definen el tamaño lógico de los datos en bits, 
-    pero el almacenamiento físico y el tamaño medido por sizeof dependen 
+    Los campos de bit definen el tamaño lógico de los datos <b>en bits</b>, 
+    pero el almacenamiento físico y el tamaño medido por <strong><code>sizeof</code></strong> dependen 
     del empaquetado y alineación del compilador, 
     ya que la memoria es direccionable por bytes.
 </p>
