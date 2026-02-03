@@ -27,7 +27,7 @@
 
 <p>Una lista simple enlazada es una estructura de datos dinamica formada por nodos, donde:</p>
 <ul>
-    <li>Cada nodo contiene:
+    <li><b>Cada nodo contiene:</b>
         <ul>
             <li>Un dato.</li>
             <li>Un puntero al siguiente nodo.</li>
@@ -50,18 +50,20 @@
 <h3>Se usa cuando:</h3>
 <ul>
     <li>No conocemos de antemano cuantos elementos habra.</li>
-    <li>No queremos el costo de mover elementos como en arrays.</li>
+    <li>No queremos el costo de mover elementos como en <b>arrays</b>.</li>
     <li>Necesitamos inserciones y borrados eficientes.</li>
-    <li>Queremos usar memoria dinamica (heap).</li>
+    <li>Queremos usar memoria dinámica (<b>heap</b>).</li>
 </ul>
-<p>
-    <strong>El limite lo impone la memoria disponible, no una dimension fija.</strong>
-</p>
+<div class="nota">
+    <p>
+        <strong>El limite lo impone la memoria disponible, no una dimension fija.</strong>
+    </p>
+</div>
 
 
 <h2>Conceptos fundamentales:</h2>
 <ol>
-    <li>Nodo (struct autoreferenciado).</li>
+    <li><h3>Nodo (struct autoreferenciado).</h3></li>
     <p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
 
     <h3>Sintaxis:</h3>
@@ -72,7 +74,7 @@ struct Nodo {
 };    
 </code></pre>
 
-    <li>Puntero de comienzo (head).</li>
+    <li><h3>Puntero de comienzo (head).</h3></li>
     <p>La lista se maneja mediante un puntero.</p>
 
     <h3>Sintaxis:</h3>
@@ -106,17 +108,19 @@ nuevo = malloc(sizeof(struct Nodo));
 <pre><code class="language-c">
 for (aux = lista; aux != NULL; aux = aux->sig)
 </code></pre>
-<p><strong>Se avanza saltando de nodo en nodo.</strong></p>
+<div class="nota">
+    <p><strong>Se avanza saltando de nodo en nodo.</strong></p>
+</div>
 
 
 <h2>Inserción</h2>
 
 <h3>Puede hacerse:</h3>
 <ul>
-    <li>Como primer elemento.</li>
-    <li>Como último elemento.</li>
-    <li>Como elemento intermedio.</li>
-    <li>Ordenada por una clave (muy común)</li>
+    <li>Como <b>primer</b> elemento.</li>
+    <li>Como <b>último</b> elemento.</li>
+    <li>Como elemento <b>intermedio</b>.</li>
+    <li>Ordenada por una <b>clave</b> (muy común)</li>
 </ul>
 
 
@@ -133,11 +137,13 @@ lista = nuevo;
     <li><b><code>nuevo</code></b> es el nodo a insertar.</li>
     <li><b><code>lista</code></b> apunta al primer nodo de la lista.</li>
 </ul>
-<p><strong>Nota:</strong></p>
-<ul>
-    <li>El nuevo nodo pasa a ser el primer elemento.</li>
-    <li>Funciona tanto si la lista está vacía como si no.</li>
-</ul>
+<div class="nota">
+    <p><strong>Nota:</strong></p>
+    <ul>
+        <li>El nuevo nodo pasa a ser el primer elemento.</li>
+        <li>Funciona tanto si la lista está vacía como si no.</li>
+    </ul>
+</div>
 
 
 <h2>Inserción intermedia:</h2>
@@ -173,33 +179,37 @@ nuevo->sig = NULL;
     <li><b><code>aux</code></b> se usa para recorrer la lista.</li>
     <li><b><code>nuevo</code></b> es el nodo a insertar.</li>
 </ul>
-<p><strong>Nota:</strong></p>
-<ul>
-    <li>Requiere recorrer toda la lista.</li>
-    <li>Si la lista está vacía, este caso se reduce a inserción al comienzo.</li>
-</ul>
+<div class="nota">
+    <p><strong>Nota:</strong></p>
+    <ul>
+        <li>Requiere recorrer toda la lista.</li>
+        <li>Si la lista está vacía, este caso se reduce a inserción al comienzo.</li>
+    </ul>
+</div>
 
 
-<h2>Insercion ordenada (general)</h2>
+<h2>Insercion ordenada por clave (general)</h2>
 
 <h3>Caso general que cubre todos las inserciones:</h3>
 <ul>
-    <li>Lista vacia.</li>
+    <li>Lista vacía.</li>
     <li>Primer elemento.</li>
     <li>Intermedio.</li>
     <li>Último.</li>
 </ul>
-<p><strong>Nota:</strong></p>
-<ul>
-    <li>Se recorre la lista buscando la posición según una clave.</li>
-    <li>Se usan punteros para mantener el orden.</li>
-    <li>Es el caso más general y reutilizable.</li>
-</ul>
+<div class="nota">
+    <p><strong>Nota:</strong></p>
+    <ul>
+        <li>Se recorre la lista buscando la posición según una clave.</li>
+        <li>Se usan punteros para mantener el orden.</li>
+        <li>Es el caso más general y reutilizable.</li>
+    </ul>
+</div>
 
 
 <h2>Búsqueda</h2>
 
-<h3>Siempre es secuencial (no hay acceso directo):</h3>
+<p><strong>Siempre es secuencial (no hay acceso directo)</strong></p>
 
 <h3>Sintaxis:</h3>
 
@@ -214,25 +224,27 @@ while (aux != NULL && aux->dato != buscado)
     <li><b><code>buscado</code></b> es el valor a encontrar.</li>
 </ul>
 
-<p><strong>Nota:</strong>
-Puede terminar por encontrar el dato o llegar a <b><code>NULL</code></b>.
-</p>
+<div class="nota">
+    <p><strong>Nota:</strong>
+    Puede terminar por encontrar el dato o llegar a <b><code>NULL</code></b>.
+    </p>
+</div>
 
 <h2>Borrado</h2>
 
 <h3>Puede ocurrir:</h3>
 
 <ul>
-    <li>Borrar el primer nodo.</li>
-    <li>Borrar un nodo intermedio.</li>
-    <li>Borrar el último nodo.</li>
-    <li>Borrado general (por dato)</li>
+    <li>Borrar el <b>primer</b> nodo.</li>
+    <li>Borrar un nodo <b>intermedio</b>.</li>
+    <li>Borrar el <b>último</b> nodo.</li>
+    <li>Borrado general por <b>dato</b></li>
 </ul>
 
 <h3>Siempre implica:</h3>
 <ul>
     <li>Reconectar punteros.</li>
-    <li>Liberar memoria (free)</li>
+    <li>Liberar memoria (<code>free</code>)</li>
 </ul>
 
 
@@ -250,11 +262,13 @@ free(aux);
 <ul>
     <li><b><code>aux</code></b> apunta temporalmente al nodo a borrar.</li>
 </ul>
-<p><strong>Nota:</strong></p>
-<ul>
-    <li>El segundo nodo pasa a ser el primero.</li>
-    <li>Si la lista tiene un solo nodo, queda vacía.</li>
-</ul>
+<div class="nota">
+    <p><strong>Nota:</strong></p>
+    <ul>
+        <li>El segundo nodo pasa a ser el primero.</li>
+        <li>Si la lista tiene un solo nodo, queda vacía.</li>
+    </ul>
+</div>
 
 
 <h2>Borrado de un nodo intermedio:</h2>
@@ -271,8 +285,10 @@ free(act);
     <li><b><code>act</code></b> apunta al nodo a borrar.</li>
     <li><b><code>ant</code></b> apunta al nodo anterior.</li>
 </ul>
-<p><strong>Nota:</strong>
-Siempre se reconectan punteros antes del <b><code>free</code></b>.</p>
+<div class="nota">
+    <p><strong>Nota:</strong>
+    Siempre se reconectan punteros antes del <b><code>free</code></b>.</p>
+</div>
 
 <h2>Borrado del último nodo:</h2>
 
@@ -290,7 +306,7 @@ free(act);
 </ul>
 <div class="nota">
     <p>
-    Si la lista tiene un solo nodo, este caso se reduce al borrado del primero.
+    <strong>Si la lista tiene un solo nodo, este caso se reduce al borrado del primero.</strong>
     </p>
 </div>
 
@@ -320,11 +336,13 @@ free(act);
     <li>Borrado de un nodo intermedio.</li>
     <li>Borrado del último nodo.</li>
 </ul>
-<p><strong>Nota:</strong></p>
-<ul>
-    <li>Permite resolver todos los casos de borrado con un solo algoritmo.</li>
-    <li>Siempre se deben reconectar los punteros antes de liberar la memoria.</li>
-</ul>
+<div class="nota">
+    <p><strong>Nota:</strong></p>
+    <ul>
+        <li>Permite resolver todos los casos de borrado con un solo algoritmo.</li>
+        <li>Siempre se deben reconectar los punteros antes de liberar la memoria.</li>
+    </ul>
+</div>
 
 <h2 class="teoria">Teoría aplicada</h2>
 
