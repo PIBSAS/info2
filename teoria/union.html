@@ -46,7 +46,7 @@ Es decir:
   </p>
 </div>
 
-<h3>¿Para qué se usan?</h3>
+<h2>¿Para qué se usan?</h2>
 
 <p>Principalmente para:</p>
 <ul>
@@ -113,10 +113,10 @@ d.f = 3.14f;
 
 <p><b><code>sizeof</code></b> de una union.</p>
 
+<p>
+  La dimensión de una <code>union</code> es la del miembro más grande.
+</p>
 
-<h3>La dimension de una union es:</h3>
-
-<p>La dimension del miembro más grande.</p>
 
 <pre><code class="language-c">
 union Ejemplo {
@@ -170,7 +170,7 @@ void imprimir_int(int x)
 }
 </code></pre>
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 union Dato d;
 d.i = 20;
@@ -189,7 +189,7 @@ void mostrar(union Dato d)
 </code></pre>
 
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 union Dato d;
 d.i = 10;
@@ -206,7 +206,7 @@ void modificar(union Dato *d)
 }
 </code></pre>
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 modificar(&d);
 </code></pre>
@@ -223,7 +223,7 @@ union Dato crear_dato(void)
 }
 </code></pre>
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 union Dato d = crear_dato();
 </code></pre>
@@ -244,7 +244,7 @@ struct Registro {
 };
 </code></pre>
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 struct Registro r;
 
@@ -299,7 +299,7 @@ union Persona {
 <h3>La memoria de union Persona será:</h3>
 <pre><code class="language-c">max(sizeof(struct Alumno), sizeof(struct Docente));</code></pre>
 
-<h3>Uso:</h3>
+<h4>Uso:</h4>
 <pre><code class="language-c">
 struct Registro {
   int tipo;  // 0 = Alumno, 1 = Docente
