@@ -68,7 +68,9 @@
     <li>Prepara buffers.</li>
     <li>Devuelve un FILE *</li>
 </ul>
-<p class="nota"><strong>Si falla devuelve <strong><code>NULL</code></strong>.</strong></p>
+<div class="nota">
+    <p><strong>Si falla devuelve <strong><code>NULL</code></strong>.</strong></p>
+</div>
 
 
 <h2>Regla:</h2>
@@ -88,7 +90,9 @@
     <li>Vacia los buffers pendientes</li>
     <li>Libera recursos del sistema operativo</li>
 </ul>
-<p class="nota"><strong>Sin <code>fclose</code>, el archivo NO esta realmente terminado.</strong></p>
+<div class="nota">
+    <p><strong>Sin <code>fclose</code>, el archivo NO esta realmente terminado.</strong></p>
+</div>
 
 
 <h3>Que pasa internamente cuando usamos <code>fclose</code>?</h3>
@@ -234,17 +238,19 @@ fclose(fp);
 <h3>Contenido del archivo:</h3>
 <pre><code class="language-c">Hola</code></pre>
 
-<p class="nota"><strong>IMPORTANTE:</strong>
-<strong><code>fputc</code></strong> NO escribe inmediatamente al disco.</p>
-<ul>
-    <li>Va la buffer.</li>
-    <li>Se garantiza la escritura real con:
+<div class="nota">
+    <p><strong>IMPORTANTE:</strong>
+    <strong><code>fputc</code></strong> NO escribe inmediatamente al disco.</p>
     <ul>
-        <li><strong><code>fclose</code></strong></li>
-        <li><strong><code>fflush</code></strong></li>
+        <li>Va la buffer.</li>
+        <li>Se garantiza la escritura real con:
+        <ul>
+            <li><strong><code>fclose</code></strong></li>
+            <li><strong><code>fflush</code></strong></li>
+        </ul>
+        </li>
     </ul>
-    </li>
-</ul>
+</div>
 
 
 <h1>Lectura de un caracter:</h1>
@@ -331,7 +337,9 @@ while (!feof(fp)) // MAL
     c = fgetc(fp);
 }
 </code></pre>
-<p class="nota"><strong><code>feof</code> se usa despues, no para controlar el loop.</strong></p>
+<div class="nota">
+    <p><strong><code>feof</code> se usa despues, no para controlar el loop.</strong></p>
+</div>
 
 
 <h1>ferror - ¿Error?:</h1>
@@ -363,7 +371,9 @@ else if (ferror(fp)) // Detecta error
   printf("\nError de lectura\n");
 }
 </code></pre>
-<p class="nota"><strong>Este es el patrón canónico en C.</strong></p>
+<div class="nota">
+    <p><strong>Este es el patrón canónico en C.</strong></p>
+</div>
 
 <h1>Escritura de un string:</h1>
 <pre><code class="language-c">fputs</code></pre>
@@ -505,7 +515,9 @@ Segunda linea
 linea[strcspn(linea, "\n")] = '\0';
 NULL = no se leyo nada.
 </code></pre>
-<p class="nota"><strong>No significa solo <strong><code>EOF</code></strong>, puede ser <strong>error</strong> tambien.</strong></p>
+<div class="nota">
+    <p><strong>No significa solo <strong><code>EOF</code></strong>, puede ser <strong>error</strong> tambien.</strong></p>
+</div>
 
 
 <h2>Patron correcto:</h2>
@@ -674,7 +686,9 @@ while (fscanf(fp, "%d %f", &a, &b) == 2)
     ...
 }
 </code></pre>
-<p class="nota"><strong>El <strong><code>==</code></strong> cantidad de campos, es clave.</strong></p>
+<div class="nota">
+    <p><strong>El <strong><code>==</code></strong> cantidad de campos, es clave.</strong></p>
+</div>
 
 
 <h1>fscanf vs fgets + sscanf:</h1>

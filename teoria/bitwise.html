@@ -37,7 +37,9 @@
     <li>long</li>
     <li>Sus versiones unsigned</li>
 </ul>
-<p class="nota"><strong>NO APLICA a float, double, struct, etc.</strong></p>
+<div class="nota">
+    <p><strong>NO APLICA a float, double, struct, etc.</strong></p>
+</div>
 
 <h2>Representación binaria:</h2>
 <p>Supongamos un <strong><code>unsigned char</code></strong>(8 bits):</p>
@@ -276,10 +278,12 @@ a = a ^ b;
 unsigned char a = 5; // 0000 0101
 unsigned char b = ~a; // 1111 1010 -> 250
 </code></pre>
-<p class="nota"><strong>IMPORTANTE:</strong>
-En tipos con signo, el resultado de la representacion (Complemento a dos).
-Por eso para bitwise - bit a bit conviene usar <strong><code>unsigned</code></strong>.
-</p>
+<div class="nota">
+    <p><strong>IMPORTANTE:</strong>
+    En tipos con signo, el resultado de la representacion (Complemento a dos).
+    Por eso para bitwise - bit a bit conviene usar <strong><code>unsigned</code></strong>.
+    </p>
+</div>
 
 <h3>¿Para qué se usa?:</h3>
 <ul>

@@ -63,7 +63,9 @@ struct Ejemplo {
     <li>signed int</li>
     <li>_Bool (desde C99)</li>
 </ul>
-<p class="nota"><strong>NO SE PUEDE USAR float, double, punteros, structs, etc.</strong></p>
+<div class="nota">
+    <p><strong>NO SE PUEDE USAR float, double, punteros, structs, etc.</strong></p>
+</div>
 
 <h3>Ejemplo simple:</h3>
 <pre><code class="language-c">
@@ -92,7 +94,10 @@ printf("prioridad = %u\n", f.prioridad);
 
 <h4>Si intentamos hacer:</h4>
 <pre><code class="language-c">f.prioridad = 5; // (UB)</code></pre>
-<p class="nota">Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
+
+<div class="nota">
+    <p>Comportamiento dependiente de la implementación (generalmente se truncan bits)</p>
+</div>
 
 <h3>¿Cuánta memoria ocupan?</h3>
 <p><strong>Acá aparece la primera gran advertencia:</strong></p>
@@ -118,9 +123,11 @@ struct A {
 <ul>
     <li>Probablemente <strong><code>sizeof(struct A)</code></strong> sea 4 bytes (si unsigned es de 4 bytes)</li>
 </ul>
-<p class="nota"><strong>Conclusion importante:</strong>
-    Los campos de bit reducen espacio lógico, pero no siempre reducen <strong><code>sizeof</code></strong> como uno imagina.
-</p>
+<div class="nota">
+    <p><strong>Conclusion importante:</strong>
+        Los campos de bit reducen espacio lógico, pero no siempre reducen <strong><code>sizeof</code></strong> como uno imagina.
+    </p>
+</div>
 
 <h3>Campos de relleno (padding explicito)</h3>
 <p>Podemos usar campos sin nombre para forzar alineación:</p>
@@ -233,11 +240,13 @@ void limpiar(struct Flags *f)
     <li>Hacemos comunicacion de red.</li>
     <li>Necesitamos direcciones de los campos.</li>
 </ul> 
-<p class="nota">
-         El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
-         es dependiente de la implementacion y no esta garantizado por el estandar.
-         Es por esto que en el codigo solemos declarar por convencion los bit-fields de LSB -> MSB.
-</p>
+<div class="nota">
+    <p>
+             El orden de los bits dentro de la unidad de almacenamiento (LSB -> MSB o viceversa)
+             es dependiente de la implementacion y no esta garantizado por el estandar.
+             Es por esto que en el codigo solemos declarar por convencion los bit-fields de LSB -> MSB.
+    </p>
+</div>
 
 <h3>Resumen:</h3>
 <ul>
@@ -264,7 +273,9 @@ char => alineacion 1 byte.
 short => alineacion 2 bytes.
 int / unsigned => alineacion 4 bytes.
 </code></pre>
-<p class="nota">El compilador inserta padding-relleno para cumplir eso.</p>
+<div class="nota">
+    <p>El compilador inserta padding-relleno para cumplir eso.</p>
+</div>
 
 <h2 class="teoria">Teoría aplicada</h2>
 

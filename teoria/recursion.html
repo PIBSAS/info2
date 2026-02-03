@@ -34,19 +34,17 @@
 <h3>Ejemplo:</h3>
 <ul>
     <li>Para calcular factorial(5):
-    <ul>
-        <li>Necesito factorial(4)
         <ul>
-            <li>Necesito factorial(3)
-            <li>...
-            <ul>
-                <li>Hasta llegar a un caso simple que se resolver directo.</li>
-            </ul>
-            </li>
+            <li>Necesito factorial(4)
+                <ul>
+                    <li>Necesito factorial(3)
+                        <ul>
+                            <li>Hasta llegar a un caso simple que se resolver directo.</li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
         </ul>
-        </li>
-    </ul>
     </li>
 </ul>
 
@@ -98,18 +96,21 @@
     <li>Parentesis</li>
 </ul>
 
-<h3><em>IMPORTANTE:</em></h3>
+<div class="nota">
+    <h3><em>IMPORTANTE:</em></h3>
 
-<p class="nota">No todo lo recursivo es mejor que lo iterativo. En C muchas veces el <b>for</b> o <b>while</b> es:</p>
-<ul>
-    <li>Más rápido</li>
-    <li>Más eficiente en memoria</li>
-</ul>
-<p><strong>Pero la recursividad:</strong></p>
-<ul>
-    <li>Es más clara</li>
-    <li>Expresa mejor la idea del problema</li>
-</ul>
+    <p>No todo lo recursivo es mejor que lo iterativo. En C muchas veces el <b>for</b> o <b>while</b> es:</p>
+    <ul>
+        <li>Más rápido</li>
+        <li>Más eficiente en memoria</li>
+    </ul>
+
+    <p><strong>Pero la recursividad:</strong></p>
+    <ul>
+        <li>Es más clara</li>
+        <li>Expresa mejor la idea del problema</li>
+    </ul>
+</div>
 
 <h2>¿Tiene alguna sintaxis especial?</h2>
 <p><em>No, la recursividad no tiene sintaxis propia en C.</em></p>
@@ -132,9 +133,9 @@
 <p>Una función se llama a si misma directamente.</p>
 
 <pre><code class="language-c">
-f(...);
+void f(...);
 {
-    ...
+    /*...*/
     f(...);
 }
 </code></pre>
@@ -179,7 +180,7 @@ void B(int n)
 <p>La funcion hace una sola llamada recursiva.</p>
 
 <pre><code class="language-c">
-f(n)
+int f(n)
 {
     return algo + f(n - 1);
 }
@@ -202,7 +203,7 @@ f(n)
 <p>Se hacen 2 o más llamadas recursivas.</p>
 
 <pre><code class="language-c">
-f(n)
+int f(n)
 {
     return f(n - 1) + f(n - 2);
 }
@@ -275,7 +276,7 @@ suma(n) = n + suma(n - 1)
 suma(0) = 0
 int suma(int n)
 {
-  if (n == 0) Caso base
+  if (n == 0) // Caso base
       return 0;
   else
       return n + suma(n - 1);
@@ -369,7 +370,10 @@ void imprimir(int v[], int n)
     <li>¿Cómo expresamos el problema en función del mismo problema más chico?</li>
     <li>¿Qué parámetro se achica en cada llamada?</li>
 </ul>
-<p class="nota"><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+
+<div class="nota">
+    <p><strong>Si no podemos responder esas tres preguntas entonces todavia no es recursivo.</strong></p>
+</div>
 
 
 <h3>La recursividad es más relevante en:</h3>

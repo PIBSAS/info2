@@ -139,7 +139,9 @@ if (p == NULL)
     return 1;
 }
 </code></pre>
-<p class="nota"><strong>No hacerlo es un error grave.</strong></p>
+<div class="nota">
+    <p><strong>No hacerlo es un error grave.</strong></p>
+</div>
 
 
 <h2>Acceso a la memoria asignada</h2>
@@ -233,7 +235,9 @@ free(p); // Liberamos del heap la memoria solicitada, el puntero queda colgado (
 p = NULL; // NULL no apunta a memoria valida
 printf("%d\n", *p); // Acceder a *p cuando p == NULL es facil de detectar.
 </code></pre>
-<p class="nota"><strong>Asignar <strong><code>NULL</code></strong> invalida el puntero y evita su uso accidental.</strong></p>
+<div class="nota">
+    <p><strong>Asignar <strong><code>NULL</code></strong> invalida el puntero y evita su uso accidental.</strong></p>
+</div>
 
 
 <h2 class="teoria">Teoría aplicada</h2>

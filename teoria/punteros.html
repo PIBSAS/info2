@@ -121,7 +121,9 @@ int main(void)
 
 <h2>Tamaño de los punteros</h2>
 
-<p class="nota"><strong>Se utilizara el sinonimo dimensión en los comentarios para claridad del texto.</strong></p>
+<div class="nota">
+  <p><strong>Se utilizara el sinonimo dimensión en los comentarios para claridad del texto.</strong></p>
+</div>
 
 <p>TODOS los punteros tienen la misma dimensión.
     Sin importar a que tipo apunten, ya que su dimension proviene del tipo de arquitectura en 32 bits es de 4 bytes, en 64 bits es de 8 bytes, se puede verificar con sizeof()</p>
@@ -486,7 +488,9 @@ p = a - 1; // Comportamiento indefinido(UB)
   <li>La cantidad de elementos entre ambos punteros</li>
   <li>Puede ser positivo o negativo.</li>
 </ul>
-<p class="nota"><strong>Se debe incluir para seguir el estandar, la libreria <strong><code>stddef.h</code></strong></strong></p>
+<div class="nota">
+  <p><strong>Se debe incluir para seguir el estandar, la libreria <strong><code>stddef.h</code></strong></strong></p>
+</div>
 
 <h2 class="teoria">Teoría aplicada Ejemplo 5</h2>
 
@@ -626,7 +630,9 @@ p[2] // Acceso al objeto que esta 2 elementos despues de la direccion que guarda
 *(a + 2)
 *(p + 2)
 </code></pre>
-<p class="nota"><strong><strong><code>[]:</code></strong> El operador <strong>[]</strong> es pura aritmetica de punteros.</strong></p>
+<div class="nota">
+  <p><strong><strong><code>[]:</code></strong> El operador <strong>[]</strong> es pura aritmetica de punteros.</strong></p>
+</div>
 
 <h2>Relacion formal entre punteros y arrays:</h2>
 <h3>Por definicion del lenguaje:</h3>
@@ -641,7 +647,9 @@ int *p = a;
 printf("%d", p[3]); // Imprime 40
 </code></pre>
 
-<p class="nota"><strong>&amp;a NO es lo mismo que <code>a</code></strong></p>
+<div class="nota">
+  <p><strong>&amp;a NO es lo mismo que <code>a</code></strong></p>
+</div>
 
 <p>Esto es clave y suele confundir.</p>
 <ul>
