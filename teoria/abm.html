@@ -29,7 +29,7 @@
 <ul>
     <li>No guarda texto legible.</li>
     <li>Guarda bytes tal cual estan en memoria.</li>
-    <li>Ideal para:
+    <li><b>Ideal para:</b>
     <ul>
         <li>struct</li>
         <li>arrays</li>
@@ -41,8 +41,8 @@
 
 <h3>Ventaja:</h3>
 <ul>
-    <li>Mas rapido.</li>
-    <li>Mas chico.</li>
+    <li>Más rápido.</li>
+    <li>Más chico.</li>
     <li>No hay parsing.</li>
 </ul>
 
@@ -58,18 +58,26 @@
 <table>
     <tr>
         <th>Modo</th>
-        <td>"rb"</td>
-        <td>"wb"</td>
-        <td>"ab"</td>
-        <td>"rb+"</td>
-        <td>"wb+"</td>
+        <th>Significado</th>
     </tr>
     <tr>
-        <th>Significado</th>
+        <td>"rb"</td>
         <td>leer binario</td>
+    </tr>
+    <tr>
+        <td>"wb"</td>
         <td>escribir binario (borra)</td>
+    </tr>
+    <tr>
+        <td>"ab"</td>
         <td>agregar</td>
+    </tr>
+    <tr>
+        <td>rb+</td>
         <td>leer/escribir</td>
+    </tr>
+    <tr>
+        <td>wb+</td>
         <td>leer/escribir (borra)</td>
     </tr>
 </table>
@@ -88,7 +96,7 @@
 <ul>
     <li>Escribe nmemb elementos.</li>
     <li>Cada uno de tamaño size.</li>
-    <li>Desde memoria => archivo.</li>
+    <li>Desde memoria &lArr; archivo.</li>
 </ul>
 
 <h3>Ejemplo:</h3>
@@ -96,7 +104,9 @@
 int x = 42;
 fwrite(&x, sizeof(int), 1, fp);
 </code></pre>
-<p><strong>Escribe el <code>int</code> completo, no texto.</strong></p>
+<div class="nota">
+    <p><strong>Escribe el <code>int</code> completo, no texto.</strong></p>
+</div>
 
 <h2>Lectura de bloques</h2>
 <pre><code class="language-c">fread</code></pre>
@@ -116,10 +126,14 @@ fwrite(&x, sizeof(int), 1, fp);
 int x;
 fread(&x, sizeof(int), 1, fp);
 </code></pre>
-<p><strong>Retorna cuantos elementos leyo realmente.</strong></p>
+<div class="nota">
+    <p><strong>Retorna cuantos elementos leyo realmente.</strong></p>
+</div>
     
 <h3>Ejemplo:</h3>
-<p>Struct + archivo binario</p>
+<ul>
+    <li>struct + archivo binario</li>
+</ul>
 
 <h3>Definimos un registro:</h3>
 <pre><code class="language-c">
@@ -149,13 +163,15 @@ fclose(fp);
 -
 printf("%d %s %.2f\n", e.id, e.nombre, e.sueldo);
 </code></pre>
-<p><strong>No hay <code>fscanf</code>, no hay parsing, no hay texto.</strong></p>
+<div class="nota">
+    <p><strong>No hay <code>fscanf</code>, no hay parsing, no hay texto.</strong></p>
+</div>
     
 <h3>Lectura/escritura de varios registros:</h3>
 <pre><code class="language-c">
 Empleado v[2] = {
-  {1, "Diana", 100000},
-  {2, "Lucia", 110000},
+  {1, "Linda", 100000},
+  {2, "Jaime", 110000},
   {3, "Carlos", 105000}
 };
 -
@@ -167,50 +183,68 @@ fwrite(v, sizeof(Empleado), 3, fp);
 Empleado v[3];
 fread(v, sizeof(Empleado), 3, fp);
 </code></pre>
-<p><strong>Esto es memoria => disco => memoria, directo.</strong></p>
+<div class="nota">
+    <p><strong>Esto es memoria => disco => memoria, directo.</strong></p>
+</div>
     
 <h2>Acceso aleatorio</h2>
 <ul>
-    <li>fseek</li>
-    <li>ftell</li>
-    <li>rewind</li>
+    <li><code>fseek</code></li>
+    <li><code>ftell</code></li>
+    <li><code>rewind</code></li>
 </ul>
 
-<h3>Sintaxis fseek:</h3>
+<h3>Sintaxis <code>fseek</code>:</h3>
 <pre><code class="language-c">int fseek(FILE *fp, long offset, int origen);</code></pre>
 
 <div class="tablecontainer">
     <table>
         <tr>
             <th>Origen</th>
-            <td>SEEK_SET</td>
-            <td>SEEK_CUR</td>
-            <td>SEEK_END</td>
+            <th>Significado</th>
         </tr>
         <tr>
-            <th>Significado</th>
-            <td>inicio</td>
-            <td>posicion actual</td>
-            <td>fin</td>
+            <td>SEEK_SET</td>
+            <td>Inicio</td>
+        </tr>
+        <tr>
+            <td>SEEK_CUR</td>
+            <td>Posición actual</td>
+        </tr>
+        <tr>
+            <td>SEEK_END</td>
+            <td>Fin</td>
         </tr>
     </table>
 </div>
              
 <h3>Ejemplo:</h3>
-<p>Ir al registro <strong>N</strong>.</p>
+
+<ul>
+    <li>Ir al registro <strong>N</strong>.</li>
+</ul>
+
 <pre><code class="language-c">
 fseek(fp, n * sizeof(Empleado), SEEK_SET);
 fread(&e, sizeof(Empleado), 1, fp);
 </code></pre>
-<p><strong>Esto es archivo random / directo.</strong></p>
+<div class="nota">
+    <p><strong>Esto es archivo random / directo.</strong></p>
+</div>
 
-<h3>Sintaxis ftell:</h3>
+<h3>Sintaxis <code>ftell</code>:</h3>
+
 <pre><code class="language-c">long pos = ftell(fp);</code></pre>
-<p><strong>Devuelve la posicion actual (en <code>bytes</code>).</strong></p>
+<div class="nota">
+    <p><strong>Devuelve la posicion actual (en <code>bytes</code>).</strong></p>
+</div>
 
-<h3>Sintaxis rewind:</h3>
+<h3>Sintaxis <code>rewind</code>:</h3>
+
 <pre><code class="language-c">rewind(fp);</code></pre>
-<p><strong>Vuelve al inicio (equivale a <code>fseek(fp, 0, SEEK_SET)</code> ).</strong></p>
+<div class="nota">
+    <p><strong>Vuelve al inicio (equivale a <code>fseek(fp, 0, SEEK_SET)</code> ).</strong></p>
+</div>
         
 <h2>Altas, Bajas y Modificaciones (ABM)</h2>
 
@@ -226,7 +260,7 @@ fopen("rb")
 while (fread(...) == 1)
 </code></pre>
 
-<h3>Modificacion:</h3>
+<h3>Modificación:</h3>
 <pre><code class="language-c">
 fopen("rb+")
 buscar registro
@@ -236,11 +270,12 @@ fwrite
 
 <h3>Baja logica:</h3>
 <ul>
-    <li>No borrar fisicamente.</li>
-    <li>Marcar como borrado</li>
+    <li>No borra fisicamente.</li>
+    <li>Marca como borrado</li>
 </ul>
 
 <h3>Ejemplo:</h3>
+
 <pre><code class="language-c">
 typedef struct {
   int id;
@@ -257,11 +292,14 @@ typedef struct {
 <pre><code class="language-c">int remove(const char *filename);</code></pre>
 
 <h3>¿Qué hace?:</h3>
-<p>Borra un archivo del sistema (No del programa, del disco).</p>
+<p>Borra un archivo del sistema (No del programa, <b>del disco</b>).</p>
 
 <h3>Ejemplo:</h3>
+
 <pre><code class="language-c">remove("empleados.dat");</code></pre>
-<p><strong>Borra el archivo del sistema.</strong></p>
+<div class="nota">
+    <p><strong>Borra el archivo del sistema.</strong></p>
+</div>
     
 <h2>Liberar buffer manualmente:</h2>
 <pre><code class="language-c">fflush</code></pre>
@@ -271,24 +309,26 @@ typedef struct {
 <ul>
     <li>Fuerza escritura inmediata.</li>
     <li>Util en logs.</li>
-    <li>Normalmente no hace falta si usas fclose.</li>
+    <li>Normalmente no hace falta si usas <code>fclose</code>.</li>
 </ul>
     
-<h2>CONCEPTOS TEORICOS</h2>
+<h2>Conceptos teóricos:</h2>
 
 <h3>Streams:</h3>
 <p>Es un flujo de datos entre el programa y un dispositivo (Teclado, Pantalla, Archivo, etc).</p>
 
-<h3>Utiliza un buffer intermedio:</h3>
+<p><b>Utiliza un buffer intermedio:</b></p>
     <ul>
-        <li>En salida <strong><code>stdout</code></strong>: se acumulan datos y luego se escriben.</li>
-        <li>En entrada <strong><code>stdin</code></strong>: se leen bloques desde el dispositivo.</li>
+        <li><b>En salida</b> <strong><code>stdout</code></strong>: se acumulan datos y luego se escriben.</li>
+        <li><b>En entrada</b> <strong><code>stdin</code></strong>: se leen bloques desde el dispositivo.</li>
     </ul>
         
 <h3>Streams standard:</h3>
-<strong><code>stdin  :</code></strong> entrada estandar (teclado)
-<strong><code>stdout :</code></strong> salida estandar (pantalla)
-<strong><code>stderr :</code></strong> salida de errores (pantalla)
+<ul>
+    <li><strong><code>stdin  :</code></strong> entrada estandar (teclado)</li>
+    <li><strong><code>stdout :</code></strong> salida estandar (pantalla)</li>
+    <li><strong><code>stderr :</code></strong> salida de errores (pantalla)</li>
+</ul>
 
 <h3>En formato texto:</h3>
 <ul>
@@ -302,12 +342,14 @@ typedef struct {
 </ul>
 
 <h3>struct FILE:</h3>
-    <p>
-        <strong><code>FILE</code></strong> es una estructura opaca definida por la libreria
+<ul>
+    <li>
+        <strong><code>FILE</code></strong> es una estructura opaca definida por la librería
         estandar que representa un stream de archivo.
-    </p>
+    </li>
+</ul>
 
-<h3>Contiene internamente:</h3>
+<h4>Contiene internamente:</h4>
 <ul>
     <li>Buffer.</li>
     <li>Posicion actual.</li>
@@ -315,12 +357,14 @@ typedef struct {
     <li>Descriptor del sistema operativo.</li>
 </ul>
         
-<h3>IMPORTANTE:</h3>
-<ul>
-    <li>El contenido de <strong><code>FILE</code></strong> es dependiente del compilador.</li>
-    <li>No debe accederse a sus campos directamente.</li>
-    <li>Solo se manipula mediante funciones estandar (<strong><code>fopen</code></strong>, <strong><code>fread</code></strong>, <strong><code>fwrite</code></strong>, <strong><code>fseek</code></strong>, <strong><code>fclose</code></strong>, etc.)</li>
-</ul>
+<div class="nota">
+    <h3>IMPORTANTE:</h3>
+    <ul>
+        <li>El contenido de <strong><code>FILE</code></strong> es dependiente del compilador.</li>
+        <li>No debe accederse a sus campos directamente.</li>
+        <li>Solo se manipula mediante funciones estandar (<strong><code>fopen</code></strong>, <strong><code>fread</code></strong>, <strong><code>fwrite</code></strong>, <strong><code>fseek</code></strong>, <strong><code>fclose</code></strong>, etc.)</li>
+    </ul>
+</div>
 
 
 <h2 class="teoria">Teoría aplicada</h2>
