@@ -28,7 +28,7 @@
 <h3>¿Qué es un archivo binario?:</h3>
 <ul>
     <li>No guarda texto legible.</li>
-    <li>Guarda bytes tal cual estan en memoria.</li>
+    <li>Guarda bytes tal cual están en memoria.</li>
     <li><b>Ideal para:</b>
     <ul>
         <li>struct</li>
@@ -127,7 +127,7 @@ int x;
 fread(&x, sizeof(int), 1, fp);
 </code></pre>
 <div class="nota">
-    <p><strong>Retorna cuantos elementos leyo realmente.</strong></p>
+    <p><strong>Retorna cuantos elementos leyó realmente.</strong></p>
 </div>
     
 <h3>Ejemplo:</h3>
@@ -236,7 +236,7 @@ fread(&e, sizeof(Empleado), 1, fp);
 
 <pre><code class="language-c">long pos = ftell(fp);</code></pre>
 <div class="nota">
-    <p><strong>Devuelve la posicion actual (en <code>bytes</code>).</strong></p>
+    <p><strong>Devuelve la posición actual (en <code>bytes</code>).</strong></p>
 </div>
 
 <h3>Sintaxis <code>rewind</code>:</h3>
@@ -268,9 +268,9 @@ fseek
 fwrite
 </code></pre>
 
-<h3>Baja logica:</h3>
+<h3>Baja lógica:</h3>
 <ul>
-    <li>No borra fisicamente.</li>
+    <li>No borra físicamente.</li>
     <li>Marca como borrado</li>
 </ul>
 
@@ -323,10 +323,10 @@ typedef struct {
         <li><b>En entrada</b> <strong><code>stdin</code></strong>: se leen bloques desde el dispositivo.</li>
     </ul>
         
-<h3>Streams standard:</h3>
+<h3>Streams estándar:</h3>
 <ul>
-    <li><strong><code>stdin  :</code></strong> entrada estandar (teclado)</li>
-    <li><strong><code>stdout :</code></strong> salida estandar (pantalla)</li>
+    <li><strong><code>stdin  :</code></strong> entrada estándar (teclado)</li>
+    <li><strong><code>stdout :</code></strong> salida estándar (pantalla)</li>
     <li><strong><code>stderr :</code></strong> salida de errores (pantalla)</li>
 </ul>
 
@@ -345,14 +345,14 @@ typedef struct {
 <ul>
     <li>
         <strong><code>FILE</code></strong> es una estructura opaca definida por la librería
-        estandar que representa un stream de archivo.
+        estándar que representa un stream de archivo.
     </li>
 </ul>
 
 <h4>Contiene internamente:</h4>
 <ul>
     <li>Buffer.</li>
-    <li>Posicion actual.</li>
+    <li>Posición actual.</li>
     <li>Flags de estado.</li>
     <li>Descriptor del sistema operativo.</li>
 </ul>
@@ -362,7 +362,7 @@ typedef struct {
     <ul>
         <li>El contenido de <strong><code>FILE</code></strong> es dependiente del compilador.</li>
         <li>No debe accederse a sus campos directamente.</li>
-        <li>Solo se manipula mediante funciones estandar (<strong><code>fopen</code></strong>, <strong><code>fread</code></strong>, <strong><code>fwrite</code></strong>, <strong><code>fseek</code></strong>, <strong><code>fclose</code></strong>, etc.)</li>
+        <li>Solo se manipula mediante funciones estándar (<strong><code>fopen</code></strong>, <strong><code>fread</code></strong>, <strong><code>fwrite</code></strong>, <strong><code>fseek</code></strong>, <strong><code>fclose</code></strong>, etc.)</li>
     </ul>
 </div>
 
@@ -415,7 +415,7 @@ int main(void)
         printf("\n--MENU ---\n");
         printf("1. Alta\n");
         printf("2. Listar\n");
-        printf("3. Modicar\n");
+        printf("3. Modificar\n");
         printf("4. Baja\n");
         printf("5. Salir\n");
         printf("Opcion: ");
