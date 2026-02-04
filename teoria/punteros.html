@@ -169,7 +169,7 @@ printf("%zu", sizeof(char *));
 <pre><code class="language-c">printf("%zu", sizeof(*pi)); // Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes</code></pre>
 
 
-<h3>Relacion con arrays:</h3>
+<h3>Relación con arrays:</h3>
 
 <pre><code class="language-c">
 int a[10]; // sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
@@ -634,8 +634,8 @@ p[2] // Acceso al objeto que esta 2 elementos despues de la direccion que guarda
   <p><strong><strong><code>[]:</code></strong> El operador <strong>[]</strong> es pura aritmética de punteros.</strong></p>
 </div>
 
-<h2>Relacion formal entre punteros y arrays:</h2>
-<h3>Por definicion del lenguaje:</h3>
+<h2>Relación formal entre punteros y arrays:</h2>
+<h3>Por definición del lenguaje:</h3>
 <pre><code class="language-c">
 a[i] == *(a + i)
 p[i] == *(p + i)
@@ -789,7 +789,7 @@ int main(void)
   <li>Se paso la direccion de <code>a</code> por valor</li>
 </ul>
 
-<h3>Relacion con arrays:</h3>
+<h3>Relación con arrays:</h3>
 <pre><code class="language-c">
 void imprimir(int *p, int n)
 {
