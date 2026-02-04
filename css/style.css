@@ -234,6 +234,11 @@ margin-left:auto;
 .footer-nav .btn:hover {
   background-color: #038a5a;
 }
+body > main .container > h2 {
+  width: 75%;
+  margin: 1.5rem 0;
+  text-align: center;
+}
 @media (max-width: 480px) {
   .box {
     float: none;
