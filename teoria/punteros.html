@@ -297,6 +297,7 @@ clean
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
 
 #include &lt;stdio.h&gt;
+
 int main(void)
 {
     int x = 10;
@@ -708,27 +709,27 @@ clean:
 
 #include &lt;stdio.h&gt;
 
- int main(void)
- {
-   int a[5] = {10, 20, 30, 40, 50}; // Declaracion de un array de 5 elementos del tipo int con dimension 20 bytes(5*sizeof(int))
-   int *p = a; // Declaracion de puntero a int p y asignacion de la primer direccion de memoria del array a (a[0])
+int main(void)
+{
+	int a[5] = {10, 20, 30, 40, 50}; // Declaracion de un array de 5 elementos del tipo int con dimension 20 bytes(5*sizeof(int))
+	int *p = a; // Declaracion de puntero a int p y asignacion de la primer direccion de memoria del array a (a[0])
 
-   printf("a[2] = %d\n", a[2]);
-   printf("p[2] = %d\n", p[2]);
+	printf("a[2] = %d\n", a[2]);
+	printf("p[2] = %d\n", p[2]);
 
-   printf("*(a + 2) = %d\n", *(a + 2));
-   printf("*(p + 2) = %d\n", *(p + 2));
+	printf("*(a + 2) = %d\n", *(a + 2));
+	printf("*(p + 2) = %d\n", *(p + 2));
 
-   printf("\nsizeof(a) = %zu\n", sizeof(a));
-   printf("\nsizeof(p) = %zu\n", sizeof(p));
+	printf("\nsizeof(a) = %zu\n", sizeof(a));
+	printf("\nsizeof(p) = %zu\n", sizeof(p));
 
-   // Direccion de a cast a (void *)a. Ya que a (en esta expresion) decae a int *. &a es tipo: int (*)[5] array de 5 int(20bytes-array completo). p es tipo int *
-   printf("\na\t = %p\n", (void *)a); // Direccion a traves de a
-   printf("\n&a\t = %p\n", (void *)&a); // Direccion de a
-   printf("\np\t = %p\n", (void *)p); // Direccion del puntero p
-   
-   return 0;
- }
+	// Direccion de a cast a (void *)a. Ya que a (en esta expresion) decae a int *. &a es tipo: int (*)[5] array de 5 int(20bytes-array completo). p es tipo int *
+	printf("\na\t = %p\n", (void *)a); // Direccion a traves de a
+	printf("\n&a\t = %p\n", (void *)&a); // Direccion de a
+	printf("\np\t = %p\n", (void *)p); // Direccion del puntero p
+
+	return 0;
+}
 </code></pre>
 
 <h2>Pasaje de parámetros por referencia</h2>
@@ -922,5 +923,6 @@ int main(void)
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
 </body>
+
 
 </html>
