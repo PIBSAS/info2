@@ -421,13 +421,14 @@ int main(void)
 
 <h3>¿Qué hace?</h3>
 <ul>
-  <li>NO trabaja en bytes, trabaja en elementos del tipo apuntado.</li>
-  <li>Un puntero "sabe" a qué tipo apunta.</li>
+	<li>NO trabaja en bytes, trabaja en elementos del tipo apuntado.</li>
+	<li>Un puntero "sabe" a qué tipo apunta.</li>
+	<li>La aritmética está definida dentro de un mismo array.</li>
 </ul>
 
-<h4>Operaciones permitidas:</h4>
+<h4>Operaciones permitidas (con restricciones):</h4>
 <ul>
-  <li><strong><code>+:</code></strong> p + n Donde <strong>n</strong> es un número</li>
+  <li><strong><code>+:</code></strong> p + n Donde <strong>n</strong> es un número. Válido si el resultado permanece dentro del mismo array (o uno después del último)</li>
   <li><strong><code>-:</code></strong> p - n</li>
   <li><strong><code>++:</code></strong> p++</li>
   <li><strong><code>--:</code></strong> p--</li>
@@ -445,6 +446,14 @@ int main(void)
   <li>Operaciones lógicas (&amp;&amp;, ||)</li>
 </ul>
 
+<div class="nota">
+<h3>Regla formal importante</h3>
+<p>La aritmética de punteros está definida únicamente cuando el puntero apunta
+a elementos de un mismo array (o one-past-the-end).
+
+Fuera de ese contexto &rArr; comportamiento indefinido</p>
+</div>
+
 <h3>Regla fundamental:</h3>
 
 <h4>Sea T cualquier tipo valido en C:</h4>
@@ -452,9 +461,12 @@ int main(void)
 
 <h4>Entonces:</h4>
 <ul>
-  <li><strong><code>p + 1</code></strong> &rArr; avanza <strong><code>sizeof(T)</code></strong> bytes. NO SUMA 1 byte. NO SUMA direcciones "a ojo".</li>
+  <li><strong><code>p + 1</code></strong> &rArr; avanza <strong><code>sizeof(T)</code></strong> bytes. NO SUMA 1 byte. NO SUMA direcciones arbitrariamente.</li>
   <li>Suma 1 elemento del <strong><code>tipo T</code></strong>.</li>
 </ul>
+
+<h4>En general:</h4>
+<pre><code class="language-c">p + n &rArr avanza n * sizeof(T) bytes</code></pre>
 
 <h3>Ejemplo con array:</h3>
 <pre><code class="language-c">
@@ -926,5 +938,6 @@ int main(void)
 
 
 </html>
+
 
 
