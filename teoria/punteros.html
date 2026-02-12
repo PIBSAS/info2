@@ -91,7 +91,7 @@ $(PROG): $(OBJ)
 	$(CC) $(OBJ) -o $(PROG)
 
 $(OBJ): main.c
-	$(CC) $(OBJ) -c main.c
+	$(CC) $(CFLAGS) -c main.c
 
 .PHONY: clean
 clean:
@@ -194,7 +194,7 @@ $(PROG): $(OBJ)
 	$(CC) $(OBJ) -o $(PROG)
 
 $(OBJ): main.c
-	$(CC) $(OBJ) -c main.c
+	$(CC) $(CFLAGS) -c main.c
 
 .PHONY: clean
 clean:
@@ -926,3 +926,4 @@ int main(void)
 
 
 </html>
+
