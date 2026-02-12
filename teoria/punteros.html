@@ -104,7 +104,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -206,7 +206,8 @@ clean:
 
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o dimension
-#include <stdio.h>
+
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -294,7 +295,8 @@ clean
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
-#include <stdio.h>
+
+#include &lt;stdio.h&gt;
 int main(void)
 {
     int x = 10;
@@ -373,7 +375,8 @@ clean
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
   // gcc -std=c11 -Wall -Wextra -pedantic main.c -o operaciones
-#include <stdio.h>
+
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -518,8 +521,10 @@ clean
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-#include <stdio.h>
-#include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
+//gcc -std=c11 -Wall -Wextra -pedantic main.c -o aritmetica
+
+#include &lt;stdio.h&gt;
+#include &lt;stddef.h&gt; //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
 
 int main(void)
 {
@@ -700,7 +705,8 @@ clean:
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o vectores
-#include <stdio.h>
+
+#include &lt;stdio.h&gt;
 
  int main(void)
  {
@@ -835,7 +841,8 @@ clean:
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o parametros
-#include <stdio.h>
+
+#include &lt;stdio.h&gt;
 
 /* ---------- Ejemplo 1: PASAJE POR VALOR (NO FUNCIONA) ---------- */
 
@@ -915,6 +922,5 @@ int main(void)
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
 </body>
-
 
 </html>
