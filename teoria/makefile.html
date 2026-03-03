@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makefile</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-03-03T13:52:00"/>
+  <meta name="AppVersion" content="15.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism.css">
+  
+</head>
+<body>
+
+<header class="site-header">
+  <p class="materia">Informática II</p>
+</header>
+
+<main>
+<div class="container">
+<h1>Makefile</h1>
+
+<h2>¿Qué es?:</h2>
+  
+<p>
+  Un Makefile es un archivo de texto que contiene un conjunto de reglas
+  para compilar programas y manejar dependencias automáticamente.
+</p>
+
+<h3>Permite:</h3>
+  <ul>
+    <li>Definir qué archivos dependen de otros.</li>
+    <li>Especificar cómo generar objetos (.o) y ejecutables.</li>
+    <li>Evitar recompilar archivos que no cambiaron.</li>
+    <li>Facilitar la limpieza de archivos intermedios con "make clean".</li>
+</ul>
+<p>
+  En proyectos de C, se usa junto con el comando <pre><code>make</code></pre> para construir
+  programas sin tener que escribir manualmente todos los comandos <b>gcc</b>.
+</p>
+
+<h2>Makefile básico</h2>
+
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+<h3>Se indica:</h3>
+  <ul>
+    <li><b>CC</b> Compilador</li>
+    <li><b>CFLAGS</b> Opciones de compilacion</li>
+    <li><b>PROG</b> Nombre del ejecutable</li>
+    <li><b>OBJ:</b> Objetos que se generarán del source code</li>
+    <li><b>$(PROG): $(OBJ):</b> Target principal, genera el ejecutable main a partir de main.o. Si main.o no está actualizado, se recompila primero.</li>
+    <li><b>$(OBJ): main.c:</b> Regla de compilación de objetos. Crea main.o desde main.c. Gracias a $(CFLAGS) respeta -Wall -Wextra -pedantic y avisa de warnings importantes.</li>
+    <ul>
+      <li>Limpieza</li>
+      <li><b>.PHONY</b> Asegura que clean siempre se ejecute aunque haya un archivo llamado clean</li>
+      <li><b>del $(OBJ) $(PROG).exe</b> Borra .o y .exe para empezar limpio.</li>
+    </ul>
+  </ul>
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="../index.html" class="btn">Anterior</a>
+  <a href="../teoria/file.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="../js/prism.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>
