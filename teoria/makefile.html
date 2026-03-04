@@ -53,7 +53,7 @@
   se amplía a:
 </p>
 
-<pre><code class="language-c">gcc -std=c11 -Wall -Wextra main.c -o main</code></pre>
+<pre><code class="language-c">gcc -std=c11 -Wall -Wextra -pedantic main.c -o main</code></pre>
 
 <p>
   Obviamente luego usando un IDE estas instrucciones las pasamos a su configuración si ya no lo están. 
@@ -86,8 +86,10 @@ clean:
     <li><b><code>CFLAGS</code></b> Opciones de compilacion</li>
     <li><b><code>PROG</code></b> Nombre del ejecutable</li>
     <li><b><code>OBJ</code>:</b> Objetos que se generarán del source code</li>
-    <li><b><code>$(PROG): $(OBJ)</code>:</b> Target principal, genera el ejecutable <code>main</code> a partir de <code>main.o</code>. Si <code>main.o</code> no está actualizado, se recompila primero.</li>
-    <li><b><code>$(OBJ): main.c</code>:</b> Regla de compilación de objetos. Crea <code>main.o</code> desde <code>main.c</code>. Gracias a <code>$(CFLAGS)</code> respeta <code>-Wall -Wextra -pedantic</code> y avisa de warnings importantes.</li>
+    <li><b><code>$(PROG): $(OBJ)</code>:</b> Target principal, genera el ejecutable <code>main</code> a partir de <code>main.o</code>.
+		Si <code>main.o</code> no está actualizado, se recompila primero.</li>
+    <li><b><code>$(OBJ): main.c</code>:</b> Regla de compilación de objetos. Crea <code>main.o</code> desde <code>main.c</code>.
+		Gracias a <code>$(CFLAGS)</code> respeta <code>-Wall -Wextra -pedantic</code> y avisa de warnings importantes.</li>
     <li>
       <b>Limpieza:</b>
       <ul>
@@ -122,10 +124,7 @@ clean:
 
 <h2>Multiples source code</h2>
 
-<p>
-
-</p>
-<pre><code class="language-c"></code>
+<pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
@@ -140,7 +139,7 @@ main.o: main.c suma.h
 suma.o: suma.c suma.h
 	$(CC) $(CFLAGS) -c suma.c
 
-.PHONY:clean
+.PHONY: clean
 clean:
 	del *.o programa.exe
 </code></pre>
@@ -149,7 +148,7 @@ clean:
 
 <p>
 Declaración de variables, compilador, opciones de compilación, objetos, dependencias, se agrega <code>-MMD</code> y <code>-MP</code>
-<code>-MMD</code> Genera un archivo <code>.d</code> con las dependencias reales (<code>.c &rAarr; .h</code>)
+<code>-MMD</code> Genera un archivo <code>.d</code> con las dependencias reales (<code>.c &rarr; .h</code>)
 <code>-MP</code> Evita errores si un header se borra.
 
 Cada compilación genera un archivo <code>.d</code> con las dependencias reales del objeto (<code>.c</code> y <code>.h</code>)
@@ -157,7 +156,7 @@ De esta manera, al agregar nuevos <code>.c</code> o cambiar que archivos forman 
 solo hay que editar <b>OBJ</b> en el Makefile, los <code>.h</code> se detectan automáticamente.
 </p>
 
-<pre><code class="language-c"></code>
+<pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic -MMD -MP
 
@@ -186,7 +185,8 @@ clean:
 
 <p>
 Una librería estática es un archivo <code>.a</code> que contiene uno o más objetos, como un <code>.zip</code>
-Para crear una librería estática, usamos el binario <code>ar</code> (<b>archiver</b>) con las opciones <code>rcs</code> (<b>r: replace/add, c: create sí no existe, s: índice de símbolos</b>):
+Para crear una librería estática, usamos el binario <code>ar</code> (<b>archiver</b>) 
+con las opciones <code>rcs</code> (<b>r: replace/add, c: create sí no existe, s: índice de símbolos</b>):
 <code>ar rcs liboperaciones.a suma.o resta.o</code>
 
 Llamamos al archiver, le pasamos las opciones, el nombre de la librería con la palabra <code>lib</code> antes del nombre, la extensión <code>.a</code> y los objetos que se incluirán en la libreria
@@ -195,7 +195,7 @@ Pero para tener esos objetos, debemos compilar sin linkear usando <b>gcc</b>:
 
 <pre><code class="language-c">gcc -std=c11 -Wall -Wextra -pedantic -c suma.c //La cual creara suma.o</code></pre>
 
-<pre><code class="language-c">gcc -std=c11 -Wall -Wextra -pedantic -c resta.c</code></pre> <b>La cual creara <code>resta.o</code></b>
+<pre><code class="language-c">gcc -std=c11 -Wall -Wextra -pedantic -c resta.c //La cual creara resta.o</code></pre>
 
 <p>
 Ahora si podemos crear la librería estática con <code>archiver</code>.
@@ -271,7 +271,7 @@ nm programa
 </ul>
 
 <h3>Makefile:</h3>
-<pre><code class="language-c"></code>
+<pre><code class="language-c">
 ######################################
 # Libreria estatica con Makefile:
 ######################################
@@ -391,7 +391,7 @@ Veremos:
 
 <h3>Makefile:</h3>
 
-<pre><code class="language-c"></code>
+<pre><code class="language-c">
 # Declarar variable que indique el compilador y archiver a usar, y sus opciones
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic -MMD -MP -fPIC
@@ -442,7 +442,7 @@ clean:
 
 <h2>Librería dinámica universal con detección de sistema operativo</h2>
 
-<pre><code class="language-c"></code>
+<pre><code class="language-c">
 #############################################################################
 # Libreria dinamica con Makefile para Windows y linux deteccion automatica:
 #############################################################################
