@@ -152,7 +152,7 @@ Declaración de variables, compilador, opciones de compilación, objetos, depend
 <code>-MMD</code> Genera un archivo <code>.d</code> con las dependencias reales (<code>.c &rAarr; .h</code>)
 <code>-MP</code> Evita errores si un header se borra.
 
-Cada compilación genera un archivo <code>.d</code> con las dependencias reales del objeto (<code>.c</code> y <code>.h</code>
+Cada compilación genera un archivo <code>.d</code> con las dependencias reales del objeto (<code>.c</code> y <code>.h</code>)
 De esta manera, al agregar nuevos <code>.c</code> o cambiar que archivos forman el programa,
 solo hay que editar <b>OBJ</b> en el Makefile, los <code>.h</code> se detectan automáticamente.
 </p>
@@ -200,7 +200,7 @@ Pero para tener esos objetos, debemos compilar sin linkear usando <b>gcc</b>:
 <p>
 Ahora si podemos crear la librería estática con <code>archiver</code>.
 Tras tener la librería estática, la cual hará nuestro ejecutable de mayor tamaño, e incluirá sólo lo que nuestro <code>main</code> use de la librería, haciéndolo autónomo.
-Compilaremmos y linkearemos nuestro ejecutable, indicando el path donde se encuentra la librería con la opción <code>-LPath</code> 
+Compilaremos y linkearemos nuestro ejecutable, indicando el path donde se encuentra la librería con la opción <code>-LPath</code> 
 donde <code>Path</code> en este caso será <code>.</code> ya que la librería se encuentra en el
 mismo directorio que el source code.
 Y la opción <code>-lNombre</code> nombre de la libreria <code>-l(library)</code> pero pasamos el nombre sin la palabra <code>lib</code>:
@@ -216,7 +216,7 @@ entonces solo agregará el código de la función <b>suma</b> al ejecutable gene
 <h3>Ventajas:</h3>
 <ul>
   <li>Ejecutable rápido</li>
-  <li>No hay lookup dinamico</li>
+  <li>No hay lookup dinámico</li>
   <li>Ideal para sistemas embebidos</li>
   <li>No depende del sistema</li>
   <li>Muy simple conceptualmente</li>
@@ -240,23 +240,31 @@ entonces solo agregará el código de la función <b>suma</b> al ejecutable gene
   <li>Generar índice de símbolos: <code>ar s libNOMBRE.a</code></li>
 </ul>
 
-<h3><code>nm</code> es una herramienta que lista los simbolos del ejecutable:</h3>
+<h3><code>nm</code> es una herramienta que lista los símbolos del ejecutable:</h3>
 <ul>
   <li><code>.o</code>, <code>.a</code>, <code>.exe</code></li>
 </ul>
 <p>
-Un simbolo es una funcion, una variable global, algo que el linker puede resolver.
+Un símbolo es una funcion, una variable global, algo que el linker puede resolver.
 </p>
 
 <h3>Ejecutemos en la terminal los siguientes comandos y observemos la salida:</h3>
 
+<p><strong>En Windows (MinGW):</strong></p>
 <pre><code class="language-c">
 nm suma.o
 nm liboperaciones.a
 nm programa.exe
 </code></pre>
 
-<h3>Un simbolo puede estar:</h3>
+<p><strong>En Linux:</strong></p>
+<pre><code class="language-c">
+nm suma.o
+nm liboperaciones.a
+nm programa
+</code></pre>
+
+<h3>Un símbolo puede estar:</h3>
 <ul>
   <li><b>Definido:</b> <code>T</code>, <code>t</code>, <code>D</code>, <code>B</code></li>
   <li><b>Indefinido:</b> <code>U</code> lo debe resolver el linker</li>
@@ -318,7 +326,7 @@ clean:
 <h2>Librería dinámica</h2>
 
 <p>
-<code>.ddl</code> (Windows) / <code>.so</code> (Linux)
+<code>.dll</code> (Windows) / <code>.so</code> (Linux)
 Es código compilado que NO se copia dentro del ejecutable; el ejecutable queda más chico.
 Y en tiempo de ejecución (runtime), el sistema operativo carga la <code>.dll</code> o <code>.so</code>, resuelve los símbolos (funciones).
 El programa llama a ese código externo.
@@ -328,7 +336,7 @@ Se usa cuando varios programas usan la misma librería y queremos actualizar la 
 Queremos reducir el ejecutable; estamos haciendo APIs, frameworks, plugins.
 </p>
 <p>
-No es recomendado para sistemas embebidos, no es portable en un único <code>.exe</code>, no queremoss depender del entorno.
+No es recomendado para sistemas embebidos, no es portable en un único <code>.exe</code>, no queremos depender del entorno.
 </p>
 
 <h3>Compilar objetos sin linkear</h3>
@@ -366,7 +374,11 @@ En Powershell agregamos "" porque sino lo interpreta como un array
 
 <h3>Comprobamos con <code>nm</code>:</h3>
 
+<p><strong>En Windows (MinGW):</strong></p>
 <pre><code class="language-c">nm programa.exe | findstr suma</code></pre>
+
+<p><strong>En Linux:</strong></p>
+<pre><code class="language-c">nm programa | grep suma</code></pre>
 
 <p>
 Veremos:
@@ -470,7 +482,7 @@ else
 	IMPLIB = liboperaciones.a
 	SHAREDFLAGS = -shared -fPIC
 	IMPLIBFLAGS =
-	LDFLAGS = -L.
+	LDFLAGS = -L. -Wl,-rpath,.
 	LDLIBS = -loperaciones
 	RM = rm -f
 	EXE =
@@ -504,6 +516,129 @@ $(SHARED_LIB): $(LIB_OBJ)
 .PHONY: clean
 clean:
 	$(RM) *.o *.d *.so *.dll *.a programa$(EXE)
+</code></pre>
+
+<h2>Archivos base utilizados en todos los ejemplos:</h2>
+
+<div class="nota">
+    <p>Según el ejemplo trabajado, la estructura de carpetas será la siguiente:</p>
+
+    <p><strong>Ejemplo básico:</strong></p>
+    <ul>
+        <li>proyecto_basico
+            <ul>
+                <li><code>main.c</code></li>
+                <li><code>suma.c</code></li>
+                <li><code>suma.h</code></li>
+                <li><code>Makefile</code></li>
+            </ul>
+        </li>
+    </ul>
+
+    <p><strong>Resto de los ejemplos:</strong></p>
+    <ul>
+        <li>proyecto_operaciones
+            <ul>
+                <li><code>main.c</code></li>
+                <li><code>suma.c</code></li>
+                <li><code>suma.h</code></li>
+                <li><code>resta.c</code></li>
+                <li><code>resta.h</code></li>
+                <li><code>Makefile</code></li>
+            </ul>
+        </li>
+    </ul>
+
+    <p>
+        Todos los archivos fuente se encuentran en el mismo directorio que el
+        <code>Makefile</code>. Esto permite que las reglas de compilación,
+        enlazado y generación de librerías funcionen correctamente.
+    </p>
+
+    <p>
+        En los ejemplos donde se utiliza el comando <code>nm</code>, se incluye
+        una variable global en <code>suma.c</code> únicamente con fines didácticos,
+        para observar su símbolo en la tabla generada.
+    </p>
+</div>
+
+<h3><code>main.c:</code> Versión básica</h3>
+
+<pre><code class="language-c">
+#include <stdio.h>
+#include "suma.h"
+
+int main(void)
+{
+    printf("%d\n", suma(2, 3));
+
+    return 0;
+}
+</code></pre>
+
+<h3><code>main.c:</code> Solo para dependencias automáticas</h3>
+
+<pre><code class="language-c">
+#include <stdio.h>
+#include "suma.h"
+#include "resta.h"
+
+int main(void)
+{
+    printf("%d\n", suma(2, 3));
+    printf("y");
+    printf("%d\n", resta(6, 3));
+
+    return 0;
+}
+</code></pre>
+
+<h3><code>suma.c:</code></h3>
+
+<pre><code class="language-c">
+#include "suma.h"
+
+/* Variable global definida (inicializada) solo para que se vea en el comando nm la salida D */
+int contador = 0;
+
+int suma(int a, int b)
+{
+    contador++; 
+    return a+b;
+}
+</code></pre>
+
+<h3><code>suma.h:</code></h3>
+
+<pre><code class="language-c">
+#ifndef SUMA_H
+#define SUMA_H
+
+int suma(int a, int b);
+
+#endif
+</code></pre>
+
+<h3><code>resta.c:</code></h3>
+
+<pre><code class="language-c">
+#include "resta.h"
+
+int resta(int a, int b)
+{
+    return a-b;
+}
+</code></pre>
+
+<h3><code>resta.h:</code></h3>
+
+<pre><code class="language-c">
+#ifndef RESTA_H
+#define RESTA_H
+
+int resta(int a, int b);
+
+#endif
 </code></pre>
 
 </div>
