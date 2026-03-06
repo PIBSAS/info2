@@ -112,24 +112,659 @@ int main(void)
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = dimension
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o dimension
+/*
+    TODOS los punteros tienen la misma dimension/tamanio (usemos el sinonimo dimension para tamanio, para claridad en los comentarios).
+    Sin importar a que tipo apunten, ya que su dimension proviene del tipo de arquitectura en 32 bits es de 4 bytes, en 64 bits es de 8 bytes, se puede verificar con sizeof()
+    - sizeof(int *)
+    - sizeof(float *)
+    - sizeof(char *)
+    - sizeof(double *)
+    No confundir con sizeof(int).
+
+    Ej:
+    - int *pi;
+    - float *pf;
+    - char *pc;
+    En una misma arquitectura, siempre sera cierto que:
+    - sizeof(pi) == sizeof(pf) == sizeof(pc)
+
+    Para imprimir sizeof(puntero a tipo de dato) usamos el especificador de formato %zu.
+    Ej:
+    - printf("%zu", sizeof(int *));
+    - printf("%zu", sizeof(char *));
+    Van a imprimir lo mismo, que corresponde a la dimension del puntero en esa arquitectura.
+
+    No confundir:
+    - int x;
+    - int *pi = &x;
+    - printf("%zu", sizeof(pi)); Dimension del puntero pi. Mostrara 8 bytes.
+    - printf("%zu", sizeof(*pi)); Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes
+
+    Relacion con arrays:
+    - int a[10]; sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
+    - int *p = a; sizeof(p); da sizeof(int *) = 8 bytes
+*/
+#include <stdio.h>
+
+int main(void)
+{
+    int x;
+    char c;
+    double d;
+
+    int *pi = &x;
+    char *pc = &c;
+    double *pd = &d;
+
+    printf("int *:\t%zu bytes\n", sizeof(pi)); // Dimension de puntero
+    printf("int:\t%zu bytes\n", sizeof(*pi));  // Dimension de tipo de dato
+
+    printf("char *:\t%zu bytes\n", sizeof(pc));
+    printf("char:\t%zu bytes\n", sizeof(*pc));
+
+    printf("double *:\t%zu bytes\n", sizeof(pd));
+    printf("double:\t%zu bytes\n", sizeof(*pd));
+
+    return 0;
+}
+</code></pre>
+
+<h1>Aritmetica</h1>
+
+<h2 class="teoria">Operadores:</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o operadores
+/*
+    Operadores de punteros:
+    - Operador & (Direccionamiento:address-of)
+        Que hace?:
+        - Obtiene la direccion de memoria de una variable
+        - int x;
+        - int *pi = &x;
+        - x: valor
+        - &x: direccion de x
+        - int *: tipo de dato de &x
+        Se usa para:
+        - Inicializar punteros.
+        - Pasar variables a funciones.
+        - scanf.
+        
+    - Operador * (Desreferenciacion:Indireccion:object-of)
+        Que hace?:
+        - Accede al valor almacenado en la direccion a la que apunta el puntero.
+        - int x = 10;
+        - int *pi = &x;
+        - printf("%d", *pi); Muestra 10
+        - pi: direccion de x.
+        - *pi: valor almacenado en esa direccion
+        - Usar * sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)
+*/
+
+#include <stdio.h>
+int main(void)
+{
+    int x = 10;
+    int y = 20;
+
+    /*
+        Operador & address-of
+    */
+    int *p1 = &x;
+    int *p2 = &y;
+
+    printf("Valores iniciales:\n");
+    printf("x = %d, y = %d\n", x, y);
+
+    /*
+        Operador * Desrefenciacion, object-of
+    */
+    printf("\nAcceso mediante punteros a los valores almacenados en la direccion apuntada:\n");
+    printf("*p1 = %d\n", *p1);
+    printf("*p2 = %d\n", *p2);
+
+    return 0;
+}
+</code></pre>
+
+<h2 class="teoria">Operaciones:</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o operaciones
+
+/*
+    Operaciones que admiten los punteros
+    - Operador = (Asignacion entre punteros)
+        Que hace?:
+        - Copia la direccion de memoria, no el valor almacenado en esa direccion a la que apunta.
+        - int *p1, *p2;
+        - p1 = &x; Inicializa el puntero almacenando la direccion en memoria de x
+        - p2 = p1; Se asigna la direccion del puntero p1 en el puntero p2, ambos apuntan a la misma direccion que almacena el tipo de dato, de este modo p1 y p2 apuntan a la misma direccion
+    
+    - Operadores de comparacion (==, !=, <, >, <=, >=)
+        Que hace?:
+        - Comparan direcciones, NO valores.
+        - if(pi == p2) Si apuntan al mismo lugar se cumple el bucle
+        Para comparar valores:
+        - if(*p1 == *p2) Si almacenan el mismo valor en su direccion de memoria se cumple el bucle
+*/
+
+#include <stdio.h>
+
+int main(void)
+{
+    int x = 10;
+    int y = 20;
+
+    int *p1 = &x;
+    int *p2 = &y;
+
+    /*
+        Operador = Asignacion entre punteros
+    */
+    p2 = p1; // Ambos apuntan a la misma direccion, la de x
+
+    printf("\n Despues de p2 = p1 los valores a los que acceden ambos punteros es:\n");
+    printf("*p1 = %d\n", *p1);
+    printf("*p2 = %d\n", *p2);
+
+    /*
+        Modificacion del valor almacenado en la direccion a traves del puntero
+    */
+    *p1 = 50;
+
+    printf("\nDespues de modificar *p1 el valor de x almacenado en la direccion a la que apunta es:\n");
+    printf("x = %d\n", x);
+    printf("*p2 = %d (p2 apunta a x)\n", *p2);
+
+    /*
+        Operadores de comparacion
+    */
+    if (p1 == p2)
+    {
+        printf("\np1 y p2 apuntan a la misma direccion\n");
+    }
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Aritmetica:</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o aritmetica
+
+/*
+    - Aritmetica de punteros (+, -, ++, --)
+        Que hace?:
+        - NO trabaja en bytes, trabaja en elementos del tipo apuntado.
+        - Un puntero "sabe" a que tipo apunta.
+        - La aritmetica esta definida dentro de un mismo array.
+
+        Operaciones permitidas:
+        - +: p + n Donde n es un numero. Valido si el resultado permanece dentro del mismo array (o uno despues del ultimo).
+        - -: p - n
+        - ++: p++
+        - --: p--
+        - p1 -p2 Solo si apuntan al mismo array
+    
+        Operaciones que NO TIENEN SENTIDO con punteros:
+        - p + p
+        - *: Multiplicacion  p * n Causa error
+        - /: Division p / n Causa error
+        - %: Modulo p % n Causa error
+        - Operaciones con float.
+        - Desplazamientos (<<, >>)
+        - Operaciones lógicas (&&, ||)
+
+        Regla formal importante:
+        - La aritmetica de punteros esta definida unicamente cuando el puntero
+        - apunta a elementos de un mismo array (o one-past-the-end).
+        - Fuera de ese contexto -> comportamiento indefinido (UB).
+
+        Regla fundamental
+        - Sea T cualquier tipo valido en C:
+        - T *p;
+        - Entonces:
+        - p + 1 ==> avanza sizeof(T) bytes. NO SUMA 1 byte. NO SUMA direcciones arbitrariamente.
+        - Suma 1 elemento del tipo T.
+
+        En general:
+            - p + n -> avanza n * sizeof(T) bytes
+        
+        Ejemplo con array:
+        - int a[5] = {10, 20, 30, 40, 50}; vector de 5 elementos 0-4 de tipo entero llamado a
+        - int *p = a; Equivale a &a[0] es decir le esta asignando la direccion el primer elemnto del array declarado
+        - p = p + 1; Avanza sizeof(int) bytes, apunta al siguiente elemento (a[1] cuyo valor en esa direccion es 20). No suma bytes, suma elementos del tipo de dato.
+        - Si sizeof(int) == 4 cada +1, mueve 4 bytes, pero eso es un detalle de implementacion.
+        - Un puntero solo puede apuntar a elementos validos del array. Un elemento despues del ultimo (ome-past-the-end) como puntero pero no se puede desreferenciar
+        - Un puntero NO puede desreferenciar fuera del array. Apuntar antes del primer elemento (a[-1])
+        - Valido:
+        - int *p = a + 5; Apunta "uno despues" de a[4]
+        - Invalido:
+        - *p = *(a + 5); Comportamiento indefinido(UB)
+        - p = a - 1; Comportamiento indefinido(UB)
+    
+    - Especificador de formato %td
+    - Especificador de formato para imprimir valores del tipo ptrdiff_t es %td
+    Que es ptrdiff_t?:
+        - Cuando restamos dos punteros del mismo array:
+        - p - a; No devuelve int, ni size_t, devuelve ptrdiff_t
+        Que representa?:
+        - La cantidad de elementos entre ambos punteros
+        - Puede ser positivo o negativo.
+        Se debe incluir para seguir el estandar, la libreria stddef.h
+    
+*/
+
+#include <stdio.h>
+#include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
+
+int main(void)
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int *p = a; // Declaracion y asignacion de la direccion del primer elemento del array, es decir apunta a a[0].
+
+    printf("p apunta a a[0] cuyo valor almacenado en esa direccion es: %d\n", *p);
+
+    p = p + 1;
+    printf("p + 1 apunta a a[1], cuyo valor almacenado en esa direccion es: %d\n", *p);
+
+    p++; //sumamos 1 elemento, llevandonos de a[1] a a[2]
+    printf("\np++ apunta a a[2], cuyo valor almacenado en la direccion es: %d\n", *p);
+
+    p = p - 2;
+    printf("\np - 2 vuelve a a[0], cuyo valor almacenado en la direccion es: %d\n", *p);
+
+    /*
+    One-past-the-end es valido como puntero
+    pero NO se puede desreferenciar
+    */
+    p = a + 5;
+    printf("\np apunta a one-past-the-end (a + 5)\n");
+    printf("Direccion de p %p\n", (void *)p);
+    /*
+        Comparacion valida
+    */
+    if (p > a)
+    {
+        printf("p es mayor que a (apunta a una direccion mas alta)\n");
+    }
+    /*
+        Diferencia entre punteros
+    */
+    printf("\nCantidad de elementos entre p y a: %td\n", p - a);
+    
+
+    return 0;
+}
+</code></pre>
+
+<h2 class="teoria">Vectores:</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o vectores
+ /*
+    En C, un vector y un puntero NO son lo mismo, pero estan intimamente relacionados
+    Que es un array?:
+    - Un array es un objeto que representa N objetos del mismo tipo, almacenados en memoria contigua, cuyo tipo incluye su tamaño.
+    - int a[5] = {10, 20, 30, 40, 50}; 
+    - a no es una variable asignable.
+    - a no es un puntero.
+    - a representa un objeto de tipo "array de N elementos"
+
+    Que pasa cuando usamos el nombre del array?
+    - En la mayoria de las expresiones, un array se convierte implícitamente en un puntero al primer elemento:
+    - a
+    - Se convierte automaticamente en:
+    - &a[0] Es decir:
+    - Tipo: int *
+    - Valor: direccion del primer elemento.
+    - Ejemplo:
+    - int *p = a; Es correcto, se declara el puntero a int p y se le asigna la direccion de memoria del primer elemento de a[0]
+    - int *q = &a[0]; Es correcto y exactamente lo mismo que en la linea anterior.
+    - Pero esto no convierte a a en un puntero, solo significa que en esa expresion se usa su direccion inicial
+    - Excepciones donde el array NO decae (decay) a puntero.
+    - sizeof(a)
+    - &a
+    - Inicializacion directa del array.
+
+    Diferencia fundamental con el puntero:
+    - int a[5];
+    - sizeof(a) es 5 * sizeof(int) = 5 * 4 bytes = 20 bytes su dimension
+    - a = p; NO PERMITIDO
+    - No puede cambiar a  que direccion de memoria apunta
+    - Puntero: 
+    - int *p;
+    - sizeof(p) Dimension del puntero segun arquitectura
+    - p = a; PERMITIDO
+    - Puede apuntar a otra cosa.
+
+    Acceso a elementos
+    - Misma sintaxis, distinto significado.
+    - a[2] Acceso al elemento 2 del array a.
+    - p[2] Acceso al objeto que esta 2 elementos despues de la direccion que guarda el puntero p.
+    - Ambos significan:
+    - *(a + 2)
+    - *(p + 2)
+    . []: El operador [] es pura aritmetica de punteros.
+
+    Relacion formal entre punteros y arrays
+    - Por definicion del lenguaje
+    - a[i] == *(a + i) 
+    - p[i] == *(p + i)
+    - Esto explica porque funciona esto:
+    - int *p = a;
+    - printf("%d", p[3]); Imprime 40
+
+    &a NO es lo mismo que a
+    - Esto es clave y suele confundir
+    - &a tipo: int (*)[5] Puntero al array completo
+    - a  tipo: int * Puntero al primer int
+    - Direcciones iguales, tipos distintos. Ej:
+      - int a[5];
+      - int *p =a;
+      - printf("a\n", (void *)a);
+      - printf("&a\n", (void *)&a); Direccion del array completo
+      - printf("p\n", (void *)p);
+    - Las direcciones se ven iguales, los tipos NO, el compilador las trata distinto
+   
+   Un array no es un puntero, 
+   pero en la mayoría de las expresiones se convierte implícitamente en un puntero al primer elemento.
+   El operador [] está definido en términos de aritmética de punteros, 
+   lo que explica por qué la misma sintaxis funciona 
+   tanto con arrays como con punteros.
+
+*/
+ 
+ #include <stdio.h>
+
+ int main(void)
+ {
+   int a[5] = {10, 20, 30, 40, 50}; // Declaracion de un array de 5 elementos del tipo int con dimension 20 bytes(5*sizeof(int))
+   int *p = a; // Declaracion de puntero a int p y asignacion de la primer direccion de memoria del array a (a[0])
+
+   printf("a[2] = %d\n", a[2]);
+   printf("p[2] = %d\n", p[2]);
+
+   printf("*(a + 2) = %d\n", *(a + 2));
+   printf("*(p + 2) = %d\n", *(p + 2));
+
+   printf("\nsizeof(a) = %zu\n", sizeof(a));
+   printf("\nsizeof(p) = %zu\n", sizeof(p));
+
+   // Direccion de a cast a (void *)a. Ya que a (en esta expresion) decae a int *. &a es tipo: int (*)[5] array de 5 int(20bytes-array completo). p es tipo int *
+   printf("\na\t = %p\n", (void *)a); // Direccion a traves de a
+   printf("\n&a\t = %p\n", (void *)&a); // Direccion de a
+   printf("\np\t = %p\n", (void *)p); // Direccion del puntero p
+   
+   return 0;
+ }
+</code></pre>
+
+<h2 class="teoria">Parametros:</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o parametros
+
+/*
+    Pasaje de parametros por referencia
+    - En C NO existe el pasaje por referencia como concepto del lenguaje.
+    - C siempre pasa los argumentos por valor.
+    - Lo que hacemos en C es:
+        - Pasar la direccion de un objeto.
+        - Y operar sobre ese objeto a traves de un puntero.
+    
+    Ejemplo clasico:
+    - Porque NO funciona el "pasaje por valor"
+    - void cambiar(int x)
+    - {
+    -   x = 100;
+    - }
+    - int main(void)
+    - {
+    -   int a = 10;
+    -   cambiar(a);
+    -   printf("%d\n", a); // Imprime 10
+    -   return 0;
+    - }
+    Que sucede aca?
+    - a vale 10.
+    - Se copia su valor en x
+    - Se modifica la copia.
+    - a nunca cambia
+    - Esto es pasaje por valor puro
+
+    Solucion:
+    - Pasar la direccion(Puntero)
+    - void cambiar(int *p)
+    - {
+    -   *p = 100;
+    - }
+    - int main(void)
+    - {
+    -   int a = 10;
+    -   cambiar(&a);
+    -   printf("%d\n", a); // Imprime 100
+    -   return 0;
+    - }
+    Que sucede aca?
+    - int a = 10; // Asignacion de variable
+    - cambiar(&a); Direccion de memoria de a, se pasa esa dioreccion a la funcion
+    - void cambiar(int *p) p recibe una copia de la direccion, p apunta a a
+
+    Desreferenciacion object-of a:
+    - *p = 100; Se escribe en la memoria de a el valor 100, a cambia.
+    - No se paso a por referencia.
+    - Se paso la direccion de a por valor
+
+    Relacion con arrays:
+    - void imprimir(int *p, int n)
+    - {
+    -   for (int i = 0; i < n; i++)
+    -       printf("%d ", p[i]);
+    - }
+
+    Llamada:
+    - int a[5] = {1, 2, 3, 4, 5};
+    - imprimir(a, 5);
+    - a decae a &a[0]
+    - Se pasa un puntero
+    - La funcion accede al array original. Los arrays siempre se pasan por referencia en la practica
+    - Porque lo que se pasa es su direccion inicial.
+*/
+
+#include <stdio.h>
+
+/* ---------- Ejemplo 1: PASAJE POR VALOR (NO FUNCIONA) ---------- */
+
+void cambiar_valor(int x)
+{
+    x = 100;   // Se modifica SOLO la copia
+}
+
+/* ---------- Ejemplo 2: PASAJE DE DIRECCION (FUNCIONA) ---------- */
+
+void cambiar_direccion(int *p)
+{
+    *p = 100;  // Se modifica el objeto apuntado
+}
+
+/* ---------- Ejemplo 3: ARRAY COMO PARAMETRO ---------- */
+
+void imprimir_array(int *p, int n)
+{
+    for (int i = 0; i < n; i++)
+        printf("%d ", p[i]);
+    printf("\n");
+}
+
+int main(void)
+{
+    /* ===== Ejemplo 1 ===== */
+    int a = 10;
+
+    printf("Antes de cambiar_valor: a = %d\n", a);
+    cambiar_valor(a);
+    printf("Despues de cambiar_valor: a = %d\n", a);
+
+    /*
+        a NO cambia porque:
+        - Se paso el valor 10
+        - Se modifico una copia
+    */
+
+    /* ===== Ejemplo 2 ===== */
+    printf("\nAntes de cambiar_direccion: a = %d\n", a);
+    cambiar_direccion(&a);
+    printf("Despues de cambiar_direccion: a = %d\n", a);
+
+    /*
+        a cambia porque:
+        - Se paso su direccion
+        - Se escribio en su memoria
+    */
+
+    /* ===== Ejemplo 3 ===== */
+    int v[5] = {1, 2, 3, 4, 5};
+
+    printf("\nArray original:\n");
+    imprimir_array(v, 5);
+
+    /*
+        v decae a &v[0]
+        Se pasa la direccion del primer elemento
+        La funcion accede al array original
+    */
+
+    return 0;
+}
 </code></pre>
 
 <h1>Ejercicios:</h1>
@@ -138,12 +773,51 @@ int main(void)
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Comando de compilacion:
+ * - -std=c11  => utiliza el estandar C11.
+ * - -Wall     => activa advertencias comunes.
+ * - -Wextra   => activa advertencias adicionales.
+ * - -pedantic => exige cumplimiento estricto del estandar.
+ * - -0 main   => genera el ejecutable llamado 'main'.
+*/
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 1; // Declarar variable de tipo int inicializada en 1
+    int *pi = &i; // Declaracion de puntero a int y asignacion de direccion en memoria de la variable i del mismo tipo
+
+    printf(" i = %d\n", i); // Mostrar variable
+    printf("dir i = %p\n", &i); // Mostrar direccion en memoria de la variable, se usa el especificador %p, el cual esperra void *, el compilador indica que deberia pasarse el cast (void *)&i
+    //printf("dir i = %p\n", (void *)&i);
+    printf(" i = %d\n", *pi); // Mostrar el valor almacenado en la direccion del puntero, esto es desreferenciar el puntero
+    printf("dir i = %p\n", pi); // Mostrar la direccion a la que apunta el puntero usando el especificador %p, el cual esperra void *, el compilador indica que deberia pasarse el cast (void *)pi
+    //printf("dir i = %p\n", (void  *)pi);
+
+    return 0;
+}
 </code></pre>
 
 
@@ -151,217 +825,1158 @@ int main(void)
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable i de tipo int, y de los punteros *pi, *pj del mismo tipo, lo mismo para char y float */
+    int i, *pi, *pj;
+    char c, *pc;
+    float f, *pf;
+
+    /* Asignacion de la direccion en memoria de las variables i, c, f a sus correspondientes punteros del mismo tipo */
+    pi = &i;
+    pc = &c;
+    pf = &f;
+
+    /* Mostrar la direccion de las variables y el contenido almacenado en los punteros,
+     * el especificador %p espera el cast a void * segun nos advierte el compilador (void*)&variable y (void *)puntero */
+    printf("\nLa direccion de i es: %p\nEl contenido de pi es: %p\n", &i, pi);
+    printf("\nLa direccion de c es: %p\nEl contenido de pc es: %p\n", &c, pc);
+    printf("\nLa direccion de f es: %p\nEl contenido de pf es: %p\n", &f, pf);
+
+    /* Asignacion de un puntero a otro, se copia su direccion no el contenido, observar que ambos son del mismo tipo */
+    pj = pi;
+
+    /* Nuevamente mostrar direccion y contenido sin cast a void * de i, pi, pj que ahora tiene el contenido de pi */
+    printf("\nLa direccion de i es: %p\nEl contenido de pi es: %p\n", &i, pi);
+    printf("\nEl contenido de pj es: %p\n", pj);
+    
+    /* Asignacion de direccion ficticia al puntero pc, es erroneo, no se sabe si la direccion existe ni cual
+     * es su contenido y asignacion de valor entero como direccion al puntero pf, deberia ser una direccion de un float*/
+    pc = 0x7A34; // Es INCORRECTO, asignacion invalida de direccion (peligroso). Si se dereferencia produce comportamiento indefinido (UB).
+    pf = 567; // Es INCORRECTO, asignacion invalida de direccion (peligroso). Si se dereferencia produce comportamiento indefinido (UB).
+
+    /* Mostrar la nueva direccion almacenada en pc que cambio su direccion,
+     * Mostrar el contenido del puntero pf que ahora se le asigno un entero, 
+     * el compilador advertira el tipo de dato incorrecto.
+     * Ahora continen valores invalidos (direcciones arbitrarias) */
+    printf("\nEl contenido de pc es: %p\nEl contenido de pf es: %p\n",pc, pf);
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable de tipo int, y de puntero a int */
+    int i;
+    int *pi;
+
+    /* Asignacion de direccion de variable a puntero del mismo tipo,
+     * Asignacion indirecta: se modifica el valor de i a traves del puntero,
+     * usando el operador de indireccion (desreferenciacion), i = 45 */
+    pi = &i;
+    *pi = 45;
+
+    /* Mostrar el valor de la variable */
+    printf("El valor que contiene i es: %d\n", i);
+
+    /* Reasignacion directa de i, ahora *pi contiene 39*/
+    i = 39;
+
+    /* Mostrar el valor de i mediante el puntero con el operador de indireccion (desreferenciacion) */
+    printf("El valor que contiene i es: %d\n", *pi);
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable y puntero del mismo tipo */
+    int i;
+    int *pi;
+
+    /* Mostrar la direccion de i, el compilador espera el cast a void * para el especificador %p */
+    printf("La direccion de i es: %p\n", &i);
+
+    /* Asignacion de la direccion de i al puntero del mismo tipo */
+    pi = &i;
+
+    /* Mostrar la direccion de i mediante el puntero, el compilador espera el cast a void * para el especificador %p */
+    printf("\nLa direccion de i es: %p\n", pi);
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variables enteras y punteros a int */
+    int x, *pi, *pf, y, h;
+
+    /* Declaracion de punteros a char */
+    char *pc, *pd;
+
+    /* Declaracion de variables float y punteros a float */
+    float k, l, *pj, *pk;
+
+    /* Asignacion de direcciones a punteros del mismo tipo */
+    pi = &x;
+    pf = &y;
+
+    /* Resta de punteros a int.
+     * La resta de punteros solo esta definida si ambos apuntan 
+     * a elementos del mismo vector (o uno mas alla del final).
+     * En este caso x e y no forman un vector (array), por lo tanto
+     * el resultado es comportamiento indefinido (UB) */
+    y = pf - pi;
+    
+    pj = &l;
+    pk = &k;
+
+    /* Resta de punteros a float.
+     * Nuevamente, k y l no pertenecen al mismo vector (array),
+     * por lo tanto la operacion produce comportamiento indefinido (UB). */
+    x = pj - pk;
+
+    /* Asignacion entre punteros de tipos incompatibles.
+     * int* y float* son tipos distintos. 
+     * Esto genera una advertencia del compilador.
+     * Si luego se dereferencian puede producir comportamiento indefinido (UB). */
+    pi = pj;
+    pf = pk;
+
+    /* Aunque ahora ambos son int*, originalmente apuntaban
+     * a objetos float. La resta sigue siendo invalida porque
+     * no pertenecen al mismo vector (array). Produce comportamiento indefinido (UB). */
+    y = pi -pf;
+
+    /*Asignacion de punteros float* a punteros char*.
+     * Tipos incompatibles. Genera advertencia.
+     * No es una conversion segura. */
+    pc = pj;
+    pd = pk;
+
+    /* Resta de punteros char*.
+     * Aunque la unidad de desplazamiento es 1 byte,
+     * la operacion sigue siendo indefinida porque
+     * no apuntan al mismo vector (array). */
+    h = pc - pd;
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 06</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable entera y punteros a int, char y float */
+    int *pi, i;
+    char *pc;
+    float *pf;
+
+    /* Asignacion de valor 0 a los punteros.
+     * El valor 0 es convertido a puntero nulo.
+     * Sin embargo, estos punteros no apuntan a ningun objeto
+     * ni a ningun vector valido */
+    pi = pc = pf = 0x0000;
+
+    /* Aritmetica de punteros.
+     * La aritmetica de punteros solo esta definida cuando el puntero
+     * apunta a elementos de un mismo vector (o uno mas alla del final).
+     * Como aca no apuntan a un objeto valido, los incrementos
+     * producen comportamiento indefinido (UB). */
+    for (i = 0; i < 10; i++)
+    {
+        printf("%p\t%p\t%p\n", pi, pf, pc);
+        pi++; // Avanza 1 elemento de tipo int
+        pf++; // Avanza 1 elemento de tipo float
+        pc++; // Avanza 1 elemento de tipo char
+    }
+
+    /* Muestra las direcciones despues de los 10 incrementos:
+    * pi = pi_inicial + 10 elementos de tipo int
+    * pf = pf_inicial + 10 elementos de tipo float
+    * pc = pc_inicial + 10 elementos de tipo char 
+    * Ademas, el especificador %p espera argumentos de tipo void *,
+    * por lo que corresponde realizar el cast explicito, pero en la cursada no se realiza.
+    * Tener en cuenta que la aritmetica se realizo fuera de un vector valido,
+    * por lo tanto, el comportamiento sigue siendo indefinido (UB). */
+    printf("%p\t%p\t%p\n\n", pi, pf, pc);
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 07</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    float *p, *q;
+    int a;
+
+    /* Asignacion de valores enteros a punteros.
+     * Estas direcciones son arbitrarias y no 
+     * corresponden a objetos reales en memoria. */
+    p = 0x2000;
+    q = 0x200a;
+
+    /* La resta de punteros solo esta definida cuando ambos
+    * apuntan a elementos del mismo vector (o one-past-the-end).
+    * En este caso no apuntan a un vector valido, por lo tanto
+    * la operacion produce comportamiento indefinido (UB). 
+    * Si la operacion estuviera definida, el resultado de la resta
+    * representa la cantidad de elementos de tipo float entre
+    * ambas direcciones (segun el modelo del lenguaje).
+    * La resta de punteros devuelve un valor de tipo ptrdiff_t */
+    a = q-p;
+
+    printf("\n%d %p %p\n\n", a, p, q);
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 08</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    int i, *pi;
+    float j, *pj;
+    char k, *pk;
+
+    /* Asignacion de variables y direcciones a punteros segun su tipo */
+    i = 1000;
+    pi = &i;
+
+    j = 3.18;
+    pj = &j;
+
+    k = 'c';
+    pk = &k;
+
+    /*Mostrar valores y direcciones, %p espera el cast a vopid * */
+    printf("\n%d\t%p\t%f\t%p\t%c\t%p\n", i, pi, j, pj, k, pk);
+
+    /* Se reutiliza la variable i como contador del bucle,
+     * perdiendo el valor original (1000).
+     * Los punteros se incrementan pero
+     * La aritmetica de punteros solo esta definida dentro de un mismo vector
+     * (o one-past-the-end).
+     * Como aca apuntan a variables individuales y no a un vector,
+     * los incrementos producen comportamiento indefinido (UB). */
+    for (i = 5; i < 6; i++, pi++, pj++, pk++)
+    {
+        printf("\n%d\t%p\t%f\t%p\t%c\t%p\n", i, pi, j, pj, k, pk); // Se muestran variables y direcciones sin cast a void *
+        /* Se desreferencian mediante el operador de indireccion * los punteros que ya fueron desplazados
+        * fuera de un objeto valido. Esto produce comportamiento indefinido (UB) 
+        * y puede provocar lectura de memoria invalida. */
+        printf("\n%d\t%p\t%f\t%p\t%c\t%p\n", *pi, pi, *pj, pj, *pk, pk);
+    }
+
+    printf("\n\n");
+
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 09</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    int *pi, *pj;
+    int i, j;
+
+    pi = &i;
+    pj = &j;
+
+    /* La comparacion relacional (<, >, <=, >=) entre punteros solo esta definida:
+    * Cuando ambos apuntan a elementos del mismo vector (o one-past-the-end)
+    * En este caso apuntan a diferentes variables,
+    * por lo tanto el comportamiento es indefinido (UB). */
+    if (pi > pj)
+        printf("\npi es mayor a pj\n");
+    else
+        printf("\npi es menor a pj\n");
+
+    /* Esta comparacion (== y !=) entre punteros es valida
+     * siempre que los tipos sean compatibles.
+     * No requiere que apunten al mismo vector.
+     * En este caso la condicion es verdadera porque
+     * pi fue inicializado con &i. */
+    if (pi == &i)
+        printf("\npi es igual a &i\n");
+    else
+        printf("\npi no es igual a &i\n");
+    /* Comparacion entre puntero y entero distinto de 0.
+     * El estandar solo garantiza la conversion implicita
+     * del entero 0 a puntero nulo.
+     * Esta comparacion no esta definida por el lenguaje
+     * y puede generar diagnostici del compilador. */
+    if (pi > 0x300)
+        printf("\npi apunta a una direccion mayor a 0x300\n");
+    else
+        printf("\npi apunta a una direccion menoir a 0x300\n");
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 10</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
+#include <stdio.h>
+
+int main(void)
+{
+    long int l, *pl;
+    char *pc;
+    float f, *pf;
+    
+    pl = &l;
+
+    /* Obtener la direccion de la variable l*/
+    scanf("%ld", &l);
+
+    /* Mostrar la variable de l en formato decimal y hexadeximal y su direccion */
+    printf("\n%ld\t%lx\t%p\n", l, l, &l);
+
+    /* Se recorre la memoria del objeto 1 byte a byte (Mostrar la representacion en memoria del tipo de dato)
+     * Esto permite observar:
+     * Endianness (little vs big endian)
+     * Representacion IEEE-754 del float.
+     * Orden real de bytes.
+     * En C esta permitido inspeccionar cualquier objeto
+     * a traves de un puntero a char.
+     * Esto permite observar su representacion interna
+     * en memoria (orden de bytes, etc.).
+     * Nota:
+     * El limite +4 asume sizeof(long) == 4,
+     * lo cual no esta garantizado por el estandar.
+     * Si el sistema es de 32bits es correcto, pero
+     * en la actualidad con sistemas de 64bits seria +8.
+     * Seria mas correcto usar (unsigned char *) porque evita
+     * posibles problemas de interpretacion de signo al imprimir*/
+    for (pc = pl; pc < (char *)pl + 4; pc++) // Para hacerlo portable seria mejor for (pc = (char *)pl; pc < (char *)pl + sizeof(l); pc++)
+        /* %2x espera unsigned int pero *pc es char que 
+         * se promociona a int, deberia hacer cast (unsigned char)*pc
+         * %p espera void * por lo tanto tambien un cast a (void *)pc */
+        printf("%p\t%2x\n", pc, *pc); // Lo correcto  seria: printf("%p\t%2x\n", (void *)pc, (unsigned char)*pc); 
+    
+    /* Se repite el flujo para float */
+    pf = &f;
+
+    scanf("%f", &f);
+
+    printf("\n%f\t%p\n", f, &f);
+
+    for (pc = pf; pc < (char *)pf + 4; pc++) // Portable seria: for (pc = (char *)pf; pc < (char *)pf + sizeof(f); pc++) 
+        printf("%p\t%2x\n", pc, *pc); // Lo correcto seria: printf("%p\t%2x\n", (void *)pc, (unsigned char)*pc); 
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 11</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de un vector de 4 int, 
+     * puntero a int y variable int */
+    int V1[4], *pi, i;
+
+    /* Asignacion al puntero de la direccion del primer elemento del vector.
+     * V1 en una expresion decae a puntero a su primer elemento,
+     * por lo que tambien podria escribirse: pi = V1; */
+    pi = &V1[0];
+    
+    /* Intentar hacer aritmetica sobre el nombre del vector es incorrecto */
+    for (i = 0; i < 4; i++)
+        /* V1 es un vector, no es modificable, 
+         * no es un puntero variable, 
+         * no es un lvalue modificable, 
+         * Aunque en expresiones V1 decae a int *, 
+         * esa conversion produce un valor temporal,
+         * no convierte a V1 en una variable puntero al cual hacerle aritmetica.
+         * El compilador nos indica:
+         * error: lvalue required as increment operand 
+         * En cambio si usamos el puntero declarado y 
+         * hacemos pi++; Compila sin error ni advertencias de que no se uso pi! */
+        V1++; // NO 
+        //pi++;
+    
+    /* Carga de los elementos del vector.
+     * &V1[i] es la direccion del elemento i. */
+    for (i = 0; i < 4; i++)
+        scanf("%d", &V1[i]);
+
+    /* Acceso a los elementos mediante aritmetica de punteros.
+     * V1 decae a int *, por lo que:
+     * *(v1 + i) es equivalente a V1[i] */
+    for (i = 0; i < 4; i++)
+        printf("%d\t", *(V1 + i));
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 12</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de vector de 4 int, puntero a int y variable entera*/
+    int V1[4], *pi, i;
+
+    /* Asignacion al puntero de la direccion del primer elementos del vector */
+    pi = &V1[0]; // Equivalente a pi = V1;
+
+    /* Carga los valores de los elementos del vector a traves del puntero */
+    for (i = 0; i < 4; i++)
+        scanf("%d", pi + i); // Equivalente a &V1[i]
+
+    /* Muestra los valores de los elementos del vector a traves del puntero(desreferenciacion) mediante aritmetica
+     * pi[i] es quivalente a *(pi + i) */
+    for (i = 0; i < 4; i++)
+        printf("%d\t", pi[i]);
+
+    printf("\n\n");
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 13</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de vector de 10 int
+     * que en expresiones decae a puntero al primer elemento.
+     * Punteros a int, variable entera */
+    int a[10], *pa1, *pa2, i, *pa3;
+
+    /* Carga el vector mediante el bucle:
+     * a[0] = (0 + 1) * (0 + 1) => 1
+     * a[..] = ...
+     * a[9] = (9 + 1) * (9 + 1) => 100 
+     * Quedando el vector:
+     * a[10] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}*/
+    for (i = 0; i < 10; i++)
+        a[i] = (i + 1) * (i + 1);
+
+    /* Asignacion de la primer direccion del vector 
+     * que decae a puntero en el primer elemento al puntero
+     * a se convierte implicitamente en &a[0] */
+    pa1 = a;
+
+    /* Asignacion del ultimo elemento al puntero */
+    pa2 = &a[9];
+
+    /* Resta entre punteros del mismo tipo, resultado: 
+     * cantidad de elementos entre ellos, pa2 - pa1 = 9 
+     * el resultado es de tipo ptrdiff_t no int, pero compila,
+     * mas correcto seria: 
+     * #include <stddef.h>
+     * ptrdiff_t i;*/
+    i = pa2 - pa1;
+
+    /* Suma de un puntero + una variable entera, asignada
+     * a otro puntero del tipo int pa3 = &a[0] + 9 = &a[9] 
+      * haciendo que pa3 == pa2 apunten al mismo lugar */
+    pa3 = pa1 + i;
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 14</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable entera y puntero a int,
+     * vector de 5 float y puntero a float. */
+    int i;
+    int *pi;
+    float v[5], *pf;
+
+    /* Asignacion de un literal hexadecimal.
+     * El valor puede no ser representable en int con signo,
+     * lo que produce comportamiento implementation-defined. 
+     * Asignacion de la direccion de i */
+    i = 0xA1B2C3D4;
+    pi = &i;
+
+    /* Desreferenciacion del puntero.
+     * *pi es exactamente i. */
+    printf("%d\n", *pi);
+
+    /* Modificacion del contenido de i a traves del puntero */
+    *pi = 0xFFEEDDCC;
+
+    /* Recorrer el vector usando aritmetica.
+     * &v[0] + 5 es el puntero one-past-the-end (valido para comparar). */
+    for (pf = &v[0]; pf < (&v[0] + 5); pf++)
+        scanf("%f", pf);
+
+    printf("\n\n");
+
+    /* Acceso mediante puntero + desplazamiento */
+    for (pf = &v[0], i = 0; i < 5; i++)
+        printf("\n%f", *(pf + i));
+
+    printf("\n\n");
+
+    /* Acceso clasico mediante indice */
+    for (i = 0; i < 5; i++)
+        printf("\n%f", v[i]);
+
+    printf("\n\n");
+
+    /* Asignacion de la primera direccion del vector al puntero a float */
+    pf = &v[0];
+
+    /* En esta expresion, v (de tipo float[5]) se convierte
+     * implicitamente en puntero a su primer elemento (&v[0]) al hacer v + i */
+    for (i = 0; i < 5; i++)
+        printf("\n%f", *(v + i));
+
+    printf("\n\n");
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 15</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+#define n 5
+
+int main(void)
+{
+    /* Declaracion de vector 5 int, punteros a int y variable entera */
+    int vec[n], *p, *max, i;
+
+    /* Asigna la direcion del primer elemento del vector al puntero,
+     * mientras p sea menor que vec + n (puntero one-past-the-end),
+     * Se realiza aritmetmetica con el puntero para recorrer el vector.
+     * Carga los elementos del vector mediante el puntero */
+    for (p = vec; p < vec + n; p++)
+        scanf("%d", p);
+
+    /* Inicializacion: p y max apuntan al primer elemento., inicializacion de variable entera para iterar,
+     * Se recorre el arreglo usando indice.
+     * Si el valor apuntado por (p + i) es mayor que el apuntado por max,
+     * se actualiza max para que apunte al nuevo mayor. */
+    for (max = p = vec, i = 0; i < n; i++)
+        if (*(p + i) > *max)
+            max = p + i;
+    
+    /* Mostrar el valor almacenado en max que es el mayor de p por dereferencia.
+     * Resta entre vectores devuielve ptrdiff_t, lo correcto seria usar el especificador %td, y agregar <stddef.h>
+     * pero en la cursada no se sigue ese estandar, pero veremos que el compilador nos lo indica como warning al compilar. */
+    printf("\n\nmax = %d", *max);
+    printf("\npos = %d\n", max - vec);
+    //printf("\npos = %td\n", max - vec); //Puede usarse %lld
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 16</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Prototipo de funcion que recibe un puntero a int.
+ * El parametro V no es un vector, es un int *. 
+ * Cuando se llama con un vector, este decae a puntero a su primer elemento. */
+void ingresar(int *V);
+
+int main(void)
+{
+    /* Declaracion de vector de 109 enteros */
+    int vec[10];
+
+    /* Al pasar vec como argumento, el vector decae a &vec[0].
+     * La funcion recibe un int * apuntando al primer elemento del vector. */
+    ingresar(vec);
+
+    return 0;
+}
+
+void ingresar(int *V)
+{
+    int i;
+
+    /* Se recorre el arreglo mediante indice.
+     * V es un puntero a int.
+     * V + i realiza aritmetica de punteros (Equivale a &V[i]).
+     * scanf recibe la direccion donde almacenar el valor. */
+    for (i = 0; i < 10; i++)
+        scanf("%d", V + i);
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 17</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable entera, puntero a int, puntero a puntero a int */
+    int i, *pi, **ppi;
+
+    /* Asignacion de direcciones e inicializacion de variable,
+     * Modificacion por desreferencia de la variable, de 7 a 9,
+     * Modificacion por desreferencia doble de la variable, de 9 a 28,
+     * ppi apunta a pi, *ppi es pi, **ppi es i */
+    pi = &i;
+    ppi = &pi;
+    i = 7;
+    *pi = 9;
+    **ppi = 28;
+     
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 18</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+int main(void)
+{
+    /* Declaracion de variable entera, puntero a int, puntero a puntero a int */
+    int i, *pi, **ppi;
+
+    /* Inicializacion de variable y asignacion de direcciones */
+    i = 65;
+    pi = &i;
+    ppi= &pi;
+
+    /* Modificacion del valor de i a traves de pi por desreferencia:
+     * *pi es i, por lo tanto; i = i + 4, i pasa a 69*/
+    *pi += 4;
+
+    /* Modificacion del valor de i por desreferencia doble:
+     * ppi => &pi
+     * *ppi => pi
+     * **ppi => i
+     * Se asigna 1000 a i. */
+    **ppi = 1000;
+    
+    return 0;
+}
 </code></pre>
 
 <h2 class="teoria">Punteros 19</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // De la biblioteca usamos getche()
+
+int main(void)
+{
+    /* Declaracion de vector de 5 char y vector de 5 punteros a char, puntero a char y variables enteras*/
+    char c[5], *pc[5], *aux;
+    int i, j;
+
+    printf("Ingrese 5 caracteres: ");
+    /* Se leen 5 caracteres y se almacenan en el vector c.
+     * getche() devuelve el caracter tipeado y lo muestra en pantalla. */
+    for (i = 0; i < 5; i++)
+        c[i] = getche();
+
+    /* cada elemento de pc recibe la direccion del correspondiente elemento de c.
+     * Es decdir:
+     * pc[0] => &c[0]
+     * ...
+     * pc[4] => &c[4] */
+    for (i = 0; i < 5; i++)
+        pc[i] = &c[i];
+
+    /* Ordenamiento (tipo burbuja/simple)
+        * sobre el vector de punteros.
+        * Se comparan los caracteres apuntados:
+        * *pc[i] y *pc[j]
+        * Si el primero es mayor, se intercambian los punteros (no los caracteres). */
+    for (i = 0; i < 4; i++)
+        for (j = i + 1; j < 5; j++)
+            if (*pc[i] > *pc[j])
+            {
+                aux = pc[i];
+                pc[i] = pc[j];
+                pc[j] = aux;
+            }
+    
+    printf("\n");
+    
+    /* Se imprime:
+     * *pc[i] => caracteres ordenados.
+     * c[i] => Vector original (sin modificar) */
+    for (i = 0; i < 5; i ++)
+        printf("%c\t%c\n", *pc[i], c[i]);
+
+    return 0;
+}
 </code></pre>
 
 </div>
@@ -370,7 +1985,7 @@ int main(void)
 <footer class="footer-nav">
   <div class="container">
   <a href="../teoria/punteros.html" class="btn">Anterior</a>
-  <a href="../teoria/union.html" class="btn">Siguiente</a>
+  <a href="../teoria/recursion.html" class="btn">Siguiente</a>
   </div>
 </footer>
 
