@@ -24,7 +24,7 @@
 <main>
 <div class="container">
 
-<h1>Punteros</h1>
+<h1>Bitfields</h1>
 
 <h2>Estructura de archivos:</h2>
 
@@ -32,14 +32,16 @@
     
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">Bitfields 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,312 +58,322 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
-/*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
-
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
-*/
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
 
+/* Declaracion de una estructura con campos de bits basados en unsigned int,
+ * El comportamiento ante overflow en campos unsigned es aritmetica modular (wrap-around), 
+ * es decir, al superar maximo vuelven a cero.
+  */
+struct CB
+{
+    unsigned int A : 3; // Puede almacenar valores de 0 a 7
+    unsigned int B : 1; // Puede almacenar valores de 0 a 1
+    unsigned int C : 2; // Puede almacenar valores de 0 a 3
+};
+
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    /* Declaracion de una variable de tipo struct CB y una variable auxiliar para el bucle */
+    struct CB bit;
+    int i;
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
-    
+    /* Inicializacion de los campos de bits de la estructura, se podria reducir con struct CB bit = {0}; */
+    bit.A = 0;
+    bit.B = 0;
+    bit.C = 0;
+
+    /* Bucle que se ejcuta 10 veces.
+     * En cada iteracion se incrementan los tres campos de bits.
+     * Debido a la cantidad limitada de bits:
+     * - A (3 bits) desborda al superar 7
+     * - B (1 bit) alterna entre 0 y 1
+     * - C (2 bits) desborda al superar 3
+     * El desbordamiento (overflow) en tipos unsigned produce wrap-around (al superar el maximo vuelve a cero)
+     */
+    for(i = 0; i < 10; i++)
+    {
+        bit.A++; // 3 bits = 2^n - 1 = 7. 0 => 1 => 2 => 3 => 4 => 5 => 6 => 7 => 0 => 1 => 2
+        bit.B++; // 1 bit  = 2^n - 1 = 1. 0 => 1 => 0 => 1 => 0 => 1 => 0 => 1 => 0 => 1 => 0
+        bit.C++; // 2 bits = 2^n - 1 = 3. 0 => 1 => 2 => 3 => 0 => 1 => 2 => 3 => 0 => 1 => 2
+    }
+
+    /* El programa original no hace nada mas, podria imprimirse los valores finales de los campos y la dimension en memoria de la estructura */
+    printf("A = %u\n", bit.A);
+    printf("B = %u\n", bit.B);
+    printf("C = %u\n", bit.C);
+    printf("Dimension del struct = %zu\n", sizeof(struct CB));
+
     return 0;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">Bitfields 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getch();
+#include <stdlib.h> // Se usa system("cls");
+
+/* Declaracion de estructuras con miembros campos de bits
+ * basados en unsigned char.
+ *
+ * El rango de cada campo depende de la cantidad de bits
+ * El valor maximo representable es 2^n -1 donde n es la cantidad de bits.
+ * - 1 bit  => 0 a 1
+ * - 2 bits => 0 a 3
+ * - 3 bits => 0 a 7
+ */
+struct alfa
+{
+    unsigned char A:1;
+    unsigned char B:2;
+    unsigned char C:3;
+};
+
+struct beta
+{
+    unsigned char A:3;
+    unsigned char B:2;
+    unsigned char C:1;
+};
+
+struct gamma
+{
+    unsigned char A:5; // 0 a 31
+    unsigned char B:2;
+    unsigned char C:3;
+    unsigned char D:4; // 0 a 15
+};
+
+/* Declaracion de union cuyos miembros son estructuras con campos de bits y un vector de 2 bytes
+ * Todos los miembros comparten la misma region de memoria.
+ * La dimension de la union sera la del miembro mas grande.
+ */
+union delta
+{
+    struct alfa D;
+    struct beta E;
+    struct gamma F;
+    char G[2];
+};
+
+int main(void)
+{
+    /* Declaracion de variable auxiliar char para control de bucles, variable de tipo struct alfa y de tipo union delta */
+    char a;
+    struct alfa b;
+    union delta e;
+
+    /* Limpiar pantalla */
+    system("CLS");
+
+    /* Se inicializa el campo de bit A en 0 y se lo incrementa 4 veces.
+     * Como A tiene 1 bit, opera modulo 2 (0 y 1)
+     * Se observa el comportamiento de la aritmetica modular (wrap-around) 
+     */
+    for (b.A = 0, a = 0; a < 4; b.A++, a++)
+    {
+        printf("%d   ", b.A);
+        printf("\n");
+    }
+
+    /* Se inicializa el campo de bit B en 0 y se lo incrementa 8 veces.
+     * Como B tiene 2 bits, opera modulo 4 (0 a 3)
+     * El incremento produce desbordamiento modular. 
+     */
+    for (b.B = 0, a = 0; a < 8; b.B++, a++)
+    {
+        printf("%d   ", b.B);
+        printf("\n");
+    }
+
+    /* Se inicializa el campo de bit C en 0 y se lo incrementa 16 veces.
+     * Como C tiene 3 bits, opera modulo 8 (0 a 7)
+     * Se imprime cada valor antes de esperar una tecla. 
+     */
+    for (b.C = 0, a = 0; a < 16; b.C++, a++)
+    {
+        printf("%d   ", b.C);
+        printf("\n\nPresione una tecla para continuar");
+    }
+
+    getch(); // Espera una tecla
+
+    system("CLS");
+
+    /* Inicializacion del miembro G de la union.
+     * Se escriben ambos bytes en 0.
+     * En este momento, el miembro activo es G. 
+     */
+    e.G[0] = 0;
+    e.G[1] = 0;
+
+    /* Mostrar valores del vector de la union */
+    printf("\ne.G[0] = %d\te.G[1] = %d", e.G[0], e.G[1]);
+
+    /* Se escriben los campos del miembro D (struct alfa).
+     * A partir de este momento, el miembro activo de la union es D.
+     * Como todos comparten memoria, G reflejara los mismos bits.
+     */
+    e.D.A = 1;
+    e.D.B = 2;
+    e.D.C = 5;
+
+    /* Mostrar los campos de bits de D.
+     * Acceder a otro miembro distinto del ultimo escrito (D)
+     * puede ser comportamiento indefinido (UB) segun el estandar,
+     * excepto cuando se accede mediante char para inspeccion de la representacion en memoria.
+     * Por esto se puede mostrar e.G[0] y e.G[1] en hexadecimal sin que produzca (UB). 
+     */
+    printf("\ne.D.A = %d\te.D.B = %d\te.D.C = %d", e.D.A, e.D.B, e.D.C);
+    printf("\ne.G[0] = %X\te.G[1] = %X", e.G[0], e.G[1]); 
+
+    /* Se escriben los campos del miembro E.
+     * Ahora el miembro activo pasa a ser E.
+     * El contenido previo se sobreescribe en la misma memoria. 
+     */
+    e.E.C = 1;
+    e.E.B = 2;
+    e.E.A = 5;
+
+    printf("\ne.E.A = %d\te.E.B = %d\te.E.C = %d", e.E.A, e.E.B, e.E.C);
+    printf("\ne.G[0] = %X\te.G[1] = %X", e.G[0], e.G[1]);
+
+    /* Se escriben los campos del miembro F (struct gamma),
+     * que probablemente sea el miembro de mayor dimension.
+     */
+    e.F.A = 18;
+    e.F.B = 2;
+    e.F.C = 5;
+    e.F.D = 11;
+
+    printf("\ne.F.A = %X\te.F.B = %X\te.F.C = %X\te.F.D = %X", e.F.A, e.F.B, e.F.C, e.F.D);
+    printf("\ne.G[0] = %X\te.G[1] = %X\n\n", e.G[0], e.G[1]);
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">Bitfields 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-</code></pre>
-
-<h1>Ejercicios:</h1>
-
-<h2 class="teoria">Punteros 01</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-
-<h2 class="teoria">Punteros 02</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 03</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 04</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 05</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 06</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 07</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 08</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 09</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 10</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-<h2 class="teoria">Punteros 11</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 12</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 13</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 14</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 15</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 16</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 17</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 18</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 19</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <stdlib.h> // Se usa rand()
+
+/* Declaracion de estructura con campos de bits. */
+struct alfa
+{
+    unsigned d:5; // 0 a 31
+    unsigned s:2; // 0 a 3
+    unsigned v:1; // 0 o 1
+};
+
+struct beta
+{
+    unsigned d:5;
+    unsigned s:2;
+};
+
+int main(void)
+{
+    /* inp se utiliza como estructura auxiliar para generar datos.
+     * datos es un vector de estructuras donde se almacenan los valores generados
+      */
+    struct alfa inp;
+    struct beta dat[20];
+    int a;
+    
+    /* Se genera un valor aleatorio 0 o 1.
+     * rand()%2 produce 0 o 1.
+     * Se almacena en el campo de 1 bit v.
+     */
+    inp.v = rand()%2;
+
+    /* Se repoite 20 veces:
+     * - Se generan valores aleatorios para s (0 a 3) y d (0 a 31)
+     * - Mientras v sea 0, se sigue generando hasta que sea 1
+     * - Se copian los valores de d y s al vector dat
+     * - Se vuelve a generar un nuevo valor para v
+     */
+    for (a = 0; a < 20; a++)
+    {
+        inp.s = rand()%4;  // 2 bits => 0 a 3
+        inp.d = rand()%32; // 5 bits => 0 a 31
+
+        while (!inp.v)
+        {
+            inp.v = rand()%2;
+        }
+
+        dat[a].d = inp.d;
+        dat[a].s = inp.s;
+
+        inp.v = rand()%2;
+    }
+
+    /* Mostrar mensaje como titulos de una tabla */
+    printf("CAN\tDAT\tCAN\tDAT\n");
+
+    /* Se imprimen los valores almacenados.
+     * ATENCION: cuando a == 19 se accede a dat[20],
+     * lo que esta fuera de los limites del vector y produce (UB).
+      */
+    for (a = 0; a < 20; a++)
+    {
+        printf("%d\t%d\t%d\t%d\n", dat[a].s, dat[a].d, dat[a + 1].s, dat[a + 1].d);
+    }
+
+    return 0;
+}
 </code></pre>
 
 </div>
