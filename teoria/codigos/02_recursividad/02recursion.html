@@ -32,14 +32,16 @@
     
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">Recursividad 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,312 +58,597 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 /*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
+Recursion infinita
+- no existe caso base (condicion de corte), por lo tanto
+el problema no se resolvera, provocando un desbordamiento de la pila (stack overflow)
 
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
+El compilador nos advierte:
+- infinite recursion detected [-Winfinite-recursion]
+- note: f(i + 1) recursive call
 */
-
 #include <stdio.h>
+
+int f(int);
 
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    int i;
+    i = f(3);
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
-    
+    printf("\ni = %d\n", i);
+
     return 0;
+}
+
+// Función recursiva sin caso base. Carece de condición de corte.
+int f(int i)
+{
+    printf("\ni = %d\n", i);
+    i = f(i+1); // Caso recursivo
+
+    return i;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">Recursividad 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+/*
+    Caso base mal hecho
+*/
+#include <stdio.h>
+
+/* Declaracion variable global.
+ * Tiene almacenamiento estatico.
+ * Se inicializa en 0 si el usuario no ingresa nada válido. */
+int g;
+
+/* Prototipo de funcion recursiva */
+int fun(int);
+
+int main(void)
+{
+    /* Declaracion de variable entera y asignacion de un entero.
+     * Vive en el stack de main */
+    int i;
+    i = 5;
+    
+    /* Se lee un valor para la variable global g, pero no es utilizada. */
+    scanf("%d", &g);
+
+    /* Asigna a la variable lo que devuelva la funcion recursiva, pasando como argumento (5 * 3).
+     * Esta es la primera llamada recursiva. */
+    i = fun(i * 3);
+
+    /* Mostrar el valor de la variable i*/
+    printf("\n%d\n", i);
+
+    return 0;
+}
+
+/* Definicion de la funcion recursiva
+ * Recibe como argumento una variable entera.
+ * Cada llamada crea:
+ * - Su propia copia de j.
+ * - Su propia variable entera k. La cual retorna. */
+int fun(int j)
+{
+    int k;
+    
+    j++;
+
+    /* Caso recursivo si j es menor que 20, se vuelve a llamar a fun*/
+    if (j < 20)
+        k = fun(j);
+
+    /* Problema grave:
+     * Si j es mayor o igual a 20, k queda sin inicializar
+     * se retorna basura, comportamiento indefinido (UB).
+     * No existe un caso base explicito con return definido.
+     * TODA funcion recursiva debe tene un caso base claro que retorne un valor valido. */
+    return k;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">Recursividad 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+/*
+    Recursion correcta (factorial)
+*/
+#include <stdio.h>
+
+/* Prototipo de funcion recursiva */
+long int fact(int);
+
+int main(void)
+{
+    /* Declaracion de variables */
+    int x;
+    long int f;
+
+    /* Lectura de valor de x, sin validacion de la entrada del usuario */
+    scanf("%d", &x);
+
+    /*Asignacion de variable long int,
+     * De lo que devuelva la llamada a la funcion,
+     * a la que se le pasa el valor de x leido anteiormente. 
+     * Primer llamada a funcion recursiva. */
+    f = fact(x);
+
+    /* Mostrar el valor ingresado a la funcion y el valor devuelto por ella, usando los especificadores correspondientes:
+     * %d para int.
+     * %ld para long int. */
+    printf("\n%d\t%ld", x, f);
+
+    return 0;
+}
+
+/* Declaracion de la funcion recursiva:
+ * Recibe parametro por valor de tipo int (Cada llamada tiene su propia copia).
+ * Devuelve F de tipo long int. */
+long int fact(int n)
+{
+    /* Declaracion variable local y asignacion. Caso base implicito.
+     * Si n es menor e igual a 1 el bucle no se cumple pero la funcion devuelve F = 1. */
+    long int F = 1;
+
+    /* Caso recursivo:
+     * Si n es mayor que 1
+     * Se multiplica n por el factorial de (n - 1).*/
+    if (n > 1)
+        F = n * fact(n - 1);
+    
+    return F;
+}
 </code></pre>
 
-<h1>Ejercicios:</h1>
-
-<h2 class="teoria">Punteros 01</h2>
+<h2 class="teoria">Recursividad 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+/*
+    Recursion correcta pero ineficiente (fibonacci)
+*/
+#include <stdio.h>
+
+/* Prototipo de la funcion recursiva Fibonacci*/
+int fibo(int);
+
+int main(void)
+{
+    /* Declaracion de variables enteras sin inicializar */
+    int x, f;
+    
+    /* Lectura del valor de x sin validacion */
+    scanf("%d", &x);
+
+    /* Primer llamada recursiva, pasado el argumento x 
+     * y almacenado su retorno en la variable entera f. */
+    f = fibo(x);
+
+    /*Mostrar el valor ingresado y lo devuelto por la funcion usando los especificadores correctos. */
+    printf("\n%d\t%d", x, f);
+
+    return 0;
+}
+
+/* Declaracion de funcion recursiva fibo:
+ * Parametro:
+ * - n (Cada llamada tiene su propia copia)
+ * Devuelve:
+ * - a, valor calculado de la sucesion */
+int fibo(int n)
+{
+    /* Declaracion de variable sin inicializar */
+    int a;
+
+    /* Caso base, si ne es menor a 2, a devuelve 1*/
+    if (n < 2)
+        a = 1;
+    else
+        a = fibo(n - 2) + fibo(n - 1); // Caso recursivo. se llama dos veces a la funcion, cada llamada genera dos nuevas llamadas. PROBLEMA: Explosion exponencial de llamadas (overflow)
+
+    return a;
+}
 </code></pre>
 
-
-<h2 class="teoria">Punteros 02</h2>
+<h2 class="teoria">Recursividad 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/*
+    Comparacion recursion vs iteracion
+*/
+#include <stdio.h>
+#include <conio.h> // No se usa nada de la biblioteca, deberia eliminarse.
+
+/* Prototipo de funciones recursivas */
+int fibo(int n); // Iterativa
+int Fibo(int n); // Recursiva
+
+int main(void)
+{
+    /* Declaracion de variables enteras sin inicializar */
+    int n, fi, fr;
+    
+    /* Lectura del valor de n sin validar */
+    scanf("%d", &n);
+
+    /* Primer llamada a ambas funciones, parametro por valor, lo que devuelve se almacena en variables enteras */
+    fi = fibo(n);
+    fr = Fibo(n);
+
+    /* Mostrar los valores que devolvieron las funciones */
+    printf("\n\n%d\t\t%d\n", fi, fr);
+
+    return 0;
+}
+
+/* Declaracion de funcion fibo, iterativa */
+int fibo(int n)
+{
+    /* Declaracion de variables enteras.
+     * fn1 y fn2 almacenan los dos terminos anteriores.
+     * i es contador del bucle. */
+    int fn1, fn2, f, i;
+    
+    fn1 = 1;
+    fn2 = 2; // Inconsistente con la definicion recursiva
+
+    /* Caso base: si n es 0 o 1 devuelve 1. */
+    if ((n == 1) || (n == 0))
+        return 1;
+    /* Bucle iterativo: Calcula la sucesion sin usar recursion */
+    for (i = 2; i <= n; i++)
+    {
+        f = fn1 + fn2;
+        fn2 = fn1;
+        fn1 = f;
+    }
+
+    return f;
+}
+
+/* Declaracion de funcion recursiva Fibo */
+/* Problema:
+ * Si n es negativo:
+ * - No entra en ningun if.
+ * - No retorna nada.
+ * - Comportamiento indefinido (UB). */
+int Fibo(int n)
+{
+    /* Caso recursivo:
+     * Si n es mayor a 1, llama dos veces.
+     * Complejidad exponencial. */
+    if (n > 1)
+        return Fibo(n - 1) + Fibo(n - 2);
+    if ((n == 1) || (n == 0)) // Caso base si n es 0 o 1 devuelve 1
+        return 1;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 03</h2>
+<h2 class="teoria">Recursividad 05 Extra: Modularización</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o fibo.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+main.o: main.c fibo.h
+	$(CC) $(CFLAGS) -c main.c
+
+fibo.o: fibo.c fibo.h
+	$(CC) $(CFLAGS) -c fibo.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código: fibo.c</h3>
+<pre><code class="language-c">
+#include "fibo.h"
+
+/* Declaracion de funcion fibo, iterativa */
+int fibo(int n)
+{
+    /* Declaracion de variables enteras.
+     * fn1 y fn2 almacenan los dos terminos anteriores.
+     * i es contador del bucle. */
+    int fn1, fn2, f, i;
+    
+    fn1 = 1;
+    fn2 = 2; // Inconsistente con la definicion recursiva
+
+    /* Caso base: si n es 0 o 1 devuelve 1. */
+    if ((n == 1) || (n == 0))
+        return 1;
+    /* Bucle iterativo: Calcula la sucesion sin usar recursion */
+    for (i = 2; i <= n; i++)
+    {
+        f = fn1 + fn2;
+        fn2 = fn1;
+        fn1 = f;
+    }
+
+    return f;
+}
+
+/* Declaracion de funcion recursiva Fibo */
+/* Problema:
+ * Si n es negativo:
+ * - No entra en ningun if.
+ * - No retorna nada.
+ * - Comportamiento indefinido (UB). */
+int Fibo(int n)
+{
+    /* Caso recursivo:
+     * Si n es mayor a 1, llama dos veces.
+     * Complejidad exponencial. */
+    if (n > 1)
+        return Fibo(n - 1) + Fibo(n - 2);
+    if ((n == 1) || (n == 0)) // Caso base si n es 0 o 1 devuelve 1
+        return 1;
+    
+    /* Arreglo para que el compilador no se queje:
+     * warning: control reaches end of non-valid function [-Wreturn-type]
+     */
+    return 0;
+}
+</code></pre>
+
+<h3 class="make">Código: fibo.h</h3>
+<pre><code class="language-c">
+#ifndef FIBO_H
+#define FIBO_H
+
+int fibo(int n); // Iterativa
+int Fibo(int n); // Recursiva
+
+#endif
+</code></pre>
+
+<h3 class="make">Código: main.c</h3>
+<pre><code class="language-c">
+//gcc -std=c11 -Wall -Wextra -pedantic main.c fibo.c -o main
+
+/*
+    Extra:
+    Forma profesional de organizar un proyecto en C
+    - fibo.h => Declara las funciones (interfaz)
+    - fibo.c => Define las funciones (implementacion)
+    - main.c => Prgrama principal que utiliza la interfaz
+    - Makefile => Compilacion y enlazado del proyecto.
+*/
+#include <stdio.h>
+#include "fibo.h"
+
+int main(void)
+{
+    /* Declaracion de variables enteras sin inicializar */
+    int n, fi, fr;
+    
+    /* Lectura del valor de n sin validar */
+    scanf("%d", &n);
+
+    /* Primer llamada a ambas funciones, parametro por valor, lo que devuelve se almacena en variables enteras */
+    fi = fibo(n);
+    fr = Fibo(n);
+
+    /* Mostrar los valores que devolvieron las funciones */
+    printf("\n\n%d\t\t%d\n", fi, fr);
+
+    return 0;
+}
+</code></pre>
+
+<h2 class="teoria">Recursividad 06</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 04</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 05</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 06</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 07</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 08</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 09</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 10</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-<h2 class="teoria">Punteros 11</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 12</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 13</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 14</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 15</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 16</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 17</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 18</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 19</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+/*
+    Busqueda binaria recursiva
+*/
+#include <stdio.h>
+#include <stdlib.h> // Se usa system(), No estaba en el programa de catedra, pero sin ella no compila.
+
+/* Falta el prototipo de la funcion declarada, se agrega para compilacion: */
+int buscar(int vector[], int inf, int sup, int X);
+
+int main(void)
+{
+    /* Declaracion de variables y vector.
+     * La busqueda binaria SOLO funciona si el vector esta ordenado */
+    int vec[] = {2, 4, 5, 7, 8, 12, 14, 17, 21, 23, 24, 32, 43, 54, 65, 88};
+    int X;
+    int pos, longitud;
+    
+    system("CLS"); // Limpia la pantalla solo en windows. No es portable.
+    
+    printf("Ingrese el valor a buscar: ");
+    scanf("%d", &X);
+    
+    /* Error: tipo no existe.
+     * Debe ser sizeof(vec[0]) */
+    longitud = sizeof(vec) / sizeof(tipo);
+    /* Para compilar es necesario cambiar por esta linea, descomentar tras ver el error y comentar la errada */
+    //longitud = sizeof(vec) / sizeof(vec[0]);
+
+    /* Almacenamos en la variable entera lo devuelto por la llamada a la funcion,
+     * Se pasan como argunmentos el vector ordenado, el indice inferior, el indice superior que se da de restar 1 a la longitud y el valor buscado */
+    pos = buscar(vec, 0, longitud - 1, X);
+
+    /* Si se encontro o no, si se encuentra se indica su posicion */
+    if (pos < 0)
+        printf("\n\nNo se encontro");
+    else
+        printf("\n\nLa posicion del valor buscado es %d", pos);
+
+    return 0;
+}
+
+/* Declaracion de la funcion buscar (Busqueda binaria recursiva).
+ * Se agrega el tipo int, ya que en el programa de la catedra no figuraba.*/
+//buscar(int vector[], int inf, int sup, int X)
+
+/* Busqueda binaria recursiva:
+ * Parametros:
+ * - vector => vector ordenado.
+ * - inf => indice inferior.
+ * - sup => indice superior.
+ * - X => valor a buscar.
+ *
+ * Devuelve:
+ * - indice donde esta X o -1 si no se encuentra */
+int buscar(int vector[], int inf, int sup, int X)
+{
+    /* Declaracion de variables sin inicializar */
+    int mitad;
+    int posicion; // No es utilizada
+
+    /* Caso base: 
+     * Si el intervalo se colapso (inf > sup) o queda un solo elemento
+     * significa que no se encontro el elemento*/
+    if ((inf >= sup) && (vector[inf] != X))
+        return -1;
+
+    /* Se calcula el indice centtral.
+     * Posible problema teorico:
+     * - (inf + sup) podria desbordar (overflow) si los indices fueran muy grandes.
+     * - Fomra mas segura: inf + (sup - inf) / 2
+     * En este caso no es relevante por la dimension minuscula del vector.
+     * Se almacena el promedio en la variable entera mitad, el promedio sera truncado */
+    mitad = (inf + sup) / 2;
+
+    /* Si el elemento central coincide, se devuelve su posicion */
+    if (vector[mitad] == X)
+        return mitad;
+
+    /* Si el valor buscado es mayor que el central, se busca en la mitad derecha */
+    if (X > vector[mitad])
+        return buscar(vector, mitad + 1, sup, X);
+    /* Si el valor buscado es menor que el central, se busca en la mitad izquierda. */
+    return buscar(vector, inf, mitad - 1, X);
+}
 </code></pre>
 
 </div>
