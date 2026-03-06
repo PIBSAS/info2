@@ -24,7 +24,7 @@
 <main>
 <div class="container">
 
-<h1>Punteros</h1>
+<h1>Union</h1>
 
 <h2>Estructura de archivos:</h2>
 
@@ -32,14 +32,16 @@
     
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">Union 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,312 +58,1403 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
-/*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
-
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
-*/
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
 
+/* Declaracion de estructura 
+ * Cada miembro posee su propia region en memoria.
+ * Los campos pueden utilizarse simultaneamente. 
+ */
+struct Beta
+{
+    int A;
+    char B;
+};
+
+/* Declaracion de union 
+ * Todos los miembros comparten la misma region de memoria.
+ * Solo uno de los campos puede considerarse valido a la vez.
+ */
+union Alfa
+{
+    int A; 
+    char B;
+};
+
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    /* Declaracion de variables tipo union Alfa y struct Beta*/
+    union Alfa Ua;
+    struct Beta Sb;
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
+    /* Asignaciones de los campos de la estructura */
+    Sb.A = 297;
+    Sb.B = 'K';
+
+    /* Asignacion de los campos de la union, 
+     * como comparten la memoria, al declararse B, deja de ser valido A,
+     * Tras esto el unico campo valido es B, 
+     * Leer Ua.A luego de esta linea implicaria comportamiento indefinido (UB). */
+    Ua.A = 297;
+    Ua.B = 'K';
     
     return 0;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">Union 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Declaracion de union 
+ * Al compartir la misma region en memoria
+ * La dimension de la union sera la del miembro mas grande.
+ */
+union Gamma
+{
+    int A;
+    char B[4];
+    float C;
+};
+
+int main(void)
+{
+    /* Declaracion de variable de tipo union Gamma*/
+    union Gamma Ug;
+
+    /* Asignacion de campos de la union */
+    Ug.C = 27.892E-5; // A partir de aqui, el unico miembro valido es C.
+    Ug.B[2]++; // El valor de C deja de ser valido por el incremento de B.
+    /* El valor valor de B deja de ser valido, 
+     * A tambien comparte memoria con los otros miembros.
+     * Esta operacion interpreta los mismos bytes ahora como si fueran un int.
+     * Esto constituye comportamiento indefinido segun el estandar,
+     * ya que se esta leyendo un miembro distinto al ultimo escrito.
+     * El resultado depende de la arquitectura,
+     * representacion interna (IEEE 754), y endianness del sistema.
+     */
+    Ug.A *= 2;  
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">Union 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
+#include <stdlib.h> // system("cls"); al no poder compilar con clrscr()
+
+/* Declaracion de la union 
+ * En este caso probablemente 10 bytes por y[10] sera la dimension minima,
+ * aunque puede haber padding por alineacion.
+ * Padding por alineacion:
+ * - Es memoria extra que el compilador agrega automaticamente
+ *   para que los datos respeten los requisitos de alineacion de la arquitectura
+ *   En una struct:
+ *   - Puede haber padding entre miembros.
+ *   - Puede haber padding al final.
+ *
+ *   En una union:
+ *   - No hay padding entre miembros (todos comienzan en la misma direccion)
+ *   - Puede haber padding al final para que la dimension total
+ *     cumpla con la alineacion mas estricta de sus miembros.
+ */
+union alfa
+{
+    int x;
+    char y[10];
+    float z;
+};
+
+/* Prototipos de funciones */
+int suma(int, int);
+int ingreso(void);
+
+int main(void)
+{
+    /* Declaracion de variables tipo union alfa*/
+    union alfa A, B;
+
+    /* No estandar. Solo disponible en algunos compiladores. No es portable. Puede usarse system("cls") */
+    clrscr(); // Comentar y usar system("cls") de stdlib.h
+    //system("cls"); // Descomentar y comentar la linea previa para compilar
+
+    /* Se almacenan enteros en el miembro x, devueltos por la llamada a la funcion */
+    A.x = ingreso();
+    B.x = ingreso();
+
+    /* Mostrar la suma entre los miembros x como cuenta */
+    printf("\n%d + %d = ", A.x, B.x);
+
+    /* Asignar al miembro x de A la suma entre los miembros x de A y B */
+    A.x = suma(A.x, B.x);
+
+    /* Mostrar el resultado de la suma */
+    printf("%d\n", A.x);
+
+    /* fflush(stdin) es comportamiento indefinido segun el estandar.
+     * fflush solo esta definido para streams de salida fflush(stdout)
+     * Algunos compiladores lo aceptan como extension, pero no es portable. 
+     */
+    fflush(stdin);
+
+    /* gets() fue eliminada del estandar C11 (El cual se esta usando para compilar)
+     * Es insegura porque no controla la dimension del buffer.
+     * Puede provocar desbordamiento (buffer overflow). */
+    gets(A.y); // Se reemplazo con fgets(buffer, sizeof(buffer), stdin)
+    //fgets(A.y, sizeof(A.y), stdin); // Comentar la linea anterior y descomentar esta para que el programa compile
+
+    /* Se accede al tercer caracter del vector de la union.
+     * No se verifica que el usuario haya ingresado al menos 3 caracteres,
+     * Lo que podria provocar acceso a memoria no inicializada.
+     * Esto sobreescribe la memoria previamente usada por x.
+     * A partir de aca, x deja de ser valido. */
+    if (A.y[2] > 'F')
+        {
+            /* Se escribe el campo z, esto vuelve a sobreescribir
+             * la memoria compartida. Ahora el unico miembro valido es z. */
+            A.z = 3.14;
+
+            /* Se lee un float en B.z
+             * B.x deja de ser valido luego de esta operacion. */
+            scanf("%f", &B.z);
+
+            /* Se muestra como perimetro el producto de los miembros z */
+            printf("\n\nPerimetro = %f", A.z * B.z);
+        }
+
+    return 0;
+}
+
+/* Declaracion de funcion ingreso:
+ * Lee un entero y lo devuelve*/
+int ingreso(void)
+{
+    /* Declaracion de variable local no inicializada */
+    int a;
+
+    /* Se lee el valor de la variable */
+    scanf("%d", &a);
+
+    /* Se retorna el valor de la variable */
+    return (a);
+}
+
+/* Declaracion de funcion suma:
+ * Recibe dos enteros.
+ * Devuelve la suma de los dos enteros. 
+ */
+int suma(int a, int b)
+{
+    /* Declaracion de variable local no inicializada */
+    int c;
+
+    /* Se asigna a la variable la suma de los argumentos ingresados al llamar a la funcion */
+    c = a + b;
+
+    /* Se devuelve la variable con el resultado de la suma */
+    return (c);
+}
 </code></pre>
 
-<h1>Ejercicios:</h1>
-
-<h2 class="teoria">Punteros 01</h2>
+<h2 class="teoria">Union 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // getche() y crlscr() esta ultima no viene en GCC/MinGW
+#include <math.h> // No se usa nada de la biblioteca, podria borrarse.
+
+/* Para reemplazar a clrscr() con system("cls");*/
+#include <stdlib.h> // system("cls");
+
+/*
+    Se define una union con dos campos uno "int" y el otro "char"
+*/
+
+union alfa
+{
+    int x;
+    char y;
+};
+
+/*
+    Se declaran los prototipos de las funciones
+*/
+
+union alfa ingreso(char);
+void imprime(union alfa, char);
+
+int main(void)
+{
+    /* Se declaran las variables */
+    union alfa A;
+    char c;
+
+    do
+    {
+        /* Menu de opciones */
+        //clrscr(); // No existe en GCC/MinGW reemplazar con system("cls");
+        system("cls"); // Comentar la linea anterior y descomentar esta linea para compilar
+
+        printf("\n\n\t\t\tIngrese una opcion");
+        printf("\n\n (C) ingreso de un caracter");
+        printf("\n\n (E) ingreso de un entero \n\n");
+        
+        // Almacena en la variable c el ingreso del usuario, si apreto ENTER queda un \n en el buffer. Puede provocar comportamiento raro en la siguiente lectura
+        c = getche(); // Se puede reemplazar con getchar() que pertenece al estandar, pero requiere ese ENTER.
+
+        printf("\n\n");
+
+        /* Se invoca a la funcion "ingreso" */
+        A = ingreso(c);
+
+        /* Se invoca a la funcion "imprime" */
+        imprime(A, c);
+        
+        printf("\n\n\nDesea ingresar otro valor (S/N): ");
+
+        c = getche();
+
+    }
+    while((c == 's') || (c == 'S'));
+
+    return 0;
+}
+
+/*  Se define a la funcion "ingreso"  *
+ * Devuelde una union de tipo "alfa" *
+ * Recibe un "char"                  */
+
+ union alfa ingreso(char b)
+ {
+    union alfa C;
+    
+    printf("Ingrese un ");
+
+    if ((b == 'c') || (b == 'C'))
+    {
+        printf(" caracter ");
+
+        C.y = getche();
+    }
+    else
+    {
+        printf(" entero ");
+        scanf("%d", &C.x);
+    }
+
+    printf("\n\n");
+
+    /* Devuelve el valor de la union */
+    return (C);
+ }
+
+ /* Se define la funcion "imprime"            *
+  * Recibe una union de tipo alfa llamada "B" *
+  * Y un char denominado "c", devuelve "void" */
+  void imprime(union alfa B, char c)
+  {
+    if ((c == 'c') || (c == 'C'))
+        printf("\n\nUsted ingreso el caracter %c", B.y);
+    else
+        printf("\n\nUsted ingreso el entero %d", B.x);
+  }
 </code></pre>
 
-
-<h2 class="teoria">Punteros 02</h2>
+<h2 class="teoria">Union 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+//////////// Es Union-04 sin comentarios /////////////
+#include <stdio.h>
+#include <conio.h>// No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
+#include <stdlib.h> // system("cls"); al no poder compilar con clrscr()
+#include <math.h>
+
+union alfa
+{
+    int x;
+    char y;
+};
+
+union alfa ingreso(char);
+void imprime(union alfa, char);
+
+int main(void)
+{
+    union alfa A;
+    char c;
+
+    do
+    {
+        clrscr();
+
+        printf("\n\n\t\t\tIngrese una opcion ");
+        printf("\n\n (C) ingreso de un caracter");
+        printf("\n\n (E) ingreso de un entero ");
+
+        c = getche();
+
+        printf("\n\n");
+
+        A = ingreso(c);
+
+        imprime(A, c);
+
+        printf("\n\nDesea ingresar otro valor (S/N) ");
+
+        c = getche();
+    }
+    while((c == 's') || (c == 'S'));
+
+    return 0;
+}
+
+union alfa ingreso(char b)
+{
+    union alfa C;
+
+    printf("Ingrese un ");
+
+    if ((b == 'c') || (b == 'C'))
+    {
+        printf(" caracter ");
+
+        c.y = getche();
+    }
+    else
+    {
+        printf(" entero ");
+        scanf("%d", &C.x);
+    }
+
+    printf("\n\n");
+
+    return (C);
+}
+
+void imprime(union alfa B, char c)
+{
+    if ((c == 'c') || (c == 'C'))
+    {
+        printf("\n\nUsted ingreso el caracter %c", B.y);
+    }
+    else
+    {
+        printf("\n\nUsted ingreso el entero %d", B.x);
+    }
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 03</h2>
+<h2 class="teoria">Union 06</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getche() puede ser reemplazado por getchar() que pertenece al estandar, clrscr() no existe en GCC/MinGW se reemplaza agregando stdlib.h y usando system("cls")
+/* Agregado para reemplazar clrscr() */
+#include <stdlib.h> // Se usa system("cls")
+
+/* MAX determina el largo maximo del vector */
+#define MAX 100
+
+/* Declaracion de estructuras */
+struct coupe
+{
+    char nro_cil;
+    int cilind, veloc_max;
+    char marchas;
+};
+
+struct sedan
+{
+    char puertas, color[10], familiar;
+};
+
+struct cuotas
+{
+    int cant;
+    float val;
+};
+
+/* Declaracion union de estructuras */
+union clase
+{
+    struct coupe dat;
+    struct sedan dat1;
+};
+
+/* Declaracion union que contiene tipo primitivo y estructura */
+union fina
+{
+    float contado;
+    struct cuotas pagos;
+};
+
+/* Declaracion de estructura que contiene union */
+struct autos
+{
+    char marca[10];
+    int modelo;
+    char tipo;
+    union clase caract;
+    char vendido, cont;
+    union fina valor;
+};
+
+/* Se declaran los prototipos de las funciones */
+int ingreso(struct autos stock[], int);
+void listado(struct autos stock[], int);
+
+int main(void)
+{
+    /* Se declaran las variables a utilizar */
+    struct autos stock[MAX];
+    int i, j = 0;
+
+    /* Impresion del menu de opciones */
+    do
+    {
+        clrscr(); // No existe en GCC/MinGW, reemplazar por system("cls") de stdlib.h
+        //system("cls");
+
+        /* Menu principal */
+        printf("\n\n\t\t\tMenu principal");
+        printf("\n\n1 - Ingreso de datos");
+        printf("\n\n2 - Listado de datos");
+        printf("\n\n3 - Salir");
+        printf("\n\nIngrese una opcion (1 - 3): ");
+        
+        /* Leer el valor intriducido */
+        scanf("%d", &i);
+        
+        /* Caso 1: llamar a la funcion ingreso con los argumentos vector de estructura stock y la variable entera j y almacenar lo que devuelve en j 
+         * Caso 2: llamar a la funcion listado con los argumentos vector de estructura stock y la variable entera j.
+         */
+        switch(i)
+        {
+            case 1:
+                j = ingreso(stock, j);
+                break;
+            
+            case 2:
+                listado(stock, j);
+        }
+    }
+    while(i != 3); // Mientras la variable sea distinta de 3.
+
+    return 0;
+}
+
+/* Funcion para permitir el ingreso de los datos */
+int ingreso(struct autos stock[], int j)
+{
+    /* Declaracion de las variables a utilizar para *
+     * realizar el ingreso de los valores de tipo   *
+     * "char" con formato numerico y para poder     *
+     * ingresar los valores de tipo "float"         */
+
+     int i;
+     float f;
+
+     /* Verifica que no se exceda el maximo del vector */
+     if (j == MAX)
+        return (j);
+
+    /* Comienzo del ingreso de los datos */
+    do
+    {
+        clrscr(); // No existe en GCC/MinGW, reemplazar por system("cls") de stdlib.h
+        //system("cls");
+
+        printf("\n\t\t\tINGRESO DE DATOS");
+        printf("\n\n\tMarca: ");
+        
+        fflush(stdin); // Produce comportamiento indefinido, puede ser remplazaodo por las 2 siguientes lineas
+        //int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+
+        gets(stock[j].marca); // Eliminado en C11, reemplazar con fegets(), comentar esta linea y descomentar la siguiente
+        //fgets(stock[j].marca, sizeof(stock[j].marca), stdin); 
+        
+        printf("\n\n\tModelo: ");
+        scanf("%d", &stock[j].modelo);
+
+        fflush(stdin); // Produce comportamiento indefinido, puede ser remplazaodo por la siguiente linea
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+        
+        printf("\tTipo (C - S): ");
+
+        /* Ingreso de datos selectivo segun el tipo elegido */
+        do
+        {
+            stock[j].tipo = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+            if (stock[j].tipo == 'C' || stock[j].tipo == 'c')
+            {
+                printf("\n\tNumero de cilindros: ");
+
+                /* Utilizacion de una variable auxiliar para *
+                 * ingresar un valor con formato numerico en *
+                 * una variable de tipo "char"               */
+                scanf("%d", &i); 
+
+                /* Almacenar en struct autos => union clase caract => struct coupe dat => char nro_cil el valor almacenado en la variable entera i */
+                stock[j].caract.dat.nro_cil = i;
+
+                printf("\tCilindrada: ");
+                scanf("%d", &stock[j].caract.dat.cilind);
+
+                printf("\tVelocidad maxima: ");
+                scanf("%d", &stock[j].caract.dat.veloc_max);
+
+                printf("\tCantidad de marchas: ");
+                scanf("%d", &i); // Se sobreescribe el valor de la variable entera i
+
+                /* Almacenar en struct autos => union clase caract => struct coupe dat => char marchas el valor almacenado en la variable entera i */
+                stock[j].caract.dat.marchas = i;
+            }
+
+            if (stock[j].tipo == 'S' || stock[j].tipo == 's')
+            {
+                printf("\n\tCantidad de puertas: ");
+                scanf("%d", &i); // Se sobreescribe el valor de la variable entera i
+
+                /* Almacenar en struct autos => union clase caract => struct sedan dat1 => char puertas el valor almacenado en la variable entera i */
+                stock[j].caract.dat1.puertas = i;
+
+                fflush(stdin); // Produce comportamiento indefinido, puede ser remplazaodo por la siguiente linea
+                //while ((basura = getchar()) != '\n' && basura != EOF);
+
+                printf("\tColor: ");
+                
+                gets(stock[j].caract.dat1.color); // Eliminado en C11, reemplazar con fegets(), comentar esta linea y descomentar la siguiente
+                //fgets(stock[j].caract.dat1.color, sizeof(stock[j].caract.dat1.color), stdin);
+
+                printf("\tFamiliar (S/N): ");
+
+                stock[j].caract.dat1.familiar = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+                printf("\n");
+            }
+        
+        } /* Mientras que tipo sea uno de los caracartere C, c, S, s el programa seguira */
+        while(!(stock[j].tipo != 'C' || stock[j].tipo != 'c' || stock[j].tipo != 'S' || stock[j].tipo != 's')); // Cambiada la logica de !(tipo != caracter || tipo != caracter) a (tipo != caracter && tipo != caracter) para que funcione
+        //while(stock[j].tipo != 'C' && stock[j].tipo != 'c' && stock[j].tipo != 'S' && stock[j].tipo != 's');
+        
+        printf("\tVendido (S/N): ");
+
+        /* Ingreso selectivo de los datos de venta */
+        do
+        {
+            stock[j].vendido = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+            if (stock[j].vendido == 'S' || stock[j].vendido == 's')
+            {
+                printf("\n\tVenta al contado (S/N): ");
+                do
+                {
+                    stock[j].cont = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+                    if (stock[j].cont == 'S' || stock[j].cont == 's')
+                    {
+                        printf("\n\tValor: ");
+
+                        /* Utilizacion de una variable auxiliar        *
+                         * para permitir el ingreso de una variable    *
+                         * de tipo "float" en un vector de estructuras */
+                         scanf("%f", &f);
+
+                         /* Almacenar en struct autos => union fina valor => float contado el valor almacenado en la variable float f */
+                         stock[j].valor.contado = f;
+                    }
+
+                    if (stock[j].cont == 'N' || stock[j].cont == 'n')
+                    {
+                        printf("\n\tNumero de cuotas: ");
+                        scanf("%d", &stock[j].valor.pagos.cant);
+
+                        printf("\tValor de la cuota: ");
+                        scanf("%f", &f); // Se sobreescribe el valor de la variable float f
+
+                        /* Almacenar en struct autos => union fina valor => struct cuotas pagos => float val el valor almacenado en la variable float f */
+                        stock[j].valor.pagos.val = f;
+                    }
+                } /* Mientras que cont sea uno de los caracartere S, s, N, n el programa seguira */
+                while(!(stock[j].cont != 'S' || stock[j].cont != 's' || stock[j].cont != 'N' || stock[j].cont != 'n')); // Cambiada la logica de !(tipo != caracter || tipo != caracter) a (tipo != caracter && tipo != caracter) para que funcione
+                //while(stock[j].cont != 'S' && stock[j].cont != 's' && stock[j].cont != 'N' && stock[j].cont != 'n');
+            }
+            /* En caso de no haberse producido la venta *
+             * Se inicializan las variables a cero      */
+            if (stock[j].vendido == 'N' || stock[j].vendido == 'n')
+            {
+                stock[j].valor.pagos.cant = 0;
+                stock[j].valor.pagos.val = 0;
+            }
+        } /* Mientras que vendido sea uno de los caracartere S, s, N, n el programa seguira */
+        while(!(stock[j].vendido != 'S' || stock[j].vendido != 's' || stock[j].vendido != 'N' || stock[j].vendido != 'n')); // Cambiada la logica de !(tipo != caracter || tipo != caracter) a (tipo != caracter && tipo != caracter) para que funcione
+        //while(stock[j].vendido != 'S' && stock[j].vendido != 's' && stock[j].vendido != 'N' && stock[j].vendido != 'n');
+
+        printf("\n\tDesea ingresar otro vehiculo (S/N): ");
+
+        i = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+        j++; // Contador
+    }
+    /* Se comprueba que no se exceda el largo maximo del vector         *
+     * en el caso de que se quieran agregar mas dato que los permitidos */
+    while((i == 'S' || i == 's') && j < MAX);
+
+    /* Se retorna el ultimo valor de la posicion maxima de los valores ingresados */
+
+    return (j);
+}
+
+/* Funcion que permite la visualizacion de los datos */
+void listado(struct autos stock[], int i)
+{
+    /* Declaracion de las variables a utilizar en la funcion */
+    int j, k;
+
+    /* Lazo para poder realizar la visualizacion de los datos *
+     * dentro del rango ingresado                             */
+     for (j = 0; j < i; j++)
+     {
+        clrscr(); // No existe en GCC/MinGW, reemplazar por system("cls") de stdlib.h
+        //system("cls");
+
+        /* Mostrar marca, modelo y tipo */
+        printf("\n\n\tMarca: %s", stock[j].marca);
+        printf("\tModelo: %d", stock[j].modelo);
+        printf("\tTipo: %c\n", stock[j].tipo);
+
+        /* Listado selectivo segun el tipo */
+        if (stock[j].tipo == 'C' || stock[j].tipo == 'c')
+        {
+            /* Mostrar numero de cilidros, cilindrada, velocidad maxima, cantidad de marchas para tipo Coupe */
+            printf("\n\tNumero de cilindros: %d", stock[j].caract.dat.nro_cil);
+            printf("\n\tCilindrada: %d", stock[j].caract.dat.cilind);
+            printf("\n\tVelocidad máxima : %d",stock[j].caract.dat.veloc_max);
+			printf("\n\tCantidad de marchas : %d",stock[j].caract.dat.marchas);
+        }
+
+        if(stock[j].tipo=='S'||stock[j].tipo=='s')
+        {
+            /* Mostrar cantidad de puertas, color, familiar para tipo Sedan */
+            printf("\n\tCantidad de puertas : %d",stock[j].caract.dat1.puertas);
+			printf("\n\tColor : %s",stock[j].caract.dat1.color);
+			printf("\n\tFamiliar : %c",stock[j].caract.dat1.familiar);
+        }
+
+        /* Mostrar vendido */
+        printf("\n\n\tVendido : %c",stock[j].vendido);
+
+        /* Listado selectivo de los datos de venta */
+        if (stock[j].vendido == 'S' || stock[j].vendido == 's')
+        {
+            if (stock[j].cont == 'S' || stock[j].cont == 's')
+            {
+                printf("\n\tValor : %.2f", stock[j].valor.contado); // Mostrar valor de contado
+            }
+
+            if (stock[j].cont == 'N' || stock[j].cont == 'n')
+            {
+                printf("\n\tNumero de cuotas : %d", stock[j].valor.pagos.cant); // Mostrar numero de cuotas
+				printf("\tValor de la cuota : %.2f", stock[j].valor.pagos.val); // Mostrar valor de cada cuota
+            }
+        }
+
+        printf("\n\n\t\tDesea listar otro vehículo (S/N) ");
+		
+        k = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+        /* Seleccion que permite seguir visualizando o no      *
+         * los datos del vector segun la eleccion del operador */
+        if (k == 'N' || k == 'n')
+        {
+            return;
+        }
+     }
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 04</h2>
+<h2 class="teoria">Union 07</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+///////////// Es Union-06 sin comentarios ///////////////////
+#include <stdio.h>
+#include<conio.h>
+
+#define MAX 100
+
+struct coupe
+{
+	char nro_cil;
+	int cilind, veloc_max;
+	char marchas;
+};
+
+struct sedan
+{
+	char puertas, color[10], familiar;
+};
+
+struct cuotas
+{
+	int cant;
+	float val;
+};
+
+union clase
+{
+	struct coupe dat;
+	struct sedan dat1;
+};
+
+union fina
+{
+	float contado;
+	struct cuotas pagos;
+};
+
+struct autos
+{
+	char marca[10];
+	int modelo;
+	char tipo;
+	union clase caract;
+	char vendido, cont;
+	union fina valor;
+};
+
+int ingreso(struct autos stock[], int);
+void listado(struct autos stock[], int);
+
+int main(void)
+{
+    struct autos stock[MAX];
+	int i, j = 0;
+	do
+	{
+		clrscr();
+		printf("\n\t\t\t\tMenu principal");
+		printf("\n\t1 - Ingreso de datos");
+		printf("\n\t2 - Listado de datos");
+		printf("\n\t3 - Salir");
+		printf("\n\nIngrese una opción ( 1 - 3 ) ");
+		scanf("%d", &i);
+		switch(i)
+		{
+		case 1:
+			j = ingreso(stock, j);
+			break;
+		case 2:
+			listado(stock, j);
+		}
+	}
+	while (i != 3);
+
+    return 0;
+}
+
+int ingreso(struct autos stock[], int j)
+{
+    int i;
+	float f;
+	if (j == MAX)
+		return(j);
+	do
+	{
+		clrscr();
+		printf("\n\t\t\tINGRESO DE DATOS");
+		printf("\n\n\tMarca : ");
+		fflush(stdin);
+		gets(stock[j].marca);
+		printf("\tModelo : ");
+		scanf("%d", &stock[j].modelo);
+		fflush(stdin);
+		printf("\tTipo (C-S) : ");
+		do
+		{
+			stock[j].tipo = getche();
+			if (stock[j].tipo == 'C' || stock[j].tipo == 'c')
+			{
+				printf("\n\tNumero de cilindros : ");
+				scanf("%d", &i);
+				stock[j].caract.dat.nro_cil = i;
+				printf("\tCilindrada : ");
+				scanf("%d", &stock[j].caract.dat.cilind);
+				printf("\tVelocidad máxima : ");
+				scanf("%d", &stock[j].caract.dat.veloc_max);
+				printf("\tCantidad de marchas : ");
+				scanf("%d", &i);
+				stock[j].caract.dat.marchas = i;
+			}
+			if (stock[j].tipo == 'S' || stock[j].tipo == 's')
+			{
+				printf("\n\tCantidad de puertas : ");
+				scanf("%d", &i);
+				stock[j].caract.dat1.puertas = i;
+				fflush(stdin);
+				printf("\tColor : ");
+				gets(stock[j].caract.dat1.color);
+				printf("\tFamiliar (S/N) : ");
+				stock[j].caract.dat1.familiar = getche();
+				printf("\n");
+			}
+		}
+		while (!(stock[j].tipo != 'C' || stock[j].tipo != 'c' || stock[j].tipo != 'S' || stock[j].tipo != 's'));
+		printf("\tVendido (S/N) : ");
+		do
+		{
+			stock[j].vendido = getche();
+			if (stock[j].vendido == 'S' || stock[j].vendido == 's')
+			{
+				printf("\n\tVenta al contado (S/N) : ");
+				do
+				{
+					stock[j].cont = getche();
+					if (stock[j].cont == 'S' || stock[j].cont == 's')
+					{
+						printf("\n\tValor : ");
+						scanf("%f", &f);
+						stock[j].valor.contado = f;
+					}
+					if (stock[j].cont == 'N' || stock[j].cont == 'n')
+					{
+						printf("\n\tNumero de cuotas : ");
+						scanf("%d", &stock[j].valor.pagos.cant);
+						printf("\tValor de la couta : ");
+						scanf("%f", &f);
+						stock[j].valor.pagos.val = f;
+					}
+				}
+				while (!(stock[j].cont != 'S' || stock[j].cont != 's' || stock[j].cont != 'N' || stock[j].cont != 'n'));
+			}
+			if (stock[j].vendido == 'N' || stock[j].vendido == 'n')
+			{
+				stock[j].valor.pagos.cant = 0;
+				stock[j].valor.pagos.val = 0;
+			}
+		}
+		while (!(stock[j].vendido! = 'S' || stock[j].vendido != 's' || stock[j].vendido != 'N' || stock[j].vendido != 'n'));
+		printf("\n\t\tDesea ingresar otro vehículo (S/N) ");
+		i = getche();
+		j++;
+	}
+	while ((i == 'S' || i == 's') && j < MAX);
+
+	return(j);
+}
+
+void listado(struct autos stock[], int i)
+{
+	int j, k;
+	for (j = 0; j < i; j++)
+	{
+		clrscr();
+		printf("\n\n\tMarca : %s", stock[j].marca);
+		printf("\tModelo : %d", stock[j].modelo);
+		printf("\tTipo : %c\n", stock[j].tipo);
+		if (stock[j].tipo == 'C' || stock[j].tipo == 'c')
+		{
+			printf("\n\tNumero de cilindros : %d", stock[j].caract.dat.nro_cil);
+			printf("\n\tCilindrada : %d", stock[j].caract.dat.cilind);
+			printf("\n\tVelocidad máxima : %d", stock[j].caract.dat.veloc_max);
+			printf("\n\tCantidad de marchas : %d", stock[j].caract.dat.marchas);
+		}
+		if (stock[j].tipo == 'S' || stock[j].tipo == 's')
+		{
+			printf("\n\tCantidad de puertas : %d", stock[j].caract.dat1.puertas);
+			printf("\n\tColor : %s", stock[j].caract.dat1.color);
+			printf("\n\tFamiliar : %c", stock[j].caract.dat1.familiar);
+		}
+		printf("\n\n\tVendido : %c", stock[j].vendido);
+		if (stock[j].vendido == 'S' || stock[j].vendido == 's')
+		{
+			if (stock[j].cont == 'S' || stock[j].cont == 's')
+				printf("\n\tValor : %.2f", stock[j].valor.contado);
+			if (stock[j].cont == 'N' || stock[j].cont == 'n')
+			{
+				printf("\n\tNumero de cuotas : %d", stock[j].valor.pagos.cant);
+				printf("\tValor de la cuota : %.2f", stock[j].valor.pagos.val);
+			}
+		}
+		printf("\n\n\t\tDesea listar otro vehículo (S/N) ");
+		k = getche();
+		if (k == 'N' || k == 'n')
+			return;
+	}
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 05</h2>
+<h2 class="teoria">Union 08</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 06</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 07</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 08</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 09</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 10</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-<h2 class="teoria">Punteros 11</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 12</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 13</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 14</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 15</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 16</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 17</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 18</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 19</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets()
+#include <conio.h> // clrscr() no existe en GCC/MinGW reemplazo con system("cls") de stdlib.h
+
+/* Reemplazo de clrscr() */
+#include <stdlib.h> // system("cls");
+
+/* Declaracion de constante global */
+#define MAX 3
+
+/* Declaracion de estructuras */
+struct coupe
+{
+    char nro_cil;
+    int cilind, veloc_max;
+    char marchas;
+};
+
+struct sedan
+{
+	char puertas, color[10], familiar;
+};
+
+struct cuotas
+{
+	int cant;
+	float val;
+};
+
+/* Declaracion de union de estructuras */
+union clase
+{
+	struct coupe dat;
+	struct sedan dat1;
+};
+
+/* Declaracion union que contiene tipo primitivo y estructura */
+union fina
+{
+	float contado;
+	struct cuotas pagos;
+};
+
+/* Declaracion de estructura que contiene miembros de tipo union */
+struct autos
+{
+	char marca[10];
+	int modelo;
+	char tipo;
+	union clase caract;
+	char vendido, cont;
+	union fina valor;
+};
+
+/* Prototipos de funciones */
+int ingreso(struct autos stock[], int);
+void listado(struct autos stock[], int);
+
+int main(void)
+{
+	/* Declaracion de vector de tipo struct autos */
+    struct autos stock[MAX];
+
+	/* Declaracion de variables */
+	int i,j=0;
+
+	do
+	{
+		clrscr(); // Comentar y reemplazar con la siguiente linea
+		//system("cls"); // Desomentar y comentar la linea anterior
+
+		/* Menu principal */
+		printf("\n\t\t\t\tMenu principal");
+		printf("\n\t1 - Ingreso de datos");
+		printf("\n\t2 - Listado de datos");
+		printf("\n\t3 - Salir");
+		printf("\n\nIngrese una opcion ( 1 - 4 ): ");
+
+		/* Leer el valor intriducido */
+		scanf("%d", &i);
+
+		/* Caso 1: llamar a la funcion ingreso con los argumentos vector de estructura stock y la variable entera j y almacenar lo que devuelve en j 
+         * Caso 2: llamar a la funcion listado con los argumentos vector de estructura stock y la variable entera j.
+         */
+		switch(i)
+		{
+		case 1:
+			j = ingreso(stock, j);
+			break;
+
+		case 2:
+			listado(stock, j);
+		}
+	}
+	while (i != 3); // Mientras la variable sea distinta de 3.
+
+    return 0;
+}
+
+/* Funcion para permitir el ingreso de los datos */
+int ingreso(struct autos stock[], int j)
+{
+	/* Declaracion de las variables a utilizar para *
+     * realizar el ingreso de los valores de tipo   *
+     * "char" con formato numerico y para poder     *
+     * ingresar los valores de tipo "float"         *
+	 */
+	int i;
+
+	/* Verifica que no se exceda el maximo del vector */
+	if (j == MAX)
+		return (j);
+
+	/* Comienzo del ingreso de los datos */
+	do
+	{
+		clrscr(); // Comentar y reemplazar con la siguiente linea
+		//system("cls"); // Desomentar y comentar la linea anterior
+
+		printf("\n\t\t\tINGRESO DE DATOS");
+		printf("\n\n\tMarca : ");
+
+		fflush(stdin);// Produce comportamiento indefinido, puede ser remplazaodo por las 2 siguientes lineas
+        //int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+
+		gets(stock[j].marca); // Eliminado en C11 reemplazar con fgets
+		//fgets(stock[j].marca, sizeof(stock[j].marca), stdin);
+
+		printf("\tModelo : ");
+		scanf("%d", &stock[j].modelo);
+
+		printf("\tTipo (C-S): ");
+
+		/* Ingreso de datos selectivo segun el tipo elegido */
+		do
+		{
+			stock[j].tipo = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+			if (stock[j].tipo == 'C' || stock[j].tipo == 'c')
+			{
+				printf("\tNumero de cilindros : ");
+
+				/* Utilizacion de una variable auxiliar para *
+                 * ingresar un valor con formato numerico en *
+                 * una variable de tipo "char"               *
+				 */
+				scanf("%d", &i);
+
+				/* Almacenar en struct autos => union clase caract => struct coupe dat => char nro_cil el valor almacenado en la variable entera i */
+				stock[j].caract.dat.nro_cil = i;
+
+				printf("\tCilindrada : ");
+				scanf("%d", &stock[j].caract.dat.cilind);
+
+				printf("\tVelocidad maxima : ");
+				scanf("%d", &stock[j].caract.dat.veloc_max);
+
+				printf("\tCantidad de marchas : ");
+				scanf("%d", &i); // Se sobreescribe el valor de la variable entera i
+
+				/* Almacenar en struct autos => union clase caract => struct coupe dat => char marchas el valor almacenado en la variable entera i */
+				stock[j].caract.dat.marchas = i;
+			}
+
+			if (stock[j].tipo == 'S' || stock[j].tipo == 's')
+			{
+				printf("\tCantidad de puertas : ");
+				scanf("%d", &i); // Se sobreescribe el valor de la variable entera i
+				
+				/* Almacenar en struct autos => union clase caract => struct sedan dat1 => char puertas el valor almacenado en la variable entera i */
+				stock[j].caract.dat1.puertas=i;
+				
+				fflush(stdin); // Produce comportamiento indefinido, puede ser remplazaodo por la siguiente linea
+                //while ((basura = getchar()) != '\n' && basura != EOF);
+
+				printf("\tColor : ");
+
+				gets(stock[j].caract.dat1.color); // Eliminado en C11, reemplazar con fegets(), comentar esta linea y descomentar la siguiente
+                //fgets(stock[j].caract.dat1.color, sizeof(stock[j].caract.dat1.color), stdin);
+				
+				printf("\tFamiliar (S/N) : ");
+
+				stock[j].caract.dat1.familiar = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+			}
+		}
+		while (stock[j].tipo == 'C' || stock[j].tipo == 'c' || stock[j].tipo == 'S' || stock[j].tipo == 's');
+
+		printf("\tVendido (S/N) : ");
+
+		/* Ingreso selectivo de los datos de venta */
+		do
+		{
+			stock[j].vendido = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+			if (stock[j].vendido == 'S' || stock[j].vendido == 's')
+			{
+				printf("\tVenta al contado (S/N) : ");
+				do
+				{
+					stock[j].cont = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+					if (stock[j].cont == 'S' || stock[j].cont == 's')
+					{
+						printf("\tValor : ");
+						scanf("%f", &stock[j].valor.contado);
+					}
+
+					if (stock[j].cont == 'N' || stock[j].cont == 'n')
+					{
+						printf("\tNumero de cuotas : ");
+						scanf("%d", &stock[j].valor.pagos.cant);
+
+						printf("\tValor de la couta : ");
+						scanf("%f", &stock[j].valor.pagos.val);
+					}
+				}
+				while (stock[j].cont == 'S' || stock[j].cont == 's' || stock[j].cont == 'N' || stock[j].cont == 'n');
+				//while (stock[j].cont != 'S' && stock[j].cont != 's' && stock[j].cont != 'N' && stock[j].cont != 'n');
+			}
+
+			if (stock[j].vendido == 'N' || stock[j].vendido == 'n')
+			{
+				stock[j].valor.pagos.cant = 0;
+				stock[j].valor.pagos.val = 0;
+			}
+		}
+		while (stock[j].vendido == 'S' || stock[j].vendido == 's' || stock[j].vendido == 'N' || stock[j].vendido == 'n');
+		//while (stock[j].vendido != 'S' && stock[j].vendido != 's' && stock[j].vendido != 'N' && stock[j].vendido != 'n');
+
+		printf("\n\t\tDesea ingresar otro vehiculo (S/N): ");
+		
+		i = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+		j++;
+	}
+	while (i == 'N' || i == 'n' || j >= MAX); // Deberia ser, como en el codigo anterior:
+	//while ((i == 'S' || i == 's') && j >= MAX);
+
+	/* Se retorna el ultimo valor de la posicion maxima de los valores ingresados */
+	return (j);
+}
+
+/* Funcion que permite la visualizacion de los datos */
+void listado(struct autos stock[], int j)
+{
+	/* Declaracion de variable a utilizar en la funcion */
+	int i;
+
+	/* Lazo para poder realizar la visualizacion de los datos *
+     * dentro del rango ingresado                             *
+	 */
+	for (i = 0; i < j; i++)
+	{
+		/* Mostrar marca, modelo y tipo */
+		printf("\n\n\tMarca : %s", stock[i].marca);
+		printf("\tModelo : %d", stock[i].modelo);
+		printf("\tTipo : %c", stock[i].tipo);
+
+		/* Listado selectivo segun el tipo */
+		if (stock[i].tipo == 'C' || stock[i].tipo == 'c')
+		{
+			/* Mostrar numero de cilidros, cilindrada, velocidad maxima, cantidad de marchas para tipo Coupe */
+			printf("\n\tNumero de cilindros : %d", stock[i].caract.dat.nro_cil);
+			printf("\tCilindrada : %d", stock[i].caract.dat.cilind);
+			printf("\n\tVelocidad maxima : %d", stock[i].caract.dat.veloc_max);
+			printf("\tCantidad de marchas : %d", stock[i].caract.dat.marchas);
+		}
+
+		if (stock[i].tipo == 'S' || stock[i].tipo == 's')
+		{
+			/* Mostrar cantidad de puertas, color, familiar para tipo Sedan */
+			printf("\tCantidad de puertas : %d", stock[i].caract.dat1.puertas);
+			printf("\tColor : %s", stock[i].caract.dat1.color);
+			printf("\tFamiliar (S/N) : %c", stock[i].caract.dat1.familiar);
+		}
+
+		/* Mostrar vendido */
+		printf("\n\tVendido : %c", stock[i].vendido);
+
+		/* Listado selectivo de los datos de venta */
+		if (stock[i].vendido == 'S' || stock[i].vendido == 's')
+		{
+			if (stock[i].cont == 'S' || stock[i].cont == 's')
+				printf("\tValor : %f", stock[i].valor.contado); // Mostrar valor de contado
+
+			if (stock[i].cont == 'N' || stock[i].cont == 'n')
+			{
+				printf("\tNumero de cuotas : %d", stock[i].valor.pagos.cant); // Mostrar numero de cuotas
+				printf("\tValor de la couta : %f", stock[i].valor.pagos.val); // Mostrar valor de cada cuota
+			}
+		}
+
+		printf("\n\t\tDesea listar otro vehiculo (S/N): ");
+
+		i = getche(); // Puede ser reemplazada con getchar() pero requiere ENTER
+
+		/* Seleccion que permite seguir visualizando o no      *
+         * los datos del vector segun la eleccion del operador *
+		 */
+		if (i == 'N' || i == 'n')
+			return;
+	}
+}
 </code></pre>
 
 </div>
