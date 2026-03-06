@@ -24,7 +24,7 @@
 <main>
 <div class="container">
 
-<h1>Punteros</h1>
+<h1>File</h1>
 
 <h2>Estructura de archivos:</h2>
 
@@ -32,14 +32,16 @@
     
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">File 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,312 +58,1728 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
-/*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
-
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
-*/
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
+#include <stdlib.h> // Se usa exit()
 
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    /* Declaracion de un puntero a FILE.
+     * almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
-    
+    /* Apertura de archivo en modo lectura y asignacion a fp
+     * r => Modo lectura, el archivo debe existir, de no existir la funcion devuelve NULL
+     */
+    fp = fopen("nuevoarc.txt", "r");
+
+    /* Si fopen falla, muestra mensaje y llama a la funcion exit con el parametro 1 */
+    if (fp == NULL)
+    {
+        printf("\n\nError de apertura\n\n");
+
+        /* exit(1):
+         * - Finaliza el programa inmediatamente.
+         * - El 1 indica terminacion con error.
+         * - Por convencion:
+         *   - 0    => Ejecucion correcta.
+         *   - != 0 => Error
+         */
+        exit(1);
+    }
+
+    /* SIEMPRE se debe cerrar el archivo asociado al puntero para liberar recursos del sistema, el archivo debio abrirse correctamente */
+    fclose(fp);
+
     return 0;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">File 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Apertura de archivo en modo escritura.
+     * w => Modo write:
+     *      - Si el archivo NO existe, lo crea.
+     *      - Si el archivo EXISTE, lo sobreescribe pero perdiendo el contenido anterior
+     */
+    fp = fopen("nuevoarc.txt", "w");
+
+    /* Verificacion de error en la apertura.
+     * Si fopen devuelve NULL, la operacion fallo (problemas de permisos, ruta invalida, etc.).
+     */
+    if (fp == NULL)
+    {
+        printf("\n\nError de apertura\n\n");
+
+        /* Finalizacion del programa con codigo de error */
+        exit(1);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     * En modo w. si el archivo fue creado, queda efectivamente generado al cerrarlo.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">File 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getche()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Variable de tipo char inicializada en 0.
+     * Almacena cada caracter ingresado por teclado.
+     * Se utiliza como condicion de corte del bucle */
+    char c = 0;
+
+    /* Apertura de archivo en modo escritura.
+     * w => Modo write:
+     *      - Si el archivo NO existe, lo crea.
+     *      - Si el archivo EXISTE, lo sobreescribe pero perdiendo el contenido anterior
+     */
+    fp = fopen("nuevoarc.txt", "w");
+
+    /* Verificacion de error en la apertura.
+     * Si fopen devuelve NULL, la operacion fallo (problemas de permisos, ruta invalida, etc.).
+     */
+    if (fp == NULL)
+    {
+        printf("\n\nError de apertura\n\n");
+
+        /* Finalizacion del programa con codigo de error */
+        exit(1);
+    }
+    
+    /* Bucle de ingreso de caracteres.
+     * Se ejecuta hasta que el usuario ingrese numeral.
+     */
+    while (c != '#')
+    {
+        /* getche():
+         * Lee un caracter desde el teclado (stdin) y lo muestra en pantalla (stdout).
+         */
+        c = getche();
+
+        /* fputc():
+         * Escribe un caracter en el archivo apuntado por fp.
+         * El caracter se almacena en el buffer del flujo.
+         */
+        fputc(c, fp);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     * En modo w. si el archivo fue creado, queda efectivamente generado al cerrarlo.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-<h1>Ejercicios:</h1>
-
-<h2 class="teoria">Punteros 01</h2>
+<h2 class="teoria">File 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Variable de tipo char inicializada en 0.
+     * Se utiliza para almacenar cada caracter leido del archivo
+     * y como condicion de corte del bucle.
+     */
+    char c = 0;
+
+    /* Apertura de archivo en modo lectura.
+     * El cursor se posiciona al inicio del archivo.
+     */
+    fp = fopen("nuevoarc.txt", "r");
+
+    /* Verificacion de error en la apertura.
+     * Si fopen devuelve NULL, la operacion fallo (problemas de permisos, ruta invalida, etc.).
+     */
+    if (fp == NULL)
+    {
+        printf("\n\nError de apertura\n\n");
+
+        /* Finalizacion del programa con codigo de error */
+        exit(1);
+    }
+    
+    /* Bucle de lectura caracter por caracter desde el archivo.
+     * En cada iteracion:
+     * - fgetc() lee el siguiente caracter del flujo.
+     * - putchar() lo muestra en pantalla.
+     * Finaliza cuando se detecta el caracter numeral.
+     */
+    while (c != '#')
+    {
+        /* fgetc():
+         * Lee un caracter del archivo apuntado por fp.
+         * Avanza automaticamente la posicion del cursor.
+         */
+        c = fgetc(fp);
+
+        /* putchar():
+         * Escribe en la salida estandar (stdout) el caracter leido.
+         */
+        putchar(c);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo abierto en modo lectura.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-
-<h2 class="teoria">Punteros 02</h2>
+<h2 class="teoria">File 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Variable de tipo char inicializada en 0.
+     * Se utiliza para almacenar cada caracter leido del archivo
+     * y como condicion de corte del bucle.
+     */
+    char c = 0;
+
+    /* Apertura de archivo en modo lectura.
+     * El cursor se posiciona al inicio del archivo.
+     */
+    fp = fopen("nuevoarc.txt", "r");
+
+    /* Verificacion de error en la apertura.
+     * Si fopen devuelve NULL, la operacion fallo (problemas de permisos, ruta invalida, etc.).
+     */
+    if (fp == NULL)
+    {
+        printf("\n\nError de apertura\n\n");
+
+        /* Finalizacion del programa con codigo de error */
+        exit(1);
+    }
+    
+    /* Bucle do-while. Se ejecuta al menos una vez.
+     * En cada iteracion:
+     * - fgetc() lee un caracter del archivo.
+     * - putchar() lo muestra en pantalla.
+     */
+    do
+    {
+        /* fgetc():
+         * Lee el siguiente caracter del flujo.
+         * Avanza automaticamente el cursor.
+         */
+        c = fgetc(fp);
+
+        /* putchar():
+         * Muestra en la salida estandar (stdout) el caracter leido.
+         */
+        putchar(c);
+    }
+    /* feof():
+     * Devuelve verdadero cuando se alcanza el fin de archivo (EOF).
+     */
+    while(!feof(fp));
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo abierto en modo lectura.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 03</h2>
+<h2 class="teoria">File 06</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getch()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de punteros a FILE.
+     * in  => flujo de entrada (archivo origen).
+     * out => flujo de salida (archivo destino).
+     */
+    FILE *in, *out;
+
+    /* Variable de tipo char inicializada en 0.
+     * Se utiliza para almacenar cada caracter leido del archivo
+     * y como condicion de corte del bucle.
+     */
+    char c;
+
+    /* Apertura del archivo origen en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if (!(in = fopen("Archiv1.c", "r")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    /* Apertura del archivo destino en modo escritura.
+     * Si no existe, se crea.
+     * Si existe se sobreescribe.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error-
+     */
+    if (!(out = fopen("Arc.c", "w")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\n\n");
+
+    /* Bucle de copia caracter por caracter.
+     * Mientras no se alcance el fin del archivo origen:
+     * - fgetc() lee un caracater desde in.
+     * - fputc() lo escribe en el archivo out.
+     * - printf() lo muestra en pantalla.
+     */
+    while(!feof(in))
+    {
+        c = fgetc(in);
+
+        /* Escritura del caracter leido en el archivo destino */
+        fputc(c,out);
+
+        /* Visualizacion en salida estandar */
+        printf("%c", c);
+    }
+
+    /* Cierre de los archivos.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(in);
+    fclose(out);
+
+    /* getch():
+     * Pausa la ejecucion hasta presionar una tecla.
+     */
+    getch();
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 04</h2>
+<h2 class="teoria">File 07</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <string.h> // Se usa strcmp()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Vector de caracteres (cadena).
+     * Capacidad maxima: 49 caracteres + '\0'.
+     */
+    char str[50];
+
+    /* Apertura del archivo en modo escritura.
+     * Si no existe, se crea.
+     * Si existe se sobreescribe.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if (!(fp = fopen("arcstr.txt", "w")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nESCRITURA DEL ARCHIVO\n\n");
+    
+    /* gets():
+     * Lee una linea desde teclado hasta presionar ENTER.
+     * Almacena la cadena en str.
+     * No controla la dimension del buffer.
+     * Fue eliminada en C11, por ser insegura y no controlar overflow buffer y se puede reemplazar con fgets():
+     * fgets(str, sizeof(str),stdin);
+     */
+    gets(str);
+
+    /* strcmp():
+     * Compara dos cadenas.
+     * Devuelve 0 si son iguales.
+     * El bucle se repite mientras str sea distinta de FIN.
+     */
+    while(strcmp(str, "FIN"))
+    {
+        /* fputs():
+         * Escribe una cadena en el archivo apuntado por fp.
+         * No agrega automaticamente salto de linea.
+         * Y como gets() lo elimina, el archivo se va a escribir sin saltos de linea.
+         */
+        fputs(str, fp);
+
+        /* En C11 se elimino, se puede reemplazar con: 
+         * fgets(str, sizeof(str), stdin);
+         */
+        gets(str);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    /* Apertura del archivo apuntado por fp en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error-
+     */
+    if (!(fp = fopen("arcstr.txt", "r")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nLECTURA DEL ARCHIVO\n\n");
+
+    /* feof():
+     * Devuelve verdadero cuando se alcanza el fin de archivo (EOF).
+     */
+    while (!feof(fp))
+    {
+        /* fgets():
+         * Lee hasta (n - 1) caracteres del archivo.
+         * En este caso, como n = 5:
+         * - Lee hasta 4 caracteres por vez.
+         * - Agrega '\0' al final.
+         * Puede detenerse antes si encuentra '\n' o EOF
+         */
+        fgets(str, 5, fp);
+
+        /* puts():
+         * Muestra la cadena en la salida estandar.
+         * Agrega automaticamente un salto de linea.
+         */
+        puts(str);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 05</h2>
+<h2 class="teoria">File 08</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Vector de caracteres (cadena).
+     * Capacidad maxima 49 caracteres + '\0'.
+     */
+    char str[50];
+
+    /* Variable entera.
+     * Almacena la cantidad maxima de caracteres a leer en cada llamada a fgets().
+     */
+    int largo;
+
+    /* scanf():
+     * Lee un valor entero ingresado por teclado
+     * y lo almacena en la variable largo.
+     * Se pasa la direccion de memoria (&largo).
+     */
+    scanf("%d", &largo);
+
+    /* Apertura del archivo en modo lectura.
+     * El archivo debe existir.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if (!(fp = fopen("arcstr.txt", "r")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nLECTURA DEL  ARCHIVO\n\n");
+
+    /* Bucle de lectura hasta fin de archivo.
+     * En cada iteracion:
+     * - fgets() lee hasta (largo - 1) caracteres.
+     * - Agrega el caracter '\0' al final de la cadena.
+     * - puts() muestra la cadena en pantalla.
+     */
+    while(!feof(fp))
+    {
+        /* fgets():
+         * Lee desde el archivo fp como maximo (largo - 1) caracteres.
+         * Se detiene  si encuentra '\n' o EOF.
+         */
+        fgets(str, largo, fp);
+
+        /* puts():
+         * Muestra la cadena en la salida estandar
+         * y agrega automaticamente un salto de linea.
+         */
+        puts(str);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 06</h2>
+<h2 class="teoria">File 09</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <string.h> // Se usa strcmp()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Vector de caracteres (cadena).
+     * Capacidad maxima 49 caracteres + '\0'.
+     */
+    char str[50];
+    
+    /* Apertura del archivo en modo escritura.
+     * Si no existe, se crea.
+     * Si existe se sobreescribe.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error
+     */
+    if (!(fp = fopen("arcstr1.txt", "w")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nESCRITURA DEL ARCHIVO\n\n");
+    
+    /* gets():
+     * Lee una linea desde teclado hasta presionar ENTER.
+     * Almacena la cadena en str.
+     * No controla la dimension del buffer.
+     * Fue eliminada en C11, por ser insegura y no controlar overflow buffer y se puede reemplazar con fgets():
+     * fgets(str, sizeof(str),stdin);
+     */
+    gets(str);
+
+    /* strcmp():
+     * Compara dos cadenas.
+     * Devuelve 0 si son iguales.
+     * El bucle se repite mientras str sea distinta de FIN.
+     */
+    while (strcmp(str, "FIN"))
+    {
+        /* fputs():
+         * Escribe una cadena en el archivo apuntado por fp.
+         * No agrega automaticamente salto de linea.
+         * Y como gets() lo elimina, el archivo se va a escribir sin saltos de linea.
+         */
+        fputs(str, fp);
+
+        /* En C11 se elimino, se puede reemplazar con: 
+         * fgets(str, sizeof(str), stdin);
+         */
+        gets(str);
+
+        /* fputc():
+         * Escribe un caracter individual en el archivo.
+         * Es este caso, se agrega manualmente un salto de linea
+         * para separar las cadenas almacenadas.
+         */
+        fputc('\n', fp);
+    }
+    
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    /* Apertura del archivo apuntado por fp en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error-
+     */
+    if (!(fp = fopen("arcstr1.txt", "r")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+    printf("\nLECTURA DEL  ARCHIVO\n\n");
+
+    /* feof():
+     * Devuelve verdadero cuando se alcanza el fin de archivo (EOF).
+     */
+    while(!feof(fp))
+    {
+        /* fgets():
+         * Lee hasta (n - 1) caracteres del archivo.
+         * En este caso, como n = 50:
+         * - Lee hasta 49 caracteres por vez.
+         * - Agrega '\0' al final.
+         * Puede detenerse antes si encuentra '\n' o EOF
+         */
+        fgets(str, 50, fp);
+
+        /* puts():
+         * Muestra la cadena en la salida estandar.
+         * Agrega automaticamente un salto de linea.
+         */
+        puts(str);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 07</h2>
+<h2 class="teoria">File 10</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <string.h> // Se usa strcpy()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+    /* Vector de caracteres (cadena).
+     * Capacidad maxima 49 caracteres + '\0'.
+     * Variable de tipo char inicializada con el caracter 'x'
+     */
+    char str[50], c = 'x';
+
+    /* Variables enteras:
+     * i => se utiliza como contador en los bucles.
+     * j => se utiliza como contador independiente en la lectura.
+     */
+    int i, j;
+
+    /* Variable de tipo float inicializada */
+    float f = 1.1;
+
+    /* strcpy():
+     * Copia la cadena constante "PRUEBA" dentro del arreglo str 
+     */
+    strcpy(str, "PRUEBA");
+
+    /* Apertura del archivo en modo escritura.
+     * Si no existe, se crea.
+     * Si existe se sobreescribe.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error
+     */
+    if (!(fp = fopen("arch2.txt", "w")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nESCRITURA DEL ARCHIVO\n\n");
+
+    /* fprintf():
+     * Escribe datos formateados en el archivo al que apunta fp.
+     * %s indica escritura de cadena.
+     */
+    fprintf(fp, "%s", str);
+
+    printf("%s\n", str);
+
+    for (i = 0; i < 10; i++)
+    {
+        /* fprintf():
+         * Escribe datos formateados en el archivo al que apunta fp.
+         * %d => escribe un entero en formato decimal.
+         */
+        fprintf(fp, "%d", i);
+        printf("%d\n", i);
+    }
+
+    /* fprintf():
+     * Escribe datos formateados en el archivo al que apunta fp.
+     * %c => escribe un caracter.
+     */
+    fprintf(fp, "%c", c);
+    printf("%c\n", c);
+
+    for (i = 0; i < 10; i++)
+    {
+        /* fprintf():
+         * Escribe datos formateados en el archivo al que apunta fp.
+         * %f => escribe un numero de tipo float en formato decimal.
+         */
+        fprintf(fp, "%f", f);
+        printf("%f\n", f);
+
+        f *= 1.1;
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    /* Apertura del archivo apuntado por fp en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(fp = fopen("arch2.txt", "r")))
+    {
+        printf("\n\nError de apertura\n\n");
+        exit(1);
+    }
+
+    printf("\nLECTURA DEL ARCHIVO\n\n");
+
+    /* fscanf():
+     * Lee datos formateados desde el archivo al que apunta fp.
+     * %s => lee una cadena hasta espacio o salto de linea.
+     */
+    fscanf(fp, "%s", str);
+
+    /* puts():
+     * Muestra la cadena en la salida estandar.
+     * Agrega automaticamente un salto de linea.
+     */
+    puts(str);
+
+    printf("\n");
+
+    for (j = 0; j < 10; j++)
+    {
+        /* fscanf():
+         * Lee datos formateados desde el archivo al que apunta fp.
+         * %d => lee un entero del archivo.
+         * Se pasa la direccion de memoria (&i).
+         */
+        fscanf(fp, "%d", &i);
+        
+        printf("%d", i);
+    }
+
+    printf("\n");
+
+    /* fscanf():
+     * Lee datos formateados desde el archivo al que apunta fp.
+     * %c => lee una caracter del archivo. NO ignora espacios en blanco.
+     * Si hubiera un '\n' pendiente en el buffer, podria leerse como caracter.
+     */
+    fscanf(fp, "%c", &c);
+    
+    printf("%c", c);
+
+    printf("\n");
+
+    for (i = 0; i < 10; i++)
+    {
+        /* fscanf():
+         * Lee datos formateados desde el archivo al que apunta fp.
+         * %f => lee un numero de tipo float.
+         */
+        fscanf(fp, "%f", &f);
+        printf("%f", f);
+    }
+
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+
+    /* Nota:
+     * No se agregan espacios ni saltos de linea entre los datos.
+     * La lectura funciona porque fscanf interpreta el formato
+     * exactamente en el mismo orden en que fueron escritos.
+     * Si se alterara el orden o formato, la lectura fallaria.
+     */
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 08</h2>
+<h2 class="teoria">File 11</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <string.h> // Se usa strcpy()
+#include <stdlib.h> // Se usa exit()
+
+int main(void)
+{
+	/* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+	FILE *fp;
+
+	/* Vector de caracteres (cadena).
+     * Capacidad maxima 49 caracteres + '\0'.
+     * Variable de tipo char inicializada con el caracter 'x'
+     */
+	char str[50], c = 'x';
+
+	/* Variables enteras:
+     * i => se utiliza como contador en los bucles.
+     * j => se utiliza como contador independiente en la lectura.
+     */
+	int i, j;
+
+	/* Variable de tipo float inicializada */
+	float f = 1.1;
+
+	/* strcpy():
+     * Copia la cadena constante "PRUEBA" dentro del arreglo str 
+     */
+	strcpy(str, "PRUEBA");
+	
+	/* Apertura del archivo en modo escritura.
+     * Si no existe, se crea.
+     * Si existe se sobreescribe.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(fp = fopen("arch2.txt", "w")))
+	{
+		printf("\n\nError de apertura\n\n");
+		exit(1);
+	}
+	
+    printf("\nESCRITURA DEL ARCHIVO\n\n");
+	
+	/* fprintf():
+     * Escribe datos formateados en el archivo al que apunta fp.
+     * %s\n => indica escritura de cadena con separador '\n'.
+     */
+    fprintf(fp, "%s\n", str);
+	printf("%s\n", str);
+	
+    for(i = 0; i < 10; i++)
+	{
+		/* fprintf():
+         * Escribe datos formateados en el archivo al que apunta fp.
+         * %d => escribe un entero en formato decimal.
+         */
+		fprintf(fp, "%d,", i);
+		printf("%d\n", i);
+	}
+	
+	/* fprintf():
+     * Escribe datos formateados en el archivo al que apunta fp.
+     * %c => escribe un caracter.
+     */
+    fprintf(fp,"%c,", c);
+	printf("%c\n", c);
+	
+    for(i = 0; i < 10; i++)
+	{
+		/* fprintf():
+         * Escribe datos formateados en el archivo al que apunta fp.
+         * %f => escribe un numero de tipo float en formato decimal.
+         */
+		fprintf(fp, "%f,", f);
+		printf("%f\n", f);
+
+		f *= 1.1;
+	}
+
+	/* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+	fclose(fp);
+	
+	/* Apertura del archivo apuntado por fp en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(fp = fopen("arch2.txt", "r")))
+	{
+		printf("\n\nError de apertura\n\n");
+		exit(1);
+	}
+
+	printf("\nLECTURA DEL ARCHIVO\n\n");
+	
+	/* fscanf():
+     * Lee datos formateados desde el archivo al que apunta fp.
+     * %s => lee una cadena hasta espacio o salto de linea. 
+	 * '\n' en el formato No representa un salto literal,
+	 * Sino que indica consumir cualquier cantidad de espacios en blanco
+	 * (incluyendo '\n') posteriores.
+     */
+    fscanf(fp, "%s\n", str);
+	
+	/* puts():
+     * Muestra la cadena en la salida estandar.
+     * Agrega automaticamente un salto de linea.
+     */
+    puts(str);
+
+	printf("\n");
+	
+    for(j = 0; j < 10; j++)
+	{
+		/* fscanf():
+         * Lee datos formateados desde el archivo al que apunta fp.
+         * %d, => lee un entero del archivo. Se usa el separado ','.
+         * Se pasa la direccion de memoria (&i).
+         */
+		fscanf(fp, "%d,", &i);
+		printf("%d\n", i);
+	}
+
+	printf("\n");
+	
+	/* fscanf():
+     * Lee datos formateados desde el archivo al que apunta fp.
+     * %c, => lee una caracter del archivo. NO ignora espacios en blanco.
+     * Si hubiera un '\n' pendiente en el buffer, podria leerse como caracter.
+	 * Se usa separador ','.
+     */
+    fscanf(fp, "%c,", &c);
+	printf("%c", c);
+	
+    printf("\n");
+	
+    for(i = 0; i < 10; i++)
+	{
+		/* fscanf():
+         * Lee datos formateados desde el archivo al que apunta fp.
+         * %f, => lee un numero de tipo float. Se usa separador ','.
+         */
+		fscanf(fp, "%f,", &f);
+		printf("%f\n", f);
+	}
+
+	/* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+	fclose(fp);
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 09</h2>
+<h2 class="teoria">File 12</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <string.h> // Se usa strcpy()
+#include <stdlib.h> // Se usa exit()
+
+/* Declaracion de estructura */
+struct x
+{
+    int i;
+    float f;
+    char c, str[10];
+};
+
+int main(void)
+{
+	/* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *fp;
+
+	/* Vectores de caracteres (cadenas).
+     * Capacidad maxima 49 caracteres + '\0'.
+     * Variable de tipo char inicializada con el caracter 'x' y variable no inicializada
+     */
+	char str[50], c = 'x', str1[50], c1;
+
+	/* Variables enteras:
+     * i => se utiliza como contador en los bucles.
+     * j => se utiliza como contador independiente en la lectura.
+	 * Vector de tipo int de dimension 10.
+     */
+	int i, j, k[10];
+
+	/* Variable de tipo float inicializada y vector de tipo float de dimension 10 */
+	float f = 1.1, g[10];
+
+	/* Variables de tipo struct x */
+	struct x st, st1;
+	
+	/* Inicializacion de los campos de la estructura*/
+    st.i = 11;
+	st.f = 3.14159;
+	st.c = 'J';
+
+	/* strcpy():
+	 * Copia la cadena constante "prueba" dentro del campo str de la estructura st.
+     * Copia la cadena constante "PRUEBA" dentro del vector str 
+     */
+	strcpy(st.str, "prueba");
+	strcpy(str, "PRUEBA");
+	
+	/* Apertura del archivo apuntado por fp en modo escritura-binaria.
+	 * w => escritura (crea el archivo o lo sobreescribe si existe).
+	 * b => modo binario.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(fp = fopen("arch.bin", "wb")))
+	{
+		printf("\n\nError de apertura\n\n");
+		exit(1);
+	}
+
+	printf("\nESCRITURA DEL ARCHIVO\n\n");
+	
+	/* fwrite():
+	 * Escribe datos binarios en el archivo.
+	 * str         => direccion del bloque de memoria a escribir.
+	 * sizeof(str) => dimension total del vector (50 bytes).
+	 * 1           => cantidad de bloques a escribir.
+	 * fp          => puntero a FILE.
+	 */
+    fwrite(str, sizeof(str), 1, fp);
+	
+	/* Muestra el vector str*/
+    printf("%s\n", str);
+	
+    for(i = 0; i < 10; i++)
+	{
+		/* fwrite():
+		 * Escribe datos binarios en el archivo.
+		 * &i        => direccion de la variable i.
+		 * sizeof(i) => dimension de un entero en bytes.
+		 * 1         => se escribe un elemento por iteracion.
+		 * fp        => puntero a FILE.
+		 */
+		fwrite(&i, sizeof(i), 1, fp);
+		printf("%d\n", i); // Muestra la iteracion
+	}
+
+	/* fwrite():
+	 * Escribe datos binarios en el archivo.
+	 * &c           => direccion del caracter.
+	 * sizeof(char) => dimension de un byte.
+	 * 1            => cantidad de elementos.
+	 * fp           => puntero a FILE.
+	 */
+	fwrite(&c, sizeof(char), 1, fp);
+	printf("%c\n", c); // Muestra el caracter con salto de linea
+	
+    for(i = 0; i < 10; i++)
+	{
+		/* fwrite():
+		 * Escribe datos binarios en el archivo.
+		 * &f            => direccion de la variable f.
+		 * sizeof(float) => dimension de un float en bytes.
+		 * 1             => se escribe un elemento por iteracion.
+		 * fp            => puntero a FILE.
+		 */
+		fwrite(&f, sizeof(float), 1, fp);
+		printf("%f\n", f); // Muestra el valor de f
+		f *= 1.1; // Reasigna el valor de f
+	}
+
+	/* fwrite():
+	 * Escribe datos binarios en el archivo.
+	 * &st              => direccion de la estructura.
+	 * sizeof(struct x) => dimension total de la estructura en memoria.
+	 * 1                => se escribe una estructura completa como bloque binario.
+	 * fp               => puntero a FILE.
+	 */
+	fwrite(&st, sizeof(struct x), 1, fp);
+
+	/* Muestra todos los campos de la estructura st */
+    printf("\n%c, %d, %f, %s\n", st.c, st.i, st.f, st.str);
+	
+	/* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+	
+	/* Apertura del archivo apuntado por fp en modo lectura-binaria.
+     * r => lectura (el archivo debe existir).
+	 * b => modo binario.
+	 * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(fp = fopen("arch.bin", "rb")))
+	{
+		printf("\n\nError de apertura\n\n");
+		exit(1);
+	}
+
+	printf("\nLECTURA DEL ARCHIVO\n\n");
+	
+	/* fread():
+	 * str1         => direccion donde se almacenan los datos leidos.
+	 * sizeof(str1) => dimension total del vector (50 bytes).
+	 * 1            => cantidad de bloques a leer.
+	 * fp           => puntero a FILE.
+	 */
+    fread(str1, sizeof(str1), 1, fp);
+	
+	/* puts():
+     * Muestra la cadena en la salida estandar.
+     * Agrega automaticamente un salto de linea.
+     */
+    puts(str1);
+	
+    printf("\n");
+	
+	/* fread():
+	 * k           => vector donde se almacenan los enteros.
+	 * sizeof(int) => dimension de cada entero.
+	 * 10          => cantidad de elementos a leer.
+	 * fp          => puntero a FILE.
+	 */
+    fread(k, sizeof(int), 10, fp);
+	
+	/* Recorre el vector k */
+    for(j = 0; j < 10; j++)
+		printf("%d\n", k[j]); // Muestra cada elemento
+	
+    printf("\n");
+	
+	/* fread():
+	 * c1           => direccion donde se almacena el caracter.
+	 * sizeof(char) => dimension de un byte.
+	 * 1            => cantidad de elementos.
+	 * fp          => puntero a FILE.
+	 */
+    fread(&c1, sizeof(char), 1, fp);
+	printf("%c", c1); // Muestra el caracter leido, no hay salto de linea automatico
+	printf("\n"); // Salto de linea manual
+	
+	/* fread():
+	 * g             => vector donde se almacenan los floats.
+	 * sizeof(float) => dimension de cada float.
+	 * 10            => cantidad de elementos a leer.
+	 * fp            => puntero a FILE.
+	 */
+    fread(g, sizeof(float), 10, fp);
+	
+	/* Recorre el vector g */
+    for(i = 0; i < 10; i++)
+		printf("%f\n", g[i]); // Muestra cada elemento
+	
+	/* fread():
+	 * &st1             => direccion donde se almacena la estructura leida.
+	 * sizeof(struct x) => dimension total de la estructura.
+	 * 1                => se lee una estructura completa.
+	 * fp               => puntero a FILE.
+	 */
+    fread(&st1, sizeof(struct x), 1, fp);
+	
+	/* Muestra todos los campos de la estructura st1 */
+    printf("\n%c, %d, %f, %s\n", st1.c, st1.i, st1.f, st1.str);
+	
+	/* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(fp);
+    
+	/* Nota:
+	 * En archivos binarios los datos se almacenan en su representacion
+	 * interna en memoria, no en formato legible.
+	 * Por eso se utilizan fwrite() y fread().
+	 */
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 10</h2>
+<h2 class="teoria">File 13</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-</code></pre>
+#include <stdio.h>
+#include <stdlib.h> // Se usa exit()
 
-<h2 class="teoria">Punteros 11</h2>
+int main(void)
+{
+    /* Declaracion de un puntero a FILE.
+     * Almacena la direccion del flujo asociado al archivo.
+     */
+    FILE *in;
 
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
+    /* Variable de tipo char.
+     * Se utiliza para almacenar cada caracter leido del archivo.
+     * Variable de tipo long.
+     * Se utiiza para mostrar la posicion del indicador del archivo.
+     */
+	char c;
+	long l;
+	
+    /* Apertura del archivo apuntado por 'in' en modo lectura.
+     * Se realiza la asignacion dentro de la condicion.
+     * Si fopen devuelve NULL, la expresion es verdadera y se ejecuta el bloque de error.
+     */
+    if(!(in = fopen("Archiv01.c", "r")))
+	{
+		printf("\n\nError de apertura\n\n");
+		exit(1);
+	}
 
-</code></pre>
+	printf("\n\n");
+	
+    /* ftell():
+     * Devuelve la posicion actual del indicador de archivo medida en bytes desde el inicio.
+     * in => puntero a FILE.
+     */
+    l = ftell(in);
+	
+    /* Muestra la posicion actual (inicio = 0) */
+    printf("%ld", l);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 0 => desplazamiento
+     * SEEK_END => referencia desde el final del archivo.
+     *
+     * Coloca el puntero al final del archivo.
+     */
+    fseek(in, 0, SEEK_END);
+	
+    printf("\n\n");
+	
+    /* ftell():
+     * Devuelve la posicion actual del indicador de archivo medida en bytes desde el inicio.
+     * in => puntero a FILE.
+     */
+    l = ftell(in);
 
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 12</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 13</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 14</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 15</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 16</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 17</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 18</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 19</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
+    /* Muestra la posicion actual */
+	printf("%ld", l);
+	
+    /* rewind():
+     * Reposiciona el puntero al inicio del archivo.
+     * Equivale a fseek(in, 0, SEEK_SET). 
+     */
+    rewind(in);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 200 => se desplaza 200 bytes
+     * SEEK_SET => desde el inicio del archivo.
+     *
+     * Coloca el puntero en el byte 200 desde el inicio del archivo.
+     */
+    fseek(in, 200, SEEK_SET);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 220 => se desplaza 220 bytes
+     * SEEK_SET => desde el inicio del archivo.
+     *
+     * Coloca el puntero en el byte 220 desde el inicio del archivo.
+     */
+    fseek(in, 220, SEEK_SET);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 1 => avanza 1 byte
+     * SEEK_CUR => desde la posicion actual.
+     */
+    fseek(in, 1, SEEK_CUR);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 0 => no se mueve
+     * SEEK_CUR => mantiene la posicion actual.
+     */
+    fseek(in, 0, SEEK_CUR);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 0 => no se mueve
+     * SEEK_CUR => mantiene la posicion actual.
+     *
+     * No modifica la posicion actual del puntero.
+     */
+    fseek(in, 0, SEEK_CUR);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * -1 => retrocede 1 byte
+     * SEEK_CUR => desde la posicion actual.
+     */
+    fseek(in, -1, SEEK_CUR);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 200 => se desplaza 200 bytes
+     * SEEK_SET => desde el inicio del archivo.
+     *
+     * Coloca el puntero en el byte 200 desde el inicio del archivo.
+     */
+    fseek(in, 200, SEEK_SET);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * 200 => se desplaza 200 bytes
+     * SEEK_SET => desde el inicio del archivo.
+     *
+     * Coloca el puntero en el byte 200 desde el inicio del archivo.
+     */
+    fseek(in, 200, SEEK_SET);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* fseek():
+     * Desplaza el indicador de posicion del archivo.
+     * in => puntero a FILE.
+     * -150 => retrocede 150 bytes
+     * SEEK_END => desde el final del archivo.
+     *
+     * Coloca el puntero 150 bytes antes del final del archivo.
+     */
+    fseek(in, -150, SEEK_END);
+	
+    /* fgetc():
+     * Lee un caracter del archivo en la posicion actual
+     * y avanza el puntero automaticamente una posicion.
+     */
+    c = fgetc(in);
+	
+    /* Muestra el caracter leido */
+    printf("\n%c", c);
+	
+    /* Cierre del archivo.
+     * Libera los recursos asociados al flujo.
+     */
+    fclose(in);
+    
+    return 0;
+}
 </code></pre>
 
 </div>

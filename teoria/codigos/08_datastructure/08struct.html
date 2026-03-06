@@ -24,7 +24,7 @@
 <main>
 <div class="container">
 
-<h1>Punteros</h1>
+<h1>Estructura de datos</h1>
 
 <h2>Estructura de archivos:</h2>
 
@@ -32,14 +32,16 @@
     
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">Estructura de datos 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,312 +58,3501 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
-/*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
-*/
+/* Programa de ejemplo:
+ * Declaracion y uso de estructuras (struct)
+ * Calculo del modulo y argumento de la suma
+ * de dos numeros complejos.
+ */
 
 #include <stdio.h>
+#include <math.h> // Se usa sqrt(), pow(), atan2()
+
+/* Se declaran las estructuras con la etiqueta y la lista de las variables
+ * Representa un numero complejo en forma binomica:
+ * z = x + yi 
+ */
+struct complejo
+{
+    float x, y; /* x => Parte real, y => Parte imaginaria */
+} a, b; /* Se declaran dos variables del tipo struct complejo */
+
+/* Declaracion de la estructura 'resultado'.
+ * Almacena:
+ * - modulo (magnitud).
+ * - argumento (angulo en radianes).
+ */
+struct resultado
+{
+    float mod, arg;
+} res; /* Variable del tipo struct resultado */
 
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    /* Ingreso del numero a */
+    a.x = 5;
+    a.y = 7;
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
+    /* Ingreso del numero b */
+    b.x = 2;
+    b.y = 8;
+
+    /* Calculo de la suma de los numeros complejos a y b
+     * Suma de complejos:
+     * (a + b) = (a.x + b.x) + (a.y + b.y)i
+     *
+     * Calculo del modulo:
+     * |z| = sqrt(x^2 + y^2)
+     *
+     * Se utilizan funciones de math.h:
+     * - pow()  => potencia.
+     * - sqrt() => raiz cuadrada.
+     */
+    res.mod = sqrt(pow((a.x + b.x),2) + pow((a.y + b.y), 2));
+
+    /* Calculo del argumento:
+     * arg(z) = atan2(y, x)
+     *
+     * Se utiliza la funcion atan2 de math.h:
+     * atan2() => devuelve el angulo en radianes, considerando correctamente el cuadrante.
+     */
+    res.arg = atan2((a.y + b.y), (a.x + b.x));
+
+    /* Impresion de los resultados */
+    printf("\nEl modulo de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.mod);
+
+    printf("\nEl argumento de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.arg);
     
     return 0;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">Estructura de datos 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Programa de ejemplo: 
+ * Declaracion y uso de estructuras anonimas.
+ * Calculo del modulo y argumento de la suma
+ * de dos numeros complejos.
+ */
+
+#include <stdio.h>
+#include <math.h> // Se usa sqrt(), pow(), atan2()
+
+/* Declaracion de una estructura SIN etiqueta (estructura anonima).
+ * Representa un numero complejo en forma binomica:
+ * z = x + yi
+ *
+ * Al no tener nombre (no hay 'struct complejo'),
+ * este tipo no puede reutilizarse luego.
+ * Solo existen las variables a y b.
+ */
+struct
+{
+    float x, y; /* x => Parte real, y => Parte imaginaria */
+} a, b;
+
+/* Declaracion de estructura anonima.
+ * Almacena:
+ * - modulo (magnitud).
+ * - argumento (angulo en radianes).
+ *
+ * Tampoco puede reutilizarse como tipo.
+ */
+struct
+{
+    float mod, arg;
+} res;
+
+int main(void)
+{
+    /* Ingreso del numero a */
+    a.x = 5;
+    a.y = 7;
+
+    /* Ingreso del numero b */
+    b.x = 2;
+    b.y = 8;
+
+    /* Calculo de la suma de los numeros complejos a y b
+     * Suma de complejos:
+     * (a + b) = (a.x + b.x) + (a.y + b.y)i
+     *
+     * Calculo del modulo:
+     * |z| = sqrt(x^2 + y^2)
+     *
+     * Se utilizan funciones de math.h:
+     * - pow()  => potencia.
+     * - sqrt() => raiz cuadrada.
+     */
+    res.mod = sqrt(pow((a.x + b.x), 2) + pow((a.y + b.y), 2));
+
+    /* Calculo del argumento:
+     * arg(z) = atan2(y, x)
+     *
+     * Se utiliza la funcion atan2 de math.h:
+     * atan2() => devuelve el angulo en radianes, considerando correctamente el cuadrante.
+     */
+    res.arg = atan2((a.y + b.y), (a.x + b.x));
+
+    /* Impresion de los resultados */
+    printf("\nEl modulo de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.mod);
+
+    printf("\nEl argumento de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.arg);
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">Estructura de datos 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Programa de ejemplo:
+ * Declaracion y uso de estructuras (struct)
+ * Calculo del modulo y argumento de la suma
+ * de dos numeros complejos.
+ */
+
+#include <stdio.h>
+#include <math.h> // Se usa sqrt(), pow(), atan2()
+
+/* Se declaran las estructuras con la etiqueta y la lista de las variables
+ * Representa un numero complejo en forma binomica:
+ * z = x + yi 
+ */
+struct complejo
+{
+    float x, y; /* x => Parte real, y => Parte imaginaria */
+};
+
+/* Declaracion de la estructura 'resultado'.
+ * Almacena:
+ * - modulo (magnitud).
+ * - argumento (angulo en radianes).
+ */
+struct resultado
+{
+    float mod, arg;
+};
+
+int main(void)
+{
+    /* Se declaran dos variables del tipo struct complejo */
+    struct complejo a, b;
+    struct resultado res; /* Variable del tipo struct resultado */
+    
+    /* Ingreso del numero a */
+    a.x = 5;
+    a.y = 7;
+
+    /* Ingreso del numero b */
+    b.x = 2;
+    b.y = 8;
+
+    /* Calculo de la suma de los numeros complejos a y b
+     * Suma de complejos:
+     * (a + b) = (a.x + b.x) + (a.y + b.y)i
+     *
+     * Calculo del modulo:
+     * |z| = sqrt(x^2 + y^2)
+     *
+     * Se utilizan funciones de math.h:
+     * - pow()  => potencia.
+     * - sqrt() => raiz cuadrada.
+     */
+    res.mod = sqrt(pow((a.x + b.x),2) + pow((a.y + b.y), 2));
+
+    /* Calculo del argumento:
+     * arg(z) = atan2(y, x)
+     *
+     * Se utiliza la funcion atan2 de math.h:
+     * atan2() => devuelve el angulo en radianes, considerando correctamente el cuadrante.
+     */
+    res.arg = atan2((a.y + b.y), (a.x + b.x));
+
+    /* Impresion de los resultados */
+    printf("\nEl modulo de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.mod);
+
+    printf("\nEl argumento de la suma de (%2.2f + %2.2fi) y (%2.2f + %2.2fi) es: ", a.x, a.y, b.x, b.y);
+    printf("\t%2.2f\n\n", res.arg);
+    
+    return 0;
+}
 </code></pre>
 
-<h1>Ejercicios:</h1>
-
-<h2 class="teoria">Punteros 01</h2>
+<h2 class="teoria">Estructura de datos 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Programa de ejemplo:
+ * Sistema basico de facturacion.
+ *
+ * Se utilizan:
+ * - Vectores de estructuras.
+ * - Estructuras anidadas.
+ * - Paso de estructuras por puntero.
+ * - Busqueda secuencial.
+ * - Ordenamiento (burbuja y seleccion).
+ * - Acumuladores.
+ */
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <string.h>
+
+/* Estructura que representa un producto */
+struct Productos
+{
+    int Articulo;         // Codigo identificador del producto
+    char Descripcion[31]; // Cadena de hasta 30 caracteres + '\0'
+    float PrecioUnitario; // Precio del producto
+};
+
+/* Estructura que representa un vendedor */
+struct Vendedores
+{
+    int Legajo;                    // Numero interno del empleado
+    char Nombre[81], Apellido[81]; // Nombre del vendedor, Cadenas de hasta 80 caracteres + '\0'
+    int Numero;                    // Numero identificador para ventas
+    float Comision;                // Porcentaje de comision
+};
+
+/* Estructura que representa una venta individual */
+struct Ventas
+{
+    int NumeroArticulo, Cantidad; // Codigo del articulo vendido y Cantidad vendida
+};
+
+/* Estructura que representa una factura */
+struct Facturas
+{
+    int Numero, CodigoCliente, NumeroVendedor; // Numero de factura, Codigo del cliente, Numero del vendedor
+    /* Vector de estructura (estructura anidada on vector interno) */
+    struct Ventas venta[10];                   // Hasta 10 articulos por factura
+};
+
+/* Estructura que acumula comisiones por vendedor */
+struct Comisiones
+{
+    int Numero;                     // Numero del vendedor
+    float Comision, ValorRecaudado; // Porcentaje de comision y Total acumulado de comisiones
+};
+
+/* Prototipos de funciones:
+ * Todas reciben punteros a estructuras.
+ * Cuando se pasa un vector a una funcion,
+ * se pasa implicitamente un puntero al primer elemento.
+ */
+void IngresarProductos(struct Productos *);
+void IngresarVendedores(struct Vendedores *);
+void Inicializar(struct Productos *, struct Vendedores *, struct Ventas *, struct Comisiones *);
+float IngresarVentas(struct Productos *, struct Ventas *, struct Comisiones *, struct Vendedores *);
+void OrdenarProductos(struct Ventas *);
+void OrdenarVendedores(struct Comisiones *);
+void Listados(struct Ventas *, float, struct Comisiones *);
+int BuscarArticulo(int, struct Productos *);
+int BuscarVendedor(int, struct Vendedores *);
+
+int main(void)
+{
+    /* Declaracion de vectores de estructuras
+     * Memoria reservada automaticamente (stack)
+     */
+    struct Productos Producto[10];  // Hasta 10 productos
+    struct Vendedores Vendedor[50]; // Hasta 50 vendedores
+    struct Ventas Venta[10];        // Acumulador por producto
+    struct Comisiones Comision[50]; // Acumulador por vendedor
+
+    /* Total general del sistema */
+    float TotalFacturado;
+    
+    /* Carga inicial de datos */
+    IngresarProductos(Producto);
+    IngresarVendedores(Vendedor);
+    
+    /* Inicializa acumuladores en cero */
+    Inicializar(Producto, Vendedor, Venta, Comision);
+
+    /* Procesa facturas y devuelve total facturado */
+    TotalFacturado = IngresarVentas(Producto, Venta, Comision, Vendedor);
+
+    /* Ordenamientos */
+    OrdenarProductos(Venta);     // Ordena productos por numero de articulos
+    OrdenarVendedores(Comision); // Ordena vendedores por comision recaudada
+
+    /* Listado final */
+    Listados(Venta, TotalFacturado, Comision);
+
+    return 0;
+}
+
+/* Funcion que carga los datos de los productos */
+void IngresarProductos(struct Productos *Prod) // Recibe un puntero al primer elemento del vector de estructuras
+{
+    /* Variable de control del ciclo*/
+    int i;
+    
+    /* Recorre el vector de productos*/
+    for (i = 0; i < 10; i++)
+    {
+        printf("Articulo ");
+        scanf("%d", &Prod[i].Articulo); // Acceso por puntero al elemento i
+        
+        fflush(stdin); // Limpieza del buffer (no estandar) Reemplazar con:
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+
+        printf("Descripcion ");
+        gets(Prod[i].Descripcion); // Lectura de cadena (Funcion insegura)
+        //fgets(Prod[i].Descripcion, sizeof(Prod[i].Descripcion), stdin);
+        printf("Precio Unitario ");
+        scanf("%f", &Prod[i].PrecioUnitario); // Lectura del precio
+    }
+}
+
+/* Carga los datos de los vendedores */
+void IngresarVendedores(struct Vendedores *Vend) // Recibe un puntero al primer elemento del vector de estructuras
+{
+    /* Variable de control del ciclo */
+    int i;
+
+    /* Recorre el vector de vendedores */
+    for (i = 0; i < 50; i++)
+    {
+        printf("Legajo ");
+        scanf("%d", &Vend[i].Legajo); // Acceso por puntero al elemento i, Carga legajo
+
+        fflush(stdin); // Limpieza del buffer (no estandar) Reemplazar con:
+        //int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+        
+        printf("Nombre y Apellido ");
+        gets(Vend[i].Nombre); // Lectura de cadena, Carga de Nombre y Apellido
+        gets(Vend[i].Apellido);
+        /*
+        fgets(Vend[i].Nombre, sizeof(Vend[i].Nombre), stdin);
+        fgets(Vend[i].Apellido, sizeof(Vend[i].Apellido),stdin);
+        */
+
+        printf("Numero ");
+        scanf("%d", &Vend[i].Numero); // Numero identificador
+
+        printf("Comision ");
+        scanf("%f", &Vend[i].Comision); // Porcentaje de comision
+    }
+}
+
+/* Inicializa estructuras acumuladoras 
+ * Recibe:
+ * - Un puntero al primer elemento del vector de estructuras Productos.
+ * - Un puntero al primer elemento del vector de estructuras Vendedores.
+ * - Un puntero al primer elemento del vector de estructuras Ventas.
+ * - Un puntero al primer elemento del vector de estructuras Comisiones.
+ */
+void Inicializar(struct Productos *Prod, struct Vendedores *Vend, struct Ventas *Vent, struct Comisiones *Com)
+{
+    int i;
+
+    /* Inicializa ventas por producto */
+    for (i = 0; i < 10; i++)
+    {
+        Vent[i].NumeroArticulo = Prod[i].Articulo; // Copia numero de articulo
+        Vent[i].Cantidad = 0; // Inicializacion del acumulador en cero
+    }
+
+    /* Inicializa acumulador de comisiones por vendedor */
+    for (i = 0; i < 50; i++)
+    {
+        Com[i].Numero = Vend[i].Numero;     // Copia numero de vendedor
+        Com[i].Comision = Vend[i].Comision; // Copia porcentaje de comision
+        Com[i].ValorRecaudado = 0;          // Inicializa acumulador de Valor Recaudado en cero
+    }
+}
+
+/* Procesa facturas hasta ingresar Numero = 0
+ * Recibe:
+ * - Un puntero al primer elemento del vector de estructuras Productos.
+ * - Un puntero al primer elemento del vector de estructuras Ventas (acumulador por productos).
+ * - Un puntero al primer elemento del vector de estructuras Comisiones (acumulador por vendedor).
+ * - Un puntero al primer elemento del vector de estructuras Vendedores.
+ */
+float IngresarVentas(struct Productos *Prod, struct Ventas *Vent, struct Comisiones *Com, struct Vendedores *Vend)
+{
+    struct Facturas Factura; // Variable local del tipo struct Facturas
+    float Total = 0;         // Acumulador total
+    int i, Art, Ven;
+
+    printf("Numero ");
+    scanf("%d", &Factura.Numero); // Primer numero de factura
+
+    while (Factura.Numero) // Mientras Factura.Numero != 0
+    {
+        printf("Codigo Cliente ");
+        scanf("%d", &Factura.CodigoCliente); // Carga codigo de cliente
+
+        printf("Numero Vendedor ");
+        scanf("%d", &Factura.NumeroVendedor); // Carga numero de vendedor
+
+        /* Busqueda del vendedor que realizo la venta */
+        Ven = BuscarVendedor(Factura.NumeroVendedor, Vend);
+
+        i = 0;
+
+        printf("Numero Articulo ");
+        scanf("%d", &Factura.venta[i].NumeroArticulo); // Carga numero de articulo
+
+        /* Se procesan hasta 10 articulos o hasta ingresar <= 0 */
+        while ((Factura.venta[i].NumeroArticulo > 0) && (i < 10))
+        {
+            printf("Cantidad ");
+            scanf("%d", &Factura.venta[i].Cantidad); // Carga la cantidad
+
+            Art = BuscarArticulo(Factura.venta[i].NumeroArticulo, Prod); // Busca el articulo
+
+            /* Si el articulo existe */
+            if (Art != -1)
+            {
+                Vent[Art].Cantidad += Factura.venta[i].Cantidad; // Acumula cantidad vendida
+
+                Total += Factura.venta[i].Cantidad * Prod[Art].PrecioUnitario; // Acumula total facturado
+            }
+            /* Si el vendedor existe */
+            if (Ven != -1)
+            {
+                Com[Ven].ValorRecaudado += Factura.venta[i].Cantidad * Prod[Art].PrecioUnitario * Com[Ven].Comision; // Acumula comision
+            }
+
+            i++; // Avanza al siguiente articulo
+
+            printf("Numero Articulo ");
+            scanf("%d", &Factura.venta[i].NumeroArticulo); // Carga el nuevo numero de articulo
+        }
+
+        printf("Numero ");
+        scanf("%d", &Factura.Numero); // Carga el numero de nueva factura
+    }
+    return Total; // Devuelve el total facturado
+}
+
+/* Ordenamiento tipo burbuja por NumeroArticulo */
+void OrdenarProductos(struct Ventas *Vent) // Recibe un puntero al primer elemento del vector de estructuras Ventas.
+{
+    /* Variables de control para los bucles */
+    int i, j;
+    struct Ventas Venta; // Variable auxiliar para intercambio
+
+    /* Primer bucle:
+     * Controla la cantidad de pasadas del algoritmo burbuja.
+     * En cada pasada se va 'acomodando' un elemento en su posicion correcta.
+     * Recorre desde la primera hasta la ultima posicion del vector.
+     */
+    for (i = 0; i < 10; i++)
+    {
+        /* Segundo bucle:
+         * Recorre el vector desde el final hacia la posicion i.
+         * Compara elementos adyacentes para ordenarlos.
+         * Comienza desde el ultimo elemento (indice 9).
+         */
+        for (j = 9; j >= i; j--)
+        {
+            /* Compara el numeroArticulo del elemento anterior con el actual.
+             * Si el anterior es mayor, estan en orden incorrecto.
+             */
+            if (Vent[j - 1].NumeroArticulo > Vent[j].NumeroArticulo)
+            {
+                /* Se realiza el intercambio completo de estructuras */
+                Venta = Vent[j - 1];   // Guarda temporalmente el elemento anterior,
+                Vent[j - 1] = Vent[j]; // Copia el elemento actual en la posicion anterior.
+                Vent[j] = Venta;       // Coloca el elemento guardado en la posicion actual.
+            }
+        }
+    }
+}
+
+/* Ordenamiento por seleccion segun ValorRecaudado */
+void OrdenarVendedores(struct Comisiones *Com) // Recibe un puntero al primer elemento del vector de estructuras
+{
+    /* i controla la posicion actual,
+     * j recorre el resto,
+     * pos guarda la posicion del minimo.
+     */
+    int i, j, pos;
+
+    /* Variable auxiliar para guardar el menor elemento encontrado */
+    struct Comisiones min;
+
+    /* Recorre todo el vector.
+     * i indica la posicion donde se colocara el menor elemento restante 
+     */
+    for (i = 0; i < 50; ++i)
+    {
+        pos = i;      // Se asume inicialmente que el menor es el actual.
+        min = Com[i]; // Se guarda como minimo provisional el elemento actual.
+
+        /* Se busca en el resto del vector un elemento menor.
+         * j Recorre desde la posicion siguiente hasta el final.
+         */
+        for (j = i + 1; j < 50; ++j)
+        {
+            /* Compara el ValorRecaudado del elemento actual con el minimo provisional.
+            */
+            if (Com[j].ValorRecaudado < min.ValorRecaudado)
+            {
+                pos = j;      // Actualiza la posicion del nuevo minimo encontrado
+                min = Com[j]; // Actualiza el valor minimo encontrado
+            }
+            /* Intercambio:
+             * Se coloca en la posicion pos el elemento que estaba en i.
+             */
+            Com[pos] = Com[i];
+
+            /* Se coloca en la posicion i el minimo encontrado */
+            Com[i] = min;
+        }
+    }
+}
+
+/* Listado final de resultados 
+ * Recibe:
+ * - Un puntero al primer elemento del vector de estructuras Ventas.
+ * - El total general facturado (float).
+ * - Un puntero al primer elemento del vector de esctructuras Comisiones.
+ */
+void Listados(struct Ventas *Vent, float Tot, struct Comisiones *Com)
+{
+    /* Variable de control para recorrer los vectores */
+    int i;
+
+    /* Titulo del listado de ventas por producto */
+    printf("\n\nArticulo\tCantidad");
+
+    /* Recorre el vector de ventas (10 productos) */
+    for (i = 0; i < 10; i++)
+    {
+        /* Imprime el numero de articulo y la cantidad total vendida acumulada */
+        printf("\n%d\t%d", Vent[i].NumeroArticulo, Vent[i].Cantidad);
+    }
+
+    /* Muestra el total general facturado */
+    printf("\n\nTotal Recaudado %f", Tot);
+
+    /* Titulo del listado de comisiones por vendedor */
+    printf("\n\nNumero Vendedor\tCantidad de Comision");
+
+    /* Recorre el vector de comisiones por vendedor */
+    for (i = 0; i < 50; i++)
+    {
+        /* Imprime el numero del vendedor y el total de comision acumulada */
+        printf("\n%d\t%f", Com[i].Numero, Com[i].ValorRecaudado);
+    }
+}
+
+/* Busqueda secuencial de articulo */
+int BuscarArticulo(int Art, struct Productos *Prod) // Recibe un entero y un puntero al primer elemento del vector de estructuras
+{
+    /* Comienza buscando desde la primera posicion del vector */
+    int i = 0;
+
+    /* Recorre el vector mientras:
+     * 1) No se haya llegado al final (i < 10).
+     * 2) El articulo actual sea distinto al buscado.
+     */
+    while((i < 10) && (Prod[i].Articulo != Art))
+    {
+        i++; // Avanza a la siguiente posicion
+    }
+
+    /* Si salio del bucle porque llego al final sin encontrarlo */
+    if (i >= 10)
+    {
+        i = -1; // Se asigna -1 para indicar 'No encontrado'
+    }
+
+    /* Devuelve la posicion si lo encontro, o -1 si no existe. */
+    return i;
+}
+
+/* Busqueda secuencial de vendedor */
+int BuscarVendedor(int Num, struct Vendedores *Vend) // Recibe un entero y un puntero al primer elemento del vector de estructuras
+{
+    /* Comienza desde la primera posicion del vector */
+    int i = 0;
+
+    /* Recorre el vector mientras:
+     * 1) No se haya llegado al final (i < 50).
+     * 2) El numero del vendedor sea distinto al buscado.
+     */
+    while ((i < 50) && (Vend[i].Numero != Num))
+    {
+        i++; // Avanza a la siguiente posicion
+    }
+
+    if (i >= 50)
+    {
+        i = -1; // Se asigna -1 para indicar 'No encontrado'
+
+    }
+
+    /* Devuelve la posicion si lo encontro, o -1 si no existe. */
+    return i;
+}
 </code></pre>
 
-
-<h2 class="teoria">Punteros 02</h2>
+<h2 class="teoria">Estructura de datos 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Ejemplo de la utilizacion del operador punto:
+ * Este programa demuestra como acceder a los campos de una estructura
+ * mediante eñ operador (.)
+ */
+
+#include <stdio.h>
+
+/* Definicion de la estructura a utilizar */
+struct productos
+{
+    int codigo, cantidad;
+    float precio;
+};
+
+int main(void)
+{
+    /* Declaracion de variable de tipo 'struct productos'.
+     * Esta variable contiene los campos:
+     * - lista.codigo
+     * - lista.cantidad
+     * - lista.precio
+     */
+    struct productos lista;
+
+    /* Asignacion de valores a los campos de la estructura utilizando el operador punto (.) */
+    lista.codigo = 104;
+    lista.cantidad = 5;
+    lista.precio = 54.39;
+
+    /* Impresion de los campos en pantalla */
+    printf("\n%d\t%d\t%.2f$", lista.codigo, lista.cantidad, lista.precio);
+        
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 03</h2>
+<h2 class="teoria">Estructura de datos 06</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Definicion de la estructura */
+struct lista
+{
+    int art, cant;
+    float prec;
+};
+
+int main(void)
+{
+    /* Declaracion de dos variables del tipo 'struct lista'
+     * valcom: significa valor de compra
+     * valven: Significa valor de venta
+     */
+     struct lista valcom, valven;
+
+     /* Asignacion de valores a los campos de la variable valcom */
+     valcom.art = 56;
+     valcom.cant = 3;
+     valcom.prec = 23.59;
+
+     /* Asignacion del valor de la variable valcom a la variable valven
+      * Se realiza una copia completa de la estructura,
+      * todos los campos de valcom se copian en valven.
+      * Esto es una copia por valor. Contienen los mismos datos,
+      * pero ocupan posiciones de memoria distintas.
+      */
+     valven = valcom;
+
+     /* Verificacion de los valores de los campos de cada variable */
+     printf("\n\n%d\t%d\t%.2f", valcom.art, valcom.cant, valcom.prec);
+     printf("\n\n%d\t%d\t%.2f", valven.art, valven.cant, valven.prec);
+
+     /* Adicion de un 15% al precio de venta (solo se modifica valven, no valcom) */
+     valven.prec *= 1.15;
+
+     /* Verificacion de los valores de los campos de cada variable */
+     printf("\n\n%d\t%d\t%.2f", valcom.art, valcom.cant, valcom.prec);
+     printf("\n\n%d\t%d\t%.2f", valven.art, valven.cant, valven.prec);
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 04</h2>
+<h2 class="teoria">Estructura de datos 07</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <string.h>
+#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+
+/* Define a la estructura "pers" */
+struct pers
+{
+    char nom[20], apel[20]; // Cadenas de 19 caracteres + '\0'
+    char edad; //tipo char (internamente es un entero pequeño)
+    //signed char edad;
+    float peso, altura;
+};
+
+int main(void)
+{
+    /* Declara una variable del tipo struct pers llamada "habit" */
+    struct pers habit;
+
+    /* Declara una variable auxiliar */
+    float aux;
+
+    /* Limpiar pantalla */
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    /* Ingreso de los datos a la estructura */
+
+    /* Titulo para el ingreso de datos */
+    printf("\n\t\tINGRESE LOS DATOS DE LA PERSONA\n\n");
+
+    /* Carga de Nombre */
+    printf("Nombre: ");
+    gets(habit.nom); // Se elimino en C11 por insegura, se puede reemplazar con fgets()
+    //fgets(habit.nom, sizeof(habit.nom), stdin);
+
+    /* Carga de Apellido */
+    printf("\nApellido: ");
+    gets(habit.apel); // Se elimino en C11 por insegura, se puede reemplazar con fgets()
+    //fgets(habit.apel, sizeof(habit.apel), stdin);
+
+    /* Carga de Edad */
+    printf("\nEdad: ");
+    /* Ingresa el valor de la edad como valor numerico utilizando
+     * el formato de control "%d" y no el formato de control "%c"
+     * que se utilizaria para ingresar un caracter desde el
+     * teclado sin importar que la variable a la que se ingrese
+     * Aunque "int" o "char" son enteros,
+     * en scanf el especificador de formato debe coincidir exactamente
+     * con el tipo de la variable, ya que se pasa un puntero
+     * y no existen promociones automaticas.
+     * El especificador "%d" espera un "int *",
+     * mientras que "habit.edad" es un "char *".
+     * Por eso el compilador advierte -Wformat format "%d" espera tipo "int *", pero el argumento 2 tiene tipo "char *"
+     * Es por esto que para leer un "char" numerico se debe usar "%hhd" y cambiar char edad a signed char edad en la estructura.
+     */
+    scanf("%d", &habit.edad); // Tras ver el warning en el compilador comentar y reemplazar con la siguiente linea
+    //scanf("%hhd", &habit.edad);
+    
+    /* Carga de Peso en una variable auxiliar */
+    printf("\nPeso: ");
+    scanf("%f", &aux);
+
+    /* Se asigna el valor almacenado en la variable auxiliar al campo peso de la estructura */
+    habit.peso = aux;
+
+    /* Carga de Altura en una variable auxiliar */
+    printf("\nAltura: ");
+    scanf("%f", &aux);
+
+    /* Se asigna el valor almacenado en la variable auxiliar al campo altura de la estructura */
+    habit.altura = aux;
+
+    /* Mensaje antes de pausar */
+    printf("\n\n\t\tPresione una tecla para continuar");
+
+    /* Espera que el usuario presione una tecla para visualizar los datos en pantalla */
+    getch();
+
+    /* Limpiar pantalla */
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    /* Impresion de los datos en pantalla con un formato distinto */
+    printf("\n\n\t\tDatos de %s, %s", habit.apel, habit.nom); // Formato string
+
+    printf("\n\n\n\tEdad: %d\t\t Altura: %1.2f", habit.edad, habit.altura); // Formato entero y decimal con dos digitos
+
+    printf("\t\tPeso: %2.2f", habit.peso); // Formato decimal con dos digitos
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 05</h2>
+<h2 class="teoria">Estructura de datos 08</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+
+#include <string.h>
+
+/* Constantes */
+#define N 100
+#define PANT 20
+
+/* Define la estructura a utilizar */
+struct stock
+{
+    int art, cant;
+    char desc[30]; // Cadena de 29 caracteres + '\0'
+};
+
+int main(void)
+{
+    /* Variables de control para los bucles */
+    int i, j;
+
+    /* Declara un vector de estructuras y una variable auxiliar de tipo 'struct stock' */
+    struct stock prod[N], aux;
+
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    /* Lazo de ingreso de datos */
+    for (i = 0; i < N; i++)
+    {
+        /* Carga de el numero de articulo */
+        printf("articulo[%d]\t", i + 1);
+        scanf("%d", &prod[i].art);
+
+        /* Carga la cantidad en stock */
+        printf("cantidad\t");
+        scanf("%d", &prod[i].cant);
+
+        /* Limpia el contenido del buffer de teclado */
+        fflush(stdin); // Reemplazar con:
+        //int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+
+        /* Lee la descripcion del producto */
+        printf("descripcion\t");
+        gets(prod[i].desc); // Se elimino en C11 por insegura, se puede reemplazar con fgets()
+        //fgets(prod[i].desc, sizeof(prod[i].desc), stdin);
+        printf("\n");
+    }
+
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    /* Rutina de ordenamiento del vector, Ordena segun cantidad de mayot a menor */
+    for (i = 0; i < N; i++)
+    {
+        for (j = i + 1; j < N; j++)
+        {
+            /* Compara cantidades */
+            if (prod[j].cant > prod[i].cant)
+            {
+                /* Intercambio de los valores a ordenar */
+                aux = prod[j];     // Guarda temporalmente prod[j]
+                prod[j] = prod[i]; // Copia prod[i] en j
+                prod[i] = aux;     // Coloca el valor guardado en la posicion i.
+            }
+        }
+    }
+
+    /* Rutina de impresion de los datos en pantalla dividido por paginas */
+    for (i = 0; i < N; i += PANT)
+    {
+        /* Titulos de la tabla */
+        printf("Articulo\tCantidad\tDescripcion\n");
+        
+        for (j = 0; (j < PANT) && (i + j < N); j++)
+        {
+            /* Muestra articulo, cantidad y descripcion 
+             * prod[i + j] permite recorrer por bloques de PANT elementos */
+            printf("%d\t\t%d\t\t%s\n", prod[i+j].art, prod[i+j].cant, prod[i+j].desc);
+        }
+
+        /* Mensaje de pausa */
+        printf("\n\tPresione una tecla para continuar");
+        /* Espera que el usuario presione una tecla */
+        getch();
+        
+        clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+        //system("cls");
+    }
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 06</h2>
+<h2 class="teoria">Estructura de datos 09</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include<conio.h> // Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+#include<math.h> // No se usa, podria omitirse
+
+/* Define una estructura */
+struct valor
+{
+	char x;
+	int j;
+	float l, m, n[4];
+};
+
+int main(void)
+{
+    /* Declaracion de vector de estructura */
+    struct valor dato[2];
+    /* Variables de control de bucles y variable auxiliar*/
+	char i, ii;
+	float aux;
+
+	clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+    
+    /* Carga de datos */
+    for (i = 0; i < 2; i++)
+    {
+        printf("\n\n\n\t\tIngrese los siguientes datos: ");
+		
+        printf("\n\nUn caracter alfabetico: ");
+		
+        /* getche():
+         * - Lee un caracter con eco en pantalla (lo muestra)
+         */
+        dato[i].x = getche(); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//dato[(int)i].x = getche();
+
+        /* Carga de un entero */
+        printf("\n\nUn numero entero : ");
+		scanf("%d", &dato[i].j); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%d", &dato[(int)i].j);
+
+        /* Carga de un float */
+        printf("\n\nUn numero real : ");
+		scanf("%f", &dato[i].l); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%f", &dato[(int)i].l);
+        
+        /* Carga de un float */
+        printf("\nReintente con un numero real :");
+		scanf("%f", &aux); 
+		
+        /* Copia el valor almacenado en aux al campo m */
+        dato[i].m = aux; // da -Wchar-subscripts se lo arregla haciendo cast a int:
+        //dato[(int)i].m = aux;
+		
+        /* Bucle para cargar el vector */
+        for(ii = 0; ii < 4; ii++)
+        {
+            /* Lee cada elemento del vector */
+			scanf("%f", &dato[i].n[ii]); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+            //scanf("%f", &dato[(int)i].n[(int)ii]);
+        }
+    }
+
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    /* Bucle para mostrar los datos cargados */
+	for (i = 0; i < 2; i++)
+	{
+		printf("Usted ingreso los siguientes valores\n\n");
+		
+        /* Muestra el caracter, su valor en ASCCI Code (promocion a int) y su valor en hexadecimal en mayusculas*/
+        printf("Un caracter %c, cuyo valor ASCII es %d, y ", dato[i].x, dato[i].x); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+        //printf("Un caracter %c, cuyo valor ASCII es %d, y ", dato[(int)i].x, dato[(int)i].x);
+
+		printf("en formato hexadecimal es %X\n\n", dato[i].x); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+        //printf("en formato hexadecimal es %X\n\n", dato[(int)i].x);
+
+        /* Muestra el entero y su valor en hexadecimal en mayusculas */
+        printf("Un numero entero %d, ", dato[i].j); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+        //printf("Un numero entero %d, ", dato[(int)i].j);
+
+		printf("que en formato hexadecimal es %X\n\n", dato[i].j); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//printf("que en formato hexadecimal es %X\n\n", dato[(int)i].j);
+
+        /* Muestra el float */
+        printf("El primer valor real es %f\n\n", dato[i].l); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//printf("El primer valor real es %f\n\n", dato[(int)i].l);
+
+        /* Muestra el contenido actual de aux (Sera el ultimo valor leido) */
+        printf("Luego ingreso este valor en el auxiliar %f", aux);
+
+        /* Muestra el valor almacenado en el campo m */
+		printf(" que coincide con el guardado en la estructura %f", dato[i].m); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//printf(" que coincide con el guardado en la estructura %f", dato[(int)i].m);
+
+        /* Bucle para mostrar los elementos del vector*/
+        for(ii = 0; ii < 4; ii++)
+        {
+            /* En formato float */
+			printf("%f", dato[i].n[ii]); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+            //printf("%f", dato[(int)i].n[(int)ii]);
+        }
+	}
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 07</h2>
+<h2 class="teoria">Estructura de datos 10</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
+#include<conio.h>// Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+#include<string.h>
+
+/* Se definen la cantidad de empleados y el largo de los strings */
+#define MAX 20
+#define LARGO 30
+
+/* Se definen las estructuras que formaran los datos de los empleados */
+struct dat_pers
+{
+	char nomb[LARGO], apell[LARGO]; // Cadenas de 29 caracteres + '\0'
+};
+
+struct fecha
+{
+	int anio, mes, dia;
+};
+
+struct domic
+{
+	char dire[LARGO], local[LARGO], prov[LARGO]; // Cadenas de 19 caracteres + '\0'
+};
+
+struct tele
+{
+	unsigned int carac, numer;
+};
+
+/* Estructura de estructuras para guardar los datos de los empleados */
+struct agend
+{
+	struct dat_pers datos;
+	struct domic direccion;
+	struct fecha cumple, antig;
+	unsigned int leg;
+	struct tele partic, movil;
+};
+
+int main(void)
+{
+    /* Se declaran las variables */
+	struct agend empleados[MAX];
+	char i, resp, enc;
+	unsigned int cons;
+
+	/* Ingreso de los datos */
+	for(i = 0; i < MAX; i++)
+	{
+		clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    	//system("cls");
+
+		/* Limpieza del buffer */
+		fflush(stdin); // Reemplazar con:
+		//int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+		
+		/* Titulo */
+        printf("\t\tIngrese los datos del personal\n\n");
+		
+		/* Carga de Apellido */
+        printf("\nApellido: ");
+
+		/* Se elimino en C11 por insegura, se puede reemplazar con fgets()
+		 * Da -Wchar-subscripts se lo arregla haciendo cast a int.
+		 */
+		gets(empleados[i].datos.apell);
+        //fgets(empleados[(int)i].datos.apell, sizeof(empleados[(int)i].datos.apell), stdin);
+		
+		/* Carga de Nombre */
+        printf("\nNombre: ");
+
+		/* Se elimino en C11 por insegura, se puede reemplazar con fgets()
+		 * Da -Wchar-subscripts se lo arregla haciendo cast a int.
+		 */
+		gets(empleados[i].datos.nomb);
+        //fgets(empleados[(int)i].datos.nomb, sizeof(empleados[(int)i].datos.nomb), stdin);
+		
+		/* Carga de Direccion */
+        printf("\nDireccion: ");
+
+		/* Se elimino en C11 por insegura, se puede reemplazar con fgets()
+		 * Da -Wchar-subscripts se lo arregla haciendo cast a int.
+		 */
+		gets(empleados[i].direccion.dire);
+        //fgets(empleados[(int)i].direccion.dire, sizeof(empleados[(int)i].direccion.dire), stdin);
+		
+		/* Carga de Localidad */
+        printf("\nLocalidad: ");
+
+		/* Se elimino en C11 por insegura, se puede reemplazar con fgets()
+		 * Da -Wchar-subscripts se lo arregla haciendo cast a int.
+		 */
+		gets(empleados[i].direccion.local);
+        //fgets(empleados[(int)i].direccion.local, sizeof(empleados[(int)i].direccion.local), stdin);
+		
+		/* Carga de Provincia */
+        printf("\nProvincia: ");
+		
+		/* Se elimino en C11 por insegura, se puede reemplazar con fgets()
+		 * Da -Wchar-subscripts se lo arregla haciendo cast a int.
+		 */
+		gets(empleados[i].direccion.prov);
+        //fgets(empleados[(int)i].direccion.prov, sizeof(empleados[(int)i].direccion.prov), stdin);
+		
+		/* Carga de Fecha de nacimiento */
+        printf("\nFecha de nacimiento (dia/mes/agno): ");
+		scanf("%d/%d/%d", &empleados[i].cumple.dia, &empleados[i].cumple.mes, &empleados[i].cumple.anio); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%d/%d/%d", &empleados[(int)i].cumple.dia, &empleados[(int)i].cumple.mes, &empleados[(int)i].cumple.anio);
+
+		/* Carga de Fecha de ingreso */
+        printf("\nFecha de ingreso (dia/mes/agno): ");
+		scanf("%d/%d/%d", &empleados[i].antig.dia, &empleados[i].antig.mes, &empleados[i].antig.anio); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%d/%d/%d", &empleados[(int)i].antig.dia, &empleados[(int)i].antig.mes, &empleados[(int)i].antig.anio);
+
+		/* Carga de Telefono Particular */
+        printf("\nTelefono particular (caracteristica-numero): ");
+		scanf("%u-%u", &empleados[i].partic.carac, &empleados[i].partic.numer); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%u-%u", &empleados[(int)i].partic.carac, &empleados[(int)i].partic.numer);
+
+		/* Carga de Telefono Movil */
+        printf("\nTelefono movil (caracteristica-numero): ");
+		scanf("%u-%u", &empleados[i].movil.carac, &empleados[i].movil.numer); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%u-%u", &empleados[(int)i].movil.carac, &empleados[(int)i].movil.numer);
+
+		/* Carga de Numero de legajo */
+        printf("\nNumero de legajo: ");
+		scanf("%u", &empleados[i].leg); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+		//scanf("%u", &empleados[(int)i].leg);
+	}
+
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+	/* Inicializacion de variable para entrar al bucle */
+    resp = 'S';
+
+	/* Consulta de un enpleado */
+	while(resp == 'S' || resp == 's')
+	{
+		/* Inicializacion de bandera de encontrado */
+		enc = 0;
+
+		clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    	//system("cls");
+		
+		/* Consulta por legajo */
+        printf("\n\nIngrese el numero de legajo: ");
+		scanf("%u", &cons);
+
+		/* Busqueda del empleado */
+		for(i = 0; i < MAX && !enc; i++)
+        {
+			/* Compara la consulta con los legajos */
+			if(cons == empleados[i].leg) // da -Wchar-subscripts se lo arregla haciendo cast a int:
+			//if(cons == empleados[(int)i].leg)
+			{
+				enc = 1; // Marca como encontrado
+				i--; // Retrocede indice porque el for lo incrementara
+			}
+
+			/* Impresion de los datos del empleado encontrado */
+			if(enc)
+			{
+				printf("El empleado %s, %s\n", empleados[i].datos.apell, empleados[i].datos.nomb); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+				//printf("El empleado %s, %s\n", empleados[(int)i].datos.apell, empleados[(int)i].datos.nomb);
+
+				printf("se domicilia en %s, %s, %s\n", empleados[i].direccion.dire, empleados[i].direccion.local, empleados[i].direccion.prov); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+				//printf("se domicilia en %s, %s, %s\n", empleados[(int)i].direccion.dire, empleados[(int)i].direccion.local, empleados[(int)i].direccion.prov);
+				
+                printf("el telefono particular es : %u-%u \tel celular es 15-%u-%u", empleados[i].partic.carac, empleados[i].partic.numer, empleados[i].movil.carac, empleados[i].movil.numer); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+				//printf("el telefono particular es : %u-%u \tel celular es 15-%u-%u", empleados[(int)i].partic.carac, empleados[(int)i].partic.numer, empleados[(int)i].movil.carac, empleados[(int)i].movil.numer);
+				
+                printf("\nel ingreso en la empresa fue el %d/%d/%d,", empleados[i].antig.dia,empleados[i].antig.mes, empleados[i].antig.anio); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+				//printf("\nel ingreso en la empresa fue el %d/%d/%d,", empleados[(int)i].antig.dia,empleados[(int)i].antig.mes, empleados[(int)i].antig.anio);
+				
+				printf("su retiro se producira en el agno %d  ", empleados[i].cumple.anio + 65); // da -Wchar-subscripts se lo arregla haciendo cast a int:
+				//printf("su retiro se producira en el agno %d  ", empleados[(int)i].cumple.anio + 65);
+			}
+			else
+            {
+				/* Mensaje si no fue encontrado */
+				printf("Este legajo no existe");
+            }
+
+			/* Nueva consulta */
+			printf("\n\nDesea buscar otro empleado (S/N)? ");
+			/* getche():
+         	 * - Lee un caracter con eco en pantalla (lo muestra) y lo guarda en resp
+		 	 */
+			resp = getche();
+        }
+	}
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 08</h2>
+<h2 class="teoria">Estructura de datos 11</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getch(), getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+#include <math.h> // Se usa cos(), sin(), sqrt(), atan2()
+
+/* Se define el valor de pi */
+#define PI 3.14159
+
+/* Definicion de la estructura */
+struct complejo
+{
+    float x, y;
+};
+
+/* Prototipo de las funciones */
+float modulo(float, float);
+float argumento(float, float);
+float absi(float, float);
+float orde(float, float);
+
+int main(void)
+{
+    /* Declaracion de las variables */
+    char c;
+    struct complejo A, B;
+    
+    do
+    {
+        clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    	//system("cls");
+
+        printf("\n\n\n\t\t\tPasaje de coordenadas");
+        printf("\n\n\n\t\tIngrese la opcion\n\n\t\t (P) polar a cartesiona");
+        printf("\n\n\t\t (C) cartesiana a polar ");
+        printf("\n\n\t\t (S) Salir ");
+
+        c = getche(); // Lee opción con eco
+
+        switch(c)
+        {
+            /* Eleccion de pasaje de polar a cartesiana */
+            case 'c':
+            case 'C':
+                printf("\n\nIngrese el modulo: ");
+                scanf("%f", &A.x);
+
+                printf("\n\nIngrese el argumento: ");
+                scanf("%f", &A.y);
+
+                /* Calcula abscisa y ordenada */
+                B.x = absi(A.x, A.y);
+                B.y = orde(A.x, A.y);
+
+                /* Muestra abscisa y ordenada */
+                printf("\n\nLa abscisa es: %f",B.x);
+                printf("\n\nLa ordenada es: %f",B.y);
+
+                printf("\n\nPresione una tecla para continuar");
+                getch(); // Espera que se presione una tecla
+
+                break;
+            /* Eleccion de pasaje de cartesiana a polar */
+            case 'p':
+            case 'P':
+                printf("\n\nIngrese la abscisa: ");
+                scanf("%f", &A.x);
+
+                printf("\n\nIngrese la ordenada: ");
+                scanf("%f", &A.y);
+
+                /* Calcula modulo y argumento */
+                B.x = modulo(A.x, A.y);
+                B.y = argumento(A.x, A.y);
+
+                /* Muestra modulo y argumento */
+                printf("\n\nEl modulo es: %f", B.x);
+                printf("\n\nEl argumento es: %f", B.y);
+
+                printf("\n\nPresione una tecla para continuar");
+                getch(); // Espera que se presione una tecla
+
+                break;
+            /* Opcion de salir */
+            case 's':
+            case 'S':
+                c = 0; // Fuerza la salida del do-while
+        }
+    }
+    while(c); // Se repite mientras c sea distinto de 0
+
+    return 0;
+}
+
+/* Calculo de la abscisa */
+float absi(float r, float f)
+{
+    float ab;
+
+    ab = r * cos(f * PI / 180); // Calculo y conversion de grados a radianes
+
+    return(ab);
+}
+
+/* Calculo de la ordenada */
+float orde(float r, float f)
+{
+    float or;
+
+    or = r * sin(f * PI / 180); // Calculo y conversion de grados a radianes
+
+    return(or);
+}
+
+/* Calculo del modulo */
+float modulo(float x, float y)
+{
+    float mo;
+
+    mo = x*x + y*y; // Suma de cuadrados
+
+    mo = sqrt(mo);  // raiz cuadrada
+
+    return(mo);
+}
+
+/* Calculo del argumento */
+float argumento(float x, float y)
+{
+    float ar;
+
+    ar = atan2(y, x); // Calculo del angulo considerando el cuadrante correcto
+
+    ar *= (180 / PI); // Comversion de radianes a grados
+
+    return(ar);
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 09</h2>
+<h2 class="teoria">Estructura de datos 12</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+
+union alfa
+{
+    int A[2];  // 2 entesros (16 bytes en arquitectura de 64 bits)
+    char B[4]; // 4 chars (4 bytes)
+    float C;   // 1 float (4 bytes)
+    /* La union ocupa la dimension del miembro mas grande */
+};
+
+int main(void)
+{
+    /* Declaracion de una variable tipo union */
+    union alfa dato;
+
+    dato.A[0] = 6529;
+    dato.A[1] = 30287;
+
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+
+    printf("\n\ndato.A[0] = %d\tdato.A[1] = %d", dato.A[0], dato.A[1]);
+    
+    printf("\nEn formato hexadecimal");
+    printf("\ndato.A[0] = %X\tdato.A[1] = %X", dato.A[0], dato.A[1]);
+
+    dato.B[0] = 'A';
+    dato.B[1] = 'B';
+    dato.B[2] = 'C';
+    dato.B[3] = 'D';
+
+    printf("\n\ndato.B[0] = %c\tdato.B[1] = %c\tdato.B[2] = %c\tdato.B[3] = %c", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+
+    printf("\nEn formato hexadecimal");
+    printf("\n\ndato.B[0] = %X\tdato.B[1] = %X\tdato.B[2] = %X\tdato.B[3] = %X", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+
+    dato.C = 3.123e-10;
+
+    printf("\n\ndato.C = %G", dato.C);
+
+    printf("\n\nPresione una tecla para continuar");
+    getch(); // Espera que se presione una tecla
+
+    dato.A[0]=6529;
+	dato.A[1]=30287;
+
+	clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    printf("\n\ndato.A[0] = %d\tdato.A[1] = %d", dato.A[0], dato.A[1]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.A[0] = %X\tdato.A[1] = %X", dato.A[0], dato.A[1]);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo B");
+	printf("\n\ndato.B[0] = %c\tdato.B[1] = %c\tdato.B[2] = %c\tdato.B[3] = %c", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato ASCII");
+	printf("\ndato.B[0] = %d\tdato.B[1] = %d\tdato.B[2] = %d\tdato.B[3] = %d", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.B[0] = %X\tdato.B[1] = %X\tdato.B[2] = %X\tdato.B[3] = %X", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo C");
+	printf("\n\ndato.C = %G", dato.C);
+	
+    printf("\n\nPresione una tecla para continuar");
+	getch(); // Espera que se presione una tecla
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    dato.B[0]='A';
+	dato.B[1]='B';
+	dato.B[2]='C';
+	dato.B[3]='D';
+	
+    printf("\n\ndato.B[0] = %c\tdato.B[1] = %c\tdato.B[2] = %c\tdato.B[3] = %c", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato ASCII");
+	printf("\ndato.B[0] = %d\tdato.B[1] = %d\tdato.B[2] = %d\tdato.B[3] = %d", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.B[0] = %X\tdato.B[1] = %X\tdato.B[2] = %X\tdato.B[3] = %X", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo A");
+	printf("\n\ndato.A[0] = %d\tdato.A[1] = %d", dato.A[0], dato.A[1]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.A[0] = %X\tdato.A[1] = %X", dato.A[0], dato.A[1]);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo C");
+	printf("\n\ndato.C = %G", dato.C);
+	
+    printf("\n\nPresione una tecla para continuar");
+	getch(); // Espera que se presione una tecla
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    dato.C = 3.123e-10;
+	
+    printf("\n\ndato.C = %G", dato.C);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo A");
+	printf("\n\ndato.A[0] = %d\tdato.A[1] = %d", dato.A[0], dato.A[1]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.A[0] = %X\tdato.A[1] = %X", dato.A[0], dato.A[1]);
+	
+    printf("\n\nSin cambiar los valores examinamos el campo B");
+	printf("\n\ndato.B[0] = %c\tdato.B[1] = %c\tdato.B[2] = %c\tdato.B[3]=%c", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato ASCII");
+	printf("\ndato.B[0] = %d\tdato.B[1] = %d\tdato.B[2] = %d\tdato.B[3] = %d", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\nEn formato hexadecimal");
+	printf("\ndato.B[0] = %X\tdato.B[1] = %X\tdato.B[2] = %X\tdato.B[3] = %X", dato.B[0], dato.B[1], dato.B[2], dato.B[3]);
+	
+    printf("\n\nPresione una tecla para terminar");
+	getch(); // Espera que se presione una tecla
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 10</h2>
+<h2 class="teoria">Estructura de datos 13</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
+#include <stdio.h>
+#include<conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+#include<math.h> // Se usa cos(), sin(), sqrt(), atan2()
+
+/* Se define el valor de pi */
+#define PI 3.14159
+
+/* Definicion de la estructura */
+struct complejo
+{
+	float x,y;
+};
+
+/* Prototipo de las fuinciones */
+float modulo(struct complejo);    // Calcula modulo desde coordenadas cartesianas
+float argumento(struct complejo); // Calcula argumento desde coordenadas cartesianas
+float absi(struct complejo);      // Calcula abscisa desde coordenadas polares
+float orde(struct complejo);      // Calcula ordenada desde coordenadas polares
+
+int main(void)
+{
+    /* declaracion de las variables */
+	char c;
+	struct complejo A, B;
+	do
+	{
+		//clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+        system("cls");
+
+		printf("\n\n\n\t\t\tPasaje de coordenadas");
+		printf("\n\n\t\tIngrese la opcion\n\n\t\t (P) polar a cartesiana");
+		printf("\n\n\t\t (C) cartesiana a polar ");
+		printf("\n\n\t\t (S) salir              ");
+
+		c = getche(); // Lee una tecla y la muestra en pantalla
+		
+        switch(c)
+		{
+			/* Eleccion de pasaje de polar a cartesiana */
+            case 'c':
+            case 'C':
+                printf("\n\nIngrese el modulo : ");
+                scanf("%f", &A.x);
+                
+                printf("\nIngrese el argumento : ");
+                scanf("%f", &A.y);
+                
+                /* Calcula abscisa y ordenada usando estructura*/
+                B.x = absi(A);
+                B.y = orde(A);
+                
+                /* Muestra abscisa y ordenada */
+                printf("\n\nLa abscisa es: %f", B.x);
+                printf("\n\nLa ordenada es: %f", B.y);
+                
+                printf("\n\nPresione una tecla para continuar");
+                getch(); // Espera que se presione una tecla
+                
+                break;
+            /* Eleccion de pasaje de cartesiana a polar */
+            case 'P':
+            case 'p':
+                printf("\n\nIngrese la abscisa: ");
+                scanf("%f", &A.x);
+                
+                printf("\nIngrese la ordenada: ");
+                scanf("%f", &A.y);
+                
+                /* Calcula modulo y argumento usando estructura */
+                B.x = modulo(A);
+                B.y = argumento(A);
+                
+                /* Muestra modulo y argumento */
+                printf("\n\nEl modulo es: %f", B.x);
+                printf("\n\nEl argumento es: %f", B.y);
+                
+                printf("\n\nPresione una tecla para continuar");
+                getch(); // Espera que se presione una tecla
+                
+                break;
+                /* opcion de salir */
+            case 'S':
+            case 's':
+                c = 0; // Fuerza salida del bucle
+		}
+	}
+	while(c); // Se repite mientras c sea distinto de cero
+
+    return 0;
+}
+
+/* calculo de la abscisa */
+float absi(struct complejo A)
+{
+	float ab;
+
+	ab = A.x * cos(A.y * PI / 180); // Se convierte a radianes antes de usar cos()
+	
+    return(ab);
+}
+
+/* calculo de la ordenada */
+float orde(struct complejo A)
+{
+	float or;
+
+	or = A.x * sin(A.y * PI / 180); // Se convierte a radianes antes de usar sin()
+
+	return(or);
+}
+
+/* calculo del modulo */
+float modulo(struct complejo A)
+{
+	float mo;
+
+	mo = A.x * A.x + A.y * A.y; // Suma de cuadrados
+	mo = sqrt(mo);              // Raiz cuadrada
+	
+    return(mo);
+}
+
+/* calculo del argumento */
+float argumento(struct complejo A)
+{
+	float ar;
+
+	ar = atan2(A.y, A.x); // Argumento en radianes considerando cuadrante correcto
+	ar *= (180 / PI);     // Conversion de radianes a grados
+	
+    return(ar);
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 11</h2>
+<h2 class="teoria">Estructura de datos 14</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+
+/* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
+#include <stdlib.h>
+#include <math.h> // cos(), sin(), sqrt(), atan2()
+#include <ctype.h> // toupper()
+
+/* Agregado para que no falle la compilacion */
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+/* Se define una estructura para guardar un numero complejo
+ * el campo x puede ser la parte real (cartesiana) o el modulo (polar),
+ * el campo y puede ser la parte imaginaria (cartesiana) o el argumento (polar),
+ * el campo t es la forma en que esta expresado el complejo.
+ */
+ struct complejo
+{
+	float x,y;
+	char t;
+};
+
+/* Se declaran los prototipos de las funciones a utilizar */
+void sumar(void);
+void restar(void);
+void producto(void);
+void cociente(void);
+struct complejo ingreso(void);
+struct complejo convacart(struct complejo);
+struct complejo convapol(struct complejo);
+void imprime(struct complejo,struct complejo,struct complejo);
+
+int main(void)
+{
+    char c;
+	do
+	{
+		/* Menu de opciones para elegir el calculo */
+		clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+        //system("cls");
+		
+        printf("\n\n\n\t\t\tCalculos complejos");
+		printf("\n\n\t\tIngrese una opcion");
+		printf("\n\n\t\t (S) Suma");
+		printf("\n\n\t\t (R) Resta");
+		printf("\n\n\t\t (P) Producto");
+		printf("\n\n\t\t (C) Cociente");
+		printf("\n\n\t\t (Q) Salir\t");
+		
+        c = getche(); // Lee una tecla y la muestra en pantalla
+		
+        switch(c)
+		{
+            case 's':
+            case 'S':
+                sumar();
+                break;
+
+            case 'r':
+            case 'R':
+                restar();
+                break;
+
+            case 'p':
+            case 'P':
+                producto();
+                break;
+
+            case 'c':
+            case 'C':
+                cociente();
+                break;
+		}
+	}
+	while((c != 'q') && (c != 'Q')); // Sale con Q o q
+
+    return 0;
+}
+
+/* Función que realiza la suma de dos números complejos */
+void sumar(void)
+{
+	/* Se declaran las variables en donde se almacenan *
+	 * los números complejos                           */
+	struct complejo A, B, C;
+	/* Se invoca la función que permite el ingreso de *
+     * los datos */
+	A = ingreso();
+	B = ingreso();
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    printf("\n\n");
+	
+    /* Se imprimen los datos de los operandos en la *
+	 * notación en que fueron ingresados            */
+	
+     if(A.t == 'P')
+		printf("%f e^%f +", A.x, A.y);
+	else
+		printf("%f j%f +", A.x, A.y);
+	
+    if(B.t == 'P')
+		printf(" %f e^%f = ", B.x, B.y);
+	else
+		printf(" %f j%f = ", B.x, B.y);
+	
+    /* Cambio del tipo de notación de cada operando *
+	 * si se hubiese ingresado en forma polar       */
+	if(A.t == 'P')
+		A = convacart(A);
+
+	if(B.t == 'P')
+		B = convacart(B);
+	
+    C.x = A.x + B.x;
+	C.y = A.y + B.y;
+	C.t = 'C';
+	
+    /* Se invoca a la función de impresión de los resultados */
+	imprime(C, A, B);
+}
+
+/* Función que realiza la resta de dos números complejos */
+void restar(void)
+{
+	/* Se declaran las variables en donde se almacenan *
+	 * los números complejos                           */
+	struct complejo A, B, C;
+	
+    /* Se invoca la función que permite el ingreso de *
+     * los datos                                      */
+	A = ingreso();
+	B = ingreso();
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    printf("\n\n");
+	
+    /* Se imprimen los datos de los operandos en la *
+	 * notación en que fueron ingresados            */
+	if(A.t == 'P')
+		printf("%f e^%f -", A.x, A.y);
+	else
+		printf("%f j%f -", A.x, A.y);
+	
+    if(B.t == 'P')
+		printf(" %f e^%f = ", B.x, B.y);
+	else
+		printf(" %f j%f = ", B.x, B.y);
+	
+    /* Cambio del tipo de notación de cada operando *
+	 * si se hubiese ingresado en forma polar       */
+	if(A.t == 'P')
+		A = convacart(A);
+	
+    if(B.t == 'P')
+		B = convacart(B);
+	
+    C.x = A.x - B.x;
+	C.y = A.y - B.y;
+	C.t = 'C';
+	
+    /* Se invoca a la función de impresión de los resultados */
+	imprime(C, A, B);
+}
+
+/* Función que realiza el producto de dos números complejos */
+void producto(void)
+{
+	/* Se declaran las variables en donde se almacenan *
+	 * los números complejos                           */
+	struct complejo A, B, C;
+
+	/* Se invoca la función que permite el ingreso de *	* los datos                                       */
+	A = ingreso();
+	B = ingreso();
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    printf("\n\n");
+	
+    /* Se imprimen los datos de los operandos en la *
+	 * notación en que fueron ingresados            */
+	if(A.t == 'P')
+		printf("%f e^%f *", A.x, A.y);
+	else
+		printf("%f j%f *", A.x, A.y);
+	
+    if(B.t == 'P')
+		printf(" %f e^%f = ", B.x, B.y);
+	else
+		printf(" %f j%f = ", B.x, B.y);
+	
+    /* Cambio del tipo de notación de cada operando *
+	 * si se hubiese ingresado en forma cartesiana  */
+	if(A.t == 'C')
+		A = convapol(A);
+	
+    if(B.t == 'C')
+		B = convapol(B);
+	
+    C.x = A.x * B.x;
+	C.y = A.y + B.y;
+	C.t = 'P';
+	
+    /* Se invoca a la función de impresión de los resultados */
+	imprime(C, A, B);
+}
+
+/* Función que realiza el cociente de dos números complejos */
+void cociente(void)
+{
+	/* Se declaran las variables en donde se almacenan *
+	 * los números complejos                           */
+	struct complejo A, B, C;
+	
+    /* Se invoca la función que permite el ingreso de *
+     * los datos                                      */
+	A = ingreso();
+	B = ingreso();
+	
+    clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+    //system("cls");
+	
+    printf("\n\n");
+	
+    /* Se imprimen los datos de los operandos en la *
+	 * notación en que fueron ingresados            */
+	if(A.t == 'P')
+		printf("%f e^%f /", A.x, A.y);
+	else
+		printf("%f j%f /", A.x, A.y);
+	
+    if(B.t == 'P')
+		printf(" %f e^%f = ", B.x, B.y);
+	else
+		printf(" %f j%f = ", B.x, B.y);
+	
+    /* Cambio del tipo de notación de cada operando *
+	 * si se hubiese ingresado en forma cartesiana  */
+	if(A.t == 'C')
+		A = convapol(A);
+	
+    if(B.t == 'C')
+		B=convapol(B);
+	
+    C.x = A.x / B.x; // Divide modulos
+	C.y = A.y - B.y; // Resta angulos
+	C.t = 'P';
+	
+    /* Se invoca a la función de impresión de los resultados */
+	imprime(C, A, B);
+}
+
+
+/* Función que permite el ingreso de un numero complejo *
+ * esta retorna el valor de la estructura, la misma     *
+ * contiene la parte real e imaginaria o el modulo y el *
+ * argumento y además el tipo de la notación en que     *
+ * esta escrito                                         */
+struct complejo ingreso(void)
+{
+	/* Declara la variable en donde se va a almacenar  *
+	 * el numero complejo                              */
+	struct complejo A;
+	
+    /* Variable auxiliar para evitar el problema de la *
+	 * función "scanf"                                 */
+	float aux;
+	
+    char c;
+	do
+	{
+		/* Menu para seleccionar la forma en que  *
+		 * se ingresa el numero                   */
+		clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
+        //system("cls");
+
+		printf("\n\n\n\t\t\tIngreso del Valor");
+		printf("\n\n\t\tIngrese la opcion");
+		printf("\n\n\t\t (P) Notacion polar");
+		printf("\n\n\t\t (C) Notacion cartesiana\t");
+		
+        c = getche(); // Lee una tecla y la muestra en pantalla
+		
+        switch(c)
+		{
+			/* Ingreso en notación polar */
+            case 'p':
+            case 'P':
+                printf("\n\nIngrese el modulo : ");
+                scanf("%f", &aux);
+                A.x = aux;
+                printf("\nIngrese el argumento : ");
+                scanf("%f", &aux);
+                A.y = aux;
+                A.t = toupper(c);
+                c = 0;
+                break;
+				
+            /* Ingreso en notación cartesiana */
+            case 'c':
+            case 'C':
+                printf("\n\nIngrese la parte real : ");
+                scanf("%f", &aux);
+                A.x = aux;
+                printf("\nIngrese la parte imaginaria : ");
+                scanf("%f", &aux);
+                A.y = aux;
+                A.t = toupper(c);
+                c = 0;
+                break;
+		}
+	}
+	while(c);
+
+	/* Aquí se retorna la variable de tipo "struct complejo */
+	return(A);
+}
+
+/* Función que convierte un numero en notación polar a notación cartesiana */
+struct complejo convacart(struct complejo A)
+{
+	/* Variable en donde se guardara el cambio de notación */
+	struct complejo B;
+	B.x = A.x * cos(A.y * M_PI / 180);
+	B.y = A.x * sin(A.y * M_PI / 180);
+	B.t = A.t;
+	
+    /* Aquí se retorna la variable de tipo "struct complejo */
+	return(B);
+}
+
+/* Función que convierte un numero en notación cartesiana a notación polar */
+struct complejo convapol(struct complejo A)
+{
+	/* Variable en donde se guardara el cambio de notación */
+	struct complejo B;
+	B.x = sqrt((A.x * A.x) + (A.y * A.y));
+	B.y = atan2(A.y, A.x) * (180 / M_PI);
+	B.t = A.t;
+	/* Aquí se retorna la variable de tipo "struct complejo */
+	return(B);
+}
+
+/* Función que imprime el resultado del calculo realizado */
+void imprime(struct complejo C, struct complejo A, struct complejo B)
+{
+	/* Verifica la notación en que se ingresaron a los operandos *
+	 * Si ambos están expresados en la misma forma el resultado  *
+	 * se expresa en esa notación, en caso contrario en la       *
+	 * notación natural del calculo realizado                    */
+	if(A.t == B.t)
+	{
+		switch(A.t)
+		{
+            case 'P':
+                if(C.t == 'C')
+                    C = convapol(C);
+                printf(" %f e^%f ", C.x, C.y);
+                break;
+
+            case 'C':
+                if(C.t == 'P')
+                    C = convacart(C);
+                printf(" %f j%f  ", C.x, C.y);
+                break;
+		}
+	}
+	else
+		if(C.t == 'p')
+			printf(" %f e^%f  ", C.x, C.y);
+		else
+			printf(" %f j%f  ", C.x, C.y);
+	
+    printf("\n\nPresione una tecla para continuar ");
+	getch(); // Espera que se presione una tecla
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 12</h2>
+<h2 class="teoria">Estructura de datos 15</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Definicion de estructuras y variables globales */
+struct alumno
+{
+	int legajo;
+	float promedio;
+}ALUMNO;
+
+struct fecha
+{
+	int dia,mes,anio;
+}fechanac;
+
+/* Declaracion de estructura */
+struct fe
+{
+	int dia,mes,anio;
+};
+
+int main(void)
+{
+	/* Variable local de tipo struct alumno y de tipo struct fecha inicializada y de tipo struct fe */
+    struct alumno Alumej;
+	struct fecha FecIng = {9,7,1816}, fech;
+	struct fe FF;
+
+	/* Asignacion de campos de la estructura */
+	fechanac.dia = 27;
+	fechanac.mes = 4;
+	fechanac.anio = 2009;
+
+	/* Copia todos los campos de FecIng a fech */
+	fech = FecIng;
+
+	/* Copia de un campo individual */
+	FF.dia = fech.dia;
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 13</h2>
+<h2 class="teoria">Estructura de datos 16</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Declaracion de estructura*/
+struct fecha
+{
+    int dia, mes, anio;
+};
+
+/* Declaracion de estructura con un campo estructura (estructura de estructura) */
+struct persona
+{
+    int legajo;
+    long dni;
+    struct fecha nacimiento;
+};
+
+int main(void)
+{
+    /* Declaracion de variable tipo struct persona */
+    struct persona P;
+
+    /* Declaracion de variable tipo struct fecha inicializada */
+    struct fecha f = {10, 8, 2010};
+
+    /* Asignacion de campos a estructura */
+    P.legajo = 2398;
+    P.dni = 19265989;
+    
+    /* Asignacion directa entre estructuras del mismo tipo
+     * Como P y f son ambos de tipo struct fecha,
+     * se permite asignacion completa.
+     * Copia:
+     * - dia
+     * - mes
+     * - anio
+     */
+    P.nacimiento = f;
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 14</h2>
+<h2 class="teoria">Estructura de datos 17</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <string.h> // Se usa strcpy()
+
+/* Prototipos de funcion */
+struct FECHA f1(void);   // Devuelve una estructura FECHA
+struct PERSONA f2(void); // Devuelve una estructura PERSONA
+
+/* Definicion de estructura */
+struct FECHA
+{
+    int dia, mes, anio;
+};
+
+/* Definicion de estructura de estructuras */
+struct PERSONA
+{
+    char nom[30];
+    char apell[30];
+    struct FECHA fnac;
+};
+
+/* Definicion de estructura */
+struct A
+{
+    int a;
+    float b;
+};
+
+int main(void)
+{
+    /* Declaracion de variables tipo struct */
+    struct PERSONA pers;
+    struct A a;
+
+    /* Copia de cadenas en los campos char[] */
+    strcpy(pers.nom, "JUAN");
+    strcpy(pers.apell, "PEREZ");
+
+    /* Asignacion a campos de la estructura */
+    a.a = 5;
+    a.b = 2.1;
+
+    /* LLamada a funcion que devuelve struct FECHA
+     * Se asigna directamente al campo fnac
+     */
+    pers.fnac = f1();
+    
+    /* Llamada a funcion que devuelve struct PERSONA completa
+     * Se reemplaza toda la estructura pers (incluyendo nombre, apellido y fecha)
+     */
+    pers = f2();
+
+    return 0;
+}
+
+/* Funcion que devulev una estructura PERSONA
+ * Inicializacion compuesta al momento de declarar
+ */
+struct PERSONA f2(void)
+{
+    /* Inicializacion directa de los campos */
+    struct PERSONA P = {"pablo", "Marmol", {10, 3, -2528}};
+
+    return P; // Devuelve la estructura completa
+}
+
+/* Funcion que devuelve una estructura FECHA */
+struct FECHA f1(void)
+{
+    struct PERSONA pers; // Variable local
+    struct A a;          // Variable local
+    struct FECHA hoy;    // Fecha a retornar
+
+    /* Uso de strcpy para demostrar string.h*/
+    strcpy(pers.nom, "PEDRO");
+
+    /* Asignacion del campo b de la estructura a de tipo struct A*/
+    a.b = 7.89;
+
+    /* Ingreso por teclado de la fecha (no hay validacion) */
+    scanf("%d", &hoy.dia);
+    scanf("%d", &hoy.mes);
+    scanf("%d", &hoy.anio);
+
+    return hoy; // Se devuelve la estructura completa
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 15</h2>
+<h2 class="teoria">Estructura de datos 18</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Punteros a estructuras */
+
+#include <stdio.h>
+
+/* Declaracion de estructura */
+struct A
+{
+    int a;
+    char b;
+    float c;
+};
+
+int main(void)
+{
+    /* Declaracion de variable tipo struct A
+     * Declaracion de puntero a struct A 
+     */
+    struct A var, *ps;
+    
+    /* Asignacion de campo b de la estructura */
+    var.b = 'C';
+    /* Asignacion de la direccion en memoria de var al puntero ps */
+    ps = &var;
+
+    /* Asignacion a campo de estructura mediante puntero por desreferenciacion y acceso al campo por operador (.) (FORMA LARGA) */
+    (*ps).c = 3.14;
+
+    /* Asignacion mediante puntero a campo de estructura por -> (desreferencia y acceso) (FORMA CORTA) */
+    ps->a = 7;
+    
+    /*(*ps).a equivale a ps->a */
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 16</h2>
+<h2 class="teoria">Estructura de datos 19</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Declaracion de estructura */
+struct A
+{
+	int a;
+	char b;
+	float c;
+};
+
+/* Declaracion de estructura autoreferenciada
+ * Esto es la base de:
+ * Listas enlazadas (Simple linked lists), arboles (tree), estructuras dinamicas
+ */
+struct AR
+{
+	int i;
+	struct AR *p; // Puntero a struct AR
+};
+
+int main(void)
+{
+	/* Declaracion de variable tipo struct A
+     * Declaracion de puntero a struct A 
+     */
+    struct A var, *ps;
+	
+	/* Variables de tipo struct AR */
+	struct AR PEPE, x;
+
+	/* Asignacion de campo b de la estructura */
+	var.b = 'C';
+
+	/* Asignacion de la direccion en memoria de var al puntero ps */
+	ps = &var;
+
+	/* Asignacion a campo de estructura mediante puntero por desreferenciacion y acceso al campo por operador (.) (FORMA LARGA)*/
+	(*ps).c = 3.14;
+	
+	/* Asignacion mediante puntero a campo de estructura por -> (desreferencia y acceso) (FORMA CORTA) */
+	ps->a = 7;
+	
+	/* Asignacio a campo de estructura */
+	PEPE.i = 6;
+
+	/* Asignacio a campo de estructura */
+	x.i = 3;
+
+	/* Enlace entre estructuras
+	 * PEPE.p apunta a x
+	 */
+	PEPE.p = &x; // Asignar direccion de x a campo puntero a struct AR
+	
+	/* x.p apunta a si misma
+	 * (estructura autoreferenciada circular)
+	 */
+	x.p = &x;
+    
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 17</h2>
+<h2 class="teoria">Estructura de datos 20</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Declaracion de estructura */
+struct A
+{
+	int i;
+	char c[10];
+};
+
+int main(void)
+{
+	/* Declaracion de variable y puntero a struct A */
+    struct A e1, *pe1;
+	int i;
+	
+	/* Asignacion de campo de estructura */
+    e1.i = 22;
+	
+	/* Carga del vector con valores consecutivos:
+	 * 'A', 'B', ... hasta 10 elementos.
+	 */
+    for (i = 0; i < 10; i++)
+		e1.c[i] = 'A' + i;
+	
+	/* Asignacion de la direccion de e1 al puntero */
+    pe1 = &e1;
+
+	/* Asignacion de campo de estructura mediante puntero (desreferenciacion, forma larga) */
+	(*pe1).i = 29; // e1.i cambia de 22 a 29
+
+	/* Asignacion de campo (4) de estructura mediante puntero (forma corta) */
+	pe1->c[4] = '#'; // 'E' cambia a '#'
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 18</h2>
+<h2 class="teoria">Estructura de datos 21</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+
+/* Declaracion de estructura */
+struct B
+{
+	int i;
+	float *pf;
+};
+
+/* Declaracion de estructura autoreferenciada */
+struct C
+{
+	int i;
+	char c;
+	struct C *sig; // Puntero a otra estructura C (permite encadenarlar => base de listas enlazadas)
+};
+
+int main(void)
+{
+	/* Declaracion de variable tipo struct B y tipo float y dos tipo struct C */
+    struct B e2;
+	float f;
+	struct C ar1, ar2;
+	
+	/* Asignacion de la direccion de f, Ahora pf apunta a f */
+	e2.pf = &f;
+
+	/* Desreferenciacion del puntero y asignacion del valor, entonces f = 2.46 */
+	*(e2.pf) = 2.46;
+
+	/* Encadenamos estructuras tipo C
+	 * ar1.sig apunta a ar2
+	 * ar2.sig apunta a si misma
+	 * Esto genera una autoreferencia.
+	 * Es valido, pero puede producir bucles infinitos si se recorre sin condicion de corte.
+	 */
+	ar1.sig = &ar2;
+	ar2.sig = &ar2;
+
+	/* Acceso enlazado:
+	 * ar1.sig apunta a ar2, entonces ar1.sig->c modifica ar2.c
+	 */
+	ar1.sig->c = 'X';
+
+    return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Punteros 19</h2>
+<h2 class="teoria">Queue 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Se desea almacenar cierto número de enteros en una estructura *
+ * de tipo Cola, diseñe una solución que permita, insertar y     *
+ * eliminar datos de la cola.                                    */
+#include <stdio.h>
+#include <conio.h> // Se usa getch()
+#include <stdlib.h> // Se usa malloc(), free() y system()
+
+/* Declaracion de la cola */
+/*
+ * Nodo de la lista enlazada.
+ * Cada nodo contiene:
+ * - elemento  => Dato almacenado.
+ * - siguiente => Puntero al proximo nodo 
+ */
+struct nodo
+{
+    int elemento;
+    struct nodo *siguiente;
+};
+
+/* Estructura Cola:
+ * - frente => Primer nodo (FIFO: First In First Out)
+ * - final  => Ultimo nodo
+ */
+struct Cola
+{
+    struct nodo *frente;
+    struct nodo *final;
+};
+
+/* Declaracion de los prototipos de las funciones */
+void CrearCola(struct Cola *cola);
+void insert(struct Cola *cola, int x);
+int remover(struct Cola *cola);
+int empty(struct Cola cola);
+
+int main(void)
+{
+    int x, opc = 8, j = 0;
+    struct Cola cola;
+
+    /* Inicializa frente y final en NULL */
+    CrearCola(&cola);
+
+    /* Limpia la pantalla en Windows, en Linux system("clear") */
+    system("cls"); //clrscr();
+
+    while(opc != 3)
+    {
+        printf("\t\t\tMENU PRINCIPAL\n\n\n");
+        printf("\t 1. Insertar\n");
+        printf("\t 2. Eliminar\n");
+        printf("\t 3. Salir\n");
+        scanf("%d", &opc);
+        
+        switch(opc)
+        {
+            case 1:
+                printf("Ingrese el numero a introducir:\n");
+                scanf("%d", &x);
+                insert(&cola, x); // Inserta al final
+                ++j; // Incrementa contador
+                break;
+            case 2:
+                x = remover(&cola); // Remueve del frente
+                
+                /* Condicion algo redundante:
+                 * empty(cola) verifica si esta vacia
+                 * j tambien controla cantidad insertada
+                 */
+                if(!empty(cola) || j)
+                {
+                    printf("%d fue eliminado de la cola\n", x);
+                    --j;
+                }
+                
+                getch(); // Espera que se presione una tecla
+                
+                break;
+        }
+        system ("cls"); //clrscr ();
+    }
+    getch(); // Espera que se presione una tecla
+
+    return 0;
+}
+
+/* Definicion de las funciones */
+
+/* Inicializa la cola vacia */
+void CrearCola(struct Cola *cola)
+{
+    cola->frente = cola->final = NULL;
+}
+
+/* Funcion que inserta el dato en la parte final de la cola (operacion enqueue) */
+void insert (struct Cola *cola, int x)
+{
+    struct nodo *nuevo;
+
+    /* Reserva memoria dinamica para nuevo nodo */
+    nuevo = (struct nodo*)malloc(sizeof(struct nodo));
+
+    nuevo->elemento = x;
+    nuevo->siguiente = NULL; // Sera el ultimo
+
+    /* Si esta vacia */
+    if(empty(*cola))
+    {
+        cola->frente = nuevo; // Frente y final seran el mismo nodo
+    }
+    else
+    {
+        cola->final->siguiente = nuevo; // Enlaza al ultimo
+    }
+    cola->final = nuevo; // Actualiza el final
+}
+
+/* Elimina el elemento que esta al frente de la cola (operacion dequeue) */
+int remover (struct Cola *cola)
+{
+    int temp = 0; //=NULL;
+    struct nodo *nuevo;
+
+    /* Si no esta vacia */
+    if(!empty(*cola))
+    {
+        nuevo = cola->frente;                   // Guarda el nodo actual
+        temp = cola->frente->elemento;          // Guarda el dato
+        cola->frente = cola->frente->siguiente; // Avanza el frente
+        free(nuevo); // Libera memoria
+    }
+    else
+        printf("ERROR, cola vacia, se puede eliminar\a\n");
+    return (temp);
+}
+
+/* Devuelve 1 si esta vacia, 0 si no */
+int empty(struct Cola cola)
+{
+    return (cola.frente==NULL);
+}
+</code></pre>
+
+<h2 class="teoria">Queue 02</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include<stdlib.h> // Se usa exit(), system()
+#include<conio.h> // se usa getch()
+#include<ctype.h> // No se usa
+
+#define MAX 100
+
+/* Prototipos de funciones */
+void Ingreso(int *,int *,float *);
+void Lee(int *,int *,float *);
+
+int main(void)
+{
+    /* Ingresa => indice de escritura (cola 'final')
+     * Extrae  => indice de lectura   (cola 'frente')
+     */
+    int Ingresa = 0, Extrae = 0, Opcion;
+
+    /* Cola implementada como vector estatico */
+    float Cola[MAX];
+    do
+    {
+        system("CLS"); // Limpia pantalla
+        printf("1 - Ingresar datos\n");
+        printf("2 - Leer datos\n");
+        printf("3 - Salir\n\n");
+        printf("Ingrese una opcion ( 1 - 3 ) : ");
+        scanf("%d", &Opcion);
+        switch(Opcion)
+        {
+        case 1:
+        /* Se pasa la direccion de los indices,
+         * porque se modifican dentro de la funcion
+         */
+            Ingreso(&Ingresa, &Extrae, Cola);
+            break;
+
+        case 2:
+            Lee(&Ingresa, &Extrae, Cola);
+            break;
+
+        case 3:
+            exit(0); // Termina el programa inmediatamente
+        }
+    }
+    while(Opcion != 3); // Mientras opcion no sea tres
+
+    return 0;
+}
+
+/* Inserta un elemento en la cola (enqueue)
+ * Escritura => indice donde se escribe
+ * Lectura => indice de lectura (no se uso)
+ */
+void Ingreso(int *Escritura, int *Lectura, float *Cola)
+{
+    /* Si Escritura llego al limite del vector la cola esta llena */
+    if(*Escritura == MAX)
+    {
+        system("CLS"); // Limpia la pantalla
+
+        printf("\n\nCola llena");
+        
+        printf("\nPresione una tecla para continuar");
+        getch(); // Espera que se presione una tecla
+        
+        return;
+    }
+    
+    printf("\nIngrese el dato : ");
+    scanf("%f", &Cola[*Escritura]); // Se escribe en la posicion actual de Escritura
+    
+    (*Escritura)++; // Se avanza el indice de escritura
+    
+    printf("\n\n\nPresione una tecla para continuar");
+    getch(); // Espera que se presione una tecla
+}
+
+/* Lee (extrae) un elemento de la cola (dequeue) */
+void Lee(int *Escritura,int *Lectura,float *Cola)
+{
+    /* Si ambos indices son iguales, significa que no hay elementos para leer */
+    if(*Escritura == *Lectura)
+    {
+        system("CLS"); // Limpia la pantalla
+        
+        printf("\n\nCola vacia");
+        
+        printf("\nPresione una tecla para continuar");
+        getch(); // Espera que se presione una tecla
+        
+        return;
+    }
+    
+    /* Se muestra el dato en la posicion de lectura */
+    printf("\nEl dato es : %f",Cola[*Lectura]);
+    
+    (*Lectura)++; // Se avanza el indice de lectura
+    
+    printf("\n\n\nPresione una tecla para continuar");
+    getch(); // Espera que se presione una tecla
+}
+</code></pre>
+
+<h2 class="teoria">Queue 03</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* Cola circular con punteros */
+
+#include <stdio.h>
+#include<stdlib.h> // Se usa exit(), system()
+#include<conio.h> // Se usa getch()
+#include<ctype.h> // No se usa
+
+#define MAX 100
+
+/* Prototipos de las funciones */
+void Inicio(int *,int **,int *,int *,int *);
+void Lee(int *,int **,int *,int *,int *);
+
+int main(void)
+{
+    /* Llena   => bandera: 1 si la cola esta llena
+     * Vacia   => bandera: 1 si la cola esta vacia
+     * Cola    => vector que almacena los datos
+     * Extrae  => puntero de lectura (frente)
+     * Ingreso => puntero de escritura (final)
+     */
+    int Llena = 0, Vacia = 1, Opcion, Cola[MAX], *Extrae = Cola, *Ingreso = Cola;
+    
+    do
+    {
+        system("CLS"); // Limpiar pantalla
+        
+        printf("1 - Ingresa datos\n");
+        printf("2 - Lee datos\n");
+        printf("3 - Salir\n\n");
+        printf("Ingrese una opcion ( 1 - 3 ) : ");
+
+        fflush(stdin); // Reemplazar con:
+        //int basura;
+        //while ((basura = getchar()) != '\n' && basura != EOF);
+        
+        scanf("%d", &Opcion);
+        
+        switch(Opcion)
+        {
+            case 1:
+                /* Se pasa:
+                 * - El vector base.
+                 * - Direccion del puntero de escritura.
+                 * - Banderas.
+                 * - Puntero de lectura.
+                 */
+                Inicio(Cola, &Ingreso, &Llena, &Vacia, Extrae);
+                break;
+
+            case 2:
+                Lee(Cola, &Extrae, &Vacia, &Llena, Ingreso);
+                break;
+
+            case 3:
+                exit(0);
+        }
+    }
+    while(Opcion != 3);
+
+    return 0;
+}
+
+/* Insercion en cola circular */
+void Inicio(int *Cola, int **Ingr, int *Llena, int *Vacia, int *Extr)
+{
+    /* Si la bandera indica llena, no se puede insertar */
+    if(*Llena)
+    {
+        system("CLS");
+        
+        printf("\n\nCola llena");
+        
+        printf("\n\nPresione una tecla para continuar\n");
+        getch(); // Espera que se presione una tecla.
+        
+        return;
+    }
+    
+    printf("\n\nIngrese el dato : ");
+    /* *Ingr es un puntero a puntero.
+     * Apunta a la posicion actual de escritura.
+     * scanf escribe directamente en esa direccion.
+     */
+    scanf("%d", *Ingr);
+    
+    *Vacia = 0; // Si se ingresa, ya no esta vacia
+    
+    /* Avanza el puntero de escritura */
+    (*Ingr)++;
+    
+    /* Si llego al final fisico del vector,
+     * vuelve al inicio => comportamiento circular.
+     */
+    if(*Ingr == Cola+MAX)
+        *Ingr = Cola;
+    
+    /* Si escritura alcanza lectura,
+     * significa que la cola esta llena.
+     */
+    if(*Ingr == Extr)
+        *Llena = 1;
+}
+
+/* Extraccion en cola circular */
+void Lee(int *Cola, int **Extr, int *Vacia, int *Llena, int *Ingr)
+{
+    /* Si bandera indica vacia, no se puede extraer */
+    if(*Vacia)
+    {
+        system("CLS"); // Limpiar pantalla.
+
+        printf("\n\nCola vacia");
+        
+        printf("\n\nPresione una tecla para continuar\n");
+        getch(); // Esperea que se presione una tecla.
+        
+        return;
+    }
+    
+    *Llena = 0; // Si se extrae, ya no esta llena.
+    
+    /* Se muestra el valor de **Extr:
+     * - *Extr es el puntero de lectura.
+     * - **Extr es el valor almacenado.
+     */
+    printf("\n\nEl dato es : %d\n", **Extr);
+    
+    printf("\n\nPresione una tecla para continuar\n");
+    getch(); // Esperea que se presione una tecla.
+    
+    /* Avanza puntero de lectura. */
+    (*Extr)++;
+    
+    /* Si llega al final fisico, vuelve al inicio (circular) */
+    if(*Extr == Cola + MAX)
+        *Extr = Cola;
+    
+    /* Si lectura alcanza escritura, la cola quedo vacia. */
+    if(*Extr == Ingr)
+        *Vacia = 1;
+}
+</code></pre>
+
+<h2 class="teoria">Stack 01</h2>
+
+<h3 class="make">Makefile</h3>
+<pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
+</code></pre>
+
+
+<h3 class="make">Código:</h3>
+<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+/* PILA (stack) estatica utilizando vector */
+#include <stdio.h>
+#include<stdlib.h> // Se usa exit() y system()
+#include<conio.h> // Se usa getch()
+
+/* Dimension maxima de la pila */
+#define MAX 100
+
+/* Prototipos de funciones */
+void Inicio(int *,float *);
+void Lee(int *,float *);
+
+int main(void)
+{
+    /* Declaracion de variables y vector.
+     * Indice => representa el tope de la pila.
+     * Siempre apunta a la proxima posicion libre.
+     */
+    int Indice = 0, Opcion;
+    float Pila[MAX]; // Almacena los datos (estructura LIFO)
+    
+    do
+    {
+        system("CLS"); // Limpia la pantalla.
+        
+        printf("1 - Ingresa datos\n");
+        printf("2 - Lee datos\n");
+        printf("3 - Salir\n\n");
+        printf("Ingrese una opcion ( 1 - 3 ) : ");
+        scanf("%d", &Opcion);
+
+        switch(Opcion)
+        {
+            case 1:
+                /* Inserta elemento (push)
+                 * Se pasa la direccion de Indice porque se modifica.
+                 */
+                Inicio(&Indice, Pila);
+                break;
+
+            case 2:
+                /* Extrae elemento (pop) */
+                Lee(&Indice, Pila);
+                break;
+
+            case 3:
+                exit(0);
+        }
+    }
+    while(Opcion != 3);
+
+    return 0;
+}
+
+/* Insercion en pila (PUSH) */
+void Inicio(int *Indice, float *Pila)
+{
+    /* Si Indice llego al maximo, la pila esta llena. */
+    if(*Indice == MAX)
+    {
+        system("CLS"); // Limpia la pantalla.
+        
+        printf("\n\nPila llena");
+        
+        printf("\n\nPresione una tecla para continuar\n");
+        getch(); // Espera que se presione una tecla.
+        
+        return;
+    }
+
+    system("CLS"); // Limpia la pantalla.
+    
+    printf("\nIngrese el dato : ");
+
+    /* Se escribe en la posicion actual del tope. */
+    scanf("%f", &Pila[*Indice]);
+    
+    /* Se incrementa el tope.
+     * Ahora apunta a la siguiente posicion libre.
+     */
+    (*Indice)++;
+}
+
+/* Extraccion en pila (POP) */
+void Lee(int *Indice, float *Pila)
+{
+    /* Si Indice es cero, no hay elementos (pila vacia). */
+    if(!*Indice)
+    {
+        system("CLS"); // Limpia la pantalla.
+
+        printf("\n\nPila vacia");
+        
+        printf("\n\nPresione una tecla para continuar\n");
+        getch(); // Espera que se presione una tecla.
+        
+        return;
+    }
+
+    /* Se decrementa primero el indice,
+     * porque siempre apunta a la proxima posicion libre.
+     */
+    (*Indice)--;
+    
+    /* Se muestra el elemento del tope */
+    printf("\nEl dato es : %f", Pila[*Indice]);
+    
+    printf("\n\nPresione una tecla para continuar\n");
+    getch(); // Espera que se presione una tecla.
+}
 </code></pre>
 
 </div>
