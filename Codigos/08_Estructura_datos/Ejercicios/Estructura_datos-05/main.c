@@ -2,7 +2,7 @@
 
 /* Ejemplo de la utilizacion del operador punto:
  * Este programa demuestra como acceder a los campos de una estructura
- * mediante eñ operador (.)
+ * mediante el operador (.)
  */
 
 #include <stdio.h>
@@ -34,3 +34,4 @@ int main(void)
         
     return 0;
 }
+
