@@ -3,9 +3,9 @@
 /* Cola circular con punteros */
 
 #include <stdio.h>
-#include<stdlib.h> // Se usa exit(), system()
-#include<conio.h> // Se usa getch()
-#include<ctype.h> // No se usa
+#include <stdlib.h> // Se usa exit(), system()
+#include <conio.h> // Se usa getch()
+#include <ctype.h> // No se usa
 
 #define MAX 100
 
@@ -141,4 +141,5 @@ void Lee(int *Cola, int **Extr, int *Vacia, int *Llena, int *Ingr)
     /* Si lectura alcanza escritura, la cola quedo vacia. */
     if(*Extr == Ingr)
         *Vacia = 1;
+
 }
