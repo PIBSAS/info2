@@ -555,7 +555,7 @@ clean:
 <h3><code>main.c:</code> Versión básica</h3>
 
 <pre><code class="language-c">
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 #include "suma.h"
 
 int main(void)
@@ -569,7 +569,7 @@ int main(void)
 <h3><code>main.c:</code> Solo para dependencias automáticas</h3>
 
 <pre><code class="language-c">
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 #include "suma.h"
 #include "resta.h"
 
@@ -593,7 +593,8 @@ int contador = 0;
 
 int suma(int a, int b)
 {
-    contador++; 
+    contador++;
+	
     return a+b;
 }
 </code></pre>
