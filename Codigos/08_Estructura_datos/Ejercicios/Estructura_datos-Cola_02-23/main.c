@@ -1,9 +1,9 @@
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
-#include<stdlib.h> // Se usa exit(), system()
-#include<conio.h> // se usa getch()
-#include<ctype.h> // No se usa
+#include <stdlib.h> // Se usa exit(), system()
+#include <conio.h> // se usa getch()
+#include <ctype.h> // No se usa
 
 #define MAX 100
 
@@ -101,4 +101,5 @@ void Lee(int *Escritura,int *Lectura,float *Cola)
     
     printf("\n\n\nPresione una tecla para continuar");
     getch(); // Espera que se presione una tecla
+
 }
