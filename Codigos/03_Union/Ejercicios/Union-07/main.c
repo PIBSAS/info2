@@ -2,7 +2,7 @@
 
 ///////////// Es Union-06 sin comentarios ///////////////////
 #include <stdio.h>
-#include<conio.h>
+#include <conio.h>
 
 #define MAX 100
 
@@ -204,4 +204,5 @@ void listado(struct autos stock[], int i)
 		if (k == 'N' || k == 'n')
 			return;
 	}
+
 }
