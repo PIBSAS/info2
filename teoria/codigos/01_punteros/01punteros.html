@@ -94,7 +94,7 @@ clean:
     - Para solucionar esto se hace un cast: (void *)&x
 */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -178,7 +178,7 @@ clean:
     - int a[10]; sizeof(a) da 10 * sizeof(int) = 10 * 4 bytes = 40 bytes
     - int *p = a; sizeof(p); da sizeof(int *) = 8 bytes
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -278,7 +278,7 @@ clean:
         - Usar * sobre un puntero no inicializado da un comportamiento indefinido-Undefined Behaviour (UB)
 */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 int main(void)
 {
     int x = 10;
@@ -347,7 +347,7 @@ clean:
         - if(*p1 == *p2) Si almacenan el mismo valor en su direccion de memoria se cumple el bucle
 */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -476,8 +476,8 @@ clean:
     
 */
 
-#include <stdio.h>
-#include <stddef.h> //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
+#include &lt;stdio.h&gt;
+#include &lt;stddef.h&gt; //Puede omitirse porque no declaramos nada del tipo ptrdiff_t pero el estandar lo recomienda
 
 int main(void)
 {
@@ -617,7 +617,7 @@ clean:
 
 */
  
- #include <stdio.h>
+ #include &lt;stdio.h&gt;
 
  int main(void)
  {
@@ -735,7 +735,7 @@ clean:
     - Porque lo que se pasa es su direccion inicial.
 */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* ---------- Ejemplo 1: PASAJE POR VALOR (NO FUNCIONA) ---------- */
 
@@ -846,7 +846,7 @@ clean:
  * - -pedantic => exige cumplimiento estricto del estandar.
  * - -0 main   => genera el ejecutable llamado 'main'.
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -891,7 +891,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -959,7 +959,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1012,7 +1012,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1059,7 +1059,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1145,7 +1145,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1213,7 +1213,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1268,7 +1268,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1337,7 +1337,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1405,7 +1405,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1483,7 +1483,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1552,7 +1552,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1603,7 +1603,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1633,7 +1633,7 @@ int main(void)
      * cantidad de elementos entre ellos, pa2 - pa1 = 9 
      * el resultado es de tipo ptrdiff_t no int, pero compila,
      * mas correcto seria: 
-     * #include <stddef.h>
+     * #include &lt;stddef.h&gt;
      * ptrdiff_t i;*/
     i = pa2 - pa1;
 
@@ -1672,7 +1672,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1755,7 +1755,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 #define n 5
 
@@ -1780,7 +1780,7 @@ int main(void)
             max = p + i;
     
     /* Mostrar el valor almacenado en max que es el mayor de p por dereferencia.
-     * Resta entre vectores devuielve ptrdiff_t, lo correcto seria usar el especificador %td, y agregar <stddef.h>
+     * Resta entre vectores devuielve ptrdiff_t, lo correcto seria usar el especificador %td, y agregar &lt;stddef.h&gt;
      * pero en la cursada no se sigue ese estandar, pero veremos que el compilador nos lo indica como warning al compilar. */
     printf("\n\nmax = %d", *max);
     printf("\npos = %d\n", max - vec);
@@ -1816,7 +1816,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Prototipo de funcion que recibe un puntero a int.
  * El parametro V no es un vector, es un int *. 
@@ -1874,7 +1874,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1921,7 +1921,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -1974,8 +1974,8 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // De la biblioteca usamos getche()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // De la biblioteca usamos getche()
 
 int main(void)
 {

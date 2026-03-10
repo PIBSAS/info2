@@ -65,7 +65,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura 
  * Cada miembro posee su propia region en memoria.
@@ -135,7 +135,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de union 
  * Al compartir la misma region en memoria
@@ -196,9 +196,9 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
-#include <stdlib.h> // system("cls"); al no poder compilar con clrscr()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
+#include &lt;stdlib.h&gt; // system("cls"); al no poder compilar con clrscr()
 
 /* Declaracion de la union 
  * En este caso probablemente 10 bytes por y[10] sera la dimension minima,
@@ -339,12 +339,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // getche() y crlscr() esta ultima no viene en GCC/MinGW
-#include <math.h> // No se usa nada de la biblioteca, podria borrarse.
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // getche() y crlscr() esta ultima no viene en GCC/MinGW
+#include &lt;math.h&gt; // No se usa nada de la biblioteca, podria borrarse.
 
 /* Para reemplazar a clrscr() con system("cls");*/
-#include <stdlib.h> // system("cls");
+#include &lt;stdlib.h&gt; // system("cls");
 
 /*
     Se define una union con dos campos uno "int" y el otro "char"
@@ -466,10 +466,10 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 //////////// Es Union-04 sin comentarios /////////////
-#include <stdio.h>
-#include <conio.h>// No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
-#include <stdlib.h> // system("cls"); al no poder compilar con clrscr()
-#include <math.h>
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;// No pertenece al estandar ISO C. clrscr() no esta disponible en GCC/MinGW.
+#include &lt;stdlib.h&gt; // system("cls"); al no poder compilar con clrscr()
+#include &lt;math.h&gt;
 
 union alfa
 {
@@ -572,10 +572,10 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // Se usa getche() puede ser reemplazado por getchar() que pertenece al estandar, clrscr() no existe en GCC/MinGW se reemplaza agregando stdlib.h y usando system("cls")
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getche() puede ser reemplazado por getchar() que pertenece al estandar, clrscr() no existe en GCC/MinGW se reemplaza agregando stdlib.h y usando system("cls")
 /* Agregado para reemplazar clrscr() */
-#include <stdlib.h> // Se usa system("cls")
+#include &lt;stdlib.h&gt; // Se usa system("cls")
 
 /* MAX determina el largo maximo del vector */
 #define MAX 100
@@ -926,8 +926,8 @@ clean:
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 ///////////// Es Union-06 sin comentarios ///////////////////
-#include <stdio.h>
-#include<conio.h>
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
 
 #define MAX 100
 
@@ -1158,11 +1158,11 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h> // gets() eliminado en C11, reemplazo fgets()
-#include <conio.h> // clrscr() no existe en GCC/MinGW reemplazo con system("cls") de stdlib.h
+#include &lt;stdio.h&gt; // gets() eliminado en C11, reemplazo fgets()
+#include &lt;conio.h&gt; // clrscr() no existe en GCC/MinGW reemplazo con system("cls") de stdlib.h
 
 /* Reemplazo de clrscr() */
-#include <stdlib.h> // system("cls");
+#include &lt;stdlib.h&gt; // system("cls");
 
 /* Declaracion de constante global */
 #define MAX 3

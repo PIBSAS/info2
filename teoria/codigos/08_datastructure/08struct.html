@@ -71,8 +71,8 @@ clean:
  * de dos numeros complejos.
  */
 
-#include <stdio.h>
-#include <math.h> // Se usa sqrt(), pow(), atan2()
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt; // Se usa sqrt(), pow(), atan2()
 
 /* Se declaran las estructuras con la etiqueta y la lista de las variables
  * Representa un numero complejo en forma binomica:
@@ -168,8 +168,8 @@ clean:
  * de dos numeros complejos.
  */
 
-#include <stdio.h>
-#include <math.h> // Se usa sqrt(), pow(), atan2()
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt; // Se usa sqrt(), pow(), atan2()
 
 /* Declaracion de una estructura SIN etiqueta (estructura anonima).
  * Representa un numero complejo en forma binomica:
@@ -270,8 +270,8 @@ clean:
  * de dos numeros complejos.
  */
 
-#include <stdio.h>
-#include <math.h> // Se usa sqrt(), pow(), atan2()
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt; // Se usa sqrt(), pow(), atan2()
 
 /* Se declaran las estructuras con la etiqueta y la lista de las variables
  * Representa un numero complejo en forma binomica:
@@ -375,8 +375,8 @@ clean:
  * - Ordenamiento (burbuja y seleccion).
  * - Acumuladores.
  */
-#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
-#include <string.h>
+#include &lt;stdio.h&gt; // gets() eliminado en C11, reemplazo fgets().
+#include &lt;string.h&gt;
 
 /* Estructura que representa un producto */
 struct Productos
@@ -806,7 +806,7 @@ clean:
  * mediante eñ operador (.)
  */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Definicion de la estructura a utilizar */
 struct productos
@@ -863,7 +863,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Definicion de la estructura */
 struct lista
@@ -934,12 +934,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
-#include <string.h>
-#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt; // gets() eliminado en C11, reemplazo fgets().
+#include &lt;string.h&gt;
+#include &lt;conio.h&gt; // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
+#include &lt;stdlib.h&gt;
 
 /* Define a la estructura "pers" */
 struct pers
@@ -1056,13 +1056,13 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
-#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt; // gets() eliminado en C11, reemplazo fgets().
+#include &lt;conio.h&gt; // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
+#include &lt;stdlib.h&gt;
 
-#include <string.h>
+#include &lt;string.h&gt;
 
 /* Constantes */
 #define N 100
@@ -1180,12 +1180,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include<conio.h> // Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
-#include<math.h> // No se usa, podria omitirse
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt; // No se usa, podria omitirse
 
 /* Define una estructura */
 struct valor
@@ -1318,12 +1318,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
-#include<conio.h>// Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt; // gets() eliminado en C11, reemplazo fgets().
+#include &lt;conio.h&gt;// Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
-#include<string.h>
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 
 /* Se definen la cantidad de empleados y el largo de los strings */
 #define MAX 20
@@ -1545,12 +1545,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // Se usa getch(), getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getch(), getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
-#include <math.h> // Se usa cos(), sin(), sqrt(), atan2()
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt; // Se usa cos(), sin(), sqrt(), atan2()
 
 /* Se define el valor de pi */
 #define PI 3.14159
@@ -1711,11 +1711,11 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getch(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
+#include &lt;stdlib.h&gt;
 
 union alfa
 {
@@ -1867,12 +1867,12 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include<conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
-#include<math.h> // Se usa cos(), sin(), sqrt(), atan2()
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt; // Se usa cos(), sin(), sqrt(), atan2()
 
 /* Se define el valor de pi */
 #define PI 3.14159
@@ -2030,13 +2030,13 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
-#include <stdlib.h>
-#include <math.h> // cos(), sin(), sqrt(), atan2()
-#include <ctype.h> // toupper()
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt; // cos(), sin(), sqrt(), atan2()
+#include &lt;ctype.h&gt; // toupper()
 
 /* Agregado para que no falle la compilacion */
 #ifndef M_PI
@@ -2442,7 +2442,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Definicion de estructuras y variables globales */
 struct alumno
@@ -2510,7 +2510,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura*/
 struct fecha
@@ -2578,8 +2578,8 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <string.h> // Se usa strcpy()
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt; // Se usa strcpy()
 
 /* Prototipos de funcion */
 struct FECHA f1(void);   // Devuelve una estructura FECHA
@@ -2694,7 +2694,7 @@ clean:
 
 /* Punteros a estructuras */
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura */
 struct A
@@ -2753,7 +2753,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura */
 struct A
@@ -2841,7 +2841,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura */
 struct A
@@ -2904,7 +2904,7 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion de estructura */
 struct B
@@ -2981,9 +2981,9 @@ clean:
 /* Se desea almacenar cierto número de enteros en una estructura *
  * de tipo Cola, diseñe una solución que permita, insertar y     *
  * eliminar datos de la cola.                                    */
-#include <stdio.h>
-#include <conio.h> // Se usa getch()
-#include <stdlib.h> // Se usa malloc(), free() y system()
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // Se usa getch()
+#include &lt;stdlib.h&gt; // Se usa malloc(), free() y system()
 
 /* Declaracion de la cola */
 /*
@@ -3148,10 +3148,10 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include<stdlib.h> // Se usa exit(), system()
-#include<conio.h> // se usa getch()
-#include<ctype.h> // No se usa
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa exit(), system()
+#include &lt;conio.h&gt; // se usa getch()
+#include &lt;ctype.h&gt; // No se usa
 
 #define MAX 100
 
@@ -3280,10 +3280,10 @@ clean:
 
 /* Cola circular con punteros */
 
-#include <stdio.h>
-#include<stdlib.h> // Se usa exit(), system()
-#include<conio.h> // Se usa getch()
-#include<ctype.h> // No se usa
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa exit(), system()
+#include &lt;conio.h&gt; // Se usa getch()
+#include &lt;ctype.h&gt; // No se usa
 
 #define MAX 100
 
@@ -3449,9 +3449,9 @@ clean:
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 /* PILA (stack) estatica utilizando vector */
-#include <stdio.h>
-#include<stdlib.h> // Se usa exit() y system()
-#include<conio.h> // Se usa getch()
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa exit() y system()
+#include &lt;conio.h&gt; // Se usa getch()
 
 /* Dimension maxima de la pila */
 #define MAX 100

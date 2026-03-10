@@ -73,7 +73,7 @@ El compilador nos advierte:
 - infinite recursion detected [-Winfinite-recursion]
 - note: f(i + 1) recursive call
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 int f(int);
 
@@ -126,7 +126,7 @@ clean:
 /*
     Caso base mal hecho
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Declaracion variable global.
  * Tiene almacenamiento estatico.
@@ -208,7 +208,7 @@ clean:
 /*
     Recursion correcta (factorial)
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Prototipo de funcion recursiva */
 long int fact(int);
@@ -283,7 +283,7 @@ clean:
 /*
     Recursion correcta pero ineficiente (fibonacci)
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 /* Prototipo de la funcion recursiva Fibonacci*/
 int fibo(int);
@@ -355,8 +355,8 @@ clean:
 /*
     Comparacion recursion vs iteracion
 */
-#include <stdio.h>
-#include <conio.h> // No se usa nada de la biblioteca, deberia eliminarse.
+#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt; // No se usa nada de la biblioteca, deberia eliminarse.
 
 /* Prototipo de funciones recursivas */
 int fibo(int n); // Iterativa
@@ -523,7 +523,7 @@ int Fibo(int n); // Recursiva
     - main.c => Prgrama principal que utiliza la interfaz
     - Makefile => Compilacion y enlazado del proyecto.
 */
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 #include "fibo.h"
 
 int main(void)
@@ -573,8 +573,8 @@ clean:
 /*
     Busqueda binaria recursiva
 */
-#include <stdio.h>
-#include <stdlib.h> // Se usa system(), No estaba en el programa de catedra, pero sin ella no compila.
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa system(), No estaba en el programa de catedra, pero sin ella no compila.
 
 /* Falta el prototipo de la funcion declarada, se agrega para compilacion: */
 int buscar(int vector[], int inf, int sup, int X);
