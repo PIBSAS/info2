@@ -1886,7 +1886,7 @@ int main(void)
      * Modificacion por desreferencia doble de la variable, de 9 a 28,
      * ppi apunta a pi, *ppi es pi, **ppi es i */
     pi = &i;
-    ppi = &pi;
+    ppi = &amp;pi;
     i = 7;
     *pi = 9;
     **ppi = 28;
@@ -1931,7 +1931,7 @@ int main(void)
     /* Inicializacion de variable y asignacion de direcciones */
     i = 65;
     pi = &i;
-    ppi= &pi;
+    ppi= &amp;pi;
 
     /* Modificacion del valor de i a traves de pi por desreferencia:
      * *pi es i, por lo tanto; i = i + 4, i pasa a 69*/
@@ -2036,4 +2036,5 @@ int main(void)
 <script src="../../../js/prism.js"></script>
 <script src="../../../js/script.js"></script>
 </body>
+
 </html>
