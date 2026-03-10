@@ -1,11 +1,11 @@
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
-#include<conio.h> // Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include <conio.h> // Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
 #include <stdlib.h>
-#include<math.h> // No se usa, podria omitirse
+#include <math.h> // No se usa, podria omitirse
 
 /* Define una estructura */
 struct valor
@@ -110,3 +110,4 @@ int main(void)
 
     return 0;
 }
+
