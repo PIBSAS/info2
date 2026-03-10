@@ -2,8 +2,8 @@
 
 /* PILA (stack) estatica utilizando vector */
 #include <stdio.h>
-#include<stdlib.h> // Se usa exit() y system()
-#include<conio.h> // Se usa getch()
+#include <stdlib.h> // Se usa exit() y system()
+#include <conio.h> // Se usa getch()
 
 /* Dimension maxima de la pila */
 #define MAX 100
@@ -109,4 +109,5 @@ void Lee(int *Indice, float *Pila)
     
     printf("\n\nPresione una tecla para continuar\n");
     getch(); // Espera que se presione una tecla.
+
 }
