@@ -29,230 +29,223 @@
 <pre><code class="language-c">#include &lt;stdio.h&gt;</code></pre>
 
 
-<h3>printf:</h3>
+<h3>printf: Print Formatted</h3>
 <pre><code class="language-c">printf();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Imprime texto formateado en la salida estándar.
     </p>
 </div>
 
-<h3>scanf:</h3>
+<h3>scanf: Scan Formatted</h3>
 <pre><code class="language-c">scanf();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee datos formateados desde la entrada estándar.
     </p>
 </div>
 
-<h3>fflush:</h3>
+<h3>fflush: File Flush</h3>
 <pre><code class="language-c">fflush(stdin);</code></pre>
 <div class="nota">    
     <p>
-      I
+      Vacía el buffer de un flujo.
     </p>
 </div>
 
-<h3>gets:</h3>
+<h3>gets: Get String</h3>
 <pre><code class="language-c">gets();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee una línea desde <code>stdin</code> (obsoleta e insegura). Usar <code>fgets()</code>.
     </p>
 </div>
 
-<h3>fgets:</h3>
+<h3>fgets: File Get String</h3>
 <pre><code class="language-c">fgets();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee una línea de un archivo o de <code>stdin</code> con límite de tamaño.
     </p>
 </div>
 
-<h3>getchar:</h3>
+<h3>getchar: Get Character</h3>
 <pre><code class="language-c">getchar();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee un carácter desde <code>stdin</code>
     </p>
 </div>
 
-<h3>fopen:</h3>
+<h3>fopen: File Open</h3>
 <pre><code class="language-c">fopen();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Abre un archivo.
     </p>
 </div>
 
-<h3>fclose:</h3>
+<h3>fclose: File Close</h3>
 <pre><code class="language-c">fclose();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Cierra un archivo.
     </p>
 </div>
 
-<h3>fputc:</h3>
+<h3>fputc: File Put Character</h3>
 <pre><code class="language-c">fputc();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Escribe un carácter en un archivo.
     </p>
 </div>
 
-<h3>fgetc:</h3>
+<h3>fgetc: File Get Character</h3>
 <pre><code class="language-c">fgetc();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee un carácter de un archivo.
     </p>
 </div>
 
+<h3>feof: File End Of File</h3>
 <pre><code class="language-c">feof();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Indica si se llegó al final del archivo.
     </p>
 </div>
 
-<h3>ferror:</h3>
+<h3>ferror: File Error</h3>
 <pre><code class="language-c">ferror();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Detecta errores en un flujo de archivo.
     </p>
 </div>
 
-<h3>putchar:</h3>
+<h3>putchar: Put Character</h3>
 <pre><code class="language-c">putchar();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Escribe un carácter en <code>stdout</code>.
     </p>
 </div>
 
-<h3>puts:</h3>
+<h3>puts: Put String</h3>
 <pre><code class="language-c">puts();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Imprime una cadena y agrega salto de línea.
     </p>
 </div>
 
-<h3>fputs:</h3>
+<h3>fputs: File Put String</h3>
 <pre><code class="language-c">fputs();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Escribe una cadena en un archivo.
     </p>
 </div>
 
-<h3>fgets:</h3>
-<pre><code class="language-c">fgets();</code></pre>
-<div class="nota">    
-    <p>
-      I
-    </p>
-</div>
-
-<h3>fprintf:</h3>
+<h3>fprintf: File Print Formatted</h3>
 <pre><code class="language-c">fprintf();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Imprime texto formateado en un archivo.
     </p>
 </div>
 
-<h3>fscanf:</h3>
+<h3>fscanf: File Scan Formatted</h3>
 <pre><code class="language-c">fscanf();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee datos formateados desde un archivo.
     </p>
 </div>
 
-<h3>sscanf:</h3>
+<h3>sscanf: String Scan Formatted</h3>
 <pre><code class="language-c">sscanf();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee datos formateados desde una cadena.
     </p>
 </div>
 
-<h3>fwrite:</h3>
+<h3>fwrite: File Write</h3>
 <pre><code class="language-c">fwrite();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Escribe bloques de datos binarios en un archivo.
     </p>
 </div>
 
-<h3>fread:</h3>
+<h3>fread: File Read</h3>
 <pre><code class="language-c">fread();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee bloques de datos binarios de un archivo.
     </p>
 </div>
 
-<h3>ftell:</h3>
+<h3>ftell: File Tell</h3>
 <pre><code class="language-c">ftell();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Devuelve la posición actual en el archivo.
     </p>
 </div>
 
-<h3>fseek:</h3>
+<h3>fseek:File Seek</h3>
 <pre><code class="language-c">fseek();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Mueve el puntero dentro de un archivo.
     </p>
 </div>
 
-<h3>rewind:</h3>
+<h3>rewind: Re-Wind</h3>
 <pre><code class="language-c">rewind();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Vuelve al inicio del archivo.
     </p>
 </div>
 
-<h3>remove:</h3>
+<h3>remove: Remove File</h3>
 <pre><code class="language-c">remove();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Elimina un archivo del sistema.
     </p>
 </div>
 
 
-<h2>Conio</h2>
+<h2>Console Input/Output (No estándar)</h2>
 <pre><code class="language-c">#include &lt;conio.h&gt;</code></pre>
 
-<h3>getche:</h3>
+<h3>getche: Get Character Echo</h3>
 <pre><code class="language-c">getche();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee un carácter y lo muestra en pantalla.
     </p>
 </div>
 
-<h3>clrscr:</h3>
+<h3>clrscr: Clear Screen</h3>
 <pre><code class="language-c">clrscr();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Limpia la pantalla de la consola.
     </p>
 </div>
 
-<h3>getch:</h3>
+<h3>getch: Get Character</h3>
 <pre><code class="language-c">getch();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Lee un carácter sin mostrarlo.
     </p>
 </div>
 
@@ -260,164 +253,159 @@
 <h2>Standar definitions</h2>
 <pre><code class="language-c">#include &lt;stddef.h&gt;</code></pre>
 
-<h3>sizeof():</h3>
+<h3>sizeof(): Size Of</h3>
 <pre><code class="language-c">sizeof();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Operador que devuelve el tamaño en bytes de un tipo o variable.
     </p>
 </div>
 
 <h2>Standar library</h2>
 <pre><code class="language-c">#include &lt;stdlib.h&gt;</code></pre>
 
-<h3>system():</h3>
+<h3>system(): System Command</h3>
 <pre><code class="language-c">system();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Ejecuta un comando del sistema operativo.
     </p>
 </div>
 
-<h3>rand:</h3>
+<h3>rand: Random</h3>
 <pre><code class="language-c">rand();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Genera un número aleatorio.
     </p>
 </div>
 
-<h3>exit:</h3>
+<h3>exit: Exit Program</h3>
 <pre><code class="language-c">exit();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Termina el programa inmediatamente.
     </p>
 </div>
 
-<h3>malloc:</h3>
+<h3>malloc: Memory allocation</h3>
 <pre><code class="language-c">malloc();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Reserva memoria dinámica.
     </p>
 </div>
 
-<h3>calloc:</h3>
+<h3>calloc: Contiguous Allocation</h3>
 <pre><code class="language-c">calloc();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Reserva memoria dinámica e inicializa en cero.
     </p>
 </div>
 
-<h3>realloc:</h3>
+<h3>realloc: Re-Allocation</h3>
 <pre><code class="language-c">realloc();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Cambia el tamaño de un bloque de memoria.
     </p>
 </div>
 
-<h3>free:</h3>
+<h3>free: Free Memory</h3>
 <pre><code class="language-c">free();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Libera memoria dinámica.
     </p>
 </div>
 
 <h2>Math</h2>
 <pre><code class="language-c">#include &lt;math.h&gt;</code></pre>
 
-<h3>max:</h3>
+<h3>max: Maximum</h3>
 <pre><code class="language-c">max();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Devuelve el mayor de dos valores (No estándar en C).
     </p>
 </div>
 
-<h3>pow:</h3>
+<h3>pow: Power</h3>
 <pre><code class="language-c">pow();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula una potencia.
     </p>
 </div>
 
-<h3>sqrt:</h3>
+<h3>sqrt: Square root</h3>
 <pre><code class="language-c">sqrt();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula la raíz cuadrada.
     </p>
 </div>
 
-<h3>atan2:</h3>
+<h3>atan2: Arc Tangent (2 arguments)</h3>
 <pre><code class="language-c">atan2();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula la arcotangente considerando cuadrante.
     </p>
 </div>
 
-<h3>cos:</h3>
+<h3>cos: Cosine</h3>
 <pre><code class="language-c">cos();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula el coseno.
     </p>
 </div>
 
-<h3>sin:</h3>
+<h3>sin: Sine</h3>
 <pre><code class="language-c">sin();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula el seno.
     </p>
 </div>
 
 <h2>String</h2>
 <pre><code class="language-c">#include &lt;string.h&gt;</code></pre>
 
-<h3>strcspn:</h3>
+<h3>strcspn: String Complement Span</h3>
 <pre><code class="language-c">strcspn();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Calcula longitud hasta encontrar caracteres de otro string.
     </p>
 </div>
 
-<h3>strcmp:</h3>
+<h3>strcmp: String Compare</h3>
 <pre><code class="language-c">strcmp();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Compara dos cadenas.
     </p>
 </div>
 
-<h3>strcpy:</h3>
+<h3>strcpy: String Copy</h3>
 <pre><code class="language-c">strcpy();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Copia una cadena en otra.
     </p>
 </div>
 
 <h2>C Type</h2>
 <pre><code class="language-c">#include &lt;ctype.h&gt;</code></pre>
-<div class="nota">    
-    <p>
-      I
-    </p>
-</div>
 
-<h3>toupper:</h3>
+<h3>toupper: To Upper Case</h3>
 <pre><code class="language-c">toupper();</code></pre>
 <div class="nota">    
     <p>
-      I
+      Convierte un carácter a mayúsculas.
     </p>
 </div>
 
