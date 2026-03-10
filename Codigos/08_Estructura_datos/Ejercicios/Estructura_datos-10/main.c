@@ -1,11 +1,11 @@
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h> // gets() eliminado en C11, reemplazo fgets().
-#include<conio.h>// Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include <conio.h>// Se usa getche(), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
 #include <stdlib.h>
-#include<string.h>
+#include <string.h>
 
 /* Se definen la cantidad de empleados y el largo de los strings */
 #define MAX 20
@@ -198,4 +198,5 @@ int main(void)
 	}
 
     return 0;
+
 }
