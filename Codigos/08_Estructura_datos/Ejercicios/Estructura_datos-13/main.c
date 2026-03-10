@@ -1,11 +1,11 @@
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
 #include <stdio.h>
-#include<conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
+#include <conio.h> // Se usa getch(), getche((), clrscr() No viene en GCC MinGW, usar de stdlib.h system()
 
 /* Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux */
 #include <stdlib.h>
-#include<math.h> // Se usa cos(), sin(), sqrt(), atan2()
+#include <math.h> // Se usa cos(), sin(), sqrt(), atan2()
 
 /* Se define el valor de pi */
 #define PI 3.14159
@@ -134,4 +134,5 @@ float argumento(struct complejo A)
 	ar *= (180 / PI);     // Conversion de radianes a grados
 	
     return(ar);
+
 }
