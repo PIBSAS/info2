@@ -124,7 +124,7 @@ int ingreso(struct autos stock[], int j)
         //int basura;
         //while ((basura = getchar()) != '\n' && basura != EOF);
 
-        gets(stock[j].marca); // Eliminado en C11, reemplazar con fegets(), comentar esta linea y descomentar la siguiente
+        gets(stock[j].marca); // Eliminado en C11, reemplazar con fgets(), comentar esta linea y descomentar la siguiente
         //fgets(stock[j].marca, sizeof(stock[j].marca), stdin); 
         
         printf("\n\n\tModelo: ");
@@ -178,7 +178,7 @@ int ingreso(struct autos stock[], int j)
 
                 printf("\tColor: ");
                 
-                gets(stock[j].caract.dat1.color); // Eliminado en C11, reemplazar con fegets(), comentar esta linea y descomentar la siguiente
+                gets(stock[j].caract.dat1.color); // Eliminado en C11, reemplazar con fgets(), comentar esta linea y descomentar la siguiente
                 //fgets(stock[j].caract.dat1.color, sizeof(stock[j].caract.dat1.color), stdin);
 
                 printf("\tFamiliar (S/N): ");
@@ -324,4 +324,5 @@ void listado(struct autos stock[], int i)
             return;
         }
      }
+
 }
