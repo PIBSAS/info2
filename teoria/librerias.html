@@ -33,7 +33,9 @@
 <pre><code class="language-c">int printf(const char *restrict format, ...);</code></pre>
 <div class="nota">    
     <p>
-      Imprime texto formateado en la salida estándar.
+      Imprime texto formateado en la salida estándar (<code>stdout</code>).
+      El primer argumento es una cadena de formato que puede contener especificadores como <code>%d</code>, <code>%f</code>, <code>%s</code>, etc.
+      Devuelve el número de caracteres escritos o un valor negativo si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fprintf.html">printf()</a>
 </div>
@@ -42,7 +44,11 @@
 <pre><code class="language-c">int scanf(const char *restrict format, ...);</code></pre>
 <div class="nota">    
     <p>
-      Lee datos formateados desde la entrada estándar.
+      Lee datos formateados desde la entrada estándar (<code>stdin</code>).
+      La cadena de formato indica cómo interpretar los datos ingresados
+      (por ejemplo <code>%d</code>, <code>%f</code>, <code>%s</code>, etc.).
+      Devuelve el número de elementos leídos correctamente o <code>EOF</code>
+      si ocurre un error o se alcanza el fin de archivo.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fscanf.html">scanf()</a>
 </div>
@@ -51,7 +57,21 @@
 <pre><code class="language-c">int fflush(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Vacía el buffer de un flujo.
+      Vacía el buffer de un flujo de salida, forzando la escritura inmdiata
+      de los datos pendientes. Si <code>stream</code> es <code>NULL</code>,
+      se vacían todos los flujos de salida abiertos. Devuelve <code>0</code>
+      en caso de éxito o <code>EOF</code> si ocurre un error.
+    </p>
+    <p>
+      En el curso usamos: <code>fflush(stdin)</code>.
+      <em>Pero no es estándar en C.</em>
+      El estándar solo garantiza el uso de <code>fflush</code> para flujos de salida.
+      En algunos compiladores (como MSVC o ciertos entornos de Windows) funciona
+      con <code>stdin</code>, pero no es portable.
+      <strong>
+        El compilador usado para la construcción de este repositorio MinGW64,
+        permite su uso.
+      </strong>
     </p>
     <a href="https://en.cppreference.com/w/c/io/fflush.html">fflush()</a>
 </div>
@@ -71,7 +91,10 @@
 <pre><code class="language-c">char *fgets(char *restrict str, int count, FILE *restrict stream);</code></pre>
 <div class="nota">    
     <p>
-      Lee una línea de un archivo o de <code>stdin</code> con límite de tamaño.
+      Lee caracteres desde un archivo o desde <code>stdin</code> hasta encontrar
+      un salto de línea (<code>\n</code>), alcanzar <code>count - 1</code> caracteres
+      o llegar al final del archivo (<code>EOF</code>). El salto de línea se
+      almacena en el buffer si hay espacio y la cadena siempre termina en <code>'\0'</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fgets.html">fgets()</a>
 </div>
@@ -80,7 +103,9 @@
 <pre><code class="language-c">int getchar(void);</code></pre>
 <div class="nota">    
     <p>
-      Lee un carácter desde <code>stdin</code>
+      Lee un carácter desde <code>stdin</code>. Devuelve el carácter leído
+      convertido a <code>int</code> o <code>EOF</code> si ocurre un error
+      o se alcanza el final del archivo.
     </p>
     <a href="https://en.cppreference.com/w/c/io/getchar.html">getchar()</a>
 </div>
@@ -89,7 +114,10 @@
 <pre><code class="language-c">FILE *fopen(const char *restrict filename, const char *restrict mode);</code></pre>
 <div class="nota">    
     <p>
-      Abre un archivo.
+      Abre un archivo y devuelve un puntero a <code>FILE</code> asociado al flujo.
+      El parámetro <code>mode</code> indica el modo de apertura (por ejemplo <code>"r"</code>,
+      <code>"w"</code>, <code>"a"</code>, etc.).
+      Devuelve <code>NULL</code> si el archivo no puede abrirse.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fopen.html">fopen()</a>
 </div>
@@ -98,7 +126,10 @@
 <pre><code class="language-c">int fclose(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Cierra un archivo.
+      Cierra un archivo asociado a un flujo <code>FILE</code>.
+      Vacía los buffers pendientes y libera los recursos del archivo.
+      Devuelve <code>0</code> si se cierra correctamente 
+      o <code>EOF</code> si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fclose.html">fclose()</a>
 </div>
@@ -107,7 +138,9 @@
 <pre><code class="language-c">int fputc(int ch, FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Escribe un carácter en un archivo.
+      Escribe un carácter en un archivo o flujo. El valor de <code>ch</code>
+      se convierte a <code>unsigned char</code> y se escribe en <code>stream</code>.
+      Devuelve el carácter escrito o <code>EOF</code> si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/putc.html">fputc()</a>
 </div>
@@ -116,7 +149,9 @@
 <pre><code class="language-c">int fgetc(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Lee un carácter de un archivo.
+      Lee un carácter de un archivo o flujo. Devuelve el carácter leído
+      convertido a <code>unsigned char</code> y promovido a <code>int</code>,
+      o <code>EOF</code> si ocurre un error o se alcanza el final del archivo.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fgetc.html">fgetc()</a>
 </div>
@@ -125,7 +160,9 @@
 <pre><code class="language-c">int feof(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Indica si se llegó al final del archivo.
+      Indica si se llegó al final del archivo asociado al flujo.
+      Devuelve un valor distinto de <code>0</code> si el indicador de
+      fin de archivo está activo, o <code>0</code> en caso contrario.
     </p>
     <a href="https://en.cppreference.com/w/c/io/feof.html">feof()</a>
 </div>
@@ -134,7 +171,9 @@
 <pre><code class="language-c">int ferror(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Detecta errores en un flujo de archivo.
+      Comprueba si ocurrió un error en un flujo de archivo.
+      Devuelve un valor distinto de <code>0</code> si el indicador
+      de error está activo, o <code>0</code> si no hay error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/ferror.html">ferror()</a>
 </div>
@@ -143,7 +182,10 @@
 <pre><code class="language-c">int putchar(int char);</code></pre>
 <div class="nota">    
     <p>
-      Escribe un carácter en <code>stdout</code>.
+      Escribe un carácter en la salida estándar (<code>stdout</code>).
+      El valor de <code>ch</code> se convierte a <code>unsigned char</code>
+      antes de escribirse.
+      Devuelve el carácter escrito o <code>EOF</code> si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/putchar.html">putchar()</a>
 </div>
@@ -152,7 +194,10 @@
 <pre><code class="language-c">int puts(const char *str);</code></pre>
 <div class="nota">    
     <p>
-      Imprime una cadena y agrega salto de línea.
+      Escribe una cadena en la salida estándar (<code>stdout</code>)
+      seguida de un salto de línea (<code>\n</code>).
+      Devuelve un valor no negativo en caso de éxito o <code>EOF</code>
+      si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/puts.html">puts()</a>
 </div>
@@ -161,7 +206,9 @@
 <pre><code class="language-c">int fputs(const char *restrict str, FILE *restrict stream);</code></pre>
 <div class="nota">    
     <p>
-      Escribe una cadena en un archivo.
+      Escribe una cadena en un archivo o flujo. A diferencia de <code>puts</code>,
+      no agrega un salto de línea al final. Devuelve un valor no negativo en caso de éxito
+      o <code>EOF</code> si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fputs.html">fputs()</a>
 </div>
@@ -170,7 +217,9 @@
 <pre><code class="language-c">int fprintf(FILE *restrict stream, const char *restrict format, ...);</code></pre>
 <div class="nota">    
     <p>
-      Imprime texto formateado en un archivo.
+      Imprime texto formateado en un archivo o flujo. La cadena <code>format</code>
+      puede contener especificadores como <code>%d</code>, <code>%f</code>, <code>%s</code>, etc.
+      Devuelve el número de caracteres escritos o un valor negativo si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fprintf.html">fprintf()</a>
 </div>
@@ -179,7 +228,10 @@
 <pre><code class="language-c">int fscanf(FILE *restrict stream, const char *restrict format, ...);</code></pre>
 <div class="nota">    
     <p>
-      Lee datos formateados desde un archivo.
+      Lee datos formateados desde un archivo o flujo. La cadena <code>format</code>
+      indica cómo interpretar los datos (por ejemplo <code>%d</code>, <code>%f</code>, <code>%s</code>, etc.).
+      Devuelve el número de elementos leídos correctamente o <code>EOF</code>
+      si ocurre un error o se alcanza el final del archivo.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fscanf.html">fscanf()</a>
 </div>
@@ -188,7 +240,9 @@
 <pre><code class="language-c">int sscanf(const char *restrict buffer, const char *restrict format, ...);</code></pre>
 <div class="nota">    
     <p>
-      Lee datos formateados desde una cadena.
+      Lee datos formateados desde una cadena. a cadena <code>format</code> indica
+      cómo interpretar los datos (por ejemplo <code>%d</code>, <code>%f</code>, <code>%s</code>, etc.).
+      Devuelve el número de elementos leídos correctamente.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fscanf.html">sscanf()</a>
 </div>
@@ -197,7 +251,9 @@
 <pre><code class="language-c">size_t fwrite(const void *restrict buffer, size_t size, size_t count, FILE *restrict stream);</code></pre>
 <div class="nota">    
     <p>
-      Escribe bloques de datos binarios en un archivo.
+      Escribe bloques de datos binarios en un archivo. Escribe <code>count</code> elementos
+      de tamaño <code>size</code> desde el <code>buffer</code>.
+      Devuelve la cantidad de elementos escritos correctamente.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fwrite.html">fwrite()</a>
 </div>
@@ -206,7 +262,9 @@
 <pre><code class="language-c">size_t fread(void *restrict buffer, size_t size, size_t count, FILE *restrict stream);</code></pre>
 <div class="nota">    
     <p>
-      Lee bloques de datos binarios de un archivo.
+      Lee bloques de datos binarios desde un archivo hacia <code>buffer</code>.
+      Lee hasta <code>count</code> elementos de tamaño <code>size</code>.
+      Devuelve la cantidad de elementos leídos correctamente.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fread.html">fread()</a>
 </div>
@@ -215,7 +273,9 @@
 <pre><code class="language-c">long ftell(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Devuelve la posición actual en el archivo.
+      Devuelve la posición actual del indicador de lectura/escritura
+      dentro del archivo.
+      Devuelve <code>-1L</code> si ocurre un error.
     </p>
     <a href="https://en.cppreference.com/w/c/io/ftell.html">ftell()</a>
 </div>
@@ -224,16 +284,20 @@
 <pre><code class="language-c">int fseek(FILE *stream, long offset, int origin);</code></pre>
 <div class="nota">    
     <p>
-      Mueve el puntero dentro de un archivo.
+      Mueve el indicador de posición dentro del archivo.
+      <code>origin</code> puede ser <code>SEEK_SET</code>, <code>SEEK_CUR</code>
+      o <code>SEEK_END</code>.
+      Devuelve <code>0</code> si tiene éxito.
     </p>
     <a href="https://en.cppreference.com/w/c/io/fseek.html">fseek()</a>
 </div>
 
-<h3>rewind: Re-Wind</h3>
+<h3>rewind: Rewind</h3>
 <pre><code class="language-c">void rewind(FILE *stream);</code></pre>
 <div class="nota">    
     <p>
-      Mueve el indicador de posición del archivo al inicio del flujo de archivos dado.
+      Mueve el indicador de posición al inicio del archivo y
+      limpia el indicador de error del flujo.
     </p>
     <a href="https://en.cppreference.com/w/c/io/rewind.html">rewind()</a>
 </div>
@@ -243,6 +307,7 @@
 <div class="nota">    
     <p>
       Elimina un archivo del sistema.
+      Devuelve <code>0</code> si la operación tiene éxito.
     </p>
     <a href="https://en.cppreference.com/w/c/io/remove.html">remove()</a>
 </div>
@@ -252,10 +317,13 @@
 <pre><code class="language-c">#include &lt;conio.h&gt;</code></pre>
 
 <h3>getche: Get Character Echo</h3>
-<pre><code class="language-c">char getche(void);</code></pre>
+<pre><code class="language-c">int getche(void);</code></pre>
 <div class="nota">    
     <p>
-      Lee un carácter y lo muestra en pantalla.
+      Lee un carácter desde el teclado y lo muestra inmediatamente
+      en pantalla (con eco).
+      Devuelve el carácter leído.
+      Función no estándar.
     </p>
     <a href="https://code-reference.com/c/conio.h/getche">getche()</a>
 </div>
@@ -264,7 +332,11 @@
 <pre><code class="language-c">void clrscr(void);</code></pre>
 <div class="nota">    
     <p>
-      Limpia la pantalla de la consola.
+      Limpia la pantalla de la consola y coloca el cursor en la
+      esquina superior izquierda.
+      Función no estándar.
+      Se puede reemplazar con <code>system("cls")</code> en Windows,
+      o con <code>system("clear")</code> en Linux/Unix. Que pertenecen al estándar.
     </p>
     <a href="https://code-reference.com/c/conio.h/clrscr">clrscr()</a>
 </div>
@@ -273,7 +345,9 @@
 <pre><code class="language-c">int getch(void);</code></pre>
 <div class="nota">    
     <p>
-      Lee un carácter sin mostrarlo.
+      Lee un carácter desde el teclado sin mostrarlo en pantalla (sin eco).
+      Devuelve el carácter leído.
+      Función no estándar.
     </p>
     <a href="https://code-reference.com/c/conio.h/getch">getch()</a>
 </div>
@@ -287,7 +361,9 @@
 <pre><code class="language-c">sizeof expression;</code></pre>
 <div class="nota">    
     <p>
-      Operador que devuelve el tamaño en bytes de un tipo o variable.
+      Operador que devuelve el tamaño en bytes de un tipo de dato
+      o de una expresión.
+      El resultado es de tipo <code>size_t</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/language/sizeof.html">sizeof()</a>
 </div>
@@ -299,7 +375,9 @@
 <pre><code class="language-c">int system(const char *command);</code></pre>
 <div class="nota">    
     <p>
-      Ejecuta un comando del sistema operativo.
+      Ejecuta un comando del sistema operativo mediante el intérprete
+      de comandos.
+      Devuelve un valor que indica el resultado de la ejecución del comando.
     </p>
     <a href="https://en.cppreference.com/w/c/program/system.html">system()</a>
 </div>
@@ -308,7 +386,7 @@
 <pre><code class="language-c">int rand();</code></pre>
 <div class="nota">    
     <p>
-      Genera un número aleatorio.
+      Genera un número pseudoaleatorio entre <code>0</code> y <code>RAND_MAX</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/random/rand.html">rand()</a>
 </div>
@@ -317,7 +395,8 @@
 <pre><code class="language-c">void exit(int exit_code);</code></pre>
 <div class="nota">    
     <p>
-      Termina el programa inmediatamente.
+      Termina la ejecución del programa inmediatamente y devuelve
+      el código <code>exit_code</code> al sistema operativo.
     </p>
     <a href="https://en.cppreference.com/w/c/program/exit.html">exit()</a>
 </div>
@@ -326,7 +405,8 @@
 <pre><code class="language-c">void *malloc(size_t size);</code></pre>
 <div class="nota">    
     <p>
-      Reserva memoria dinámica.
+      Reserva dinámicamente un bloque de memoria de tamaño <code>size</code> bytes.
+      Devuelve un puntero al bloque asignado o <code>NULL</code> si falla.
     </p>
     <a href="https://en.cppreference.com/w/c/memory/malloc.html">malloc()</a>
 </div>
@@ -335,7 +415,9 @@
 <pre><code class="language-c">void *calloc(size_t num, size_t size);</code></pre>
 <div class="nota">    
     <p>
-      Reserva memoria dinámica e inicializa en cero.
+      Reserva memoria para <code>num</code> elementos de tamaño <code>size</code>
+      e inicializa todos los bytes en cero.
+      Devuelve un puntero al bloque asignado o <code>NULL</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/memory/calloc.html">calloc()</a>
 </div>
@@ -344,7 +426,9 @@
 <pre><code class="language-c">void *realloc(void *ptr, size_t new_size);</code></pre>
 <div class="nota">    
     <p>
-      Cambia el tamaño de un bloque de memoria.
+      Cambia el tamaño del bloque de memoria apuntado por <code>ptr</code>
+      a <code>new_size</code> bytes.
+      Puede mover el bloque a otra dirección.
     </p>
     <a href="https://en.cppreference.com/w/c/memory/realloc.html">realloc()</a>
 </div>
@@ -353,7 +437,8 @@
 <pre><code class="language-c">void free(void *ptr);</code></pre>
 <div class="nota">    
     <p>
-      Libera memoria dinámica.
+      Libera un bloque de memoria previamente reservado con <code>malloc</code>,
+      <code>calloc</code> o <code>realloc</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/memory/free.html">free()</a>
 </div>
@@ -361,11 +446,11 @@
 <h2>Mathematics</h2>
 <pre><code class="language-c">#include &lt;math.h&gt;</code></pre>
 
-<h3>fmax: Maximum</h3>
+<h3>fmax: Floating-Point Maximum</h3>
 <pre><code class="language-c">double fmax(double x, double y);</code></pre>
 <div class="nota">    
     <p>
-      Devuelve el mayor de dos valores.
+      Devuelve el mayor de dos valores en coma flotante.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/fmax.html">fmax()</a>
 </div>
@@ -374,7 +459,7 @@
 <pre><code class="language-c">double pow(double base, double exponent);</code></pre>
 <div class="nota">    
     <p>
-      Calcula una potencia.
+      Calcula la potencia de <code>base</code> elevada a <code>exponent</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/pow.html">pow()</a>
 </div>
@@ -383,7 +468,7 @@
 <pre><code class="language-c">double sqrt(double arg);</code></pre>
 <div class="nota">    
     <p>
-      Calcula la raíz cuadrada.
+      Calcula la raíz cuadrada de un número.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/sqrt.html">sqrt()</a>
 </div>
@@ -392,7 +477,8 @@
 <pre><code class="language-c">double atan2(double y, double x);</code></pre>
 <div class="nota">    
     <p>
-      Calcula la arcotangente considerando cuadrante.
+      Calcula la arcotangente de <code>y/x</code> considerando 
+      el cuadrante correcto.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/atan2.html">atan2()</a>
 </div>
@@ -401,7 +487,7 @@
 <pre><code class="language-c">double cos(double arg);</code></pre>
 <div class="nota">    
     <p>
-      Calcula el coseno.
+      Calcula el coseno de un ángulo en radianes.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/cos.html">cos()</a>
 </div>
@@ -410,7 +496,7 @@
 <pre><code class="language-c">double sin(double arg);</code></pre>
 <div class="nota">    
     <p>
-      Calcula el seno.
+      Calcula el seno de un ángulo en radianes.
     </p>
     <a href="https://en.cppreference.com/w/c/numeric/math/sin.html">sin()</a>
 </div>
@@ -422,7 +508,8 @@
 <pre><code class="language-c">size_t strcspn(const char *dest, const char *src);</code></pre>
 <div class="nota">    
     <p>
-      Calcula longitud hasta encontrar caracteres de otro string.
+      Devuelve la longitud deñ segmento inicial de <code>dest</code>
+      que no contiene ninguno de los caracteres de <code>src</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/string/byte/strcspn.html">strcspn()</a>
 </div>
@@ -431,7 +518,10 @@
 <pre><code class="language-c">int strcmp(const char *lhs, const char *rhs);</code></pre>
 <div class="nota">    
     <p>
-      Compara dos cadenas.
+      Compara dos cadenas lexicográficamente.
+      Devuelve un valor menor que <code>0</code> si <code>lhs</code> es menor que <code>rhs</code>,
+      <code>0</code> si son iguales, o mayor que <code>0</code> si <code>lhs</code>
+      es mayor que <code>rhs</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/string/byte/strcmp.html">strcmp()</a>
 </div>
@@ -440,7 +530,9 @@
 <pre><code class="language-c">char *strcpy(char* restric dest, const char* restrict src);</code></pre>
 <div class="nota">    
     <p>
-      Copia una cadena en otra.
+      Copia la cadena <code>src</code> en <code>dest</code>, incluyendo
+      el carácter nulo <code>'\0'</code>.
+      Devuelve un puntero a <code>dest</code>.
     </p>
     <a href="https://en.cppreference.com/w/c/string/byte/strcpy.html">strcpy()</a>
 </div>
@@ -452,7 +544,8 @@
 <pre><code class="language-c">int toupper(int ch);</code></pre>
 <div class="nota">    
     <p>
-      Convierte un carácter a mayúsculas.
+      Convierte un carácter a mayúsculas, si es una letra minúscula.
+      Si no lo es, devuelve el carácter sin cambios.
     </p>
     <a href="https://en.cppreference.com/w/c/string/byte/toupper.html">toupper()</a>
 </div>
