@@ -75,6 +75,78 @@
     Luego creamos un código C mediante el primer icono <b>New File</b>, indicamos nombre y extensión. ej:. <code>main.c</code>.
     Opcionalmente, creamos un archivo <code>Makefile</code>. 
 </p>
+
+<h2>Code::Blocks + MinGW</h2>
+
+<pre><code class="language-c">winget install CodeBlocks.CodeBlocks.MinGW</code></pre>
+
+<p>
+  Alternativa, Code Blocks con MinGW integrado, tras instalarse, cerrar la Terminar y abrir una nueva, iniciarlo con <code>codeblocks</code>,
+  darle a <em>OK</em> y seleccionamos <code>Yes, associate Code::Blocks with C/C++ file types</code>, <em>OK</em>.
+</p>
+<p>
+  Creamos un nuevo proyecto desde <b>File &rarr; New Proyect &rarr; Files &rarr; C/C++ Source &rarr; Go </b>
+</p>
+<p>
+  En el asistente que sigue darle a <b>Next &rarr; C &rarr; Next &rarr; ...</b>. Elegir donde estará nuestro programa e indicar un nombre sin extensión, es asignada, presionar <b>Finish</b> 
+</p>
+<p>
+  Se compila presionando el ícono de la tuerca y se ejecuta con el ícono de play o desde el menú <b>Build</b>
+</p>
+
+
+<h2>Sin IDE, Editor de texto + MinGW</h2>
+
+<p>Usamos cualquier editor de texto, notepad o notepad++ que trae resaltado de código</p>
+
+<h3>Notepad++</h3>
+<pre><code class="language-c">winget install Notepad++.Notepad++</code></pre>
+
+<h3>MinGw</h3>
+<pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
+
+<p>
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno y hacemos un Hard link para make:
+</p>
+
+<pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
+
+<pre><code class="language-c">New-Item C:\mingw64\bin\make.exe -ItemType HardLink -Value C:\mingw64\bin\mingw32-make.exe</code></pre>
+
+<p>Cerrar la terminal y abrir una nueva para comprobar que se agregó:</p>
+
+<pre><code class="language-c">gcc --version</code></pre>
+
+<pre><code class="language-c">make --version</code></pre>
+
+<h3>¿Cómo compilar?</h3>
+
+<p>Simplemente abrimos la Terminal en la ubicación de nuestro código fuente e ingresamos:</p>
+
+<pre><code class="language-c">gcc -std=c11 -Wall -Wextra -pedantic main.c -o main</code></pre>
+
+<p>
+  Y lo ejecutamos:
+</p>
+<pre><code class="language-c">./main.exe</code></pre>
+
+<p>
+  Si usamos Makefile:
+</p>
+<pre><code class="language-c">make</code></pre>
+
+<p>
+  Y lo ejecutamos:
+</p>
+<pre><code class="language-c">./main.exe</code></pre>
+
+<p>Para recompilar de cero ejecutamos <code>make clean</code> para limpiar la compilación previa, <code>make</code> para compilar:</p>
+<pre><code class="language-c">
+make clean
+make
+./main.exe
+</code></pre>
+
 </div>
 </main>
 
