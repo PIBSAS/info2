@@ -29,13 +29,15 @@
     
 <p>
   Obtener MinGW64 que contiene GCC, GDB y make, descargarlo, descomprimirlo en la unidad C en la carpeta <code>mingw64</code>.
+</p>
+<p>
   Abrimos la terminal e ingresamos la siguiente línea:
 </p>
 
 <pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
 
 <p>
-  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno y hacemos un Hard link para make:
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos <b>gcc</b> y <b>gdb</b> a las variables de entorno y hacemos un Hard link para <b>make</b>:
 </p>
 
 <pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
@@ -48,6 +50,7 @@
 
 <pre><code class="language-c">make --version</code></pre>
 
+<br>
 <h3>Instalar Microsoft Visual Studio Code y las extensiones necesarias para C</h3>
 
 <p>Abrimos otra terminal de PowerShell e ingresamos la siguiente línea:</p>
@@ -75,7 +78,7 @@
     Luego creamos un código C mediante el primer icono <b>New File</b>, indicamos nombre y extensión. ej:. <code>main.c</code>.
     Opcionalmente, creamos un archivo <code>Makefile</code>. 
 </p>
-
+<br>
 <h2>Code::Blocks + MinGW</h2>
 
 <pre><code class="language-c">winget install CodeBlocks.CodeBlocks.MinGW</code></pre>
@@ -94,19 +97,19 @@
   Se compila presionando el ícono de la tuerca y se ejecuta con el ícono de play o desde el menú <b>Build</b>
 </p>
 
-
+<br>
 <h2>Sin IDE, Editor de texto + MinGW</h2>
 
 <p>Usamos cualquier editor de texto, notepad o notepad++ que trae resaltado de código</p>
 
-<h3>Notepad++</h3>
+<h3>Notepad++:</h3>
 <pre><code class="language-c">winget install Notepad++.Notepad++</code></pre>
 
-<h3>MinGW</h3>
+<h3>MinGW:</h3>
 <pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
 
 <p>
-  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno y hacemos un Hard link para make:
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos <b>gcc</b> y <b>gdb</b> a las variables de entorno y hacemos un Hard link para <b>make</b>:
 </p>
 
 <pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
@@ -119,6 +122,7 @@
 
 <pre><code class="language-c">make --version</code></pre>
 
+    <br>
 <h3>¿Cómo compilar?</h3>
 
 <p>Simplemente abrimos la Terminal en la ubicación de nuestro código fuente e ingresamos:</p>
@@ -129,7 +133,7 @@
   Y lo ejecutamos:
 </p>
 <pre><code class="language-c">./main.exe</code></pre>
-
+<br>
 <h3>Si usamos Makefile:</h3>
 
 <p>Al guardar elegir All types (*.*), para que quede sin extensión el archivo <code>Makefile</code></p>
