@@ -102,7 +102,7 @@
 <h3>Notepad++</h3>
 <pre><code class="language-c">winget install Notepad++.Notepad++</code></pre>
 
-<h3>MinGw</h3>
+<h3>MinGW</h3>
 <pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
 
 <p>
@@ -130,9 +130,7 @@
 </p>
 <pre><code class="language-c">./main.exe</code></pre>
 
-<p>
-  Si usamos Makefile:
-</p>
+<h3>Si usamos Makefile:</h3>
 <pre><code class="language-c">make</code></pre>
 
 <p>
@@ -140,7 +138,7 @@
 </p>
 <pre><code class="language-c">./main.exe</code></pre>
 
-<p>Para recompilar de cero ejecutamos <code>make clean</code> para limpiar la compilación previa, <code>make</code> para compilar:</p>
+<p>Para recompilar de cero ejecutamos <b><code>make clean</code></b> para limpiar la compilación previa, <b><code>make</code></b> para compilar:</p>
 <pre><code class="language-c">
 make clean
 make
