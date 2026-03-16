@@ -31,15 +31,27 @@
 
 <p>Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno</p>
 <pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
+<pre><code class="language-c">New-Item C:\mingw64\bin\make.exe -ItemType HardLink -Value C:\mingw64\bin\mingw32-make.exe</code></pre>
 <p>Cerrar la terminal y abrir una nueva para comprobar que se agrego:</p>
 <pre><code class="language-c">gcc --version</code></pre>
+<pre><code class="language-c">make --version</code></pre>
 
 <h3>Instalar Microsoft Visual Studio Code y las extensiones necesarias para C</h3>
 <p>Abrimos otra terminal de powershell e ingresamos la siguiente linea:</p>
-<pre><code class="language-c">winget install Microsoft.VisualStudioCode ; & "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" --install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack</code></pre>
+<pre><code class="language-c">winget install Microsoft.VisualStudioCode ; $code="$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" ; foreach($e in @("ms-vscode.cpptools","ms-vscode.cpptools-extension-pack","ms-vscode.makefile-tools")){ & $code --install-extension $e }</code></pre>
 
-<p>Abrimos VS Code</p>
-
+<p>Abrimos VS Code, marcamos Mark Done en los settings de IA que pide y cerramos el chat lateral</p>
+<p>Abrimos Get started with C++ development, indicamos NO a acceder al pre-release</p>
+<p>Pulsamos el boton <em>Set my Default Compiler</em>, elegimos <em>use gcc.exe found at C:/mingw64/bin</em>
+    presionamos Mark Done
+</p>
+<p>Creamos un directorio en nuestra PC y abrimos ese directorio con <em>Open folder</em>. Ej:. C:\Programa</p>
+<p>Una vez abierto pulsamos Yes, trust the authors, creamos un nuevo directorio desde el menu lateral EXPLORER</p>
+<img src="">
+<p>
+    Luego creamos un código C mediante el primer icono New File, indicamos nombre y extensión. ej:. main.c.
+    Opcionalmente, creamos un archivo Makefile. 
+</p>
 </div>
 </main>
 
