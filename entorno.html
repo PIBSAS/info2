@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon16.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDE</title>
+  <meta name="author" content="Luciano Rabassa"/>
+  <meta name="created" content="2026-03-16T14:43:27"/>
+  <meta name="AppVersion" content="1.0000"/>
+  <meta name="Company" content="Luciano's tech"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/prism.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <p class="materia">Informática II</p>
+</header>
+
+<main>
+  <div class="container">
+<h1>Entorno de desarrollo</h1>
+
+<h2>MinGW64 + Visual Studio Code</h2>
+<p>Obtener MinGW64 que contiene GCC y GDB, descargarlo, descomprimirlo en la unidad C en la carpeta mingw64</p>
+<pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
+
+<p>Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno</p>
+<pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
+<p>Cerrar la terminal y abrir una nueva para comprobar que se agrego:</p>
+<pre><code class="language-c">gcc --version</code></pre>
+
+<h3>Instalar Microsoft Visual Studio Code y las extensiones necesarias para C</h3>
+<p>Abrimos otra terminal de powershell e ingresamos la siguiente linea:</p>
+<pre><code class="language-c">winget install Microsoft.VisualStudioCode ; & "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" --install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack</code></pre>
+
+<p>Abrimos VS Code</p>
+
+</div>
+</main>
+
+<footer class="footer-nav">
+  <div class="container">
+  <a href="lista.html" class="btn">Anterior</a>
+  <a href="punteros.html" class="btn">Siguiente</a>
+  </div>
+</footer>
+
+<script src="js/prism.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
