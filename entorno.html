@@ -26,31 +26,54 @@
 <h1>Entorno de desarrollo</h1>
 
 <h2>MinGW64 + Visual Studio Code</h2>
-<p>Obtener MinGW64 que contiene GCC y GDB, descargarlo, descomprimirlo en la unidad C en la carpeta mingw64</p>
+    
+<p>
+  Obtener MinGW64 que contiene GCC, GDB y make, descargarlo, descomprimirlo en la unidad C en la carpeta <code>mingw64</code>.
+  Abrimos la terminal e ingresamos la siguiente línea:
+</p>
+
 <pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
 
-<p>Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno</p>
+<p>
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos gcc y gdb a las variables de entorno y hacemos un Hard link para make:
+</p>
+
 <pre><code class="language-c">setx PATH "$env:PATH;C:\mingw64\bin"</code></pre>
+
 <pre><code class="language-c">New-Item C:\mingw64\bin\make.exe -ItemType HardLink -Value C:\mingw64\bin\mingw32-make.exe</code></pre>
-<p>Cerrar la terminal y abrir una nueva para comprobar que se agrego:</p>
+
+<p>Cerrar la terminal y abrir una nueva para comprobar que se agregó:</p>
+
 <pre><code class="language-c">gcc --version</code></pre>
+
 <pre><code class="language-c">make --version</code></pre>
 
 <h3>Instalar Microsoft Visual Studio Code y las extensiones necesarias para C</h3>
-<p>Abrimos otra terminal de powershell e ingresamos la siguiente linea:</p>
+
+<p>Abrimos otra terminal de PowerShell e ingresamos la siguiente línea:</p>
+
 <pre><code class="language-c">winget install Microsoft.VisualStudioCode ; $code="$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" ; foreach($e in @("ms-vscode.cpptools","ms-vscode.cpptools-extension-pack","ms-vscode.makefile-tools")){ & $code --install-extension $e }</code></pre>
 
-<p>Abrimos VS Code, marcamos Mark Done en los settings de IA que pide y cerramos el chat lateral</p>
-<p>Abrimos Get started with C++ development, indicamos NO a acceder al pre-release</p>
-<p>Pulsamos el boton <em>Set my Default Compiler</em>, elegimos <em>use gcc.exe found at C:/mingw64/bin</em>
-    presionamos Mark Done
-</p>
-<p>Creamos un directorio en nuestra PC y abrimos ese directorio con <em>Open folder</em>. Ej:. C:\Programa</p>
-<p>Una vez abierto pulsamos Yes, trust the authors, creamos un nuevo directorio desde el menu lateral EXPLORER</p>
-<img src="">
+<p>Abrimos VS Code, marcamos <em>Mark Done</em> en los settings de IA que pide y cerramos el chat lateral</p>
+
+<p>Abrimos <em>Get started with C++ development</em>, indicamos <b>NO</b> a acceder al pre-release</p>
+
 <p>
-    Luego creamos un código C mediante el primer icono New File, indicamos nombre y extensión. ej:. main.c.
-    Opcionalmente, creamos un archivo Makefile. 
+  Pulsamos el boton <em>Set my Default Compiler</em>, elegimos <em>use gcc.exe found at C:/mingw64/bin</em>
+    presionamos <em>Mark Done</em>.
+</p>
+<p>
+  Creamos un directorio en nuestra PC y abrimos ese directorio con <em>Open folder</em>. Ej:. C:\Programa
+</p>
+<p>
+  Una vez abierto pulsamos <em>Yes, trust the authors</em>, creamos un nuevo directorio desde el menu lateral <b>EXPLORER</b>
+</p>
+    
+<img src="img/0055.png">
+    
+<p>
+    Luego creamos un código C mediante el primer icono <b>New File</b>, indicamos nombre y extensión. ej:. <code>main.c</code>.
+    Opcionalmente, creamos un archivo <code>Makefile</code>. 
 </p>
 </div>
 </main>
