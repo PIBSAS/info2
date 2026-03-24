@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BITWISE</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -329,7 +329,7 @@ int main(void)
         printf("\n\n");
 
         /* Desplazamiento a la derecha y llamado a la funcion conv2 para a y b*/
-        for (i = 0; i < 9; i++)
+        for (i = 0; i &lt; 9; i++)
         {
             c = a >> i;
 
@@ -339,7 +339,7 @@ int main(void)
 
         printf("\n\n");
 
-        for (i = 0; i < 9; i++)
+        for (i = 0; i &lt; 9; i++)
         {
             c = b >> i;
 
@@ -355,22 +355,22 @@ int main(void)
         printf("\n\n");
 
         /* Desplazamiento a izquierda y llamada a la funcion conv2 para a y b */
-        for (i = 0; i < 9;i++)
+        for (i = 0; i &lt; 9; i++)
         {
-            c = a << i;
+            c = a &lt;&lt; i;
 
-            printf("\n\t\t%d << %d = %d", a, i, c);
-            conv2(a, '<', i, c);
+            printf("\n\t\t%d &lt;&lt; %d = %d", a, i, c);
+            conv2(a, '&lt;', i, c);
         }
 
         printf("\n\n");
 
-        for (i = 0; i < 9; i++)
+        for (i = 0; i &lt; 9; i++)
         {
-            c = b << i;
+            c = b &lt;&lt; i;
 
-            printf("\n\t\t%d << %d = %d ", b, i, c);
-            conv2(b, '<', i, c);
+            printf("\n\t\t%d &lt;&lt; %d = %d ", b, i, c);
+            conv2(b, '&lt;', i, c);
         }
 
         printf("\n\nDesea continuar (S/N)? ");
@@ -435,7 +435,7 @@ void conv1(char a, unsigned char b, unsigned char c)
 }
 
 /*
- * Muestra desplazamientos << o >> en formato binario.
+ * Muestra desplazamientos &lt;&lt; o &gt;&gt; en formato binario.
  */
 void conv2(unsigned char a, char b, unsigned char c, unsigned char d)
 {
