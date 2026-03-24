@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMA 1</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-01-30T14:05:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-01-30T14:05:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
 </head>
@@ -24,8 +24,10 @@
   <div class="container">
 <h1>Punteros</h1>
 
-<p>Un puntero es una variable que almacena una dirección de memoria.
-    A través de este, se puede acceder o modificar el valor almacenado allí.</p>
+<p>
+	Un puntero es una variable que almacena una dirección de memoria.
+    A través de este, se puede acceder o modificar el valor almacenado allí.
+</p>
 
 <img class="img-center" src="../img/0001.png" alt="Ubicación en memoria">
 
@@ -56,24 +58,27 @@
 <pre><code class="language-c">
 int x = 10;
 int *pi;
-pi = &x; // Direccion de memoria de x, pi ahora guarda esa direccion.
+pi = &amp;x; // Direccion de memoria de x, pi ahora guarda esa direccion.
 </code></pre>
 
 <h3>Acceder al valor usando un puntero (desreferenciar - object-of):</h3>
 <ul>
-  <li>Para acceder al contenido de la dirección a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    </ul>
+  <li>
+	  Para acceder al contenido de la dirección a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
+    
     <pre><code class="language-c">printf("%d", *pi) Imprime 10.</code></pre>
-    <ul>
+    
+	<ul>
+	  	<li><strong>pi:</strong> dirección.</li>
+	  	<li><strong>*pi:</strong> valor guardado en esa dirección.</li>
+	</ul>
   </li>
-  <li><strong>pi:</strong> dirección.</li>
-  <li><strong>*pi:</strong> valor guardado en esa dirección.</li>
 </ul>
     
 <h3>Especificador de formato para direcciones:</h3>
 <ul>
   <li><strong>%p</strong>: El estándar para este especificador de formato está definido para imprimir punteros a <strong>void</strong>. Es por esto que el compilador nos advierte que con <strong>&x</strong> le estamos pasando <strong>int *</strong>, pero espera <strong>void *</strong>.</li>
-  <li>Para solucionar esto se hace un cast: <strong><code>(void *)&x;</code></strong></li>
+  <li>Para solucionar esto se hace un cast: <strong><code>(void *)&amp;x;</code></strong></li>
 </ul>
 
 <h2 class="teoria">Teoría aplicada Ejemplo 1</h2>
@@ -109,7 +114,7 @@ clean:
 int main(void)
 {
     int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    int *pi = &amp;x; //Declaracion y asignacion de memoria
 
     printf("Valor de x: %d\n", x);
     printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
@@ -167,7 +172,7 @@ printf("%zu", sizeof(char *));
 <h3>No confundir:</h3>
 
 <pre><code class="language-c">int x;</code></pre>
-<pre><code class="language-c">int *pi = &x;</code></pre>
+<pre><code class="language-c">int *pi = &amp;x;</code></pre>
 <pre><code class="language-c">printf("%zu", sizeof(pi)); // Dimension del puntero pi. Mostrara 8 bytes. En arquitectura de 64 bits</code></pre>
 <pre><code class="language-c">printf("%zu", sizeof(*pi)); // Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes</code></pre>
 
@@ -215,9 +220,9 @@ int main(void)
     char c;
     double d;
 
-    int *pi = &x;
-    char *pc = &c;
-    double *pd = &d;
+    int *pi = &amp;x;
+    char *pc = &amp;c;
+    double *pd = &amp;d;
 
     printf("int *:\t%zu bytes\n", sizeof(pi)); // Dimension de puntero
     printf("int:\t%zu bytes\n", sizeof(*pi));  // Dimension de tipo de dato
@@ -240,7 +245,7 @@ int main(void)
 <p>Obtiene la dirección de memoria de una variable</p>
 <pre><code class="language-c">
 int x;
-int *pi = &x;
+int *pi = &amp;x;
 </code></pre>
 <ul>
   <li><strong><code>x:</code></strong> valor</li>
@@ -262,7 +267,7 @@ int *pi = &x;
 <p>Accede al valor almacenado en la dirección a la que apunta el puntero.</p>
 <pre><code class="language-c">
 int x = 10;
-int *pi = &x;
+int *pi = &amp;x;
 printf("%d", *pi); Muestra 10
 </code></pre>
 <ul>
@@ -306,8 +311,8 @@ int main(void)
     /*
         Operador & address-of
     */
-    int *p1 = &x;
-    int *p2 = &y;
+    int *p1 = &amp;x;
+    int *p2 = &amp;y;
 
     printf("Valores iniciales:\n");
     printf("x = %d, y = %d\n", x, y);
@@ -331,7 +336,7 @@ int main(void)
 <p>Copia la dirección de memoria, no el valor almacenado en esa dirección a la que apunta.</p>
 <pre><code class="language-c">
 int *p1, *p2;
-p1 = &x; // Inicializa el puntero almacenando la direccion en memoria de x
+p1 = &amp;x; // Inicializa el puntero almacenando la direccion en memoria de x
 
 /*Se asigna la direccion del puntero p1 en el puntero p2,
 ambos apuntan a la misma direccion que almacena el tipo de dato,
@@ -384,8 +389,8 @@ int main(void)
     int x = 10;
     int y = 20;
 
-    int *p1 = &x;
-    int *p2 = &y;
+    int *p1 = &amp;x;
+    int *p2 = &amp;y;
 
     /*
         Operador = Asignacion entre punteros
@@ -602,12 +607,16 @@ int main(void)
 <pre><code class="language-c">a</code></pre>
 
 <h3>Se convierte automáticamente en:</h3>
+
 <ul>
-  <li><strong><code>&a[0]</code></strong> Es decir:</li>
-  <ul>
-    <li><strong>Tipo:</strong> <strong><code>int *</code></strong></li>
-    <li><strong><code>Valor:</code></strong> direccion del primer elemento.</li>
-  </ul>
+	<li>
+	  <strong><code>&amp;a[0]</code></strong> Es decir:
+	  
+	  <ul>
+	    <li><strong>Tipo:</strong> <strong><code>int *</code></strong></li>
+	    <li><strong><code>Valor:</code></strong> direccion del primer elemento.</li>
+	  </ul>
+	</li>
 </ul>
 
 <h3>Ejemplo:</h3>
@@ -818,7 +827,7 @@ int main(void)
 <pre><code class="language-c">
 void imprimir(int *p, int n)
 {
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i &lt; n; i++)
       printf("%d ", p[i]);
 }
 </code></pre>
@@ -878,7 +887,7 @@ void cambiar_direccion(int *p)
 
 void imprimir_array(int *p, int n)
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i &lt; n; i++)
         printf("%d ", p[i]);
     printf("\n");
 }
@@ -939,7 +948,5 @@ int main(void)
 
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
-
 </body>
-
 </html>
