@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PUNTEROS</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -81,7 +81,7 @@ clean:
         Para que el puntero tenga sentido, debe apuntar a una variable existente:
         int x = 10;
         int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
+        pi = &amp;x; Direccion de memoria de x, pi ahora guarda esa direccion.
     
     Acceder al valor usando un puntero(desreferenciar-object-of):
     - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
@@ -99,7 +99,7 @@ clean:
 int main(void)
 {
     int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+    int *pi = &amp;x; //Declaracion y asignacion de memoria
 
     printf("Valor de x: %d\n", x);
     printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
@@ -170,7 +170,7 @@ clean:
 
     No confundir:
     - int x;
-    - int *pi = &x;
+    - int *pi = &amp;x;
     - printf("%zu", sizeof(pi)); Dimension del puntero pi. Mostrara 8 bytes.
     - printf("%zu", sizeof(*pi)); Dimension del tipo de dato al que apunta pi. Mostrara 4 bytes ya que sizeof(int) es 4 bytes
 
@@ -186,9 +186,9 @@ int main(void)
     char c;
     double d;
 
-    int *pi = &x;
-    char *pc = &c;
-    double *pd = &d;
+    int *pi = &amp;x;
+    char *pc = &amp;c;
+    double *pd = &amp;d;
 
     printf("int *:\t%zu bytes\n", sizeof(pi)); // Dimension de puntero
     printf("int:\t%zu bytes\n", sizeof(*pi));  // Dimension de tipo de dato
@@ -206,25 +206,25 @@ int main(void)
 <h1>Aritmética</h1>
 
 <div class="nota">
-<pre>
+<pre><code>
 &#x1F4C1; 01_Punteros
 &#x2514;&#x2500;&#x2500; &#x1F4C1; 03_Aritmética
     &#x251C;&#x2500;&#x2500; &#x1F4C1; 03-1_Operadores
-    &#x2502   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
-    &#x2502   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
+    &#x2502;   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
+    &#x2502;   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
     &#x251C;&#x2500;&#x2500; &#x1F4C1; 03-2_Operaciones
-    &#x2502   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
-    &#x2502   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
+    &#x2502;   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
+    &#x2502;   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
     &#x251C;&#x2500;&#x2500; &#x1F4C1; 03-3_Aritmética
-    &#x2502   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
-    &#x2502   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
+    &#x2502;   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
+    &#x2502;   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
     &#x251C;&#x2500;&#x2500; &#x1F4C1; 03-4_Vectores
-    &#x2502   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
-    &#x2502   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
+    &#x2502;   &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
+    &#x2502;   &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
     &#x2514;&#x2500;&#x2500; &#x1F4C1; 03-5_Parámetros
         &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
         &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
-</pre>
+</code></pre>
 </div>
 
 <h2 class="teoria">Operadores:</h2>
@@ -258,7 +258,7 @@ clean:
         Que hace?:
         - Obtiene la direccion de memoria de una variable
         - int x;
-        - int *pi = &x;
+        - int *pi = &amp;x;
         - x: valor
         - &x: direccion de x
         - int *: tipo de dato de &x
@@ -271,7 +271,7 @@ clean:
         Que hace?:
         - Accede al valor almacenado en la direccion a la que apunta el puntero.
         - int x = 10;
-        - int *pi = &x;
+        - int *pi = &amp;x;
         - printf("%d", *pi); Muestra 10
         - pi: direccion de x.
         - *pi: valor almacenado en esa direccion
@@ -288,8 +288,8 @@ int main(void)
     /*
         Operador & address-of
     */
-    int *p1 = &x;
-    int *p2 = &y;
+    int *p1 = &amp;x;
+    int *p2 = &amp;y;
 
     printf("Valores iniciales:\n");
     printf("x = %d, y = %d\n", x, y);
@@ -337,10 +337,10 @@ clean:
         Que hace?:
         - Copia la direccion de memoria, no el valor almacenado en esa direccion a la que apunta.
         - int *p1, *p2;
-        - p1 = &x; Inicializa el puntero almacenando la direccion en memoria de x
+        - p1 = &amp;x; Inicializa el puntero almacenando la direccion en memoria de x
         - p2 = p1; Se asigna la direccion del puntero p1 en el puntero p2, ambos apuntan a la misma direccion que almacena el tipo de dato, de este modo p1 y p2 apuntan a la misma direccion
     
-    - Operadores de comparacion (==, !=, <, >, <=, >=)
+    - Operadores de comparacion (==, !=, &lt;, &gt;, &lt;=, &gt;=)
         Que hace?:
         - Comparan direcciones, NO valores.
         - if(pi == p2) Si apuntan al mismo lugar se cumple el bucle
@@ -355,8 +355,8 @@ int main(void)
     int x = 10;
     int y = 20;
 
-    int *p1 = &x;
-    int *p2 = &y;
+    int *p1 = &amp;x;
+    int *p2 = &amp;y;
 
     /*
         Operador = Asignacion entre punteros
@@ -434,7 +434,7 @@ clean:
         - /: Division p / n Causa error
         - %: Modulo p % n Causa error
         - Operaciones con float.
-        - Desplazamientos (<<, >>)
+        - Desplazamientos (&lt;&lt;, >>)
         - Operaciones lógicas (&&, ||)
 
         Regla formal importante:
@@ -723,7 +723,7 @@ clean:
     Relacion con arrays:
     - void imprimir(int *p, int n)
     - {
-    -   for (int i = 0; i < n; i++)
+    -   for (int i = 0; i &lt; n; i++)
     -       printf("%d ", p[i]);
     - }
 
@@ -756,7 +756,7 @@ void cambiar_direccion(int *p)
 
 void imprimir_array(int *p, int n)
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i &lt; n; i++)
         printf("%d ", p[i]);
     printf("\n");
 }
@@ -852,11 +852,11 @@ clean:
 int main(void)
 {
     int i = 1; // Declarar variable de tipo int inicializada en 1
-    int *pi = &i; // Declaracion de puntero a int y asignacion de direccion en memoria de la variable i del mismo tipo
+    int *pi = &amp;i; // Declaracion de puntero a int y asignacion de direccion en memoria de la variable i del mismo tipo
 
     printf(" i = %d\n", i); // Mostrar variable
-    printf("dir i = %p\n", &i); // Mostrar direccion en memoria de la variable, se usa el especificador %p, el cual esperra void *, el compilador indica que deberia pasarse el cast (void *)&i
-    //printf("dir i = %p\n", (void *)&i);
+    printf("dir i = %p\n", &amp;i); // Mostrar direccion en memoria de la variable, se usa el especificador %p, el cual esperra void *, el compilador indica que deberia pasarse el cast (void *)&i
+    //printf("dir i = %p\n", (void *)&amp;i);
     printf(" i = %d\n", *pi); // Mostrar el valor almacenado en la direccion del puntero, esto es desreferenciar el puntero
     printf("dir i = %p\n", pi); // Mostrar la direccion a la que apunta el puntero usando el especificador %p, el cual esperra void *, el compilador indica que deberia pasarse el cast (void *)pi
     //printf("dir i = %p\n", (void  *)pi);
@@ -902,9 +902,9 @@ int main(void)
     float f, *pf;
 
     /* Asignacion de la direccion en memoria de las variables i, c, f a sus correspondientes punteros del mismo tipo */
-    pi = &i;
-    pc = &c;
-    pf = &f;
+    pi = &amp;i;
+    pc = &amp;c;
+    pf = &amp;f;
 
     /* Mostrar la direccion de las variables y el contenido almacenado en los punteros,
      * el especificador %p espera el cast a void * segun nos advierte el compilador (void*)&variable y (void *)puntero */
@@ -971,7 +971,7 @@ int main(void)
     /* Asignacion de direccion de variable a puntero del mismo tipo,
      * Asignacion indirecta: se modifica el valor de i a traves del puntero,
      * usando el operador de indireccion (desreferenciacion), i = 45 */
-    pi = &i;
+    pi = &amp;i;
     *pi = 45;
 
     /* Mostrar el valor de la variable */
@@ -1025,7 +1025,7 @@ int main(void)
     printf("La direccion de i es: %p\n", &i);
 
     /* Asignacion de la direccion de i al puntero del mismo tipo */
-    pi = &i;
+    pi = &amp;i;
 
     /* Mostrar la direccion de i mediante el puntero, el compilador espera el cast a void * para el especificador %p */
     printf("\nLa direccion de i es: %p\n", pi);
@@ -1074,8 +1074,8 @@ int main(void)
     float k, l, *pj, *pk;
 
     /* Asignacion de direcciones a punteros del mismo tipo */
-    pi = &x;
-    pf = &y;
+    pi = &amp;x;
+    pf = &amp;y;
 
     /* Resta de punteros a int.
      * La resta de punteros solo esta definida si ambos apuntan 
@@ -1084,8 +1084,8 @@ int main(void)
      * el resultado es comportamiento indefinido (UB) */
     y = pf - pi;
     
-    pj = &l;
-    pk = &k;
+    pj = &amp;l;
+    pk = &amp;k;
 
     /* Resta de punteros a float.
      * Nuevamente, k y l no pertenecen al mismo vector (array),
@@ -1166,7 +1166,7 @@ int main(void)
      * apunta a elementos de un mismo vector (o uno mas alla del final).
      * Como aca no apuntan a un objeto valido, los incrementos
      * producen comportamiento indefinido (UB). */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         printf("%p\t%p\t%p\n", pi, pf, pc);
         pi++; // Avanza 1 elemento de tipo int
@@ -1279,13 +1279,13 @@ int main(void)
 
     /* Asignacion de variables y direcciones a punteros segun su tipo */
     i = 1000;
-    pi = &i;
+    pi = &amp;i;
 
     j = 3.18;
-    pj = &j;
+    pj = &amp;j;
 
     k = 'c';
-    pk = &k;
+    pk = &amp;k;
 
     /*Mostrar valores y direcciones, %p espera el cast a vopid * */
     printf("\n%d\t%p\t%f\t%p\t%c\t%p\n", i, pi, j, pj, k, pk);
@@ -1297,7 +1297,7 @@ int main(void)
      * (o one-past-the-end).
      * Como aca apuntan a variables individuales y no a un vector,
      * los incrementos producen comportamiento indefinido (UB). */
-    for (i = 5; i < 6; i++, pi++, pj++, pk++)
+    for (i = 5; i &lt; 6; i++, pi++, pj++, pk++)
     {
         printf("\n%d\t%p\t%f\t%p\t%c\t%p\n", i, pi, j, pj, k, pk); // Se muestran variables y direcciones sin cast a void *
         /* Se desreferencian mediante el operador de indireccion * los punteros que ya fueron desplazados
@@ -1345,14 +1345,14 @@ int main(void)
     int *pi, *pj;
     int i, j;
 
-    pi = &i;
-    pj = &j;
+    pi = &amp;i;
+    pj = &amp;j;
 
-    /* La comparacion relacional (<, >, <=, >=) entre punteros solo esta definida:
+    /* La comparacion relacional (&lt;, >, &lt;=, >=) entre punteros solo esta definida:
     * Cuando ambos apuntan a elementos del mismo vector (o one-past-the-end)
     * En este caso apuntan a diferentes variables,
     * por lo tanto el comportamiento es indefinido (UB). */
-    if (pi > pj)
+    if (pi &gt; pj)
         printf("\npi es mayor a pj\n");
     else
         printf("\npi es menor a pj\n");
@@ -1363,9 +1363,9 @@ int main(void)
      * En este caso la condicion es verdadera porque
      * pi fue inicializado con &i. */
     if (pi == &i)
-        printf("\npi es igual a &i\n");
+        printf("\npi es igual a &amp;i\n");
     else
-        printf("\npi no es igual a &i\n");
+        printf("\npi no es igual a &amp;i\n");
     /* Comparacion entre puntero y entero distinto de 0.
      * El estandar solo garantiza la conversion implicita
      * del entero 0 a puntero nulo.
@@ -1414,13 +1414,13 @@ int main(void)
     char *pc;
     float f, *pf;
     
-    pl = &l;
+    pl = &amp;l;
 
     /* Obtener la direccion de la variable l*/
-    scanf("%ld", &l);
+    scanf("%ld", &amp;l);
 
     /* Mostrar la variable de l en formato decimal y hexadeximal y su direccion */
-    printf("\n%ld\t%lx\t%p\n", l, l, &l);
+    printf("\n%ld\t%lx\t%p\n", l, l, &amp;l);
 
     /* Se recorre la memoria del objeto 1 byte a byte (Mostrar la representacion en memoria del tipo de dato)
      * Esto permite observar:
@@ -1438,20 +1438,20 @@ int main(void)
      * en la actualidad con sistemas de 64bits seria +8.
      * Seria mas correcto usar (unsigned char *) porque evita
      * posibles problemas de interpretacion de signo al imprimir*/
-    for (pc = pl; pc < (char *)pl + 4; pc++) // Para hacerlo portable seria mejor for (pc = (char *)pl; pc < (char *)pl + sizeof(l); pc++)
+    for (pc = pl; pc &lt; (char *)pl + 4; pc++) // Para hacerlo portable seria mejor for (pc = (char *)pl; pc &lt; (char *)pl + sizeof(l); pc++)
         /* %2x espera unsigned int pero *pc es char que 
          * se promociona a int, deberia hacer cast (unsigned char)*pc
          * %p espera void * por lo tanto tambien un cast a (void *)pc */
         printf("%p\t%2x\n", pc, *pc); // Lo correcto  seria: printf("%p\t%2x\n", (void *)pc, (unsigned char)*pc); 
     
     /* Se repite el flujo para float */
-    pf = &f;
+    pf = &amp;f;
 
-    scanf("%f", &f);
+    scanf("%f", &amp;f);
 
-    printf("\n%f\t%p\n", f, &f);
+    printf("\n%f\t%p\n", f, &amp;f);
 
-    for (pc = pf; pc < (char *)pf + 4; pc++) // Portable seria: for (pc = (char *)pf; pc < (char *)pf + sizeof(f); pc++) 
+    for (pc = pf; pc &lt; (char *)pf + 4; pc++) // Portable seria: for (pc = (char *)pf; pc &lt; (char *)pf + sizeof(f); pc++) 
         printf("%p\t%2x\n", pc, *pc); // Lo correcto seria: printf("%p\t%2x\n", (void *)pc, (unsigned char)*pc); 
     
     return 0;
@@ -1495,10 +1495,10 @@ int main(void)
     /* Asignacion al puntero de la direccion del primer elemento del vector.
      * V1 en una expresion decae a puntero a su primer elemento,
      * por lo que tambien podria escribirse: pi = V1; */
-    pi = &V1[0];
+    pi = &amp;V1[0];
     
     /* Intentar hacer aritmetica sobre el nombre del vector es incorrecto */
-    for (i = 0; i < 4; i++)
+    for (i = 0; i &lt; 4; i++)
         /* V1 es un vector, no es modificable, 
          * no es un puntero variable, 
          * no es un lvalue modificable, 
@@ -1514,13 +1514,13 @@ int main(void)
     
     /* Carga de los elementos del vector.
      * &V1[i] es la direccion del elemento i. */
-    for (i = 0; i < 4; i++)
-        scanf("%d", &V1[i]);
+    for (i = 0; i &lt; 4; i++)
+        scanf("%d", &amp;V1[i]);
 
     /* Acceso a los elementos mediante aritmetica de punteros.
      * V1 decae a int *, por lo que:
      * *(v1 + i) es equivalente a V1[i] */
-    for (i = 0; i < 4; i++)
+    for (i = 0; i &lt; 4; i++)
         printf("%d\t", *(V1 + i));
     
     return 0;
@@ -1561,15 +1561,15 @@ int main(void)
     int V1[4], *pi, i;
 
     /* Asignacion al puntero de la direccion del primer elementos del vector */
-    pi = &V1[0]; // Equivalente a pi = V1;
+    pi = &amp;V1[0]; // Equivalente a pi = V1;
 
     /* Carga los valores de los elementos del vector a traves del puntero */
-    for (i = 0; i < 4; i++)
+    for (i = 0; i &lt; 4; i++)
         scanf("%d", pi + i); // Equivalente a &V1[i]
 
     /* Muestra los valores de los elementos del vector a traves del puntero(desreferenciacion) mediante aritmetica
      * pi[i] es quivalente a *(pi + i) */
-    for (i = 0; i < 4; i++)
+    for (i = 0; i &lt; 4; i++)
         printf("%d\t", pi[i]);
 
     printf("\n\n");
@@ -1619,7 +1619,7 @@ int main(void)
      * a[9] = (9 + 1) * (9 + 1) => 100 
      * Quedando el vector:
      * a[10] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}*/
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
         a[i] = (i + 1) * (i + 1);
 
     /* Asignacion de la primer direccion del vector 
@@ -1628,7 +1628,7 @@ int main(void)
     pa1 = a;
 
     /* Asignacion del ultimo elemento al puntero */
-    pa2 = &a[9];
+    pa2 = &amp;a[9];
 
     /* Resta entre punteros del mismo tipo, resultado: 
      * cantidad de elementos entre ellos, pa2 - pa1 = 9 
@@ -1688,7 +1688,7 @@ int main(void)
      * lo que produce comportamiento implementation-defined. 
      * Asignacion de la direccion de i */
     i = 0xA1B2C3D4;
-    pi = &i;
+    pi = &amp;i;
 
     /* Desreferenciacion del puntero.
      * *pi es exactamente i. */
@@ -1699,19 +1699,19 @@ int main(void)
 
     /* Recorrer el vector usando aritmetica.
      * &v[0] + 5 es el puntero one-past-the-end (valido para comparar). */
-    for (pf = &v[0]; pf < (&v[0] + 5); pf++)
+    for (pf = &amp;v[0]; pf &lt; (&v[0] + 5); pf++)
         scanf("%f", pf);
 
     printf("\n\n");
 
     /* Acceso mediante puntero + desplazamiento */
-    for (pf = &v[0], i = 0; i < 5; i++)
+    for (pf = &amp;v[0], i = 0; i &lt; 5; i++)
         printf("\n%f", *(pf + i));
 
     printf("\n\n");
 
     /* Acceso clasico mediante indice */
-    for (i = 0; i < 5; i++)
+    for (i = 0; i &lt; 5; i++)
         printf("\n%f", v[i]);
 
     printf("\n\n");
@@ -1721,7 +1721,7 @@ int main(void)
 
     /* En esta expresion, v (de tipo float[5]) se convierte
      * implicitamente en puntero a su primer elemento (&v[0]) al hacer v + i */
-    for (i = 0; i < 5; i++)
+    for (i = 0; i &lt; 5; i++)
         printf("\n%f", *(v + i));
 
     printf("\n\n");
@@ -1769,14 +1769,14 @@ int main(void)
      * mientras p sea menor que vec + n (puntero one-past-the-end),
      * Se realiza aritmetmetica con el puntero para recorrer el vector.
      * Carga los elementos del vector mediante el puntero */
-    for (p = vec; p < vec + n; p++)
+    for (p = vec; p &lt; vec + n; p++)
         scanf("%d", p);
 
     /* Inicializacion: p y max apuntan al primer elemento., inicializacion de variable entera para iterar,
      * Se recorre el arreglo usando indice.
      * Si el valor apuntado por (p + i) es mayor que el apuntado por max,
      * se actualiza max para que apunte al nuevo mayor. */
-    for (max = p = vec, i = 0; i < n; i++)
+    for (max = p = vec, i = 0; i &lt; n; i++)
         if (*(p + i) > *max)
             max = p + i;
     
@@ -1844,7 +1844,7 @@ void ingresar(int *V)
      * V es un puntero a int.
      * V + i realiza aritmetica de punteros (Equivale a &V[i]).
      * scanf recibe la direccion donde almacenar el valor. */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
         scanf("%d", V + i);
 }
 </code></pre>
@@ -1886,7 +1886,7 @@ int main(void)
      * Modificacion por desreferencia de la variable, de 7 a 9,
      * Modificacion por desreferencia doble de la variable, de 9 a 28,
      * ppi apunta a pi, *ppi es pi, **ppi es i */
-    pi = &i;
+    pi = &amp;i;
     ppi = &amp;pi;
     i = 7;
     *pi = 9;
@@ -1931,7 +1931,7 @@ int main(void)
 
     /* Inicializacion de variable y asignacion de direcciones */
     i = 65;
-    pi = &i;
+    pi = &amp;i;
     ppi= &amp;pi;
 
     /* Modificacion del valor de i a traves de pi por desreferencia:
@@ -1987,7 +1987,7 @@ int main(void)
     printf("Ingrese 5 caracteres: ");
     /* Se leen 5 caracteres y se almacenan en el vector c.
      * getche() devuelve el caracter tipeado y lo muestra en pantalla. */
-    for (i = 0; i < 5; i++)
+    for (i = 0; i &lt; 5; i++)
         c[i] = getche();
 
     /* cada elemento de pc recibe la direccion del correspondiente elemento de c.
@@ -1995,16 +1995,16 @@ int main(void)
      * pc[0] => &c[0]
      * ...
      * pc[4] => &c[4] */
-    for (i = 0; i < 5; i++)
-        pc[i] = &c[i];
+    for (i = 0; i &lt; 5; i++)
+        pc[i] = &amp;c[i];
 
     /* Ordenamiento (tipo burbuja/simple)
         * sobre el vector de punteros.
         * Se comparan los caracteres apuntados:
         * *pc[i] y *pc[j]
         * Si el primero es mayor, se intercambian los punteros (no los caracteres). */
-    for (i = 0; i < 4; i++)
-        for (j = i + 1; j < 5; j++)
+    for (i = 0; i &lt; 4; i++)
+        for (j = i + 1; j &lt; 5; j++)
             if (*pc[i] > *pc[j])
             {
                 aux = pc[i];
@@ -2017,7 +2017,7 @@ int main(void)
     /* Se imprime:
      * *pc[i] => caracteres ordenados.
      * c[i] => Vector original (sin modificar) */
-    for (i = 0; i < 5; i ++)
+    for (i = 0; i &lt; 5; i ++)
         printf("%c\t%c\n", *pc[i], c[i]);
 
     return 0;
@@ -2036,6 +2036,5 @@ int main(void)
 
 <script src="../../../js/prism.js"></script>
 <script src="../../../js/script.js"></script>
-		
 </body>
 </html>
