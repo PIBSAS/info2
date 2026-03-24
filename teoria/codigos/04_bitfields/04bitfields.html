@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BITFIELDS</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -97,7 +97,7 @@ int main(void)
      * - C (2 bits) desborda al superar 3
      * El desbordamiento (overflow) en tipos unsigned produce wrap-around (al superar el maximo vuelve a cero)
      */
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
     {
         bit.A++; // 3 bits = 2^n - 1 = 7. 0 => 1 => 2 => 3 => 4 => 5 => 6 => 7 => 0 => 1 => 2
         bit.B++; // 1 bit  = 2^n - 1 = 1. 0 => 1 => 0 => 1 => 0 => 1 => 0 => 1 => 0 => 1 => 0
@@ -202,7 +202,7 @@ int main(void)
      * Como A tiene 1 bit, opera modulo 2 (0 y 1)
      * Se observa el comportamiento de la aritmetica modular (wrap-around) 
      */
-    for (b.A = 0, a = 0; a < 4; b.A++, a++)
+    for (b.A = 0, a = 0; a &lt; 4; b.A++, a++)
     {
         printf("%d   ", b.A);
         printf("\n");
@@ -212,7 +212,7 @@ int main(void)
      * Como B tiene 2 bits, opera modulo 4 (0 a 3)
      * El incremento produce desbordamiento modular. 
      */
-    for (b.B = 0, a = 0; a < 8; b.B++, a++)
+    for (b.B = 0, a = 0; a &lt; 8; b.B++, a++)
     {
         printf("%d   ", b.B);
         printf("\n");
@@ -222,7 +222,7 @@ int main(void)
      * Como C tiene 3 bits, opera modulo 8 (0 a 7)
      * Se imprime cada valor antes de esperar una tecla. 
      */
-    for (b.C = 0, a = 0; a < 16; b.C++, a++)
+    for (b.C = 0, a = 0; a &lt; 16; b.C++, a++)
     {
         printf("%d   ", b.C);
         printf("\n\nPresione una tecla para continuar");
@@ -349,7 +349,7 @@ int main(void)
      * - Se copian los valores de d y s al vector dat
      * - Se vuelve a generar un nuevo valor para v
      */
-    for (a = 0; a < 20; a++)
+    for (a = 0; a &lt; 20; a++)
     {
         inp.s = rand()%4;  // 2 bits => 0 a 3
         inp.d = rand()%32; // 5 bits => 0 a 31
@@ -372,7 +372,7 @@ int main(void)
      * ATENCION: cuando a == 19 se accede a dat[20],
      * lo que esta fuera de los limites del vector y produce (UB).
       */
-    for (a = 0; a < 20; a++)
+    for (a = 0; a &lt; 20; a++)
     {
         printf("%d\t%d\t%d\t%d\n", dat[a].s, dat[a].d, dat[a + 1].s, dat[a + 1].d);
     }
