@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMA 7</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-02-01T10:41:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-02-01T10:41:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
 </head>
@@ -306,7 +306,7 @@ int main(void)
 
         printf("Ingrese la cantidad de elementos: "); // Solicitamos n al usuario, para asi luego solicitar la memoria correspondiente
         // Validar scanf
-        if (scanf("%d", &n) != 1 || n <= 0)
+        if (scanf("%d", &n) != 1 || n &lt;= 0)
         {
             printf("Entrada invalida\n");
             return 1;
@@ -321,14 +321,14 @@ int main(void)
         }
 
         // Carga del vector
-        for (i = 0; i < n; i++)
+        for (i = 0; i &lt; n; i++)
         {
             vector[i] = i + 1;
         }
 
         // Mostrar contenido
         printf("Contenido del vector:\n");
-        for (i = 0; i < n; i++)
+        for (i = 0; i &lt; n; i++)
         {
             printf("vector[%d] = %d\n", i, vector[i]);
         }
@@ -356,6 +356,5 @@ int main(void)
 
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
-
 </body>
 </html>
