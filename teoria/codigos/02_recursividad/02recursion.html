@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RECURSIVIDAD</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -168,7 +168,7 @@ int fun(int j)
     j++;
 
     /* Caso recursivo si j es menor que 20, se vuelve a llamar a fun*/
-    if (j < 20)
+    if (j &lt; 20)
         k = fun(j);
 
     /* Problema grave:
@@ -317,7 +317,7 @@ int fibo(int n)
     int a;
 
     /* Caso base, si ne es menor a 2, a devuelve 1*/
-    if (n < 2)
+    if (n &lt; 2)
         a = 1;
     else
         a = fibo(n - 2) + fibo(n - 1); // Caso recursivo. se llama dos veces a la funcion, cada llamada genera dos nuevas llamadas. PROBLEMA: Explosion exponencial de llamadas (overflow)
@@ -395,7 +395,7 @@ int fibo(int n)
     if ((n == 1) || (n == 0))
         return 1;
     /* Bucle iterativo: Calcula la sucesion sin usar recursion */
-    for (i = 2; i <= n; i++)
+    for (i = 2; i &lt;= n; i++)
     {
         f = fn1 + fn2;
         fn2 = fn1;
@@ -467,7 +467,7 @@ int fibo(int n)
     if ((n == 1) || (n == 0))
         return 1;
     /* Bucle iterativo: Calcula la sucesion sin usar recursion */
-    for (i = 2; i <= n; i++)
+    for (i = 2; i &lt;= n; i++)
     {
         f = fn1 + fn2;
         fn2 = fn1;
@@ -603,7 +603,7 @@ int main(void)
     pos = buscar(vec, 0, longitud - 1, X);
 
     /* Si se encontro o no, si se encuentra se indica su posicion */
-    if (pos < 0)
+    if (pos &lt; 0)
         printf("\n\nNo se encontro");
     else
         printf("\n\nLa posicion del valor buscado es %d", pos);
