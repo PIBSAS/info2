@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMA 9</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-01-31T10:32:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-01-31T10:32:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
 </head>
@@ -26,7 +26,7 @@
 
 <h1>Lista simple - Singly linked list</h1>
 
-<h3>¿Qué es?:</h3>
+<h2 class="ejercicio">¿Qué es?:</h2>
 
 <p>Una lista simple enlazada es una estructura de datos dinámica formada por nodos, donde:</p>
 <ul>
@@ -66,28 +66,36 @@
 
 <h2>Conceptos fundamentales:</h2>
 <ol>
-    <li><h3>Nodo (struct autoreferenciado).</h3></li>
-    <p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
+    <li>
+		<h3>Nodo (struct autoreferenciado)</h3>
+		
+		<p>Se llama estructura autoreferenciada porque contiene un puntero a su mismo tipo.</p>
 
-    <h3>Sintaxis:</h3>
+    	<h3>Sintaxis:</h3>
+
 <pre><code class="language-c">
 struct Nodo {
   int dato;
   struct Nodo *sig;
 };    
 </code></pre>
+	</li>
+	
+    <li>
+		<h3>Puntero de comienzo (head)</h3>
+		
+		<p>La lista se maneja mediante un puntero.</p>
 
-    <li><h3>Puntero de comienzo (head).</h3></li>
-    <p>La lista se maneja mediante un puntero.</p>
-
-    <h3>Sintaxis:</h3>
-<pre><code class="language-c">
+    	<h3>Sintaxis:</h3>
+		<pre><code class="language-c">
 struct Nodo *lista = NULL;
-</code></pre>
-    <ul>
-        <li><b><code>NULL</code></b> &rArr; lista vacía.</li>
-        <li>Apunta siempre al primer nodo.</li>
-    </ul>
+		</code></pre>
+	    
+		<ul>
+	        <li><b><code>NULL</code></b> &rArr; lista vacía.</li>
+	        <li>Apunta siempre al primer nodo.</li>
+	    </ul>
+	</li>
 </ol>
 
 
@@ -403,7 +411,7 @@ void insertar(struct Nodo **lista, int valor)
     nuevo->sig = NULL;
 
     /* --- Lista vacia o insertar al comienzo --- */
-    if (*lista == NULL || valor < (*lista)->dato)
+    if (*lista == NULL || valor &lt; (*lista)->dato)
     {
         nuevo->sig = *lista;
         *lista = nuevo;
@@ -414,7 +422,7 @@ void insertar(struct Nodo **lista, int valor)
     act = (*lista)->sig;
     
     // Avanza hasta encontrar la posicion correcta segun la clave
-    while(act != NULL && act->dato < valor)
+    while(act != NULL && act->dato &lt; valor)
     {
         ant = act;
         act = act->sig;
@@ -559,7 +567,5 @@ int main(void)
 
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
-
 </body>
-
 </html>
