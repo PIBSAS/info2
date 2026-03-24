@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESTRUCTURA DE DATOS</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -471,7 +471,7 @@ void IngresarProductos(struct Productos *Prod) // Recibe un puntero al primer el
     int i;
     
     /* Recorre el vector de productos*/
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         printf("Articulo ");
         scanf("%d", &Prod[i].Articulo); // Acceso por puntero al elemento i
@@ -494,7 +494,7 @@ void IngresarVendedores(struct Vendedores *Vend) // Recibe un puntero al primer 
     int i;
 
     /* Recorre el vector de vendedores */
-    for (i = 0; i < 50; i++)
+    for (i = 0; i &lt; 50; i++)
     {
         printf("Legajo ");
         scanf("%d", &Vend[i].Legajo); // Acceso por puntero al elemento i, Carga legajo
@@ -531,14 +531,14 @@ void Inicializar(struct Productos *Prod, struct Vendedores *Vend, struct Ventas 
     int i;
 
     /* Inicializa ventas por producto */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         Vent[i].NumeroArticulo = Prod[i].Articulo; // Copia numero de articulo
         Vent[i].Cantidad = 0; // Inicializacion del acumulador en cero
     }
 
     /* Inicializa acumulador de comisiones por vendedor */
-    for (i = 0; i < 50; i++)
+    for (i = 0; i &lt; 50; i++)
     {
         Com[i].Numero = Vend[i].Numero;     // Copia numero de vendedor
         Com[i].Comision = Vend[i].Comision; // Copia porcentaje de comision
@@ -578,8 +578,8 @@ float IngresarVentas(struct Productos *Prod, struct Ventas *Vent, struct Comisio
         printf("Numero Articulo ");
         scanf("%d", &Factura.venta[i].NumeroArticulo); // Carga numero de articulo
 
-        /* Se procesan hasta 10 articulos o hasta ingresar <= 0 */
-        while ((Factura.venta[i].NumeroArticulo > 0) && (i < 10))
+        /* Se procesan hasta 10 articulos o hasta ingresar &lt;= 0 */
+        while ((Factura.venta[i].NumeroArticulo > 0) && (i &lt; 10))
         {
             printf("Cantidad ");
             scanf("%d", &Factura.venta[i].Cantidad); // Carga la cantidad
@@ -623,7 +623,7 @@ void OrdenarProductos(struct Ventas *Vent) // Recibe un puntero al primer elemen
      * En cada pasada se va 'acomodando' un elemento en su posicion correcta.
      * Recorre desde la primera hasta la ultima posicion del vector.
      */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         /* Segundo bucle:
          * Recorre el vector desde el final hacia la posicion i.
@@ -661,7 +661,7 @@ void OrdenarVendedores(struct Comisiones *Com) // Recibe un puntero al primer el
     /* Recorre todo el vector.
      * i indica la posicion donde se colocara el menor elemento restante 
      */
-    for (i = 0; i < 50; ++i)
+    for (i = 0; i &lt; 50; ++i)
     {
         pos = i;      // Se asume inicialmente que el menor es el actual.
         min = Com[i]; // Se guarda como minimo provisional el elemento actual.
@@ -669,11 +669,11 @@ void OrdenarVendedores(struct Comisiones *Com) // Recibe un puntero al primer el
         /* Se busca en el resto del vector un elemento menor.
          * j Recorre desde la posicion siguiente hasta el final.
          */
-        for (j = i + 1; j < 50; ++j)
+        for (j = i + 1; j &lt; 50; ++j)
         {
             /* Compara el ValorRecaudado del elemento actual con el minimo provisional.
             */
-            if (Com[j].ValorRecaudado < min.ValorRecaudado)
+            if (Com[j].ValorRecaudado &lt; min.ValorRecaudado)
             {
                 pos = j;      // Actualiza la posicion del nuevo minimo encontrado
                 min = Com[j]; // Actualiza el valor minimo encontrado
@@ -704,7 +704,7 @@ void Listados(struct Ventas *Vent, float Tot, struct Comisiones *Com)
     printf("\n\nArticulo\tCantidad");
 
     /* Recorre el vector de ventas (10 productos) */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         /* Imprime el numero de articulo y la cantidad total vendida acumulada */
         printf("\n%d\t%d", Vent[i].NumeroArticulo, Vent[i].Cantidad);
@@ -717,7 +717,7 @@ void Listados(struct Ventas *Vent, float Tot, struct Comisiones *Com)
     printf("\n\nNumero Vendedor\tCantidad de Comision");
 
     /* Recorre el vector de comisiones por vendedor */
-    for (i = 0; i < 50; i++)
+    for (i = 0; i &lt; 50; i++)
     {
         /* Imprime el numero del vendedor y el total de comision acumulada */
         printf("\n%d\t%f", Com[i].Numero, Com[i].ValorRecaudado);
@@ -731,10 +731,10 @@ int BuscarArticulo(int Art, struct Productos *Prod) // Recibe un entero y un pun
     int i = 0;
 
     /* Recorre el vector mientras:
-     * 1) No se haya llegado al final (i < 10).
+     * 1) No se haya llegado al final (i &lt; 10).
      * 2) El articulo actual sea distinto al buscado.
      */
-    while((i < 10) && (Prod[i].Articulo != Art))
+    while((i &lt; 10) && (Prod[i].Articulo != Art))
     {
         i++; // Avanza a la siguiente posicion
     }
@@ -756,10 +756,10 @@ int BuscarVendedor(int Num, struct Vendedores *Vend) // Recibe un entero y un pu
     int i = 0;
 
     /* Recorre el vector mientras:
-     * 1) No se haya llegado al final (i < 50).
+     * 1) No se haya llegado al final (i &lt; 50).
      * 2) El numero del vendedor sea distinto al buscado.
      */
-    while ((i < 50) && (Vend[i].Numero != Num))
+    while ((i &lt; 50) && (Vend[i].Numero != Num))
     {
         i++; // Avanza a la siguiente posicion
     }
@@ -1087,7 +1087,7 @@ int main(void)
     //system("cls");
 
     /* Lazo de ingreso de datos */
-    for (i = 0; i < N; i++)
+    for (i = 0; i &lt; N; i++)
     {
         /* Carga de el numero de articulo */
         printf("articulo[%d]\t", i + 1);
@@ -1113,9 +1113,9 @@ int main(void)
     //system("cls");
 
     /* Rutina de ordenamiento del vector, Ordena segun cantidad de mayot a menor */
-    for (i = 0; i < N; i++)
+    for (i = 0; i &lt; N; i++)
     {
-        for (j = i + 1; j < N; j++)
+        for (j = i + 1; j &lt; N; j++)
         {
             /* Compara cantidades */
             if (prod[j].cant > prod[i].cant)
@@ -1129,12 +1129,12 @@ int main(void)
     }
 
     /* Rutina de impresion de los datos en pantalla dividido por paginas */
-    for (i = 0; i < N; i += PANT)
+    for (i = 0; i &lt; N; i += PANT)
     {
         /* Titulos de la tabla */
         printf("Articulo\tCantidad\tDescripcion\n");
         
-        for (j = 0; (j < PANT) && (i + j < N); j++)
+        for (j = 0; (j &lt; PANT) && (i + j &lt; N); j++)
         {
             /* Muestra articulo, cantidad y descripcion 
              * prod[i + j] permite recorrer por bloques de PANT elementos */
@@ -1207,7 +1207,7 @@ int main(void)
     //system("cls");
     
     /* Carga de datos */
-    for (i = 0; i < 2; i++)
+    for (i = 0; i &lt; 2; i++)
     {
         printf("\n\n\n\t\tIngrese los siguientes datos: ");
 		
@@ -1238,7 +1238,7 @@ int main(void)
         //dato[(int)i].m = aux;
 		
         /* Bucle para cargar el vector */
-        for(ii = 0; ii < 4; ii++)
+        for(ii = 0; ii &lt; 4; ii++)
         {
             /* Lee cada elemento del vector */
 			scanf("%f", &dato[i].n[ii]); // da -Wchar-subscripts se lo arregla haciendo cast a int:
@@ -1250,7 +1250,7 @@ int main(void)
     //system("cls");
 
     /* Bucle para mostrar los datos cargados */
-	for (i = 0; i < 2; i++)
+	for (i = 0; i &lt; 2; i++)
 	{
 		printf("Usted ingreso los siguientes valores\n\n");
 		
@@ -1280,7 +1280,7 @@ int main(void)
 		//printf(" que coincide con el guardado en la estructura %f", dato[(int)i].m);
 
         /* Bucle para mostrar los elementos del vector*/
-        for(ii = 0; ii < 4; ii++)
+        for(ii = 0; ii &lt; 4; ii++)
         {
             /* En formato float */
 			printf("%f", dato[i].n[ii]); // da -Wchar-subscripts se lo arregla haciendo cast a int:
@@ -1368,7 +1368,7 @@ int main(void)
 	unsigned int cons;
 
 	/* Ingreso de los datos */
-	for(i = 0; i < MAX; i++)
+	for(i = 0; i &lt; MAX; i++)
 	{
 		clrscr(); // Para reemplazar a clrscr() con system("cls") en Windows, system("clear") en Linux
     	//system("cls");
@@ -1472,7 +1472,7 @@ int main(void)
 		scanf("%u", &cons);
 
 		/* Busqueda del empleado */
-		for(i = 0; i < MAX && !enc; i++)
+		for(i = 0; i &lt; MAX && !enc; i++)
         {
 			/* Compara la consulta con los legajos */
 			if(cons == empleados[i].leg) // da -Wchar-subscripts se lo arregla haciendo cast a int:
@@ -2714,7 +2714,7 @@ int main(void)
     /* Asignacion de campo b de la estructura */
     var.b = 'C';
     /* Asignacion de la direccion en memoria de var al puntero ps */
-    ps = &var;
+    ps = &amp;var;
 
     /* Asignacion a campo de estructura mediante puntero por desreferenciacion y acceso al campo por operador (.) (FORMA LARGA) */
     (*ps).c = 3.14;
@@ -2787,7 +2787,7 @@ int main(void)
 	var.b = 'C';
 
 	/* Asignacion de la direccion en memoria de var al puntero ps */
-	ps = &var;
+	ps = &amp;var;
 
 	/* Asignacion a campo de estructura mediante puntero por desreferenciacion y acceso al campo por operador (.) (FORMA LARGA)*/
 	(*ps).c = 3.14;
@@ -2804,12 +2804,12 @@ int main(void)
 	/* Enlace entre estructuras
 	 * PEPE.p apunta a x
 	 */
-	PEPE.p = &x; // Asignar direccion de x a campo puntero a struct AR
+	PEPE.p = &amp;x; // Asignar direccion de x a campo puntero a struct AR
 	
 	/* x.p apunta a si misma
 	 * (estructura autoreferenciada circular)
 	 */
-	x.p = &x;
+	x.p = &amp;x;
     
     return 0;
 }
@@ -2862,7 +2862,7 @@ int main(void)
 	/* Carga del vector con valores consecutivos:
 	 * 'A', 'B', ... hasta 10 elementos.
 	 */
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
 		e1.c[i] = 'A' + i;
 	
 	/* Asignacion de la direccion de e1 al puntero */
@@ -2929,7 +2929,7 @@ int main(void)
 	struct C ar1, ar2;
 	
 	/* Asignacion de la direccion de f, Ahora pf apunta a f */
-	e2.pf = &f;
+	e2.pf = &amp;f;
 
 	/* Desreferenciacion del puntero y asignacion del valor, entonces f = 2.46 */
 	*(e2.pf) = 2.46;
@@ -3573,5 +3573,4 @@ void Lee(int *Indice, float *Pila)
 <script src="../../../js/prism.js"></script>
 <script src="../../../js/script.js"></script>
 </body>
-
 </html>
