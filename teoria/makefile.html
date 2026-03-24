@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Makefile</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-03T13:52:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-03T13:52:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
   
@@ -165,9 +165,9 @@ programa: $(OBJ)
 # Incluir todos los .d si existen, pero no falles si aun no existen, el - evita error la primera vez
 -include $(DEP)
 
-# Para cualquier .o, compilado desde su .c correspondiente, $< significa primer prerequisito (%.c)
+# Para cualquier .o, compilado desde su .c correspondiente, $&lt; significa primer prerequisito (%.c)
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $&lt;
 
 # Declaracion del target especial .PHONY para borrar objetos, dependencias y ejecutable
 .PHONY: clean
@@ -306,7 +306,7 @@ $(LIB): $(LIB_OBJ)
 
 # Regla generica para objetos .o
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $&lt;
 
 # Incluir dependencias si existen, evitando primer error con -
 -include $(DEP)
@@ -423,7 +423,7 @@ $(DLL): $(LIB_OBJ)
 
 # Regla generica para objetos .o
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $&lt;
 
 # Incluir dependencias si existen, evitando primer error con -
 -include $(DEP)
@@ -501,7 +501,7 @@ $(SHARED_LIB): $(LIB_OBJ)
 
 # Regla generica para objetos .o
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $&lt;
 
 # Incluir dependencias si existen, evitando primer error con -
 -include $(DEP)
@@ -644,6 +644,5 @@ int resta(int a, int b);
 
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
-
 </body>
 </html>
