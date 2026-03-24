@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMA 5</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-02-02T10:27:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-02-02T10:27:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
   
@@ -313,7 +313,7 @@ estado &= ~0x04; // pone en 0 el bit 2
 <h3>Sintaxis:</h3>
 
 <pre><code class="language-c">
-resultado = a << n;
+resultado = a &lt;&lt; n;
 </code></pre>
 
 
@@ -326,7 +326,7 @@ resultado = a << n;
 
 <pre><code class="language-c">
 unsigned char a = 3; // 0000 0011
-unsigned char b = a << 2; // 0000 1100 => 12
+unsigned char b = a &lt;&lt; 2; // 0000 1100 => 12
 </code></pre>
 
 <h3>Interpretación:</h3>
@@ -334,8 +334,8 @@ unsigned char b = a << 2; // 0000 1100 => 12
 <p>Equivale para <strong><code>unsigned</code></strong> a multiplicar por 2<sup>n</sup>.</p>
 
 <pre><code class="language-c">
-a << 1 // Si a vale 1: 1 * 2^1 => 2
-a << 2 // Si a vale 1: 1 * 2^2 => 4
+a &lt;&lt; 1 // Si a vale 1: 1 * 2^1 => 2
+a &lt;&lt; 2 // Si a vale 1: 1 * 2^2 => 4
 </code></pre>
 <div class="nota">
   <p>
@@ -517,8 +517,8 @@ int main(void)
     printf("%3u = ", r); binprint(r); printf("\n\n");
 
     /* ---- SHIFT LEFT ---- */
-    r = a << 2;
-    printf("Shift left (a << 2):\n");
+    r = a &lt;&lt; 2;
+    printf("Shift left (a &lt;&lt; 2):\n");
     printf("%3u = ", r); binprint(r); printf("\n\n");
 
     /* ---- SHIFT RIGHT ---- */
