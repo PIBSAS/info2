@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../../../img/favicon32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEMA 2</title>
+  <title>MEMORIA DINAMICA</title>
   <meta name="author" content="Luciano Rabassa"/>
   <meta name="created" content="2026-03-06T11:39:00"/>
   <meta name="AppVersion" content="1.0000"/>
@@ -24,15 +24,22 @@
 <main>
 <div class="container">
 
-<h1>Memoria</h1>
+<h1>Memoria dinámica</h1>
 
 <h2>Estructura de archivos:</h2>
 
 <div class="nota">
-    
+<pre>
+&#x1F4C1; 07_Memoria
+&#x2514;&#x2500;&#x2500; &#x1F4C1; Memoria-NN
+    &#x251C;&#x2500;&#x2500; &#x1F4C4; main.c
+    &#x2514;&#x2500;&#x2500; &#x1F4C4; Makefile
+</pre>
 </div>
 
-<h2 class="teoria">Declaración:</h2>
+<h1>Ejercicios:</h1>
+
+<h2 class="teoria">Memoria dinámica 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
@@ -109,7 +116,7 @@ int main(void)
 </code></pre>
 
 
-<h2 class="teoria">Ejercicio 2</h2>
+<h2 class="teoria">Memoria dinámica 02</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
@@ -135,8 +142,8 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include<stdio.h> // Se usa printf(), scanf()
-#include<stdlib.h> // Se usa malloc(), free(), exit(), system(), getchar()
+#include &lt;stdio.h&gt; // Se usa printf(), scanf()
+#include &lt;stdlib.h&gt; // Se usa malloc(), free(), exit(), system(), getchar()
 
 int main(void)
 {
@@ -178,7 +185,7 @@ int main(void)
 }
 </code></pre>
 
-<h2 class="teoria">Ejercicio 3</h2>
+<h2 class="teoria">Memoria dinámica 03</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
@@ -204,8 +211,8 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include<stdio.h>
-#include<stdlib.h>// Se usa malloc(), system()
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa malloc(), system()
 
 int main(void)
 {
@@ -239,9 +246,7 @@ int main(void)
 }
 </code></pre>
 
-<h1>Ejercicios 4</h1>
-
-<h2 class="teoria">Punteros 01</h2>
+<h2 class="teoria">Memoria dinámica 04</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
@@ -267,8 +272,8 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include <stdio.h>
-#include <stdlib.h> // Se usa malloc(), system()
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa malloc(), system()
 
 int main(void)
 {
@@ -295,7 +300,7 @@ int main(void)
 </code></pre>
 
 
-<h2 class="teoria">Punteros 02</h2>
+<h2 class="teoria">Memoria dinámica 05</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
@@ -321,8 +326,9 @@ clean:
 <pre><code class="language-c">
 // gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-#include<stdio.h>
-#include <stdlib.h> // Se usa system()
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa system()
+
 int main(void)
 {
   /* Declaracion de variables
