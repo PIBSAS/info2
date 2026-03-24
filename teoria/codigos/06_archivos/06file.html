@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Archivos</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -972,7 +972,7 @@ int main(void)
 
     printf("%s\n", str);
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         /* fprintf():
          * Escribe datos formateados en el archivo al que apunta fp.
@@ -989,7 +989,7 @@ int main(void)
     fprintf(fp, "%c", c);
     printf("%c\n", c);
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         /* fprintf():
          * Escribe datos formateados en el archivo al que apunta fp.
@@ -1032,7 +1032,7 @@ int main(void)
 
     printf("\n");
 
-    for (j = 0; j < 10; j++)
+    for (j = 0; j &lt; 10; j++)
     {
         /* fscanf():
          * Lee datos formateados desde el archivo al que apunta fp.
@@ -1057,7 +1057,7 @@ int main(void)
 
     printf("\n");
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i &lt; 10; i++)
     {
         /* fscanf():
          * Lee datos formateados desde el archivo al que apunta fp.
@@ -1159,7 +1159,7 @@ int main(void)
     fprintf(fp, "%s\n", str);
 	printf("%s\n", str);
 	
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 	{
 		/* fprintf():
          * Escribe datos formateados en el archivo al que apunta fp.
@@ -1176,7 +1176,7 @@ int main(void)
     fprintf(fp,"%c,", c);
 	printf("%c\n", c);
 	
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 	{
 		/* fprintf():
          * Escribe datos formateados en el archivo al que apunta fp.
@@ -1222,7 +1222,7 @@ int main(void)
 
 	printf("\n");
 	
-    for(j = 0; j < 10; j++)
+    for(j = 0; j &lt; 10; j++)
 	{
 		/* fscanf():
          * Lee datos formateados desde el archivo al que apunta fp.
@@ -1246,7 +1246,7 @@ int main(void)
 	
     printf("\n");
 	
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 	{
 		/* fscanf():
          * Lee datos formateados desde el archivo al que apunta fp.
@@ -1367,7 +1367,7 @@ int main(void)
 	/* Muestra el vector str*/
     printf("%s\n", str);
 	
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 	{
 		/* fwrite():
 		 * Escribe datos binarios en el archivo.
@@ -1390,7 +1390,7 @@ int main(void)
 	fwrite(&c, sizeof(char), 1, fp);
 	printf("%c\n", c); // Muestra el caracter con salto de linea
 	
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 	{
 		/* fwrite():
 		 * Escribe datos binarios en el archivo.
@@ -1460,7 +1460,7 @@ int main(void)
     fread(k, sizeof(int), 10, fp);
 	
 	/* Recorre el vector k */
-    for(j = 0; j < 10; j++)
+    for(j = 0; j &lt; 10; j++)
 		printf("%d\n", k[j]); // Muestra cada elemento
 	
     printf("\n");
@@ -1484,7 +1484,7 @@ int main(void)
     fread(g, sizeof(float), 10, fp);
 	
 	/* Recorre el vector g */
-    for(i = 0; i < 10; i++)
+    for(i = 0; i &lt; 10; i++)
 		printf("%f\n", g[i]); // Muestra cada elemento
 	
 	/* fread():
