@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNION</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-03-06T11:39:00"/>
-  <meta name="AppVersion" content="1.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-03-06T11:39:00">
+  <meta name="AppVersion" content="1.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../../../css/style.css">
   <link rel="stylesheet" href="../../../css/prism.css">
 </head>
@@ -824,7 +824,7 @@ int ingreso(struct autos stock[], int j)
     }
     /* Se comprueba que no se exceda el largo maximo del vector         *
      * en el caso de que se quieran agregar mas dato que los permitidos */
-    while((i == 'S' || i == 's') && j < MAX);
+    while((i == 'S' || i == 's') && j &lt; MAX);
 
     /* Se retorna el ultimo valor de la posicion maxima de los valores ingresados */
 
@@ -839,7 +839,7 @@ void listado(struct autos stock[], int i)
 
     /* Lazo para poder realizar la visualizacion de los datos *
      * dentro del rango ingresado                             */
-     for (j = 0; j < i; j++)
+     for (j = 0; j &lt; i; j++)
      {
         clrscr(); // No existe en GCC/MinGW, reemplazar por system("cls") de stdlib.h
         //system("cls");
@@ -1086,7 +1086,7 @@ int ingreso(struct autos stock[], int j)
 		i = getche();
 		j++;
 	}
-	while ((i == 'S' || i == 's') && j < MAX);
+	while ((i == 'S' || i == 's') && j &lt; MAX);
 
 	return(j);
 }
@@ -1094,7 +1094,7 @@ int ingreso(struct autos stock[], int j)
 void listado(struct autos stock[], int i)
 {
 	int j, k;
-	for (j = 0; j < i; j++)
+	for (j = 0; j &lt; i; j++)
 	{
 		clrscr();
 		printf("\n\n\tMarca : %s", stock[j].marca);
@@ -1408,7 +1408,7 @@ void listado(struct autos stock[], int j)
 	/* Lazo para poder realizar la visualizacion de los datos *
      * dentro del rango ingresado                             *
 	 */
-	for (i = 0; i < j; i++)
+	for (i = 0; i &lt; j; i++)
 	{
 		/* Mostrar marca, modelo y tipo */
 		printf("\n\n\tMarca : %s", stock[i].marca);
@@ -1475,5 +1475,4 @@ void listado(struct autos stock[], int j)
 <script src="../../../js/prism.js"></script>
 <script src="../../../js/script.js"></script>
 </body>
-
 </html>
