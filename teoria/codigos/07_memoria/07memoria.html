@@ -24,7 +24,7 @@
 <main>
 <div class="container">
 
-<h1>Punteros</h1>
+<h1>Memoria</h1>
 
 <h2>Estructura de archivos:</h2>
 
@@ -39,7 +39,7 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
-PROG = declaracion
+PROG = main
 OBJ = main.o
 
 $(PROG): $(OBJ)
@@ -56,94 +56,242 @@ clean:
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-// gcc -std=c11 -Wall -Wextra -pedantic main.c -o declaracion
-/*
-    Un puntero es una variable que almacena una direccion de memoria.
-    A traves de este, se puede acceder o modificar el valor almacenado alli.
-    Uso:
-    - Acceder y modificar variables desde funciones.
-    - Manejar arrays y strings.
-    - Usar memoria dinamica (malloc, free).
-    - Estructura de datos (listas-lists, pilas-stack, arboles-tree)
-    - Eficiencia y control de memoria
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
 
-    Como se declara:
-    - tipo_de_dato *nombre_del_puntero;
-        Ej: int *pi
-        pi: es un puntero.
-        apunta a una direccion donde hay un int
-        El * indica que es un puntero, no una multiplicacion.
-        Para que el puntero tenga sentido, debe apuntar a una variable existente:
-        int x = 10;
-        int *pi;
-        pi = &x; Direccion de memoria de x, pi ahora guarda esa direccion.
-    
-    Acceder al valor usando un puntero(desreferenciar-object-of):
-    - Para acceder al contenido de la direccion a la que apunta el puntero se usa el operador * (Desreferencia-object-of):
-    - printf("%d", *pi) Imprime 10.
-    - pi: direccion.
-    - *pi: valor guardado en esa direccion.
-
-    Especificador de formato para direcciones:
-    - %p: El estandard para este especificador de formato esta definido para imprimir punteros a void. Es por esto que el compilador nos advierte que con &x le estamos pasando int *, pero espera void *.
-    - Para solucionar esto se hace un cast: (void *)&x
+/* Comando de compilacion:
+ * - -std=c11  => utiliza el estandar C11.
+ * - -Wall     => activa advertencias comunes.
+ * - -Wextra   => activa advertencias adicionales.
+ * - -pedantic => exige cumplimiento estricto del estandar.
+ * - -0 main   => genera el ejecutable llamado 'main'.
 */
 
-#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt; // Se usa malloc(), free(), exit(), system()
+#include &lt;stdio.h&gt;  // Se usa printf(), scanf()
+#include &lt;conio.h&gt; // Se usa getch()
 
 int main(void)
 {
-    int x = 5;
-    int *pi = &x; //Declaracion y asignacion de memoria
+	/* Declaracion de puntero a int */
+	int *p;
 
-    printf("Valor de x: %d\n", x);
-    printf("Direccion de x: %p\n", &x); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion usando pi: %p\n", pi); // El compilador espera que a la direccion se le haga un cast (void*)&x, pero lo deja pasar con solo un Warning, con esa solucion.
-    printf("Direccion de x: %p\n", (void *)&x); // Siguiendo el estandard
-    printf("Direccion usando pi: %p\n", (void *)pi); //Siguiendo el estandard
-    printf("Acceso al valor de x usando el puntero %d\n", *pi);
-    
-    return 0;
+  	system("cls"); /* Limpia la pantalla en Windows en Linux "clear" */
+
+	/* Reserva memoria dinamica para un entero */
+	p = malloc(sizeof(int));
+	
+	/* Verifica si malloc fallo (No hay memoria disponible) */
+	if (!p)
+	{
+		printf("\nNo hay memoria suficiente");
+		printf("\nPresione una tecla para continuar");
+		getch(); /* Espera que se presione una tecla */
+		exit(1); /* Finaliza inmediatamente el programa */
+	}
+	else
+	{
+		/* Muestra el contenido de la memoria recien reservada */
+		printf("\n\nEl valor existente en la direccion %p es %d", p, *p);
+
+		/* Pide al usuario que ingrese un valor entero */
+		printf("\nIngrese un valor entero ");
+		/* Guarda el valor ingresado directamente en la direccion apuntada por p */
+		scanf("%d", p);
+	}
+	/* Muestra el valor que el usuario ingreso */
+	printf("\n\nEl valor ingresado en la direccion %p es %d", p, *p);
+  
+	/* Libera la memoria reservada */
+	free(p);
+	
+	return 0;
 }
 </code></pre>
 
 
-<h2 class="teoria">Dimensión:</h2>
+<h2 class="teoria">Ejercicio 2</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include<stdio.h> // Se usa printf(), scanf()
+#include<stdlib.h> // Se usa malloc(), free(), exit(), system(), getchar()
+
+int main(void)
+{
+	/* Declaracion de puntero a int */
+	int *p;
+    
+	system("cls"); /* Limpia la pantalla en Windows en Linux "clear" */
+	
+	/* Reserva memoria dinamica para un entero y verifica si fallo */
+	if (!(p = malloc(sizeof(int))))
+	{
+		printf("\nNo hay memoria suficiente");
+		printf("\nPresione una tecla para continuar");
+        getchar(); /* Espera entrada del usuario */
+		exit(1); /* Finaliza inmediatamente el programa */
+	}
+
+	/* Muestra el valor que hay en la memoria recien reservada */
+	printf("\n\nEl valor existente en la direccion %p es %d", p, *p);
+	
+	/* Solicita al usuario quue ingrese un numero entero */
+	printf("\nIngrese un valor entero ");
+	/* Guarda el valor ingresado directamente en la direccion apuntada por p */
+	scanf("%d", p);
+
+	/* Muestra el valor que el usuario ingreso */
+	printf("\n\nEl valor existente en la direccion %p es %d", p, *p);
+	
+	/* Libera la memoria reservada */
+	free(p);
+
+	/* ERROR logico:
+	 * Se esta accediendo a memoria ya liberada (dangling pointer)
+	 * Esto produce comportamiento indefinido (UB)
+	 */
+	printf("\n\nEl valor existente en la direccion %p es %d", p, *p);
+	
+	return 0;
+}
 </code></pre>
 
-<h2 class="teoria">Aritmetica:</h2>
+<h2 class="teoria">Ejercicio 3</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include<stdio.h>
+#include<stdlib.h>// Se usa malloc(), system()
+
+int main(void)
+{
+	/* Declaracion puntero a char */
+	char *p;
+
+	/* Declaracion variable de tipo long int para acumular la cantidad de memoria reservada */
+	long l;
+  
+	system("cls"); /* Limpia la pantalla en Windows en Linux "clear" */
+	
+	/* Inicializacion del contador de memoria en cero */
+	l = 0;
+	
+	/* Bucle que intenta reservar memoria repetidamente */
+	do
+	{
+		/* Intenta reservar 100000 bytes (aprox. 100 KB) */
+		p = malloc(100000);
+
+		/* Si la reserva fue exitosa (p != NULL) */
+		if (p)
+			l += 100000; /* Suma el total de memoria */
+	}
+	while (p); /* Continua hasta que malloc falle (devuelva NULL) */
+	
+	/* Muestra cuanta memoria se pudo reservar en total*/
+	printf("tiene %ld bytes de memoria\n", l);
+  
+	return 0;
+}
 </code></pre>
 
-<h1>Ejercicios:</h1>
+<h1>Ejercicios 4</h1>
 
 <h2 class="teoria">Punteros 01</h2>
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include <stdio.h>
+#include <stdlib.h> // Se usa malloc(), system()
+
+int main(void)
+{
+	system("cls"); /* Limpia la pantalla en Windows en Linux "clear" */
+	
+	/* Muestra la dimension en bytes de distintos tipos de datos
+	 * sizeof devuelve la cantidad de memoria que ocupa cada tipo
+	 */
+	printf("char %d\nint %d\nfloat %d", sizeof(char), sizeof(int), sizeof(float));
+	
+	/* Reserva memoria para un char y muestra la direccion asignada
+	 * malloc devuelve un puntero a la memoria reservada
+	 */
+	printf("\n%p", malloc(sizeof(char)));
+	
+	/* Reserva memoria para un int y muestra la direccion */
+	printf("\n%p", malloc(sizeof(int)));
+	
+	/* Reserva memoria para un flot y muestra la direccion */
+	printf("\n%p", malloc(sizeof(float)));
+	
+	return 0;
+}
 </code></pre>
 
 
@@ -151,217 +299,106 @@ int main(void)
 
 <h3 class="make">Makefile</h3>
 <pre><code class="language-c">
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
 
+PROG = main
+OBJ = main.o
+
+$(PROG): $(OBJ)
+	$(CC) $(OBJ) -o $(PROG)
+
+$(OBJ): main.c
+	$(CC) $(CFLAGS) -c main.c
+
+.PHONY: clean
+clean:
+	del $(OBJ) $(PROG).exe
 </code></pre>
 
 
 <h3 class="make">Código:</h3>
 <pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 03</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 04</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 05</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 06</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 07</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 08</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 09</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 10</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-<h2 class="teoria">Punteros 11</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 12</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 13</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 14</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 15</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 16</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 17</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 18</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
-</code></pre>
-
-<h2 class="teoria">Punteros 19</h2>
-
-<h3 class="make">Makefile</h3>
-<pre><code class="language-c">
-
-</code></pre>
-
-
-<h3 class="make">Código:</h3>
-<pre><code class="language-c">
+// gcc -std=c11 -Wall -Wextra -pedantic main.c -o main
+
+#include<stdio.h>
+#include <stdlib.h> // Se usa system()
+int main(void)
+{
+  /* Declaracion de variables
+   * Entero, char, vector de 15 elementos de tipo char
+   * Numero real
+   * Entero no signado
+   * Char no signado
+   * Entero largo
+   * Entero largo no signado
+   * Numero real (doble presicion)
+   * Vector de 20 elementos de tipo int
+   * */
+	int a;
+	char b, o[15];
+	float c;
+	unsigned int d;
+	unsigned char e;
+	long f;
+	unsigned long g;
+	double h;
+	int i[20];
+
+  /* Declaracion de estructura */
+	struct l
+	{
+		char c, d, e;
+	}j, k[10];
+	
+  /* Declaracion de union */
+  union m
+	{
+		struct l a, b;
+		char c[19];
+	}n;
+
+
+  system("cls"); /* Limpia la pantalla en Windows en Linux "clear" */
+  
+  /* Muestra la dimension en bytes de cada variable */
+  printf("El tamaño de a es:%d\n", sizeof(a));
+  printf("El tamaño de b es:%d\n", sizeof(b));
+  printf("El tamaño de c es:%d\n", sizeof(c));
+  printf("El tamaño de d es:%d\n", sizeof(d));
+  printf("El tamaño de e es:%d\n", sizeof(e));
+  printf("El tamaño de f es:%d\n", sizeof(f));
+  printf("El tamaño de g es:%d\n", sizeof(g));
+  printf("El tamaño de h es:%d\n", sizeof(h));
+
+  /* Muestra la dimension de los tipos de datos */
+  printf("El tamaño del int es:%d\n", sizeof(int));
+  printf("El tamaño del char es:%d\n", sizeof(char));
+  
+  /* Muestra la dimension de un vector completo */
+  printf("El tamaño de i es:%d\n", sizeof(i));
+
+  /* Muestra la dimension de la estructura */
+  printf("El tamaño de j es:%d\n", sizeof(j));
+
+  /* Muestra la dimension del vector de estructuras de 10 elementos */
+  printf("El tamaño de k es:%d\n", sizeof(k));
+
+  /* Muestra la dimension del tipo de dato struct l */
+  printf("El tamaño de struct l es:%d\n", sizeof(struct l));
+  
+  /* Muestra la dimension del cuarto elemento del vector k */
+  printf("El tamaño de k es:%d\n", sizeof(k[4]));
+
+  /* Muestra la dimension de la union (Depende del miembro mas grande) */
+  printf("El tamaño de n es:%d\n", sizeof(n));
+  printf("El tamaño de m es:%d\n", sizeof(union m));
+
+  /* Muestra la dimension del vector de chars */
+  printf("El tamaño de o es:%d\n", sizeof(o));
+  
+  return 0;
+}
 </code></pre>
 
 </div>
