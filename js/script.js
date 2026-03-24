@@ -15,8 +15,9 @@
 // Drive pdf
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll("iframe.d").forEach(iframe => {
-        const id = iframe.textContent.trim();
-        iframe.textContent = "";
+        //const id = iframe.textContent.trim();
+        const id = iframe.dataset.id;
+        //iframe.textContent = "";
         iframe.src = `https://drive.google.com/file/d/${id}/preview`;
         iframe.setAttribute("allow", "autoplay");
     });
