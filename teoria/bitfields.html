@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon16.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEMA 4</title>
-  <meta name="author" content="Luciano Rabassa"/>
-  <meta name="created" content="2026-01-30T21:15:00"/>
-  <meta name="AppVersion" content="15.0000"/>
-  <meta name="Company" content="Luciano's tech"/>
+  <meta name="author" content="Luciano Rabassa">
+  <meta name="created" content="2026-01-30T21:15:00">
+  <meta name="AppVersion" content="15.0000">
+  <meta name="Company" content="Luciano's tech">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/prism.css">
 </head>
@@ -203,7 +203,7 @@ void limpiar(struct Flags *f)
 </code></pre>
 
 <h2>Diferencia con operaciones a nivel bit:</h2>
-<p>Muchos confunden campos de bits con operadores bit a bit (<strong><code>& | ^ << >> </code></strong>).</p>
+<p>Muchos confunden campos de bits con operadores bit a bit (<strong><code>& | ^ &lt;&lt; &gt;&gt; </code></strong>).</p>
 
 <h3>Campos de bit:</h3>
 <ul>
@@ -223,9 +223,9 @@ void limpiar(struct Flags *f)
 
 <h3>Ejemplo equivalente con máscaras</h3>
 <pre><code class="language-c">
-# define LISTO (1 << 0)
-# define ERROR (1 << 1)
-# define PRIORIDAD (3 << 2)
+# define LISTO (1 &lt;&lt; 0)
+# define ERROR (1 &lt;&lt; 1)
+# define PRIORIDAD (3 &lt;&lt; 2)
 </code></pre>
 
 <h3>Cuando usarlos (y cuando no):</h3>
@@ -383,6 +383,5 @@ int main(void)
 
 <script src="../js/prism.js"></script>
 <script src="../js/script.js"></script>
-
 </body>
 </html>
