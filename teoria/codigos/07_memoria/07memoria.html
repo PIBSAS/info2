@@ -98,7 +98,7 @@ int main(void)
 	else
 	{
 		/* Muestra el contenido de la memoria recien reservada */
-		printf("\n\nEl valor existente en la direccion %p es %d", p, *p);
+		printf("\n\nEl valor existente en la direccion %p es %d", p, *p); // %p espera un puntero a void (void *), cambiar p a (void *)p
 
 		/* Pide al usuario que ingrese un valor entero */
 		printf("\nIngrese un valor entero ");
@@ -106,7 +106,7 @@ int main(void)
 		scanf("%d", p);
 	}
 	/* Muestra el valor que el usuario ingreso */
-	printf("\n\nEl valor ingresado en la direccion %p es %d", p, *p);
+	printf("\n\nEl valor ingresado en la direccion %p es %d", p, *p); // %p espera un puntero a void (void *), cambiar p a (void *)p
   
 	/* Libera la memoria reservada */
 	free(p);
