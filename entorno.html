@@ -32,6 +32,9 @@
   <p>Cerrá la Terminal y ejecuta los comandos, según elección en una Terminal normal</p>
 </div>
 
+<h2>&#x26A0;Se cambia MinGw64 por MinGw32 para seguir la teoría de la cursada &#x26A0;</h2>
+<div class="nota">
+  
 <h2>MinGW64 + Visual Studio Code</h2>
     
 <p>
@@ -56,7 +59,33 @@
 <pre><code class="language-c">gcc --version</code></pre>
 
 <pre><code class="language-c">make --version</code></pre>
+</div>
+<br>
 
+<h2>MinGW32 + Visual Studio Code</h2>
+    
+<p>
+  Obtener MinGW32 que contiene GCC, GDB y make, descargarlo, descomprimirlo en la unidad C en la carpeta <code>mingw32</code>.
+</p>
+<p>
+  Abrimos la terminal e ingresamos la siguiente línea:
+</p>
+
+<pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/i686-15.2.0-release-posix-dwarf-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw32" "C:\mingw32"</code></pre>
+
+<p>
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos <b>gcc</b> y <b>gdb</b> a las variables de entorno y hacemos un Hard link para <b>make</b>:
+</p>
+
+<pre><code class="language-c">setx PATH "$env:PATH;C:\mingw32\bin"</code></pre>
+
+<pre><code class="language-c">New-Item C:\mingw32\bin\make.exe -ItemType HardLink -Value C:\mingw32\bin\mingw32-make.exe</code></pre>
+
+<p>Cerrar la terminal y abrir una nueva para comprobar que se agregó:</p>
+
+<pre><code class="language-c">gcc --version</code></pre>
+
+<pre><code class="language-c">make --version</code></pre>
 <br>
 <h3>Instalar Microsoft Visual Studio Code y las extensiones necesarias para C</h3>
 
@@ -69,6 +98,7 @@
 <p>Abrimos <em>Get started with C++ development</em>, indicamos <b>NO</b> a acceder al pre-release</p>
 
 <p>
+  &#x26A0;Va a diferir en que verá <em>at C:/mingw32/bin</em> con el toolchain de 32 bits&#x26A0;
   Pulsamos el boton <em>Set my Default Compiler</em>, elegimos <em>use gcc.exe found at C:/mingw64/bin</em>
     presionamos <em>Mark Done</em>.
 </p>
@@ -113,6 +143,27 @@
 <pre><code class="language-c">winget install Notepad++.Notepad++</code></pre>
 
 <h3>MinGW:</h3>
+
+<p><strong>32 bits (Usado en la cursada)</strong></p>
+<pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/i686-15.2.0-release-posix-dwarf-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw32" "C:\mingw32"</code></pre>
+
+<p>
+  Tras terminar y ver nuevamente que podemos introducir comandos, agragamos <b>gcc</b> y <b>gdb</b> a las variables de entorno y hacemos un Hard link para <b>make</b>:
+</p>
+
+<pre><code class="language-c">setx PATH "$env:PATH;C:\mingw32\bin"</code></pre>
+
+<pre><code class="language-c">New-Item C:\mingw32\bin\make.exe -ItemType HardLink -Value C:\mingw32\bin\mingw32-make.exe</code></pre>
+
+<p>Cerrar la terminal y abrir una nueva para comprobar que se agregó:</p>
+
+<pre><code class="language-c">gcc --version</code></pre>
+
+<pre><code class="language-c">make --version</code></pre>
+
+<br>
+
+<p><strong>64 bits</strong></p>
 <pre><code class="language-c">$url="https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-ucrt-rt_v13-rev1.7z"; $tmp="$env:TEMP\mingw.7z"; $dir="$env:TEMP\mingw_extract"; Invoke-WebRequest $url -OutFile $tmp; New-Item -ItemType Directory -Force -Path $dir | Out-Null; tar -xf $tmp -C $dir; Move-Item "$dir\mingw64" "C:\mingw64"</code></pre>
 
 <p>
@@ -129,7 +180,7 @@
 
 <pre><code class="language-c">make --version</code></pre>
 
-    <br>
+<br>
 <h3>¿Cómo compilar?</h3>
 
 <p>Simplemente abrimos la Terminal en la ubicación de nuestro código fuente e ingresamos:</p>
