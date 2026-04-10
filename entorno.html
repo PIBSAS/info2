@@ -26,6 +26,20 @@
 <h1>Entorno de desarrollo</h1>
 
 <div class="nota">
+  <p>La cursada usa <b>C Builder 12 Community Edition</b> se hará más llevadera la cursada utilizando este IDE.</p>
+  <p>Para ello debemos solicitar una licencia gratuita en el siguiente enlace:</p>
+  <a href="https://www.embarcadero.com/products/cbuilder/starter/free-download" class="button">C Builder 12 Community Edition</a>
+  <p>La licencia nos llega por mail al instante mientras se descarga el instalador.</p>
+  <p>Al ejecutar el instalador nos solicitará ingresar la licencia, es lo único que debemos ingresar, luego es elegir las opciones por defecto.</p>
+  <p>Tras la instalación, aún continuará otras descargas, darle a siguiente y lo único que podemos saltarnos es Windows SDK al que le daremos a cancelar y posteriormente desinstalaremos su instalador desde Aplicaciones.</p>
+  <p>Finalmente en el primer lanzamiento nos solicitará elegír un theme</p>
+  <p>Creamos un Nuevo Proyecto, C Console Aplication, Por defecto los programas estaran en <code>Documents/Embarcadero/Studio/Projects</code>.</p>
+  <p>Para hacer debug, salvamos el código o sus cambios y presionar <b><code>F8</code></b> para hacer Step Over</p>
+  <p>Para ver variables en la ventana <b>Watches</b> coon <code>Ctrl + A</code> agregamos el nombre de la variable. Para ver dirección de la variable indicamos Ej:. Para la variable i: <code>&i</code></p>
+  <p>Para punterosen la ventana <b>Watches</b> coon <code>Ctrl + A</code> agregamos el nombre del puntero Ej:. Para el puntero pi;: <code>pi</code> y elegimos la opción <code>pointer</code></p>
+</div>
+    
+<div class="nota">
   <p>Si Powershell no te permite ejecutar los comandos, abrí una Terminal como Administrador e introducí:</p>
   <pre><code class="language-c">Set-ExecutionPolicy RemoteSigned</code></pre>
   <p>Presiona <b>Y</b> luego <b>Enter</b></p>
@@ -125,6 +139,83 @@
     Luego creamos un código C mediante el primer icono <b>New File</b>, indicamos nombre y extensión. ej:. <code>main.c</code>.
     Opcionalmente, creamos un archivo <code>Makefile</code>. 
 </p>
+
+<h3>Configurar Visual Studio para Debug</h3>
+
+<p>
+  Una vez abierto, presionamos <code>Ctrl + Shift + P</code> Buscar <b>Preferences: Open User Settings (JSON)</b> Pulsar Enter y reemplazzar su contenido con el siguiente:
+</p>
+
+<pre><code class="language-c">
+{
+  "launch": {
+    "configurations": [
+      {
+        "name": "Debug C activo (global)",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "externalConsole": true,
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:/mingw32/bin/gdb.exe",
+        "preLaunchTask": "gcc build activo",
+        "setupCommands": [
+          {
+            "description": "Enable pretty printing",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    ]
+  },
+  "debug.breakpointsView.presentation": "tree",
+  "workbench.editor.empty.hint": "hidden"
+}
+</code></pre>
+
+<p>
+  Cerramos la ventana y ahora con <code>Ctrl + Shift + P</code>. Buscamos <b>Tasks: Open User Tasks</b> y reemplazamos su contenido con el siguiente:
+</p>
+
+<pre><code class="language-c">
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "gcc build activo",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-g",
+        "-w",
+        "-std=gnu89",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>
+  Cerramos la ventana y ahora con <code>Ctrl + Shift + P</code>. Buscamos <b>Developer: Reload Window</b> pulsamos Enter y se recargara la interfaz.
+</p>
+<p>
+  Ahora vamos a nuestro código y marcamos breakpoints al costado de cada línea de código, veremos puntos rojos agregados, luego presionamos el Play y se compilara e iniciará el Debugger.
+</p>
+<p>
+  Para ir paso a paso, debemos presionar F10 o el icono de Step Over un punto celeste con una flecha curva hacía la derecha
+</p>
+
 <br>
 <h2>Code::Blocks + MinGW</h2>
 
