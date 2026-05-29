@@ -112,17 +112,18 @@
 {
 struct lis *act,*aux;
 act=*p;
-if(!aux=(struct lis *)malloc(sizeof(struct lis))){ //Corregir
+if(!aux=(struct lis *)malloc(sizeof(struct lis))){
   printf(&quot;\n\nNo hay memoria\n&quot;);
   return;}
 endat(&amp;aux);
 aux-&gt;sig=NULL;
-if(!*p){
+if(!*p){ // Si es NULL
   *p=aux;
   return;}
 while(act-&gt;sig)
   act=act-&gt;sig;
-  act-&gt;sig=aux;
+
+act-&gt;sig=aux;
 }
 </code></pre>
 <img class="img-diagrama" src="img/0048.png" alt="Agregar elemento">
