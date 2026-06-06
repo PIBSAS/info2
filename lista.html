@@ -61,22 +61,24 @@
 <p>Cuando sucede que el nuevo elemento debe ser el primer elemento el indicador de principio deberá apuntar a este nuevo elemento y el indicador del elemento siguiente en el nuevo deberá apuntar al elemento que era el primero</p>
 <img class="img-diagrama" src="img/0042.png" alt="Primer elemento">
 <div style="text-align:center;">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTTsJrYLuS9KUapyyFfLGr6NqoCnB6RpomDaEU3WOn-y9TB6wk0pnMKriZITac1oeWnVJl1ec6JCo4w/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="900" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTTsJrYLuS9KUapyyFfLGr6NqoCnB6RpomDaEU3WOn-y9TB6wk0pnMKriZITac1oeWnVJl1ec6JCo4w/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </div>
   
 <h2>Como elemento intermedio</h2>
 <p>Esta ubicación es entre dos elementos existentes, entonces se debe cambiar el enlace del elemento anterior hacia el nuevo y el enlace del nuevo apuntará al posterior.</p>
 <img class="img-diagrama" src="img/0043.png" alt="Elementop intermedio">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ55uSUGHvlHFbChFUl5Tfrzl7P3boyg01TRlrAJV20T_SOh6X0j6gWxhEOkgiuiBAuN5p0tJXkyzdN/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ55uSUGHvlHFbChFUl5Tfrzl7P3boyg01TRlrAJV20T_SOh6X0j6gWxhEOkgiuiBAuN5p0tJXkyzdN/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 
 <h2>Como último elemento</h2>
 
 <p>El elemento a ser insertado debe ubicarse al final de la lista, por lo tanto el puntero siguiente del elemento final debe ahora apuntar al nuevo elemento y el puntero siguiente del nuevo debe apuntar a <b>NULL</b>.</p>
 <img class="img-diagrama" src="img/0044.png" alt="Último elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQXE9jhWrYQs77mNrTk8EAlBYapwNmyqaibGxHM4A8zKqOwVniZplVskhfQns3eMUqMZdK7ezt2Rfms/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQXE9jhWrYQs77mNrTk8EAlBYapwNmyqaibGxHM4A8zKqOwVniZplVskhfQns3eMUqMZdK7ezt2Rfms/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <p>Para leer los elementos de la lista se debe comenzar desde el indicador de comienzo y luego de presentar los datos, solo se debe actualizar el puntero con el valor del puntero siguiente de la estructura hasta llegar a encontrar el valor <b>NULL</b>.</p>
 <p>Para buscar un determinado valor en la lista se debe hacer en forma secuencial por lo que hay que comenzar desde le valor que indica el puntero de comienzo hasta encontrar el valor deseado o hasta encontrar el <b>NULL</b>, que indicaría que no se ha encontrado el valor buscado</p>
@@ -93,20 +95,24 @@
 <p>Se debe cambiar el puntero de comienzo a la dirección del segundo elemento</p>
 <p>Luego se debe proceder a liberar la memoria del elemento borrado</p>
 <img class="img-diagrama" src="img/0045.png" alt="Borrar primer elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTvMZSzUqXeaa9wpkaNR7__BlzqmM6goy7Hu5RjFffEQRcyqB-XnWxBSKo_Dy-k1tXsjjAvC5Q_mlPD/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTvMZSzUqXeaa9wpkaNR7__BlzqmM6goy7Hu5RjFffEQRcyqB-XnWxBSKo_Dy-k1tXsjjAvC5Q_mlPD/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>Borrar un elemento intermedio</h2>
 <p>Para un elemento intermedio se debe hacer que el puntero siguiente del elemento anterior apunte al elemento siguiente al que será borrado y luego liberar la memoria de este</p>
 <img class="img-diagrama" src="img/0046.png" alt="Borrar elemento intermedio">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT3Nc2y0LP4VjDeDd1FZ9CiIyfm2T0N0daqs1x4zuXhg4CfTlXniF5aHwKIcX9S5l6I03ELXauDIEZI/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT3Nc2y0LP4VjDeDd1FZ9CiIyfm2T0N0daqs1x4zuXhg4CfTlXniF5aHwKIcX9S5l6I03ELXauDIEZI/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>Borrar el último elemento</h2>
 
 <p>El puntero siguiente del elemento anterior debe apuntar a <b>NULL</b> y luego liberar la memoria del elemento a borrar.</p>
 <img  class="img-diagrama" src="img/0047.png" alt="Borrar último elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTG5W-1IIJP48y9G7x8g_fwmpLRXuGnYHy5Zbui_7Vw6ORnyWxW-23YVLGo8bjn4MnZUEWBgkIPsIKj/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTG5W-1IIJP48y9G7x8g_fwmpLRXuGnYHy5Zbui_7Vw6ORnyWxW-23YVLGo8bjn4MnZUEWBgkIPsIKj/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>AGREGAR ELEMENTO</h2>
 
@@ -129,7 +135,10 @@ act-&gt;sig=aux;
 }
 </code></pre>
 <img class="img-diagrama" src="img/0048.png" alt="Agregar elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRJYb4axRzFVNI8CdsiZQtUPYMkImHmYj2W-3BeKJF1oXSik3F5fIaZ3t5ZJtqTAQHWg73O1KkJ5GbK/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRJYb4axRzFVNI8CdsiZQtUPYMkImHmYj2W-3BeKJF1oXSik3F5fIaZ3t5ZJtqTAQHWg73O1KkJ5GbK/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+
 <h2>INSERTAR PRIMER ELEMENTO</h2>
 
 <pre class="line-numbers"><code class="language-c">void ingresa(struct lis **p)
@@ -155,7 +164,10 @@ ele_int();
 }
 </code></pre>
 <img class="img-diagrama" src="img/0049.png" alt="Insertar primer elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTSt91-WpjU2mFLRLdY_xpqANg1YtzkfhuRArKYEphq4vQdCkHRg06bxO4zlqBzZRy8wnrs4U94q7w_/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTSt91-WpjU2mFLRLdY_xpqANg1YtzkfhuRArKYEphq4vQdCkHRg06bxO4zlqBzZRy8wnrs4U94q7w_/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+
 <h2>INSERTAR ELEMENTO INTERMEDIO</h2>
 
 <pre class="line-numbers"><code class="language-c">
@@ -179,7 +191,9 @@ aux-&gt;sig=act;
 }
 </code></pre>
 <img class="img-diagrama" src="img/0050.png" alt="Insertar elemento intermedio">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQM5FsixuEmSRNUjR_L1mvY6D1KQEX_BP4LUogNsfqBiEe8RgiVX9zh-PRAx5HLZyvtwata5yVw0bEN/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQM5FsixuEmSRNUjR_L1mvY6D1KQEX_BP4LUogNsfqBiEe8RgiVX9zh-PRAx5HLZyvtwata5yVw0bEN/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>INSERTAR ULTIMO ELEMENTO</h2>
 <pre class="line-numbers"><code class="language-c">
@@ -204,7 +218,10 @@ el_in();
 }
 </code></pre>
 <img class="img-diagrama" src="img/0051.png" alt="Insertar último elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTLkvE7gIRIrbN_s4N0T3ul1gJYKjRQLTomDRt7hRmln4zn-H1PitKrctCkaVWx3Qm-NcWQQirU1M11/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTLkvE7gIRIrbN_s4N0T3ul1gJYKjRQLTomDRt7hRmln4zn-H1PitKrctCkaVWx3Qm-NcWQQirU1M11/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+
 <h2>BORRAR PRIMER ELEMENTO</h2>
 
 <pre class="line-numbers"><code class="language-c">
@@ -232,7 +249,9 @@ printf(&quot;\nDatos no existen&quot;);
 }
 </code></pre>
 <img class="img-diagrama" src="img/0052.png" alt="Borrar primer elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSOYA8jMNhX2DKNP7iGvJlQ4uRNEngccAksXq_ydFIbsKnBTeV4CBxfhd25ZGDEUPoNrZRagpBdkGth/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSOYA8jMNhX2DKNP7iGvJlQ4uRNEngccAksXq_ydFIbsKnBTeV4CBxfhd25ZGDEUPoNrZRagpBdkGth/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>BORRAR ELEMENTO INTERMEDIO</h2>
 
@@ -262,8 +281,9 @@ printf(&quot;\nDatos no existen&quot;);
 }
 </code></pre>
 <img class="img-diagrama" src="img/0053.png" alt="Borrar elemento intermedio">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRSvl1ZyTTnaZ7F3tMXjiHICxkW-9y1GisHWGfKyyAiL3bBAdnx-nMomDqFMp_VAbrwtAeXrj1t8F0Q/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRSvl1ZyTTnaZ7F3tMXjiHICxkW-9y1GisHWGfKyyAiL3bBAdnx-nMomDqFMp_VAbrwtAeXrj1t8F0Q/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 
 <h2>BORRAR ULTIMO ELEMENTO</h2>
 
@@ -294,7 +314,9 @@ printf(&quot;\nDatos no existen&quot;);
 }
 </code></pre>
 <img class="img-diagrama" src="img/0054.png" alt="Borrar último elemento">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSzQCYwWv_geUvz97nuOHsJYptBTsSJtaGJiLMVnIIKXVup-GrxKcV1g134BZd-IPvZ5hxajoDO9Wv7/pubembed?start=true&loop=false&delayms=3000&rm=minimal" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="text-align:center;">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSzQCYwWv_geUvz97nuOHsJYptBTsSJtaGJiLMVnIIKXVup-GrxKcV1g134BZd-IPvZ5hxajoDO9Wv7/pubembed?start=true&loop=false&delayms=3000&rm=minimal" frameborder="0" width="860" height="469" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
 <a href="teoria/list.html" class="button">Apunte sobre Lista simple</a>
 
 </div>
