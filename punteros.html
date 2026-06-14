@@ -110,8 +110,6 @@ pi=0xA7B4CEF9;
 
 <img class="img-center" src="img/0002.png" alt="Operdaor de asignación">
 
-
-
 <p>También admiten la asignación de la dirección de una variable, para realizar esta operación se utiliza el operador de direccionamiento <b>(&amp;)</b>.</p>
 
 <pre class="line-numbers"><code class="language-c">
@@ -120,8 +118,6 @@ pi=&amp;a;
 </code></pre>
 
 <img class="img-center" src="img/0003.png" alt="Operador de direccionamiento">
-
-
 
 <p>Otro valor que se le puede asignar a un puntero es otro puntero, como es general en <b>C</b> a toda variable de un determinado tipo se le puede asignar otra variable del mismo tipo. </p>
 
@@ -134,9 +130,7 @@ pi=pj;
 <img class="img-center" src="img/0004.png" alt="Reasignacion de puntero mediante variable">
 
 
-
 <p>Hay que tener en cuenta que cuando se declara un puntero hay que inicializarlo, ya que el valor que contiene luego de la declaración es basura, y en este caso se dice que el puntero esta descontrolado y puede ocurrir que se cometan errores muy peligrosos en el caso de utilizarlo.</p>
-
 
 
 <h3>Ejercitación:</h3>
@@ -257,11 +251,11 @@ pi=pj;
 
 <p>El pasaje de parámetros por referencia en C se realiza utilizando punteros</p>
 
-<p>El puntero se copia la dirección de la variable que se quiere modificar y en la función se utiliza el operador de indirección para acceder a su contenido.</p>
+<p>El puntero copia la dirección de la variable que se quiere modificar y en la función se utiliza el operador de indirección para acceder a su contenido.</p>
 
 <p>Esto hace que el valor que se modifique en la función aparecerá modificado en la variable original.</p>
 
-<p>Si se modifica el contenido del puntero, este apuntara a otra variable produciendo un resultado no esperado.&nbsp;</p>
+<p>Si se modifica el contenido del puntero, este apuntará a otra variable produciendo un resultado no esperado.&nbsp;</p>
 
 
 
